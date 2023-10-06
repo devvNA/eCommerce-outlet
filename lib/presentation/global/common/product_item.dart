@@ -7,8 +7,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/product_model.dart';
-import '../../app/modules/base/controllers/base_controller.dart';
-import '../../app/routes/app_pages.dart';
+import '../../modules/base/controllers/base_controller.dart';
+import '../routes/app_pages.dart';
 
 class ProductItem extends StatelessWidget {
   final ProductModel product;

@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'data/local/my_shared_pref.dart';
-import 'presentation/app/routes/app_pages.dart';
+import 'presentation/global/routes/app_pages.dart';
 import 'presentation/global/theme/my_theme.dart';
 
 
