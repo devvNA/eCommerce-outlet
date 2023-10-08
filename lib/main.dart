@@ -1,19 +1,19 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
-import 'data/local/my_shared_pref.dart';
-import 'presentation/global/routes/app_pages.dart';
+import 'presentation/global/utils/my_shared_pref.dart';
 import 'presentation/global/theme/my_theme.dart';
-
+import 'presentation/routes/app_pages.dart';
 
 Future<void> main() async {
   // wait for bindings
   WidgetsFlutterBinding.ensureInitialized();
-
   // init shared preference
   await MySharedPref.init();
+  await Firebase.initializeApp();
 
   runApp(
     ScreenUtilInit(

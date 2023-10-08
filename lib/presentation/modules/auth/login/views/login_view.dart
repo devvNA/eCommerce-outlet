@@ -2,8 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../global/routes/app_pages.dart';
+import '../../../../global/common/custom_snackbar.dart';
 import '../../../../global/theme/light_theme_colors.dart';
+import '../../../../routes/app_pages.dart';
 import '../controller/login_controller.dart';
 import 'widget/form_login_widget.dart';
 
@@ -77,20 +78,74 @@ class LoginView extends GetView<LoginController> {
                           Icons.lock,
                         ),
                       ),
-                      const SizedBox(height: 20.0),
+                      const SizedBox(height: 15.0),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          elevation: 2,
+                          elevation: 1,
                           shape: const StadiumBorder(),
-                          maximumSize: const Size(double.infinity, 56),
-                          minimumSize: const Size(double.infinity, 56),
+                          maximumSize: const Size(double.infinity, 45),
+                          minimumSize: const Size(double.infinity, 45),
                         ),
-                        onPressed: () {
+                        onPressed: () async {
                           Get.offNamed(Routes.BASE);
                         },
-                        child: Text(
-                          "Masuk".toUpperCase(),
+                        child: const Text(
+                          "Masuk",
+                          style: TextStyle(fontWeight: FontWeight.w600),
                         ),
+                      ),
+                      const SizedBox(
+                        height: 6.0,
+                      ),
+                      ElevatedButton.icon(
+                        icon: Image.asset(
+                          "assets/icons/google-icon.png",
+                          width: 22.0,
+                        ),
+                        label: const Text(
+                          "Masuk dengan google",
+                          style: TextStyle(
+                              color: Colors.black87,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          elevation: 1,
+                          backgroundColor: Colors.grey[100],
+                          shape: const StadiumBorder(),
+                          maximumSize: const Size(double.infinity, 45),
+                          minimumSize: const Size(double.infinity, 45),
+                        ),
+                        onPressed: () async {
+                          // CustomSnackBar.showCustomErrorToast();
+
+                          await controller.onGoogleSignIn();
+                        },
+                      ),
+                      const SizedBox(
+                        height: 6.0,
+                      ),
+                      ElevatedButton.icon(
+                        icon: Image.asset(
+                          "assets/icons/facebook-icon.png",
+                          width: 25.0,
+                        ),
+                        label: const Text(
+                          "Masuk dengan facebook",
+                          style: TextStyle(
+                              color: Colors.black87,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          elevation: 1,
+                          backgroundColor: Colors.grey[100],
+                          shape: const StadiumBorder(),
+                          maximumSize: const Size(double.infinity, 45),
+                          minimumSize: const Size(double.infinity, 45),
+                        ),
+                        onPressed: () async {
+                          // await controller.signOut();
+                          await CustomSnackBar.showCustomErrorToast();
+                        },
                       ),
                       const SizedBox(height: 16.0),
                       Row(
@@ -98,7 +153,7 @@ class LoginView extends GetView<LoginController> {
                         children: <Widget>[
                           const Text(
                             "Belum memiliki akun ? ",
-                            style: TextStyle(),
+                            style: TextStyle(fontWeight: FontWeight.w500),
                           ),
                           GestureDetector(
                             onTap: () {

@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 import '../../../global/common/screen_title.dart';
 import '../controllers/history_controller.dart';
+import 'widgets/history_category.dart';
 import 'widgets/history_item.dart';
 
 class HistoryView extends GetView<HistoryController> {
@@ -16,16 +17,17 @@ class HistoryView extends GetView<HistoryController> {
     return Scaffold(
       body: ListView(
         shrinkWrap: false,
-        clipBehavior: Clip.hardEdge,
+        clipBehavior: Clip.antiAlias,
         physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.all(16),
         children: [
           15.verticalSpace,
           const ScreenTitle(
-            title: 'History',
+            title: 'History Pesanan',
             dividerEndIndent: 150,
           ),
-          10.verticalSpace,
+          const HorizontalCategoriesView(),
+          15.verticalSpace,
           ListView.builder(
             itemCount: 5,
             itemBuilder: (context, index) =>

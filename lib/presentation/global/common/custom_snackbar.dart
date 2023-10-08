@@ -61,10 +61,10 @@ class CustomSnackBar {
   static showCustomErrorToast(
       {String? title, String? message, Color? color, Duration? duration}) {
     Get.rawSnackbar(
-      title: title ?? "Error",
+      // title: title ?? "Error",
       duration: duration ?? const Duration(seconds: 2),
       snackStyle: SnackStyle.FLOATING,
-      backgroundColor: color ?? const Color(0xFFD6190C),
+      backgroundColor: color ?? const Color.fromARGB(242, 225, 31, 18),
       onTap: (snack) {
         Get.closeAllSnackbars();
       },

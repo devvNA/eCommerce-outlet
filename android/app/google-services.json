@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "442558723777",
+    "project_id": "perdana-1a013",
+    "storage_bucket": "perdana-1a013.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:442558723777:android:10beded9a69ed791370640",
+        "android_client_info": {
+          "package_name": "com.example.marvelindo_outlet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "442558723777-7vmlc8ndomli4r5vg803vmbjmnugl5e9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.marvelindo_outlet",
+            "certificate_hash": "a1f0ca82bef547a77c10d7ec68a7eba2ff9d3348"
+          }
+        },
+        {
+          "client_id": "442558723777-trmcmtdt35n0mqdmlbng7p0nf0b8kpuf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD46H3RHKz0QRLxE7c6mDYaCX8j__8wT1A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "442558723777-trmcmtdt35n0mqdmlbng7p0nf0b8kpuf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

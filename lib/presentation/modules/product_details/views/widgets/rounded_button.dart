@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 class RoundedButton extends StatelessWidget {
   final void Function()? onPressed;
   final Widget child;
+  
   const RoundedButton({
     Key? key,
     required this.onPressed,

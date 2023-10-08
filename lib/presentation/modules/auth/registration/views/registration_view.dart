@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../global/common/custom_snackbar.dart';
-import '../../../../global/routes/app_pages.dart';
 import '../../../../global/theme/light_theme_colors.dart';
+import '../../../../routes/app_pages.dart';
 import 'widgets/form_registration_widget.dart';
 
 class RegistrationView extends StatefulWidget {

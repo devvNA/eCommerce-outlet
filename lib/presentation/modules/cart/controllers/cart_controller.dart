@@ -77,4 +77,8 @@ class CartController extends GetxController {
     total = products.fold<double>(0, (p, c) => p + c.price! * c.quantity!);
     update();
   }
+
+  onEmptyCartPressed() {
+    Get.find<BaseController>().changeScreen(0);
+  }
 }

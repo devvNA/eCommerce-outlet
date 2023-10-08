@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../../../global/common/no_data.dart';
 import '../../../global/common/product_item.dart';
 import '../../../global/common/screen_title.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/favorites_controller.dart';
 
 class FavoritesView extends GetView<FavoritesController> {
@@ -26,7 +27,12 @@ class FavoritesView extends GetView<FavoritesController> {
             20.verticalSpace,
             GetBuilder<FavoritesController>(
               builder: (_) => controller.products.isEmpty
-                  ? const NoData(text: 'Belum Ada Produk di Favorit!')
+                  ? NoData(
+                      text: 'Belum Ada Produk di Favorit!',
+                      onPressed: () {
+                        Get.offAllNamed(Routes.BASE);
+                      },
+                    )
                   : GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,

@@ -4,12 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:marvelindo_outlet/presentation/global/theme/light_theme_colors.dart';
+import 'package:marvelindo_outlet/presentation/routes/app_pages.dart';
 
 import '../../../global/utils/constants.dart';
+import '../../../global/utils/dummy_helper.dart';
 import '../controllers/base_controller.dart';
 import '../../cart/views/cart_view.dart';
 import '../../home/views/home_view.dart';
-import '../../notifications/views/history_view.dart';
+import '../../history/views/history_view.dart';
 import '../../settings/views/settings_view.dart';
 
 class BaseView extends GetView<BaseController> {
@@ -20,6 +23,12 @@ class BaseView extends GetView<BaseController> {
     var theme = context.theme;
     return GetBuilder<BaseController>(
       builder: (_) => Scaffold(
+        resizeToAvoidBottomInset: false,
+        floatingActionButton: chatApp(
+          onPressed: () async {
+            _showBottom(context);
+          },
+        ),
         extendBody: true,
         body: SafeArea(
           bottom: false,
@@ -30,7 +39,7 @@ class BaseView extends GetView<BaseController> {
               // FavoritesView(),
               CartView(),
               HistoryView(),
-              SettingsView()
+              SettingsView(),
             ],
           ),
         ),
@@ -68,10 +77,10 @@ class BaseView extends GetView<BaseController> {
                   label: 'Home',
                   icon: Constants.homeIcon,
                 ),
-                // _mBottomNavItem(
-                //   label: 'Favorites',
-                //   icon: Constants.favoritesIcon,
-                // ),
+/*                 _mBottomNavItem(
+                  label: 'Favorites',
+                  icon: Constants.favoritesIcon,
+                ), */
                 _mBottomNavItem(
                   label: 'Cart',
                   icon: Constants.cartIcon,
@@ -105,4 +114,59 @@ class BaseView extends GetView<BaseController> {
       ),
     );
   }
+}
+
+Widget chatApp({required VoidCallback onPressed}) {
+  return FloatingActionButton(
+    mini: true,
+    tooltip: "Chat",
+    backgroundColor: LightThemeColors.primaryColor,
+    clipBehavior: Clip.none,
+    onPressed: onPressed,
+    child: const Icon(
+      Icons.chat_outlined,
+      color: Colors.white,
+    ),
+  );
+}
+
+void _showBottom(context) {
+  showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Column(
+          children: [
+            const SizedBox(
+              height: 20.0,
+            ),
+            Expanded(
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: users.length,
+                itemBuilder: (context, index) {
+                  final user = users[index];
+                  return ListTile(
+                    onTap: () {
+                      Get.toNamed(Routes.CHAT);
+                    },
+                    title: Text(user["name"]),
+                    subtitle: Text(user["email"]),
+                    leading: CircleAvatar(
+                      backgroundImage: NetworkImage(
+                        user["photo"],
+                      ),
+                    ),
+                    trailing: const Text(
+                      '9:45 PM',
+                      style: TextStyle(
+                        fontSize: 10,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        );
+      });
 }

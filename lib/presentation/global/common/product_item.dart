@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 
 import '../../../data/models/product_model.dart';
 import '../../modules/base/controllers/base_controller.dart';
-import '../routes/app_pages.dart';
+import '../../routes/app_pages.dart';
 
 class ProductItem extends StatelessWidget {
   final ProductModel product;

@@ -12,8 +12,8 @@ class HistoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.theme;
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 5.h),
-      margin: EdgeInsets.only(bottom: 15.h),
+      padding: EdgeInsets.symmetric(vertical: 4.h),
+      margin: EdgeInsets.only(bottom: 12.h),
       decoration: BoxDecoration(
         color: theme.primaryColor.withOpacity(0.2),
         borderRadius: BorderRadius.circular(15.r),

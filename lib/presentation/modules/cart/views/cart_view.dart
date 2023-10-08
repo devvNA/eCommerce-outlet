@@ -32,7 +32,12 @@ class CartView extends GetView<CartController> {
               ),
               25.verticalSpace,
               controller.products.isEmpty
-                  ? const NoData(text: 'Belum ada produk di keranjang!')
+                  ? NoData(
+                      text: 'Belum ada produk di keranjang!',
+                      onPressed: () {
+                        controller.onEmptyCartPressed();
+                      },
+                    )
                   : ListView.builder(
                       itemCount: controller.products.length,
                       itemBuilder: (context, index) => CartItem(
