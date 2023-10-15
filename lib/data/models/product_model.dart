@@ -2,11 +2,10 @@ class ProductModel {
   int? id;
   String? image;
   String? name;
+  String? description;
   int? stock;
   int? quantity;
   int? price;
-  double? rating;
-  String? reviews;
   String? size;
   bool? isFavorite;
   ProductModel(
@@ -16,8 +15,7 @@ class ProductModel {
       this.stock,
       this.quantity,
       this.price,
-      this.rating,
-      this.reviews,
+      this.description,
       this.size,
       this.isFavorite});
 }

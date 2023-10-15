@@ -81,7 +81,7 @@ class LoginView extends GetView<LoginController> {
                       const SizedBox(height: 15.0),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          elevation: 1,
+                          elevation: 3,
                           shape: const StadiumBorder(),
                           maximumSize: const Size(double.infinity, 45),
                           minimumSize: const Size(double.infinity, 45),
@@ -95,57 +95,77 @@ class LoginView extends GetView<LoginController> {
                         ),
                       ),
                       const SizedBox(
-                        height: 6.0,
+                        height: 10.0,
                       ),
-                      ElevatedButton.icon(
-                        icon: Image.asset(
-                          "assets/icons/google-icon.png",
-                          width: 22.0,
-                        ),
-                        label: const Text(
-                          "Masuk dengan google",
-                          style: TextStyle(
-                              color: Colors.black87,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          elevation: 1,
-                          backgroundColor: Colors.grey[100],
-                          shape: const StadiumBorder(),
-                          maximumSize: const Size(double.infinity, 45),
-                          minimumSize: const Size(double.infinity, 45),
-                        ),
-                        onPressed: () async {
-                          // CustomSnackBar.showCustomErrorToast();
-
-                          await controller.onGoogleSignIn();
-                        },
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Divider(
+                              color: Colors.grey[350],
+                              thickness: 1,
+                            ),
+                          ),
+                          const Text("\t atau lanjutkan dengan \t",
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: Colors.grey,
+                              )),
+                          Expanded(
+                            child: Divider(
+                              color: Colors.grey[350],
+                              thickness: 1,
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(
-                        height: 6.0,
+                        height: 10.0,
                       ),
-                      ElevatedButton.icon(
-                        icon: Image.asset(
-                          "assets/icons/facebook-icon.png",
-                          width: 25.0,
-                        ),
-                        label: const Text(
-                          "Masuk dengan facebook",
-                          style: TextStyle(
-                              color: Colors.black87,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          elevation: 1,
-                          backgroundColor: Colors.grey[100],
-                          shape: const StadiumBorder(),
-                          maximumSize: const Size(double.infinity, 45),
-                          minimumSize: const Size(double.infinity, 45),
-                        ),
-                        onPressed: () async {
-                          // await controller.signOut();
-                          await CustomSnackBar.showCustomErrorToast();
-                        },
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.grey[100],
+                              elevation: 2,
+                              shape: const StadiumBorder(),
+                            ),
+                            onPressed: () async {
+                              try {
+                                await controller.onGoogleSignIn();
+                              } on Exception catch (err) {
+                                debugPrint(err.toString());
+                              }
+                            },
+                            child: Image.asset(
+                              "assets/icons/google-icon.png",
+                              width: 30,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 15.0,
+                          ),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.grey[100],
+                              elevation: 2,
+                              shape: const StadiumBorder(),
+                            ),
+                            onPressed: () async {
+                              // await controller.onFacebookSignIn();
+                              await CustomSnackBar.showCustomErrorToast();
+                            },
+                            child: Image.asset(
+                              "assets/icons/facebook-icon.png",
+                              width: 30.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 8.0,
                       ),
                       const SizedBox(height: 16.0),
                       Row(

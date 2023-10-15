@@ -23,6 +23,8 @@ class CartView extends GetView<CartController> {
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: GetBuilder<CartController>(
+          init: controller,
+          initState: (_) => controller.onInit(),
           builder: (_) => ListView(
             children: [
               30.verticalSpace,
@@ -116,8 +118,7 @@ class CartView extends GetView<CartController> {
                     text: 'Pesan sekarang',
                     onPressed: () {
                       controller.onPurchaseNowPressed();
-                      CustomSnackBar.showCustomSnackBar(
-                          color: Colors.green,
+                      CustomSnackBar.showCustomSuccessSnackBar(
                           title: 'Purchased',
                           message: 'Order placed with success',
                           duration: const Duration(seconds: 2));

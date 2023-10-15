@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CustomSnackBar {
-  static showCustomSnackBar(
+  static showCustomSuccessSnackBar(
       {required String title,
       required String message,
       Duration? duration,
-      required Color? color}) {
+      Color? color}) {
     Get.snackbar(
       title,
       message,
       duration: duration ?? const Duration(seconds: 3),
       margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
       colorText: Colors.white,
-      backgroundColor: color ?? Colors.amber,
+      backgroundColor: color ?? Colors.green,
       icon: const Icon(
         Icons.check_circle,
         color: Colors.white,

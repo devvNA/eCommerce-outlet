@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../data/services/firebase_auth_services.dart';
@@ -7,6 +9,9 @@ import '../../../routes/app_pages.dart';
 
 class SettingsController extends GetxController {
   final FirebaseAuthService firebaseAuthService;
+
+  SettingsController({required this.firebaseAuthService});
+
 
   // get is light theme from shared pref
   var isLightTheme = MySharedPref.getThemeIsLight();
@@ -18,9 +23,8 @@ class SettingsController extends GetxController {
     update(['Theme']);
   }
 
-  SettingsController({required this.firebaseAuthService});
-
   Future<void> signOut() async {
+    // Get.back();
     await firebaseAuthService.signOut();
     await Get.offAllNamed(Routes.SPLASH);
   }

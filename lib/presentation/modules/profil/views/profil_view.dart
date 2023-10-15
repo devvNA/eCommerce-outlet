@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import '../../../global/common/screen_title.dart';
 import '../controllers/profil_controller.dart';
 
-class ProfilPage extends GetView<ProfilController> {
-  const ProfilPage({super.key});
+class ProfilView extends GetView<ProfilController> {
+  const ProfilView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,19 +40,16 @@ class ProfilPage extends GetView<ProfilController> {
         padding: const EdgeInsets.all(30),
         children: [
           20.verticalSpace,
-          ScreenTitle(
-            onPressed: () {
-              Get.back();
-            },
+          const ScreenTitle(
             centerTitle: true,
             title: 'Profil',
             dividerEndIndent: 230,
           ),
-          20.verticalSpace,
+          10.verticalSpace,
           Column(
             children: [
               const SizedBox(
-                height: 24,
+                height: 10,
               ),
               Container(
                 margin: const EdgeInsets.only(bottom: 12.0),
@@ -67,75 +64,81 @@ class ProfilPage extends GetView<ProfilController> {
                         spreadRadius: 8)
                   ],
                 ),
-                child: const Padding(
-                  padding: EdgeInsets.all(8.0),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: CircleAvatar(
                     radius: 42.0,
                     backgroundImage: NetworkImage(
-                      "https://i.ibb.co/tXncffL/photo-1487017159836-4e23ece2e4cf-crop-entropy-cs-tinysrgb-fit-max-fm-jpg-ixid-Mnwy-ODA4-ODh8-MHwxf-H.jpg",
+                      "${controller.getDisplayProfile()}",
                     ),
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 8,
-              ),
-              const Text(
-                'Jon Wik',
-                style: TextStyle(
-                  fontSize: 22,
+              Text(
+                "${controller.getUsername()}",
+                style: const TextStyle(
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.only(
-                  top: 16.0,
-                  bottom: 16.0,
+              const SizedBox(
+                height: 3.0,
+              ),
+              Text(
+                "${controller.getEmail()}",
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.grey[650],
                 ),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Card(
-                      color: Color(0xff34C759),
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                          left: 12.0,
-                          right: 12.0,
-                          top: 4.0,
-                          bottom: 4.0,
-                        ),
-                        child: Text(
-                          "Lorem: ",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12.0,
-                          ),
+              ),
+              10.verticalSpace,
+              const Divider(thickness: 1),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Card(
+                    color: Color(0xff34C759),
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        left: 12.0,
+                        right: 12.0,
+                        top: 4.0,
+                        bottom: 4.0,
+                      ),
+                      child: Text(
+                        "Lorem: ",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12.0,
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: 4,
-                    ),
-                    Card(
-                      color: Color(0xffAF52DE),
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                          left: 12.0,
-                          right: 12.0,
-                          top: 4.0,
-                          bottom: 4.0,
-                        ),
-                        child: Text(
-                          "Lorem: ",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12.0,
-                          ),
+                  ),
+                  SizedBox(
+                    width: 4,
+                  ),
+                  Card(
+                    color: Color(0xffAF52DE),
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        left: 12.0,
+                        right: 12.0,
+                        top: 4.0,
+                        bottom: 4.0,
+                      ),
+                      child: Text(
+                        "Lorem: ",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12.0,
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
+              ),
+              const Divider(
+                thickness: 1,
               ),
               const SizedBox(
                 height: 10.0,

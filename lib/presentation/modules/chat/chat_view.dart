@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/presentation/global/theme/light_theme_colors.dart';
 
-import '../../global/utils/dummy_helper.dart';
 import 'chat_controller.dart';
 import 'widgets/input_chat_widget.dart';
 

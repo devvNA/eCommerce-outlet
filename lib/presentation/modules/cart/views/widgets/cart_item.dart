@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:marvelindo_outlet/presentation/global/theme/light_theme_colors.dart';
 
 import '../../../../../data/models/product_model.dart';
 import '../../../../global/utils/constants.dart';
@@ -18,7 +19,11 @@ class CartItem extends GetView<CartController> {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController quantityController =
+        TextEditingController(text: product.quantity.toString());
+
     final theme = context.theme;
+
     return Padding(
       padding: EdgeInsets.only(bottom: 20.h),
       child: Row(
@@ -69,15 +74,52 @@ class CartItem extends GetView<CartController> {
               GetBuilder<CartController>(
                 id: 'ProductQuantity',
                 builder: (_) => Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     GestureDetector(
                       onTap: () => controller.onDecreasePressed(product.id!),
                       child: SvgPicture.asset(Constants.decreaseIcon),
                     ),
                     10.horizontalSpace,
-                    Text('${product.quantity}',
-                        style: theme.textTheme.displaySmall),
+                    SizedBox(
+                      height: 53,
+                      width: 60,
+                      child: TextFormField(
+                        style: const TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.w500),
+                        maxLines: 1,
+                        scrollPhysics: const AlwaysScrollableScrollPhysics(),
+                        controller: quantityController,
+                        keyboardType: TextInputType.number,
+                        cursorColor: LightThemeColors.primaryColor,
+                        textDirection: TextDirection.ltr,
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide:
+                                  const BorderSide(color: Colors.black12)),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: const BorderSide(
+                              color: LightThemeColors.primaryColor,
+                            ),
+                          ),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: const BorderSide(
+                                color: LightThemeColors.primaryColor,
+                              )),
+                          prefixIconColor: LightThemeColors.primaryColor,
+                          suffixIconColor: LightThemeColors.primaryColor,
+                          filled: true,
+                          fillColor: Colors.grey[150],
+                        ),
+                        onFieldSubmitted: (value) {
+                          controller.onInputQuantity(
+                              product.id!, int.parse(value));
+                        },
+                      ),
+                    ),
                     10.horizontalSpace,
                     GestureDetector(
                       onTap: () => controller.onIncreasePressed(product.id!),

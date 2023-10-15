@@ -62,6 +62,13 @@ class CartController extends GetxController {
     }
   }
 
+  onInputQuantity(int productId, int quantity) {
+    var product = DummyHelper.products.firstWhere((p) => p.id == productId);
+    product.quantity = quantity;
+    getCartProducts();
+    update(['ProductQuantity']);
+  }
+
   /// when the user press on delete icon
   onDeletePressed(int productId) {
     var product = DummyHelper.products.firstWhere((p) => p.id == productId);

@@ -21,7 +21,7 @@ import '../modules/home/views/home_view.dart';
 import '../modules/product_details/bindings/product_details_binding.dart';
 import '../modules/product_details/views/product_details_view.dart';
 import '../modules/profil/binding/profil_binding.dart';
-import '../modules/profil/views/profil_page.dart';
+import '../modules/profil/views/profil_view.dart';
 import '../modules/settings/bindings/settings_binding.dart';
 import '../modules/settings/views/settings_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
@@ -67,7 +67,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.HISTORY,
-      page: () => HistoryView(),
+      page: () => const HistoryView(),
       binding: HistoryBinding(),
     ),
     GetPage(
@@ -84,7 +84,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PROFIL,
-      page: () => const ProfilPage(),
+      page: () => const ProfilView(),
       binding: ProfilBinding(),
     ),
     GetPage(

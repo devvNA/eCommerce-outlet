@@ -25,9 +25,9 @@ class HomeView extends GetView<HomeController> {
               title: 'Produk',
             ),
             10.verticalSpace,
-            const CategoryProduct(),
-            20.verticalSpace,
             const SearchProduct(),
+            20.verticalSpace,
+            const CategoryProduct(),
             20.verticalSpace,
             GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

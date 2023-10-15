@@ -13,8 +13,6 @@ import '../controllers/base_controller.dart';
 class BaseBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<LoginController>(() =>
-        LoginController(firebaseAuthService: Get.find<FirebaseAuthService>()));
     Get.lazyPut<BaseController>(() => BaseController());
     Get.lazyPut<ChatController>(
         () => ChatController(chatRepository: Get.find<ChatRepository>()));
@@ -24,5 +22,6 @@ class BaseBinding extends Bindings {
     Get.lazyPut<HistoryController>(() => HistoryController());
     Get.lazyPut<SettingsController>(() => SettingsController(
         firebaseAuthService: Get.find<FirebaseAuthService>()));
+    Get.lazyPut<FirebaseAuthService>(() => FirebaseAuthServiceImpl());
   }
 }

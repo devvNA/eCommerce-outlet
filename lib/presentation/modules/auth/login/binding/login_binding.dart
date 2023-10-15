@@ -7,15 +7,13 @@ import '../controller/login_controller.dart';
 class LoginBinding extends Bindings {
   @override
   void dependencies() {
-    // Get.lazyPut<LoginController>(
-    //   () => LoginController(),
-    // );
-    Get.lazyPut<Request>(() => Request());
     // Get.lazyPut<AuthRepository>(
     //     () => AuthRepositoryImpl(Get.find<DioClient>()));
+    Get.lazyPut<LoginController>(
+      () =>
+          LoginController(firebaseAuthService: Get.find<FirebaseAuthService>()),
+    );
+    Get.lazyPut<Request>(() => Request());
     Get.lazyPut<FirebaseAuthService>(() => FirebaseAuthServiceImpl());
-
-    Get.lazyPut(() =>
-        LoginController(firebaseAuthService: Get.find<FirebaseAuthService>()));
   }
 }

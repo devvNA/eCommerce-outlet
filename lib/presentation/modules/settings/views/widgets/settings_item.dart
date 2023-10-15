@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,6 +15,7 @@ class SettingsItem extends StatelessWidget {
     this.isAccount = false,
     this.isDark = false,
     required this.onTap,
+    this.subtitle,
   }) : super(key: key);
 
   final String icon;
@@ -21,32 +23,39 @@ class SettingsItem extends StatelessWidget {
   final bool isDark;
   final VoidCallback onTap;
   final String title;
+  final String? subtitle;
 
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
     return GestureDetector(
-      onTap: onTap,
-      child: ListTile(
-        title: Text(title,
-            style: theme.textTheme.displayMedium?.copyWith(
-              fontSize: 16.sp,
-            )),
-        subtitle: !isAccount
-            ? null
-            : Text(
-                '+62 6637 5555',
-                style: theme.textTheme.displaySmall,
-              ),
-        leading: CircleAvatar(
-          radius: isAccount ? 30.r : 25.r,
-          backgroundColor: theme.primaryColor,
-          child: SvgPicture.asset(icon, fit: BoxFit.none),
-        ),
-        trailing: isDark
-            ? GetBuilder<SettingsController>(
-                id: 'Theme',
-                builder: (controller) => Container(
+        onTap: onTap,
+        child: ListTile(
+          title: Text(title,
+              style: theme.textTheme.displayMedium?.copyWith(
+                fontSize: 16.sp,
+              )),
+          subtitle: !isAccount
+              ? null
+              : Text(
+                  "$subtitle",
+                  style: context.theme.textTheme.bodyMedium,
+                ),
+          leading: CircleAvatar(
+            radius: isAccount ? 30.r : 25.r,
+            backgroundColor: theme.primaryColor,
+            child: SvgPicture.asset(icon, fit: BoxFit.none),
+          ),
+          trailing: isDark
+              ? GetBuilder<SettingsController>(
+                  id: 'Theme',
+                  builder: (controller) => CupertinoSwitch(
+                    value: !controller.isLightTheme,
+                    onChanged: controller.changeTheme,
+                    activeColor: theme.primaryColor,
+                  ),
+                )
+              : Container(
                   width: 40.w,
                   height: 40.h,
                   decoration: BoxDecoration(
@@ -56,24 +65,6 @@ class SettingsItem extends StatelessWidget {
                   child: SvgPicture.asset(Constants.forwardArrowIcon,
                       fit: BoxFit.none),
                 ),
-
-                // CupertinoSwitch(
-                //   value: !controller.isLightTheme,
-                //   onChanged: controller.changeTheme,
-                //   activeColor: theme.primaryColor,
-                // ),
-              )
-            : Container(
-                width: 40.w,
-                height: 40.h,
-                decoration: BoxDecoration(
-                  color: theme.primaryColor,
-                  borderRadius: BorderRadius.circular(10.r),
-                ),
-                child: SvgPicture.asset(Constants.forwardArrowIcon,
-                    fit: BoxFit.none),
-              ),
-      ),
-    );
+        ));
   }
 }

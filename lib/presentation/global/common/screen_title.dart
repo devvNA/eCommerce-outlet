@@ -7,7 +7,6 @@ class ScreenTitle extends StatelessWidget {
   final double? dividerEndIndent;
   final bool? centerTitle;
   final bool? automaticallyImplyLeading;
-  final void Function()? onPressed;
 
   const ScreenTitle({
     Key? key,
@@ -15,7 +14,6 @@ class ScreenTitle extends StatelessWidget {
     this.dividerEndIndent,
     this.centerTitle = false,
     this.automaticallyImplyLeading = false,
-    this.onPressed,
   }) : super(key: key);
 
   @override

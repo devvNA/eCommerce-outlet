@@ -35,35 +35,30 @@ class SettingsView extends GetView<SettingsController> {
                   fontSize: 20.sp,
                   fontWeight: FontWeight.normal,
                 )),
-            20.verticalSpace,
+            5.verticalSpace,
             SettingsItem(
               onTap: () {
                 Get.toNamed(Routes.PROFIL);
-                // CustomSnackBar.showCustomErrorToast();
               },
-              title: 'Jon Wik',
+              title: "Profil",
               icon: Constants.userIcon,
-              isAccount: true,
             ),
-            30.verticalSpace,
+            20.verticalSpace,
             Text('Settings',
                 style: theme.textTheme.displayMedium?.copyWith(
                   fontSize: 20.sp,
                   fontWeight: FontWeight.normal,
                 )),
-            // SettingsItem(
-            //   title: 'Mode Gelap',
-            //   icon: Constants.themeIcon,
-            //   isDark: true,
-            // ),
-            25.verticalSpace,
+/*             25.verticalSpace,
             SettingsItem(
+              isDark: true,
               onTap: () {
                 CustomSnackBar.showCustomErrorToast();
               },
-              title: 'Bahasa',
-              icon: Constants.languageIcon,
+              title: 'Tema',
+              icon: Constants.themeIcon,
             ),
+ */
             25.verticalSpace,
             SettingsItem(
               onTap: () {
@@ -75,7 +70,6 @@ class SettingsView extends GetView<SettingsController> {
             25.verticalSpace,
             SettingsItem(
               onTap: () async {
-                bool confirm = false;
                 await showDialog<void>(
                   context: context,
                   barrierDismissible: true,
@@ -105,9 +99,8 @@ class SettingsView extends GetView<SettingsController> {
                         ),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(),
-                          onPressed: () async {
-                            confirm = true;
-                            await controller.signOut();
+                          onPressed: () {
+                            controller.signOut();
                           },
                           child: const Text("Ya"),
                         ),
