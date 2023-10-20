@@ -17,6 +17,9 @@ abstract class Routes {
   static const PROFIL = _Paths.PROFIL;
   static const REGISTRATION = _Paths.REGISTRATION;
   static const CHAT = _Paths.CHAT;
+  static const API_TEST = _Paths.API_TEST;
+  static const CHECKOUT = _Paths.CHECKOUT;
+  static const PAYMENT = _Paths.PAYMENT;
 }
 
 abstract class _Paths {
@@ -29,8 +32,11 @@ abstract class _Paths {
   static const CART = '/cart';
   static const HISTORY = '/history';
   static const SETTINGS = '/settings';
-  static const PRODUCT_DETAILS = '/product-details';
+  static const PRODUCT_DETAILS = '/home/product-details';
   static const PROFIL = '/profil';
   static const REGISTRATION = '/registration';
   static const CHAT = '/chat';
+  static const API_TEST = '/login/api_test';
+  static const CHECKOUT = '/cart/checkout';
+  static const PAYMENT = '/cart/checkout/payment';
 }

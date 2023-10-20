@@ -39,8 +39,8 @@ class CartController extends GetxController {
     }
 
     // update UI
-    getCartProducts();
-    Get.find<BaseController>().changeScreen(0);
+    // Get.find<BaseController>().changeScreen(0);
+    notifyChildrens();
     update();
   }
 

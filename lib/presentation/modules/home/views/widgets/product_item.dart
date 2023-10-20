@@ -6,9 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-import '../../../data/models/product_model.dart';
-import '../../modules/base/controllers/base_controller.dart';
-import '../../routes/app_pages.dart';
+import '../../../../../data/models/product_model.dart';
+import '../../../base/controllers/base_controller.dart';
+import '../../../../routes/app_pages.dart';
 
 class ProductItem extends StatelessWidget {
   final ProductModel product;
@@ -34,7 +34,7 @@ class ProductItem extends StatelessWidget {
               ),
               borderRadius: const BorderRadius.all(
                 Radius.circular(
-                  12.0,
+                  8.0,
                 ),
               ),
             ),

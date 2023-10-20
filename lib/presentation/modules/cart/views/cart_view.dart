@@ -4,10 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
+import 'package:marvelindo_outlet/presentation/routes/app_pages.dart';
 
 import '../../../global/utils/constants.dart';
-import '../../../global/common/custom_button.dart';
-import '../../../global/common/custom_snackbar.dart';
 import '../../../global/common/no_data.dart';
 import '../../../global/common/screen_title.dart';
 import '../controllers/cart_controller.dart';
@@ -20,19 +19,19 @@ class CartView extends GetView<CartController> {
   Widget build(BuildContext context) {
     final theme = context.theme;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: GetBuilder<CartController>(
-          init: controller,
-          initState: (_) => controller.onInit(),
-          builder: (_) => ListView(
+          builder: (_) => Column(
+            mainAxisSize: MainAxisSize.max,
             children: [
               30.verticalSpace,
               const ScreenTitle(
                 title: 'Keranjang',
                 dividerEndIndent: 280,
               ),
-              25.verticalSpace,
+              10.verticalSpace,
               controller.products.isEmpty
                   ? NoData(
                       text: 'Belum ada produk di keranjang!',
@@ -40,26 +39,32 @@ class CartView extends GetView<CartController> {
                         controller.onEmptyCartPressed();
                       },
                     )
-                  : ListView.builder(
-                      itemCount: controller.products.length,
-                      itemBuilder: (context, index) => CartItem(
-                        product: controller.products[index],
-                      ).animate().fade().slideX(
-                            duration: const Duration(milliseconds: 300),
-                            begin: -1,
-                            curve: Curves.easeInSine,
-                          ),
-                      shrinkWrap: true,
-                      primary: false,
+                  : SizedBox(
+                      height: MediaQuery.of(context).size.height / 2.1,
+                      child: ListView.separated(
+                        separatorBuilder: (context, index) => const Divider(
+                          height: 20,
+                          color: Colors.grey,
+                        ),
+                        itemCount: controller.products.length,
+                        itemBuilder: (context, index) => CartItem(
+                          product: controller.products[index],
+                        ).animate().fade().slideX(
+                              duration: const Duration(milliseconds: 300),
+                              begin: -1,
+                              curve: Curves.easeInSine,
+                            ),
+                        primary: true,
+                      ),
                     ),
-              30.verticalSpace,
+              15.verticalSpace,
               Visibility(
                 visible: controller.products.isNotEmpty,
                 child: Row(
                   children: [
                     Container(
-                      width: 65.w,
-                      height: 65.h,
+                      width: 70.w,
+                      height: 70.h,
                       decoration: BoxDecoration(
                         color: theme.primaryColor,
                         borderRadius: BorderRadius.circular(12.r),
@@ -88,6 +93,7 @@ class CartView extends GetView<CartController> {
                         Text(
                           'Rp${controller.total.toStringAsFixed(0)}',
                           style: theme.textTheme.displayLarge?.copyWith(
+                            fontSize: 20,
                             decoration: TextDecoration.underline,
                             decorationColor:
                                 theme.primaryColor.withOpacity(0.5),
@@ -109,36 +115,29 @@ class CartView extends GetView<CartController> {
                       curve: Curves.easeInSine,
                     ),
               ),
-              30.verticalSpace,
+              20.verticalSpace,
               Visibility(
                 visible: controller.products.isNotEmpty,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5.w),
-                  child: CustomButton(
-                    text: 'Pesan sekarang',
-                    onPressed: () {
-                      controller.onPurchaseNowPressed();
-                      CustomSnackBar.showCustomSuccessSnackBar(
-                          title: 'Purchased',
-                          message: 'Order placed with success',
-                          duration: const Duration(seconds: 2));
-                    },
-                    fontSize: 16.sp,
-                    radius: 12.r,
-                    verticalPadding: 12.h,
-                    hasShadow: true,
-                    shadowColor: theme.primaryColor,
-                    shadowOpacity: 0.3,
-                    shadowBlurRadius: 4,
-                    shadowSpreadRadius: 0,
-                  ).animate().fade().slideY(
-                        duration: const Duration(milliseconds: 300),
-                        begin: 1,
-                        curve: Curves.easeInSine,
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide.none,
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                ),
+                      elevation: 1,
+                    ),
+                    onPressed: () {
+                      Get.toNamed(Routes.CHECKOUT);
+                    },
+                    child: const Text("Checkout"),
+                  ),
+                ).animate().fade().slideY(
+                      duration: const Duration(milliseconds: 200),
+                      curve: Curves.easeInSine,
+                    ),
               ),
-              30.verticalSpace,
             ],
           ),
         ),

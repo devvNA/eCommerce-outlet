@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/presentation/modules/chat/chat_controller.dart';
+import '../../../../data/repositories/chat_repository_impl.dart';
 import '../../../../data/services/firebase_auth_services.dart';
 import '../../../../domain/repositories/chat_repository.dart';
-import '../../Auth/login/controller/login_controller.dart';
 import '../../cart/controllers/cart_controller.dart';
 import '../../favorites/controllers/favorites_controller.dart';
 import '../../home/controllers/home_controller.dart';
@@ -13,15 +13,19 @@ import '../controllers/base_controller.dart';
 class BaseBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<BaseController>(() => BaseController());
-    Get.lazyPut<ChatController>(
-        () => ChatController(chatRepository: Get.find<ChatRepository>()));
-    Get.lazyPut<HomeController>(() => HomeController());
-    Get.lazyPut<FavoritesController>(() => FavoritesController());
-    Get.lazyPut<CartController>(() => CartController());
-    Get.lazyPut<HistoryController>(() => HistoryController());
-    Get.lazyPut<SettingsController>(() => SettingsController(
+    Get.put<FirebaseAuthService>(FirebaseAuthServiceImpl());
+    Get.put<BaseController>(BaseController());
+    Get.put<ChatController>(
+        ChatController(chatRepository: ChatRepositoryImpl()));
+    Get.put<HomeController>(HomeController());
+    Get.put<FavoritesController>(FavoritesController());
+    Get.put<CartController>(CartController());
+    Get.put<HistoryController>(HistoryController());
+    Get.put<SettingsController>(SettingsController(
         firebaseAuthService: Get.find<FirebaseAuthService>()));
-    Get.lazyPut<FirebaseAuthService>(() => FirebaseAuthServiceImpl());
+    Get.put<FirebaseAuthService>(FirebaseAuthServiceImpl());
+    Get.put<ChatRepository>(
+      ChatRepositoryImpl(),
+    );
   }
 }

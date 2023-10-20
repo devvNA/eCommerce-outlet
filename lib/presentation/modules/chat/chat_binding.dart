@@ -7,11 +7,11 @@ import 'chat_controller.dart';
 class ChatBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<ChatController>(
-      () => ChatController(chatRepository: Get.find<ChatRepository>()),
+    Get.put<ChatController>(
+      ChatController(chatRepository: Get.find<ChatRepository>()),
     );
-    Get.lazyPut<ChatRepository>(
-      () => ChatRepositoryImpl(),
+    Get.put<ChatRepository>(
+      ChatRepositoryImpl(),
     );
   }
 }

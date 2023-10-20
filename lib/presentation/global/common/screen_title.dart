@@ -20,12 +20,27 @@ class ScreenTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment:
-          centerTitle! ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+          centerTitle! ? CrossAxisAlignment.start : CrossAxisAlignment.center,
       children: [
-        Text(title,
-            style: context.theme.textTheme.displayLarge?.copyWith(
-              fontSize: 28.sp,
-            )),
+        Row(
+          mainAxisAlignment:
+              centerTitle! ? MainAxisAlignment.center : MainAxisAlignment.start,
+          children: [
+            automaticallyImplyLeading!
+                ? IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.add,
+                      size: 24.0,
+                    ),
+                  )
+                : const SizedBox(),
+            Text(title,
+                style: context.theme.textTheme.displayLarge?.copyWith(
+                  fontSize: 28.sp,
+                )),
+          ],
+        ),
         const Divider(
           thickness: 2.2,
         ),

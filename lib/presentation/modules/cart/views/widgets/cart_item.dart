@@ -57,18 +57,17 @@ class CartItem extends GetView<CartController> {
               5.verticalSpace,
               Text(
                 product.name!,
-                style: theme.textTheme.displayMedium,
+                style: theme.textTheme.displayMedium?.copyWith(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
               ),
               5.verticalSpace,
-              Text('Size: ${product.size}',
-                  style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16.sp)),
+              Text('Jenis: ${product.size}',
+                  style: theme.textTheme.bodyMedium?.copyWith(fontSize: 12.sp)),
               5.verticalSpace,
               Text(
                 'Rp${product.price}',
-                style: theme.textTheme.displayLarge?.copyWith(
-                  fontSize: 18.sp,
-                ),
+                style: theme.textTheme.displayLarge
+                    ?.copyWith(fontSize: 14.sp, fontWeight: FontWeight.w300),
               ),
               10.verticalSpace,
               GetBuilder<CartController>(
@@ -114,7 +113,9 @@ class CartItem extends GetView<CartController> {
                           filled: true,
                           fillColor: Colors.grey[150],
                         ),
-                        onFieldSubmitted: (value) {
+                        onChanged: (value) async {
+                          await Future.delayed(
+                              const Duration(milliseconds: 500));
                           controller.onInputQuantity(
                               product.id!, int.parse(value));
                         },

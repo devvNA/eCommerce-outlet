@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
-import '../../../global/common/product_item.dart';
+import 'widgets/product_item.dart';
 import '../../../global/common/screen_title.dart';
 import '../../../global/theme/light_theme_colors.dart';
 import '../controllers/home_controller.dart';
@@ -21,6 +21,7 @@ class HomeView extends GetView<HomeController> {
           physics: const AlwaysScrollableScrollPhysics(),
           padding: const EdgeInsets.all(16),
           children: [
+            10.verticalSpace,
             const ScreenTitle(
               title: 'Produk',
             ),
@@ -65,13 +66,13 @@ class SearchProduct extends StatelessWidget {
         ],
       ),
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
-      child: Row(
+      child: const Row(
         children: [
-          const Icon(
+          Icon(
             Icons.search,
           ),
-          const SizedBox(width: 8.0),
-          const Expanded(
+          SizedBox(width: 8.0),
+          Expanded(
             child: TextField(
               cursorColor: LightThemeColors.primaryColor,
               decoration: InputDecoration(
@@ -80,23 +81,7 @@ class SearchProduct extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(width: 8.0),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(30.0),
-            child: Material(
-              color: LightThemeColors.primaryColor,
-              child: InkWell(
-                onTap: () {},
-                child: Container(
-                  padding: const EdgeInsets.all(6.0),
-                  child: const Icon(
-                    Icons.tune,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          ),
+          SizedBox(width: 8.0),
         ],
       ),
     );

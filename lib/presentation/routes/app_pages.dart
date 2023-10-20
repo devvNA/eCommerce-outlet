@@ -1,30 +1,22 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:get/get.dart';
+import 'package:marvelindo_outlet/presentation/modules/payment/payment_view.dart';
 
-import '../modules/auth/login/binding/login_binding.dart';
+import '../global/dependency_injection/bindings.dart';
+import '../modules/api_test/api_test_page.dart';
 import '../modules/auth/login/views/login_view.dart';
-import '../modules/auth/registration/bindings/registration_binding.dart';
 import '../modules/auth/registration/views/registration_view.dart';
-import '../modules/base/bindings/base_binding.dart';
 import '../modules/base/views/base_view.dart';
-import '../modules/cart/bindings/cart_binding.dart';
 import '../modules/cart/views/cart_view.dart';
-import '../modules/chat/chat_binding.dart';
 import '../modules/chat/chat_view.dart';
-import '../modules/favorites/bindings/favorites_binding.dart';
+import '../modules/checkout/checkout_view.dart';
 import '../modules/favorites/views/favorites_view.dart';
-import '../modules/history/bindings/history_binding.dart';
 import '../modules/history/views/history_view.dart';
-import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
-import '../modules/product_details/bindings/product_details_binding.dart';
 import '../modules/product_details/views/product_details_view.dart';
-import '../modules/profil/binding/profil_binding.dart';
 import '../modules/profil/views/profil_view.dart';
-import '../modules/settings/bindings/settings_binding.dart';
 import '../modules/settings/views/settings_view.dart';
-import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 
 part 'app_routes.dart';
@@ -36,66 +28,95 @@ class AppPages {
 
   static final routes = [
     GetPage(
-      name: _Paths.SPLASH,
-      page: () => const SplashView(),
-      binding: SplashBinding(),
-    ),
+        name: _Paths.SPLASH,
+        page: () => const SplashView(),
+        // binding: SplashBinding(),
+        binding: AppBindings()),
     GetPage(
-      name: _Paths.LOGIN,
-      page: () => const LoginView(),
-      binding: LoginBinding(),
-    ),
+        name: _Paths.LOGIN,
+        page: () => const LoginView(),
+        // binding: LoginBinding(),
+        transition: Transition.native,
+        transitionDuration: const Duration(seconds: 1),
+        binding: AppBindings()),
     GetPage(
-      name: _Paths.BASE,
-      page: () => const BaseView(),
-      binding: BaseBinding(),
-    ),
+        name: _Paths.REGISTRATION,
+        page: () => RegistrationView(),
+        binding: AppBindings()
+        // binding: RegistrationBinding(),
+        ),
     GetPage(
-      name: _Paths.HOME,
-      page: () => const HomeView(),
-      binding: HomeBinding(),
-    ),
+        name: _Paths.BASE,
+        page: () => const BaseView(),
+        // binding: BaseBinding(),
+        transition: Transition.cupertino,
+        transitionDuration: const Duration(seconds: 1),
+        binding: AppBindings()),
     GetPage(
-      name: _Paths.FAVORITES,
-      page: () => const FavoritesView(),
-      binding: FavoritesBinding(),
-    ),
+        name: _Paths.HOME,
+        page: () => const HomeView(),
+        // binding: HomeBinding(),
+        transition: Transition.cupertino,
+        transitionDuration: const Duration(seconds: 1),
+        binding: AppBindings()),
     GetPage(
-      name: _Paths.CART,
-      page: () => const CartView(),
-      binding: CartBinding(),
-    ),
+        name: _Paths.FAVORITES,
+        page: () => const FavoritesView(),
+        binding: AppBindings()
+        // binding: FavoritesBinding(),
+        ),
     GetPage(
-      name: _Paths.HISTORY,
-      page: () => const HistoryView(),
-      binding: HistoryBinding(),
-    ),
+        name: _Paths.CART, page: () => const CartView(), binding: AppBindings()
+
+        // binding: CartBinding(),
+        ),
     GetPage(
-      name: _Paths.SETTINGS,
-      page: () => const SettingsView(),
-      binding: SettingsBinding(),
-    ),
+        name: _Paths.CHECKOUT,
+        page: () => const CheckoutView(),
+        binding: AppBindings()
+        // binding: HistoryBinding(),
+        ),
+    GetPage(
+        name: _Paths.HISTORY,
+        page: () => const HistoryView(),
+        binding: AppBindings()
+        // binding: HistoryBinding(),
+        ),
+    GetPage(
+        name: _Paths.SETTINGS,
+        page: () => const SettingsView(),
+        binding: AppBindings()
+        // binding: SettingsBinding(),
+        ),
     GetPage(
       name: _Paths.PRODUCT_DETAILS,
       page: () => const ProductDetailsView(),
-      binding: ProductDetailsBinding(),
+      binding: AppBindings(),
+      // binding: ProductDetailsBinding(),
       transition: Transition.rightToLeft,
       transitionDuration: const Duration(milliseconds: 250),
     ),
     GetPage(
-      name: _Paths.PROFIL,
-      page: () => const ProfilView(),
-      binding: ProfilBinding(),
-    ),
+        name: _Paths.PROFIL,
+        page: () => const ProfilView(),
+        binding: AppBindings()
+        // binding: ProfilBinding(),
+        ),
     GetPage(
-      name: _Paths.REGISTRATION,
-      page: () => const RegistrationView(),
-      binding: RegistrationBinding(),
-    ),
+        name: _Paths.CHAT, page: () => const ChatView(), binding: AppBindings()
+        // binding: ChatBinding(),
+        ),
     GetPage(
-      name: _Paths.CHAT,
-      page: () => const ChatView(),
-      binding: ChatBinding(),
-    ),
+        name: _Paths.API_TEST,
+        page: () => const ApiTestPage(),
+        binding: AppBindings()
+        // binding: ApiTestBinding(),
+        ),
+    GetPage(
+        name: _Paths.PAYMENT,
+        page: () => const PaymentView(),
+        binding: AppBindings()
+        // binding: ApiTestBinding(),
+        ),
   ];
 }

@@ -7,12 +7,12 @@ import '../controllers/profil_controller.dart';
 class ProfilBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<ProfilController>(
-      () => ProfilController(),
+    Get.put<ProfilController>(
+      ProfilController(),
     );
-    Get.lazyPut<FirebaseAuthService>(() => FirebaseAuthServiceImpl());
-    Get.lazyPut<SettingsController>(
-      () => SettingsController(
+    Get.put<FirebaseAuthService>( FirebaseAuthServiceImpl());
+    Get.put<SettingsController>(
+       SettingsController(
           firebaseAuthService: Get.find<FirebaseAuthService>()),
     );
   }

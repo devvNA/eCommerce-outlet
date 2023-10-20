@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../global/common/no_data.dart';
-import '../../../global/common/product_item.dart';
+import '../../home/views/widgets/product_item.dart';
 import '../../../global/common/screen_title.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/favorites_controller.dart';

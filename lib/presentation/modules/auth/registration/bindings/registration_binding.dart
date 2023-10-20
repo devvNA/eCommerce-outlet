@@ -1,12 +1,12 @@
-import 'package:get/get.dart';
+// import 'package:get/get.dart';
 
-import '../controllers/registration_controller.dart';
+// import '../controllers/registration_controller.dart';
 
-class RegistrationBinding extends Bindings {
-  @override
-  void dependencies() {
-    Get.lazyPut<RegistrationController>(
-      () => RegistrationController(),
-    );
-  }
-}
+// class RegistrationBinding extends Bindings {
+//   @override
+//   void dependencies() {
+//     Get.put<RegistrationController>(
+//       RegistrationController(),
+//     );
+//   }
+// }

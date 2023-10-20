@@ -9,7 +9,6 @@ import 'package:get/get.dart';
 import 'package:marvelindo_outlet/presentation/global/theme/light_theme_colors.dart';
 
 import '../../../global/utils/constants.dart';
-import '../../../global/common/custom_button.dart';
 import '../controllers/product_details_controller.dart';
 import 'widgets/rounded_button.dart';
 
@@ -130,29 +129,26 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                       curve: Curves.easeInSine,
                     ),
               ),
+              15.verticalSpace,
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 5, horizontal: 12),
-                child: CustomButton(
-                  text: 'Tambahkan ke keranjang',
-                  onPressed: () {
-                    controller.onAddToCartPressed();
-                  },
-                  disabled: controller.product.stock! == 0,
-                  fontSize: 16.sp,
-                  radius: 12.r,
-                  verticalPadding: 12.h,
-                  hasShadow: true,
-                  shadowColor: theme.primaryColor,
-                  shadowOpacity: 0.3,
-                  shadowBlurRadius: 4,
-                  shadowSpreadRadius: 0,
-                ).animate().fade().slideY(
-                      duration: const Duration(milliseconds: 300),
-                      begin: 1,
-                      curve: Curves.easeInSine,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Center(
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.all(12),
+                        elevation: 1,
+                      ),
+                      onPressed: () {
+                        controller.onAddToCartPressed();
+                      },
+                      child: const Text("Tambahkan ke keranjang"),
                     ),
+                  ),
+                ),
               ),
+              5.verticalSpace,
 /*               20.verticalSpace,
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),

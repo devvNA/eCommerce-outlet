@@ -3,6 +3,8 @@ import 'package:marvelindo_outlet/data/types.dart';
 
 import '../../domain/repositories/chat_repository.dart';
 
+
+
 class ChatRepositoryImpl implements ChatRepository {
   @override
   Future<ListChat> get messages async {

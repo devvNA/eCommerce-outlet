@@ -10,7 +10,7 @@ class Category {
 }
 
 List<Category> categoryList = [
-  Category("Saat ini", true),
+  Category("Proses", true),
   Category("Selesai", false),
   Category("Dibatalkan", false),
 ];

@@ -1,25 +1,25 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:marvelindo_outlet/presentation/modules/auth/registration/controllers/registration_controller.dart';
 
 import '../../../../global/common/custom_snackbar.dart';
 import '../../../../global/theme/light_theme_colors.dart';
-import '../../../../routes/app_pages.dart';
 import 'widgets/form_registration_widget.dart';
 
-class RegistrationView extends StatefulWidget {
-  const RegistrationView({super.key});
-
-  @override
-  State<RegistrationView> createState() => _RegistrationViewState();
-}
-
-class _RegistrationViewState extends State<RegistrationView> {
-  TextEditingController? nameController;
+class RegistrationView extends StatelessWidget {
   TextEditingController? emailController;
+
   TextEditingController? passwordController;
+
   TextEditingController? outletController;
+
   TextEditingController? addressController;
+
   String selectedGender = '';
+
+  RegistrationView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +31,8 @@ class _RegistrationViewState extends State<RegistrationView> {
           child: ListView(
             physics: const NeverScrollableScrollPhysics(),
             children: [
-              _headerAppbar(),
-              _bodyContains(),
+              _headerAppbar(context),
+              _bodyContains(context),
             ],
           ),
         ),
@@ -40,7 +40,8 @@ class _RegistrationViewState extends State<RegistrationView> {
     );
   }
 
-  Widget _bodyContains() {
+  Widget _bodyContains(BuildContext context) {
+    RegistrationController controller = Get.find();
     return SizedBox(
       height: MediaQuery.of(context).size.height - 115,
       child: ListView(
@@ -54,11 +55,6 @@ class _RegistrationViewState extends State<RegistrationView> {
         physics: const AlwaysScrollableScrollPhysics(
             parent: BouncingScrollPhysics()),
         children: [
-          FormRegistrationWidget(
-            formTitle: 'Nama Lengkap',
-            formController: nameController,
-            hintText: 'Jon Wik',
-          ),
           const SizedBox(
             height: 15.0,
           ),
@@ -126,8 +122,8 @@ class _RegistrationViewState extends State<RegistrationView> {
                 ),
               ),
               onPressed: () async {
-                await Future.delayed(const Duration(seconds: 1));
-                Get.offNamed(Routes.LOGIN);
+                await Future.delayed(const Duration(milliseconds: 500));
+                controller.onSubmit();
                 CustomSnackBar.showCustomToast(
                     message: "Registrasi Berhasil, silahkan login");
               },
@@ -140,7 +136,7 @@ class _RegistrationViewState extends State<RegistrationView> {
   }
 }
 
-Widget _headerAppbar() {
+Widget _headerAppbar(BuildContext context) {
   return Container(
     padding: const EdgeInsets.all(8),
     width: Get.width,

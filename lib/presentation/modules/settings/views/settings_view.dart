@@ -1,6 +1,7 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
@@ -105,7 +106,7 @@ class SettingsView extends GetView<SettingsController> {
                           child: const Text("Ya"),
                         ),
                       ],
-                    );
+                    ).animate().fade();
                   },
                 );
                 controller.dispose();
