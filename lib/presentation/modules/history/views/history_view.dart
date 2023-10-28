@@ -10,7 +10,7 @@ import 'widgets/history_category.dart';
 import 'widgets/history_item.dart';
 
 class HistoryView extends GetView<HistoryController> {
-  const HistoryView({Key? key}) : super(key: key);
+  const HistoryView({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:get/get.dart';
+import 'package:marvelindo_outlet/presentation/modules/api_test/detail_api/detail_api_view.dart';
 import 'package:marvelindo_outlet/presentation/modules/payment/payment_view.dart';
 
 import '../global/dependency_injection/bindings.dart';
@@ -115,6 +116,12 @@ class AppPages {
     GetPage(
         name: _Paths.PAYMENT,
         page: () => const PaymentView(),
+        binding: AppBindings()
+        // binding: ApiTestBinding(),
+        ),
+    GetPage(
+        name: _Paths.DETAIL_API,
+        page: () => const DetailApiView(),
         binding: AppBindings()
         // binding: ApiTestBinding(),
         ),

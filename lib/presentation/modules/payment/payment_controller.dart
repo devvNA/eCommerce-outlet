@@ -1,8 +1,3 @@
 import 'package:get/get.dart';
 
-class PaymentController extends GetxController {
-  //TODO: Implement PaymentController.
-
-
-
-}
+class PaymentController extends GetxController with StateMixin {}

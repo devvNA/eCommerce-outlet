@@ -10,7 +10,7 @@ import 'presentation/global/utils/my_shared_pref.dart';
 import 'presentation/global/theme/my_theme.dart';
 import 'presentation/routes/app_pages.dart';
 
-Future<void> main() async {
+void main() async {
   // wait for bindings
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -23,39 +23,45 @@ Future<void> main() async {
   // Membuat instance dari class AppBindings
   await AppBindings().dependencies();
 
-  //Screen Orientation
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
+  runApp(const MyApp());
+}
 
-  runApp(
-    ScreenUtilInit(
-      designSize: const Size(375, 812),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      useInheritedMediaQuery: true,
-      rebuildFactor: (old, data) => true,
-      builder: (context, widget) {
-        return GetMaterialApp(
-          title: "Outlet Commerce",
-          useInheritedMediaQuery: true,
-          debugShowCheckedModeBanner: false,
-          builder: (context, widget) {
-            bool themeIsLight = MySharedPref.getThemeIsLight();
-            return Theme(
-              data: MyTheme.getThemeData(isLight: themeIsLight),
-              child: MediaQuery(
-                data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-                child: widget!,
-              ),
-            );
-          },
-          initialRoute:
-              AppPages.INITIAL, // first screen to show when app is running
-          getPages: AppPages.routes, // app screens
-        );
-      },
-    ),
-  );
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    //Screen Orientation
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
+    return ScreenUtilInit(
+        designSize: const Size(375, 812),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        useInheritedMediaQuery: true,
+        rebuildFactor: (old, data) => true,
+        builder: (context, widget) {
+          return GetMaterialApp(
+            title: "Outlet Commerce",
+            useInheritedMediaQuery: true,
+            debugShowCheckedModeBanner: false,
+            builder: (context, widget) {
+              bool themeIsLight = MySharedPref.getThemeIsLight();
+              return Theme(
+                data: MyTheme.getThemeData(isLight: themeIsLight),
+                child: MediaQuery(
+                  data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                  child: widget!,
+                ),
+              );
+            },
+            initialRoute:
+                AppPages.INITIAL, // first screen to show when app is running
+            getPages: AppPages.routes, // app screens
+          );
+        });
+  }
 }

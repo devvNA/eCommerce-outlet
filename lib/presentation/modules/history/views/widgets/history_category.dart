@@ -16,7 +16,7 @@ List<Category> categoryList = [
 ];
 
 class HorizontalCategoriesView extends StatefulWidget {
-  const HorizontalCategoriesView({Key? key}) : super(key: key);
+  const HorizontalCategoriesView({super.key});
 
   @override
   State<HorizontalCategoriesView> createState() =>
@@ -44,7 +44,7 @@ class _HorizontalCategoriesViewState extends State<HorizontalCategoriesView> {
             itemBuilder: (context, index) {
               return CategoryCard(
                 category: categoryList[index],
-                onPressed: (b) {
+                onPressed: () {
                   for (var category in categoryList) {
                     category.isSelected = false;
                   }
@@ -62,37 +62,29 @@ class _HorizontalCategoriesViewState extends State<HorizontalCategoriesView> {
   }
 }
 
-class CategoryCard extends StatefulWidget {
+class CategoryCard extends StatelessWidget {
   final Category category;
-  final Function(bool) onPressed;
+  final VoidCallback onPressed;
 
   const CategoryCard(
-      {required this.category, required this.onPressed, Key? key})
-      : super(key: key);
+      {required this.category, required this.onPressed, super.key});
 
-  @override
-  State<CategoryCard> createState() => _CategoryCardState();
-}
-
-class _CategoryCardState extends State<CategoryCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.0),
-          color: widget.category.isSelected
+          color: category.isSelected
               ? LightThemeColors.primaryColor
               : Colors.transparent),
       child: TextButton(
           style: const ButtonStyle(
               padding: MaterialStatePropertyAll(
                   EdgeInsets.symmetric(horizontal: 24))),
-          onPressed: () {
-            widget.onPressed(true);
-          },
-          child: Text(widget.category.title,
+          onPressed: onPressed,
+          child: Text(category.title,
               style: TextStyle(
-                  color: widget.category.isSelected
+                  color: category.isSelected
                       ? Colors.white
                       : LightThemeColors.primaryColor,
                   fontSize: 14))),

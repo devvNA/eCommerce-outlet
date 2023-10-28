@@ -2,7 +2,11 @@
 
 import 'package:get/get.dart';
 
-class CheckoutController extends GetxController {
+import '../../../../data/models/book/book_model.dart';
+
+class DetailApiController extends GetxController {
+  Book book = Get.arguments;
+
   @override
   void onInit() {
     super.onInit();

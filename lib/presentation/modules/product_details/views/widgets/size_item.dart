@@ -4,11 +4,11 @@ import 'package:get/get.dart';
 
 class SizeItem extends StatelessWidget {
   const SizeItem({
-    Key? key,
+    super.key,
     required this.onPressed,
     required this.label,
     this.selected = false,
-  }) : super(key: key);
+  });
 
   final void Function()? onPressed;
   final String label;

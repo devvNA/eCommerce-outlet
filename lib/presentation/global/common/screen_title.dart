@@ -9,12 +9,12 @@ class ScreenTitle extends StatelessWidget {
   final bool? automaticallyImplyLeading;
 
   const ScreenTitle({
-    Key? key,
+    super.key,
     required this.title,
     this.dividerEndIndent,
     this.centerTitle = false,
     this.automaticallyImplyLeading = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -7,14 +7,11 @@ import '../controllers/settings_controller.dart';
 class SettingsBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put<Request>( Request());
-    // Get.put<AuthRepository>(
-    //     () => AuthRepositoryImpl(Get.find<DioClient>()));
-    Get.put<FirebaseAuthService>( FirebaseAuthServiceImpl());
+    Get.put<Request>(Request());
+    Get.put<FirebaseAuthService>(FirebaseAuthServiceImpl());
 
     Get.put<SettingsController>(
-     SettingsController(
-          firebaseAuthService: Get.find<FirebaseAuthService>()),
+      SettingsController(firebaseAuthService: Get.find<FirebaseAuthService>()),
     );
   }
 }

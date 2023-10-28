@@ -9,7 +9,7 @@ import '../controller/login_controller.dart';
 import 'widget/form_login_widget.dart';
 
 class LoginView extends GetView<LoginController> {
-  const LoginView({Key? key}) : super(key: key);
+  const LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,22 +31,15 @@ class LoginView extends GetView<LoginController> {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 20.0,
-            ),
-            const Row(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(
-                  child: Icon(
-                    Icons.supervised_user_circle_rounded,
-                    size: 150,
-                    color: LightThemeColors.primaryColor,
-                  ),
+                Image.asset(
+                  "assets/icons/mv-logo.png",
+                  fit: BoxFit.cover,
+                  width: 200,
                 ),
               ],
-            ),
-            const SizedBox(
-              height: 23.0,
             ),
             Row(
               children: [
@@ -200,7 +193,7 @@ class LoginView extends GetView<LoginController> {
                           onPressed: () {
                             Get.toNamed(Routes.API_TEST);
                           },
-                          child: const Text("API Test"),
+                          child: const Text("TEST"),
                         ),
                         const SizedBox(height: 16.0),
                         Row(
@@ -248,6 +241,9 @@ class LoginView extends GetView<LoginController> {
                               ),
                             )
                           ],
+                        ),
+                        const SizedBox(
+                          height: 10.0,
                         ),
                       ],
                     ),

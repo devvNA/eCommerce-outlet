@@ -1,37 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../global/utils/constants.dart';
 import '../controllers/splash_controller.dart';
 
 class SplashView extends GetView<SplashController> {
-  const SplashView({Key? key}) : super(key: key);
+  const SplashView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Get.put(SplashController());
     var theme = context.theme;
     return Scaffold(
-      body: SafeArea(
-        child: Center(
+      body: GetBuilder<SplashController>(builder: (value) {
+        return Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
                 Constants.logo,
-                width: 120.w,
-                height: 90.h,
+                width: 120,
               ).animate().fade().slideY(
                   duration: const Duration(milliseconds: 500),
                   begin: 1,
                   curve: Curves.easeInSine),
-              20.verticalSpace,
               Text.rich(
                 TextSpan(children: [
                   TextSpan(
-                    text: 'Smartfren',
+                    text: 'MV',
                     style: theme.textTheme.displayMedium
                         ?.copyWith(color: theme.primaryColor),
                   ),
@@ -46,8 +42,8 @@ class SplashView extends GetView<SplashController> {
                   curve: Curves.easeInSine),
             ],
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 }

@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import '../../../../global/utils/constants.dart';
 
 class HistoryItem extends StatelessWidget {
-  const HistoryItem({Key? key}) : super(key: key);
+  const HistoryItem({super.key});
 
   @override
   Widget build(BuildContext context) {

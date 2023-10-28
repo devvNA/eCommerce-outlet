@@ -13,7 +13,7 @@ import '../controllers/product_details_controller.dart';
 import 'widgets/rounded_button.dart';
 
 class ProductDetailsView extends GetView<ProductDetailsController> {
-  const ProductDetailsView({Key? key}) : super(key: key);
+  const ProductDetailsView({super.key});
 
   @override
   Widget build(BuildContext context) {

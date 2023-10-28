@@ -14,13 +14,13 @@ class FormRegistrationWidget extends StatelessWidget {
   final bool? obscureText;
 
   const FormRegistrationWidget({
-    Key? key,
+    super.key,
     required this.formTitle,
     this.initialValue,
     this.hintText,
     this.formController,
     this.obscureText = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -69,12 +69,12 @@ class FormAddressWidget extends StatelessWidget {
   final TextEditingController? formController;
 
   const FormAddressWidget({
-    Key? key,
+    super.key,
     required this.formTitle,
     this.initialValue,
     this.hintText,
     this.formController,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

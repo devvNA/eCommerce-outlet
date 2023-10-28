@@ -6,8 +6,7 @@ class NoData extends StatelessWidget {
   final VoidCallback onPressed;
   final String? text;
 
-  const NoData({Key? key, this.text, required this.onPressed})
-      : super(key: key);
+  const NoData({super.key, this.text, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {

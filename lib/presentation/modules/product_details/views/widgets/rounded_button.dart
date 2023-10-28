@@ -7,10 +7,10 @@ class RoundedButton extends StatelessWidget {
   final Widget child;
   
   const RoundedButton({
-    Key? key,
+    super.key,
     required this.onPressed,
     required this.child,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

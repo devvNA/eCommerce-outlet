@@ -1,6 +1,7 @@
 // ignore_for_file: override_on_non_overriding_member
 
 import 'package:get/get.dart';
+import 'package:marvelindo_outlet/data/services/network_request.dart';
 import 'package:marvelindo_outlet/presentation/modules/auth/login/controller/login_controller.dart';
 import 'package:marvelindo_outlet/presentation/modules/auth/registration/controllers/registration_controller.dart';
 import 'package:marvelindo_outlet/presentation/modules/profil/controllers/profil_controller.dart';
@@ -15,6 +16,7 @@ import '../../../domain/repositories/chat_repository.dart';
 import '../../../domain/usecase/book_usecase.dart';
 import '../../../domain/usecase/product_usecase.dart';
 import '../../modules/api_test/api_test_controller.dart';
+import '../../modules/api_test/detail_api/detail_api_controller.dart';
 import '../../modules/base/controllers/base_controller.dart';
 import '../../modules/cart/controllers/cart_controller.dart';
 import '../../modules/chat/chat_controller.dart';
@@ -25,11 +27,17 @@ import '../../modules/home/controllers/home_controller.dart';
 import '../../modules/payment/payment_controller.dart';
 import '../../modules/product_details/controllers/product_details_controller.dart';
 import '../../modules/settings/controllers/settings_controller.dart';
+import '../../modules/splash/controllers/splash_controller.dart';
 
 class AppBindings extends Bindings {
   @override
   Future<void> dependencies() async {
+    Get.lazyPut<Request>(() => Request());
+    Get.lazyPut(() => FirebaseAuthServiceImpl());
     Get.lazyPut<FirebaseAuthService>(() => FirebaseAuthServiceImpl());
+    Get.lazyPut<SplashController>(
+        () => SplashController(firebaseAuth: FirebaseAuthServiceImpl()));
+
     Get.lazyPut<LoginController>(
       () => LoginController(firebaseAuthService: FirebaseAuthServiceImpl()),
     );
@@ -67,6 +75,8 @@ class AppBindings extends Bindings {
     Get.lazyPut<PaymentController>(
       () => PaymentController(),
     );
-
+    Get.lazyPut<DetailApiController>(
+      () => DetailApiController(),
+    );
   }
 }

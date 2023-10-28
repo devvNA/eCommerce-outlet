@@ -9,9 +9,9 @@ abstract class FirebaseAuthService {
   Future<User?> signInWithGoogle();
   Future<UserCredential> signInWithFacebook();
   Future<bool> signOut();
-  bool isUserSignedIn();
   String? getCurrentSignedInUserEmail();
   String? getCurrentSignedInUserEmailDisplayName();
+  bool isLoggedIn();
 }
 
 class FirebaseAuthServiceImpl implements FirebaseAuthService {
@@ -88,7 +88,7 @@ class FirebaseAuthServiceImpl implements FirebaseAuthService {
   }
 
   @override
-  bool isUserSignedIn() {
+  bool isLoggedIn() {
     return FirebaseAuth.instance.currentUser != null;
   }
 }

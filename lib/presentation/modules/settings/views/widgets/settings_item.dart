@@ -9,14 +9,14 @@ import '../../controllers/settings_controller.dart';
 
 class SettingsItem extends StatelessWidget {
   const SettingsItem({
-    Key? key,
+    super.key,
     required this.title,
     required this.icon,
     this.isAccount = false,
     this.isDark = false,
     required this.onTap,
     this.subtitle,
-  }) : super(key: key);
+  });
 
   final String icon;
   final bool isAccount;

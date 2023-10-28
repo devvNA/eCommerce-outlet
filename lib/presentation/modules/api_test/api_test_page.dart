@@ -2,6 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:marvelindo_outlet/presentation/global/theme/light_theme_colors.dart';
+import 'package:marvelindo_outlet/presentation/routes/app_pages.dart';
+import 'package:marvelindo_outlet/test_widget.dart';
 
 import '../../global/common/skeleton_loading.dart';
 import 'api_test_controller.dart';
@@ -37,8 +40,9 @@ class ApiTestPage extends GetView<ApiTestController> {
               ),
               controller.listBooks.value.isNotEmpty
                   ? Ink(
-                      height: MediaQuery.of(context).size.height / 2,
+                      height: Get.height / 1.5,
                       child: RefreshIndicator(
+                        color: LightThemeColors.primaryColor,
                         onRefresh: () async {
                           controller.onRefresh();
                         },
@@ -54,6 +58,10 @@ class ApiTestPage extends GetView<ApiTestController> {
                             if (index < controller.listBooks.value.length) {
                               return Card(
                                 child: ListTile(
+                                  onTap: () {
+                                    Get.toNamed(Routes.DETAIL_API,
+                                        arguments: book);
+                                  },
                                   trailing: Text(book.price ?? ""),
                                   title: Text(book.title ?? ""),
                                   subtitle: Text(book.subtitle ?? ""),
@@ -73,11 +81,11 @@ class ApiTestPage extends GetView<ApiTestController> {
                         ),
                       ),
                     )
-                  : const Center(
+                  : Center(
                       child: Column(
                         children: [
                           SkeletonLoading(
-                            height: 350,
+                            height: Get.height / 1.5,
                           ),
                         ],
                       ),
@@ -85,6 +93,18 @@ class ApiTestPage extends GetView<ApiTestController> {
               const Divider(
                 thickness: 5,
                 color: Colors.black,
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: LightThemeColors.primaryColor,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MainHome()),
+                  );
+                },
+                child: const Text("Widget Test"),
               ),
             ],
           );

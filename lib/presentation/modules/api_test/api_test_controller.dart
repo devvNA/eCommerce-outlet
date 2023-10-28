@@ -10,8 +10,8 @@ import 'package:marvelindo_outlet/domain/usecase/book_usecase.dart';
 import '../../../domain/usecase/product_usecase.dart';
 
 class ApiTestController extends GetxController {
-  Rx<ListBook> listBooks = Rx<ListBook>([]);
-  Rx<ListBook> listProducts = Rx<ListBook>([]);
+  final listProducts = Rx<ListProduct>([]);
+  final listBooks = Rx<ListBook>([]);
 
   final int _limit = 5;
   int _page = 1;
