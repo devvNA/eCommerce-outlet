@@ -32,7 +32,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
         return Right(products);
       }
       // debugPrint('Data: ${response.data}');
-      return Left(ConnectionFailure(response.data['message']));
+      return Left(ConnectionFailure(response.data));
     } on DioError catch (_) {
       return const Left(ConnectionFailure("Terjadi Kesalahan"));
     } catch (_) {

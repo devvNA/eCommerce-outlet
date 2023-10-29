@@ -21,7 +21,6 @@ import '../../modules/base/controllers/base_controller.dart';
 import '../../modules/cart/controllers/cart_controller.dart';
 import '../../modules/chat/chat_controller.dart';
 import '../../modules/checkout/checkout_controller.dart';
-import '../../modules/favorites/controllers/favorites_controller.dart';
 import '../../modules/history/controllers/history_controller.dart';
 import '../../modules/home/controllers/home_controller.dart';
 import '../../modules/payment/payment_controller.dart';
@@ -45,8 +44,10 @@ class AppBindings extends Bindings {
     Get.lazyPut<BaseController>(() => BaseController());
     Get.lazyPut<ChatController>(
         () => ChatController(chatRepository: ChatRepositoryImpl()));
-    Get.lazyPut<HomeController>(() => HomeController());
-    Get.lazyPut<FavoritesController>(() => FavoritesController());
+    Get.lazyPut<HomeController>(() => HomeController(
+        productUseCase: ProductUseCase(
+            repository: ProductRepositoryImpl(
+                remoteDataSource: ProductRemoteDataSourceImpl()))));
     Get.lazyPut<CartController>(() => CartController());
     Get.lazyPut<HistoryController>(() => HistoryController());
     Get.lazyPut<SettingsController>(() => SettingsController(

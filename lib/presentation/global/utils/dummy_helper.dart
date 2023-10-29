@@ -2,8 +2,6 @@ import '../../../data/models/product_model.dart';
 import 'constants.dart';
 
 class DummyHelper {
-  const DummyHelper._();
-
   static List<ProductModel> products = [
     ProductModel(
         id: 1,
@@ -12,8 +10,6 @@ class DummyHelper {
         stock: 100,
         quantity: 0,
         price: 11000,
-        size: 'M',
-        isFavorite: false,
         description: ""),
     ProductModel(
         id: 2,
@@ -22,8 +18,6 @@ class DummyHelper {
         stock: 100,
         quantity: 0,
         price: 11000,
-        size: 'M',
-        isFavorite: false,
         description: ""),
     ProductModel(
         id: 3,
@@ -32,8 +26,6 @@ class DummyHelper {
         stock: 100,
         quantity: 0,
         price: 20000,
-        size: 'M',
-        isFavorite: false,
         description: ""),
     ProductModel(
         id: 4,
@@ -42,8 +34,6 @@ class DummyHelper {
         stock: 100,
         quantity: 0,
         price: 35000,
-        size: 'M',
-        isFavorite: false,
         description: ""),
     ProductModel(
         id: 5,
@@ -52,8 +42,6 @@ class DummyHelper {
         stock: 100,
         quantity: 0,
         price: 42000,
-        size: 'M',
-        isFavorite: false,
         description: ""),
     ProductModel(
         id: 6,
@@ -62,8 +50,6 @@ class DummyHelper {
         stock: 100,
         quantity: 0,
         price: 50000,
-        size: 'M',
-        isFavorite: false,
         description: ""),
   ];
 }

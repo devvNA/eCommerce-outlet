@@ -30,8 +30,8 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                     width: double.infinity,
                     height: 400.h,
                     decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(controller.product.image!),
+                      image: const DecorationImage(
+                        image: AssetImage(Constants.product1),
                         fit: BoxFit.cover,
                       ),
                       borderRadius: BorderRadius.only(
@@ -52,25 +52,6 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                           child: SvgPicture.asset(Constants.backArrowIcon,
                               fit: BoxFit.none),
                         ),
-                        // GetBuilder<ProductDetailsController>(
-                        //   id: 'FavoriteButton',
-                        //   builder: (_) => RoundedButton(
-                        //     onPressed: () =>
-                        //         controller.onFavoriteButtonPressed(),
-                        //     child: Align(
-                        //       child: SvgPicture.asset(
-                        //         controller.product.isFavorite!
-                        //             ? Constants.favFilledIcon
-                        //             : Constants.favOutlinedIcon,
-                        //         width: 16.w,
-                        //         height: 15.h,
-                        //         color: controller.product.isFavorite!
-                        //             ? Colors.white
-                        //             : Colors.white,
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),
@@ -80,7 +61,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: Text(
-                  controller.product.name!,
+                  controller.product.nama!,
                   style: theme.textTheme.bodyLarge,
                 ).animate().fade().slideX(
                       duration: const Duration(milliseconds: 300),
@@ -91,7 +72,8 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: Text(
-                  "Stok: ${controller.product.stock!.toString()}",
+                  "Stok: ${100}",
+                  // "Stok: ${controller.product.stock!.toString()}",
                   style: theme.textTheme.bodyMedium,
                 ).animate().fade().slideX(
                       duration: const Duration(milliseconds: 300),
@@ -105,23 +87,9 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                 child: Row(
                   children: [
                     Text(
-                      'Rp${controller.product.price}',
+                      'Rp${controller.product.harga}',
                       style: theme.textTheme.displayMedium,
                     ),
-/*                     Icon(Icons.star_rounded, color: Color(0xFFFFC542)),
-                    5.horizontalSpace,
-                    Text(
-                      controller.product.rating!.toString(),
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                          fontSize: 18.sp, fontWeight: FontWeight.bold),
-                    ),
-                    5.horizontalSpace,
-                    Text(
-                      '(${controller.product.reviews!})',
-                      style:
-                          theme.textTheme.bodyMedium?.copyWith(fontSize: 16.sp),
-                    ),
- */
                   ],
                 ).animate().fade().slideX(
                       duration: const Duration(milliseconds: 300),
@@ -134,7 +102,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Center(
                   child: SizedBox(
-                    width: MediaQuery.of(context).size.width,
+                    width: Get.width,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.all(12),

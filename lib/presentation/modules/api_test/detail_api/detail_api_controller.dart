@@ -2,10 +2,9 @@
 
 import 'package:get/get.dart';
 
-import '../../../../data/models/book/book_model.dart';
 
 class DetailApiController extends GetxController {
-  Book book = Get.arguments;
+  // Book book = Get.arguments;
 
   @override
   void onInit() {

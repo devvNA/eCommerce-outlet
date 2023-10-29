@@ -1,32 +1,31 @@
 import 'package:get/get.dart';
+import 'package:marvelindo_outlet/data/types.dart';
 
+import '../../../../data/models/product/products_model.dart';
 import '../../../global/utils/dummy_helper.dart';
-import '../../../../data/models/product_model.dart';
 import '../../base/controllers/base_controller.dart';
 import '../../cart/controllers/cart_controller.dart';
 
 class ProductDetailsController extends GetxController {
   // get product details from arguments
-  ProductModel product = Get.arguments;
+  // ProductModel product = Get.arguments;
+  Products product = Get.arguments;
+
+  Rx<ListProduct> products = Rx<ListProduct>([]);
 
   // for the product size
   var selectedSize = '';
 
-  /// when the user press on the favorite button
-  onFavoriteButtonPressed() {
-    Get.find<BaseController>().onFavoriteButtonPressed(productId: product.id!);
-    update(['FavoriteButton']);
-  }
-
   /// when the user press on add to cart button
   onAddToCartPressed() {
-
+    // var mProduct = products.value.where((p) => p.id == product.id).first;
     var mProduct = DummyHelper.products.firstWhere((p) => p.id == product.id);
+
     mProduct.quantity = mProduct.quantity! + 1;
-    mProduct.size = selectedSize;
     Get.find<CartController>().getCartProducts();
     Get.back();
     Get.find<BaseController>().changeScreen(1);
+    update();
   }
 
   /// change the selected size

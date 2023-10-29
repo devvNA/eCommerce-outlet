@@ -5,13 +5,16 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:marvelindo_outlet/presentation/modules/home/controllers/home_controller.dart';
 
+import '../../../../../data/models/product/products_model.dart';
 import '../../../../../data/models/product_model.dart';
+import '../../../../global/utils/constants.dart';
 import '../../../base/controllers/base_controller.dart';
 import '../../../../routes/app_pages.dart';
 
-class ProductItem extends StatelessWidget {
-  final ProductModel product;
+class ProductItem extends GetView<HomeController> {
+  final Products product;
   const ProductItem({super.key, required this.product});
 
   @override
@@ -24,15 +27,15 @@ class ProductItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: 150,
-            decoration: BoxDecoration(
+            height: 140,
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
-                  product.image!,
+                  Constants.product1,
                 ),
                 fit: BoxFit.cover,
               ),
-              borderRadius: const BorderRadius.all(
+              borderRadius: BorderRadius.all(
                 Radius.circular(
                   8.0,
                 ),
@@ -40,7 +43,7 @@ class ProductItem extends StatelessWidget {
             ),
           ),
           10.verticalSpace,
-          Text(product.name!, style: theme.textTheme.bodyMedium)
+          Text(product.nama!, style: theme.textTheme.bodyMedium)
               .animate()
               .fade()
               .slideY(
@@ -48,8 +51,7 @@ class ProductItem extends StatelessWidget {
                 begin: 1,
                 curve: Curves.easeInSine,
               ),
-          5.verticalSpace,
-          Text('Rp${product.price}', style: theme.textTheme.displaySmall)
+          Text('Rp ${product.harga}', style: theme.textTheme.displaySmall)
               .animate()
               .fade()
               .slideY(

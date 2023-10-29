@@ -21,30 +21,35 @@ class BaseView extends GetView<BaseController> {
   @override
   Widget build(BuildContext context) {
     var theme = context.theme;
-    return GetBuilder<BaseController>(
-      builder: (_) => Scaffold(
-        resizeToAvoidBottomInset: false,
+
+    return WillPopScope(
+      onWillPop: () async {
+        return controller.onBack();
+      },
+      child: Scaffold(
+        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+        resizeToAvoidBottomInset: true,
         floatingActionButton: chatApp(
           onPressed: () async {
             _showBottom(context);
           },
         ),
-        extendBody: true,
-        body: SafeArea(
-          bottom: false,
-          child: IndexedStack(
-            index: controller.currentIndex,
-            children: const [
-              HomeView(),
-              // FavoritesView(),
-              CartView(),
-              HistoryView(),
-              SettingsView(),
-            ],
-          ),
-        ),
+        body: GetBuilder<BaseController>(builder: (context) {
+          return SafeArea(
+            bottom: false,
+            child: IndexedStack(
+              index: controller.currentIndex,
+              children: const [
+                HomeView(),
+                CartView(),
+                HistoryView(),
+                SettingsView(),
+              ],
+            ),
+          );
+        }),
         bottomNavigationBar: Container(
-          padding: EdgeInsets.only(top: 10.h, bottom: 20.h),
+          padding: EdgeInsets.only(top: 10.h, bottom: 15.h),
           decoration: BoxDecoration(
             color: theme.scaffoldBackgroundColor,
             borderRadius: BorderRadius.only(
@@ -67,20 +72,14 @@ class BaseView extends GetView<BaseController> {
             child: BottomNavigationBar(
               currentIndex: controller.currentIndex,
               type: BottomNavigationBarType.fixed,
-              elevation: 0.0,
               backgroundColor: theme.scaffoldBackgroundColor,
               showSelectedLabels: false,
               showUnselectedLabels: false,
-              selectedFontSize: 0.0,
               items: [
                 _mBottomNavItem(
                   label: 'Home',
                   icon: Constants.homeIcon,
                 ),
-/*                 _mBottomNavItem(
-                  label: 'Favorites',
-                  icon: Constants.favoritesIcon,
-                ), */
                 _mBottomNavItem(
                   label: 'Cart',
                   icon: Constants.cartIcon,
@@ -118,6 +117,7 @@ class BaseView extends GetView<BaseController> {
 
 Widget chatApp({required VoidCallback onPressed}) {
   return FloatingActionButton(
+    isExtended: true,
     mini: true,
     tooltip: "Chat",
     backgroundColor: LightThemeColors.primaryColor,

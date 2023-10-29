@@ -224,7 +224,8 @@ class PaymentView extends GetView<PaymentController> {
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width,
+                  width: Get.width,
+                  height: 75,
                   padding: const EdgeInsets.all(16.0),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(

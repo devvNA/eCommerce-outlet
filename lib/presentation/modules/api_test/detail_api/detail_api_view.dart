@@ -1,10 +1,14 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../data/models/product/products_model.dart';
 import 'detail_api_controller.dart';
 
-class DetailApiView extends GetView<DetailApiController> {
-  const DetailApiView({super.key});
+class DetailApiView extends StatelessWidget {
+  DetailApiView({super.key});
+  Products product = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +26,10 @@ class DetailApiView extends GetView<DetailApiController> {
                   child: ListTile(
                     leading: CircleAvatar(
                       backgroundColor: Colors.grey[200],
-                      backgroundImage: NetworkImage(controller.book.image!),
+                      // backgroundImage: NetworkImage(controller.book.image!),
                     ),
-                    title: Text(controller.book.title!),
                     subtitle: Text(
-                        "${controller.book.subtitle!}\n${controller.book.price!}\n${controller.book.isbn13!}\n${controller.book.url!}"),
+                        "${product.nama}\n${product.id}\n${product.harga.toString()}"),
                   ),
                 ),
               ),

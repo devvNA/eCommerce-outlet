@@ -44,6 +44,13 @@ class CartController extends GetxController {
     update();
   }
 
+  onRefreshCart() {
+    products.clear();
+    getCartProducts();
+    update();
+    
+  }
+
   /// when the user press on increase button
   onIncreasePressed(int productId) {
     var product = DummyHelper.products.firstWhere((p) => p.id == productId);

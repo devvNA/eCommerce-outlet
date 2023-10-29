@@ -4,11 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
-import 'package:marvelindo_outlet/presentation/routes/app_pages.dart';
+import 'package:marvelindo_outlet/presentation/global/theme/light_theme_colors.dart';
 
 import '../../../global/utils/constants.dart';
 import '../../../global/common/no_data.dart';
 import '../../../global/common/screen_title.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/cart_controller.dart';
 import 'widgets/cart_item.dart';
 
@@ -19,12 +20,10 @@ class CartView extends GetView<CartController> {
   Widget build(BuildContext context) {
     final theme = context.theme;
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: GetBuilder<CartController>(
           builder: (_) => Column(
-            mainAxisSize: MainAxisSize.max,
             children: [
               30.verticalSpace,
               const ScreenTitle(
@@ -39,25 +38,31 @@ class CartView extends GetView<CartController> {
                         controller.onEmptyCartPressed();
                       },
                     )
-                  : SizedBox(
-                      height: MediaQuery.of(context).size.height / 2.1,
-                      child: ListView.separated(
-                        separatorBuilder: (context, index) => const Divider(
-                          height: 20,
-                          color: Colors.grey,
-                        ),
-                        itemCount: controller.products.length,
-                        itemBuilder: (context, index) => CartItem(
-                          product: controller.products[index],
-                        ).animate().fade().slideX(
-                              duration: const Duration(milliseconds: 300),
-                              begin: -1,
-                              curve: Curves.easeInSine,
+                  : Expanded(
+                      child: SizedBox(
+                        child: RefreshIndicator(
+                          color: LightThemeColors.primaryColor,
+                          onRefresh: () async {},
+                          child: ListView.separated(
+                            physics: const BouncingScrollPhysics(
+                                parent: AlwaysScrollableScrollPhysics()),
+                            shrinkWrap: true,
+                            separatorBuilder: (context, index) => const Divider(
+                              height: 20,
+                              color: Colors.grey,
                             ),
-                        primary: true,
+                            itemCount: controller.products.length,
+                            itemBuilder: (context, index) => CartItem(
+                              product: controller.products[index],
+                            ).animate().fade().slideX(
+                                  duration: const Duration(milliseconds: 300),
+                                  begin: -1,
+                                  curve: Curves.easeInSine,
+                                ),
+                          ),
+                        ),
                       ),
                     ),
-              15.verticalSpace,
               Visibility(
                 visible: controller.products.isNotEmpty,
                 child: Row(
@@ -89,7 +94,7 @@ class CartView extends GetView<CartController> {
                             style: theme.textTheme.bodyLarge?.copyWith(
                               fontSize: 18.sp,
                             )),
-                        10.verticalSpace,
+                        5.verticalSpace,
                         Text(
                           'Rp${controller.total.toStringAsFixed(0)}',
                           style: theme.textTheme.displayLarge?.copyWith(
@@ -115,7 +120,7 @@ class CartView extends GetView<CartController> {
                       curve: Curves.easeInSine,
                     ),
               ),
-              20.verticalSpace,
+              10.verticalSpace,
               Visibility(
                 visible: controller.products.isNotEmpty,
                 child: SizedBox(
@@ -138,6 +143,7 @@ class CartView extends GetView<CartController> {
                       curve: Curves.easeInSine,
                     ),
               ),
+              10.verticalSpace
             ],
           ),
         ),

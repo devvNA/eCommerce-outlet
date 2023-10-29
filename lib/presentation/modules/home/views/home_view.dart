@@ -15,9 +15,10 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       body: GetBuilder<HomeController>(builder: (context) {
         return Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
           child: Column(
             children: [
               10.verticalSpace,
@@ -26,13 +27,11 @@ class HomeView extends GetView<HomeController> {
               ),
               10.verticalSpace,
               const SearchProduct(),
-              15.verticalSpace,
+              10.verticalSpace,
               SizedBox(
-                height: 35.0,
+                height: 50,
                 child: ListView.builder(
                   itemCount: controller.categories.value.length,
-                  physics: const BouncingScrollPhysics(
-                      parent: AlwaysScrollableScrollPhysics()),
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
                     return Row(
@@ -62,57 +61,80 @@ class HomeView extends GetView<HomeController> {
                   },
                 ),
               ),
-              15.verticalSpace,
-              Visibility(
-                visible: controller.selectedIndex == 0,
-                child: SizedBox(
-                  height: Get.height / 1.5,
-                  child: GridView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 15,
-                            mainAxisExtent: 220),
-                    shrinkWrap: true,
-                    primary: false,
-                    itemCount: controller.products.length,
-                    itemBuilder: (context, index) => ProductItem(
-                      product: controller.products[index],
-                    ),
-                  ),
-                ),
-              ),
-              Visibility(
-                visible: controller.selectedIndex == 1,
-                child: SizedBox(
-                  height: Get.height / 1.5,
-                  child: const Center(
-                    child: Text(
-                      "Kategori Perdana",
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
+              10.verticalSpace,
+              controller.listProducts.value.isNotEmpty
+                  ? Expanded(
+                      child: Visibility(
+                        visible: controller.selectedIndex == 0,
+                        child: RefreshIndicator(
+                          color: LightThemeColors.primaryColor,
+                          onRefresh: () async {
+                            controller.onRefreshProducts();
+                          },
+                          child: SizedBox(
+                            height: Get.height,
+                            child: GridView.builder(
+                              primary: true,
+                              physics: const BouncingScrollPhysics(
+                                  parent: AlwaysScrollableScrollPhysics()),
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 15,
+                                mainAxisExtent: 210,
+                              ),
+                              shrinkWrap: true,
+                              itemCount: controller.listProducts.value.length,
+                              itemBuilder: (context, index) => ProductItem(
+                                product: controller.listProducts.value[index],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  : Expanded(
+                      child: SizedBox(
+                        height: Get.height / 1.5,
+                        child: const Center(
+                          child: CircularProgressIndicator(),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              ),
-              Visibility(
-                visible: controller.selectedIndex == 2,
-                child: SizedBox(
-                  height: Get.height / 1.5,
-                  child: const Center(
-                    child: Text(
-                      "Kategori Voucher",
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              // Expanded(
+              //   child: Visibility(
+              //     visible: controller.selectedIndex == 1,
+              //     child: SizedBox(
+              //       height: Get.height / 1.5,
+              //       child: const Center(
+              //         child: Text(
+              //           "Kategori Perdana",
+              //           style: TextStyle(
+              //             fontSize: 20.0,
+              //             fontWeight: FontWeight.bold,
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              // Expanded(
+              //   child: Visibility(
+              //     visible: controller.selectedIndex == 2,
+              //     child: SizedBox(
+              //       height: Get.height / 1.5,
+              //       child: const Center(
+              //         child: Text(
+              //           "Kategori Voucher",
+              //           style: TextStyle(
+              //             fontSize: 20.0,
+              //             fontWeight: FontWeight.bold,
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
               // SizedBox(
               //   width: Get.width,
               //   height: Get.height / 1.5,

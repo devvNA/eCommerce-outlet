@@ -12,7 +12,6 @@ import '../modules/base/views/base_view.dart';
 import '../modules/cart/views/cart_view.dart';
 import '../modules/chat/chat_view.dart';
 import '../modules/checkout/checkout_view.dart';
-import '../modules/favorites/views/favorites_view.dart';
 import '../modules/history/views/history_view.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/product_details/views/product_details_view.dart';
@@ -60,12 +59,6 @@ class AppPages {
         transition: Transition.cupertino,
         transitionDuration: const Duration(seconds: 1),
         binding: AppBindings()),
-    GetPage(
-        name: _Paths.FAVORITES,
-        page: () => const FavoritesView(),
-        binding: AppBindings()
-        // binding: FavoritesBinding(),
-        ),
     GetPage(
         name: _Paths.CART, page: () => const CartView(), binding: AppBindings()
 
@@ -121,7 +114,7 @@ class AppPages {
         ),
     GetPage(
         name: _Paths.DETAIL_API,
-        page: () => const DetailApiView(),
+        page: () => DetailApiView(),
         binding: AppBindings()
         // binding: ApiTestBinding(),
         ),

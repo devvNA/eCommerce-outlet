@@ -1,9 +1,23 @@
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
-import '../../../global/utils/dummy_helper.dart';
-import '../../favorites/controllers/favorites_controller.dart';
-
 class BaseController extends GetxController {
+  DateTime timeBackPressed = DateTime.now();
+
+  onBack() {
+    final difference = DateTime.now().difference(timeBackPressed);
+    final isExitWarning = difference >= const Duration(seconds: 2);
+    timeBackPressed = DateTime.now();
+    if (isExitWarning) {
+      const message = "Tekan kembali lagi untuk keluar";
+      Fluttertoast.showToast(msg: message, fontSize: 16);
+      return false;
+    } else {
+      Fluttertoast.cancel();
+      return true;
+    }
+  }
+
   // current screen index
   int currentIndex = 0;
 
@@ -12,21 +26,5 @@ class BaseController extends GetxController {
     currentIndex = selectedIndex;
     notifyChildrens();
     update();
-  }
-
-  /// when the user press on the favorite button in the product
-  onFavoriteButtonPressed({required int productId}) {
-    var product =
-        DummyHelper.products.firstWhere((product) => product.id == productId);
-    if (product.isFavorite!) {
-      // remove product from favorites
-      product.isFavorite = false;
-      Get.find<FavoritesController>().getFavoriteProducts();
-    } else {
-      // add product to favorites
-      product.isFavorite = true;
-      Get.find<FavoritesController>().getFavoriteProducts();
-    }
-    update(['FavoriteButton']);
   }
 }

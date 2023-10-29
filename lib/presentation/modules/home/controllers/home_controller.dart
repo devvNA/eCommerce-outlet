@@ -1,30 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../global/utils/dummy_helper.dart';
-import '../../../../data/models/product_model.dart';
+import '../../../../domain/usecase/product_usecase.dart';
 
 class HomeController extends GetxController {
+  final listProducts = Rx([]);
+  ProductUseCase productUseCase;
+
+  HomeController({required this.productUseCase});
+
   bool tabStatus = true;
-  int? selectedIndex = 0;
+  int selectedIndex = 0;
 
   final categories = Rx([
     "Semua",
     "Perdana",
     "Voucher",
   ]);
-  List<ProductModel> products = [];
+  // List<ProductModel> products = [];
 
   @override
   void onInit() {
     super.onInit();
-    getProducts();
+    getProductsAPI();
+    // getProducts();
+  }
+
+  onRefreshProducts() {
+    listProducts.value.clear();
+    getProductsAPI();
+
+    update();
   }
 
   onChangeTab(int index) {
     selectedIndex = index;
     update();
-    debugPrint(selectedIndex.toString());
+    debugPrint("index-${selectedIndex.toString()}");
     debugPrint(categories.value[index].toString());
   }
 
@@ -35,6 +47,14 @@ class HomeController extends GetxController {
   }
 
   getProducts() {
-    products = DummyHelper.products;
+    // products = DummyHelper.products;
+  }
+
+  Future getProductsAPI() async {
+    var response = await productUseCase.getListProduct();
+    response.fold((failure) => printError(info: " Error: ${failure.message}"),
+        (products) => listProducts.value = products);
+    notifyChildrens();
+    update();
   }
 }

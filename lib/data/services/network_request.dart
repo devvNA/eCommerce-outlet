@@ -13,32 +13,32 @@ class Request {
       receiveTimeout: const Duration(seconds: 15),
     ));
     _dio.interceptors.add(PrettyDioLogger());
-    // _dio
-    //   ..interceptors.add(
-    //     LogInterceptor(
-    //       requestBody: kDebugMode ? true : false,
-    //       responseBody: kDebugMode ? true : false,
-    //       requestHeader: kDebugMode ? true : false,
-    //     ),
-    //   )
-    //   ..interceptors.add(
-    //     InterceptorsWrapper(
-    //       onError: (DioError e, handler) {
-    //         print(e.response);
-    //         if (e.response?.statusCode == 401) {
-    //           print('======== UNAUTHORIZED ========');
-    //         }
-    //         return handler.next(e);
-    //       },
-    //       onResponse: (e, handler) {
-    //         if (e.statusCode == 401) {
-    //           // _handleUnauthorized();
-    //         }
-    //         return handler.next(e);
-    //       },
-    //     ),
-    //   );
-  }
+/*     _dio
+      ..interceptors.add(
+        LogInterceptor(
+          requestBody: kDebugMode ? true : false,
+          responseBody: kDebugMode ? true : false,
+          requestHeader: kDebugMode ? true : false,
+        ),
+      )
+      ..interceptors.add(
+        InterceptorsWrapper(
+          onError: (DioError e, handler) {
+            print(e.response);
+            if (e.response?.statusCode == 401) {
+              print('======== UNAUTHORIZED ========');
+            }
+            return handler.next(e);
+          },
+          onResponse: (e, handler) {
+            if (e.statusCode == 401) {
+              // _handleUnauthorized();
+            }
+            return handler.next(e);
+          },
+        ),
+      );
+ */  }
 
   /// GET request
   Future<Response> get(String path, {JSON? queryParameters}) async {
@@ -68,25 +68,25 @@ class Request {
   }
  */
 
-//   void _initApiClient() {
-//     _dio = Dio(
-//         //   BaseOptions(
-//         //   headers: {
-//         //     // "x-api-key": apiKey,
-//         //     HttpHeaders.contentTypeHeader: "application/json",
-//         //   },
-//         //   responseType: ResponseType.json,
-//         // )
-//         );
-//     _dio.interceptors.add(PrettyDioLogger());
+  void _initApiClient() {
+    _dio = Dio(
+        //   BaseOptions(
+        //   headers: {
+        //     // "x-api-key": apiKey,
+        //     HttpHeaders.contentTypeHeader: "application/json",
+        //   },
+        //   responseType: ResponseType.json,
+        // )
+        );
+    _dio.interceptors.add(PrettyDioLogger());
 
-// /*     BaseOptions options = BaseOptions(
-//       baseUrl: baseUrl,
-//       headers: {
-//         "x-api-key": apiKey,
-//         HttpHeaders.contentTypeHeader: "application/json",
-//       },
-//       responseType: ResponseType.json,
-//     ); */
-//   }
+/*     BaseOptions options = BaseOptions(
+      baseUrl: baseUrl,
+      headers: {
+        "x-api-key": apiKey,
+        HttpHeaders.contentTypeHeader: "application/json",
+      },
+      responseType: ResponseType.json,
+    ); */
+  }
 }

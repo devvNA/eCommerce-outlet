@@ -1,15 +1,31 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-part 'products_model.freezed.dart';
-part 'products_model.g.dart';
+class Products {
+  int? id;
+  final String? nama;
+  final dynamic harga;
+  final String? deskripsi;
+  final int? stok;
 
-@freezed
-class Products with _$Products {
-  factory Products({
-    @Default(0) int id,
-    @Default('') String nama,
-    @Default(0) int harga,
-  }) = _Products;
+  Products({
+    this.id,
+    this.nama,
+    this.harga,
+    this.deskripsi,
+    this.stok,
+  });
 
-  factory Products.fromJson(Map<String, Object?> json) =>
-      _$ProductsFromJson(json);
+  factory Products.fromJson(Map<String, dynamic> json) => Products(
+        id: json["id"],
+        nama: json["nama"],
+        harga: json["harga"],
+        deskripsi: json["deskripsi"],
+        stok: json["stok"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "nama": nama,
+        "harga": harga,
+        "deskripsi": deskripsi,
+        "stok": stok,
+      };
 }
