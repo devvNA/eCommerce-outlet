@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
-import '../../data/types.dart';
-import '../failures/failure.dart';
+import '../../core/types.dart';
+import '../../core/failure.dart';
 import '../repositories/product_repository.dart';
 
 class ProductUseCase {

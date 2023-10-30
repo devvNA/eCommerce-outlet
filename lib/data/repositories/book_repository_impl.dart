@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 
-import '../../domain/failures/failure.dart';
+import '../../core/failure.dart';
 import '../../domain/repositories/book_repository.dart';
 import '../datasources/book _remote_datasources.dartbook_remote_data_source.dart';
-import '../types.dart';
+import '../../core/types.dart';
 
 
 

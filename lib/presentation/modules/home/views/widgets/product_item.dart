@@ -9,7 +9,7 @@ import 'package:marvelindo_outlet/presentation/modules/home/controllers/home_con
 
 import '../../../../../data/models/product/products_model.dart';
 import '../../../../../data/models/product_model.dart';
-import '../../../../global/utils/constants.dart';
+import '../../../../../utils/constants.dart';
 import '../../../base/controllers/base_controller.dart';
 import '../../../../routes/app_pages.dart';
 

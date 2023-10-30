@@ -1,14 +1,16 @@
 // ignore_for_file: deprecated_member_use, avoid_print
 
 import 'package:dio/dio.dart';
+import 'package:marvelindo_outlet/core/api_endpoints.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import '../types.dart';
+import 'types.dart';
 
 class Request {
   late Dio _dio = Dio();
 
   Request() {
     _dio = Dio(BaseOptions(
+      baseUrl: baseUrl,
       connectTimeout: const Duration(seconds: 15), // 30 seconds
       receiveTimeout: const Duration(seconds: 15),
     ));
@@ -41,30 +43,30 @@ class Request {
  */  }
 
   /// GET request
-  Future<Response> get(String path, {JSON? queryParameters}) async {
-    return await _dio.get(path, queryParameters: queryParameters);
+  Future<Response> get(String endpoint, {JSON? queryParameters}) async {
+    return await _dio.get(endpoint, queryParameters: queryParameters);
   }
 
   /// POST request
-  Future<Response> post(String path,
+  Future<Response> post(String endpoint,
       {Object? body, JSON? queryParameters}) async {
-    return await _dio.post(path, queryParameters: queryParameters, data: body);
+    return await _dio.post(endpoint, queryParameters: queryParameters, data: body);
   }
 
   /// DELETE request
-  Future<Response> delete(String path, {Object? body}) async {
-    return await _dio.delete(path, data: body);
+  Future<Response> delete(String endpoint, {Object? body}) async {
+    return await _dio.delete(endpoint, data: body);
   }
 
   /// PUT request
-  Future<Response> put(String path,
+  Future<Response> put(String endpoint,
       {Object? body, JSON? queryParameters}) async {
-    return await _dio.put(path, data: body, queryParameters: queryParameters);
+    return await _dio.put(endpoint, data: body, queryParameters: queryParameters);
   }
 
-/*   Future<Response> get(String path,
+/*   Future<Response> get(String endpoint,
       {JSON? queryParameters, required bool requiresAuthToken}) async {
-    return await _dio.get(path, queryParameters: queryParameters);
+    return await _dio.get(endpoint, queryParameters: queryParameters);
   }
  */
 

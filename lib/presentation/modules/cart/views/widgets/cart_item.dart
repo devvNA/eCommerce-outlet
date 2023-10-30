@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:marvelindo_outlet/presentation/global/theme/light_theme_colors.dart';
 
 import '../../../../../data/models/product_model.dart';
-import '../../../../global/utils/constants.dart';
+import '../../../../../utils/constants.dart';
 import '../../controllers/cart_controller.dart';
 
 class CartItem extends GetView<CartController> {

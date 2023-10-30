@@ -1,5 +1,5 @@
 import 'package:marvelindo_outlet/data/models/chat_model.dart';
-import 'package:marvelindo_outlet/data/types.dart';
+import 'package:marvelindo_outlet/core/types.dart';
 
 import '../../domain/repositories/chat_repository.dart';
 

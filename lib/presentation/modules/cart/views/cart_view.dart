@@ -6,7 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/presentation/global/theme/light_theme_colors.dart';
 
-import '../../../global/utils/constants.dart';
+import '../../../../utils/constants.dart';
 import '../../../global/common/no_data.dart';
 import '../../../global/common/screen_title.dart';
 import '../../../routes/app_pages.dart';

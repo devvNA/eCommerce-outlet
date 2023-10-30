@@ -1,7 +1,7 @@
 // ignore_for_file: override_on_non_overriding_member
 
 import 'package:get/get.dart';
-import 'package:marvelindo_outlet/data/services/network_request.dart';
+import 'package:marvelindo_outlet/core/network_request.dart';
 import 'package:marvelindo_outlet/presentation/modules/auth/login/controller/login_controller.dart';
 import 'package:marvelindo_outlet/presentation/modules/auth/registration/controllers/registration_controller.dart';
 import 'package:marvelindo_outlet/presentation/modules/profil/controllers/profil_controller.dart';
@@ -11,7 +11,7 @@ import '../../../data/datasources/products_remote_datasources.dart';
 import '../../../data/repositories/book_repository_impl.dart';
 import '../../../data/repositories/chat_repository_impl.dart';
 import '../../../data/repositories/product_repository_impl.dart';
-import '../../../data/services/firebase_auth_services.dart';
+import '../../../core/firebase_auth_services.dart';
 import '../../../domain/repositories/chat_repository.dart';
 import '../../../domain/usecase/book_usecase.dart';
 import '../../../domain/usecase/product_usecase.dart';

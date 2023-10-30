@@ -3,11 +3,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
-import '../../domain/failures/failure.dart';
-import '../api_endpoints.dart';
+import '../../core/failure.dart';
+import '../../core/api_endpoints.dart';
 import '../models/product/products_model.dart';
-import '../services/network_request.dart';
-import '../types.dart';
+import '../../core/network_request.dart';
+import '../../core/types.dart';
 
 abstract class ProductRemoteDataSource {
   Future<Either<Failure, ListProduct>> getListProduct();

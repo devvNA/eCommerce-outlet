@@ -1,4 +1,4 @@
-import '../../../data/models/product_model.dart';
+import '../data/models/product_model.dart';
 import 'constants.dart';
 
 class DummyHelper {

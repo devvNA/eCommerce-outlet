@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import '../../../global/common/custom_snackbar.dart';
 import '../../../global/common/screen_title.dart';
 import '../../../global/theme/light_theme_colors.dart';
-import '../../../global/utils/constants.dart';
+import '../../../../utils/constants.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/settings_controller.dart';
 import 'widgets/settings_item.dart';

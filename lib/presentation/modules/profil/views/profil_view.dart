@@ -65,7 +65,7 @@ class ProfilView extends GetView<ProfilController> {
                   ],
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(14.0),
                   child: CircleAvatar(
                     radius: 42.0,
                     backgroundImage: NetworkImage(

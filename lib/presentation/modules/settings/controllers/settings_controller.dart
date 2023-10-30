@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 
-import '../../../../data/services/firebase_auth_services.dart';
+import '../../../../core/firebase_auth_services.dart';
 import '../../../global/theme/my_theme.dart';
-import '../../../global/utils/my_shared_pref.dart';
+import '../../../../utils/my_shared_pref.dart';
 import '../../../routes/app_pages.dart';
 
 class SettingsController extends GetxController {

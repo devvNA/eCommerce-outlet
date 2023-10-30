@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-import '../../../../global/utils/constants.dart';
+import '../../../../../utils/constants.dart';
 import '../../controllers/settings_controller.dart';
 
 class SettingsItem extends StatelessWidget {

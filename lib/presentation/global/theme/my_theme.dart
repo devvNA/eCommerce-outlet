@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../utils/my_shared_pref.dart';
+import '../../../utils/my_shared_pref.dart';
 import 'dark_theme_colors.dart';
 import 'light_theme_colors.dart';
 import 'my_styles.dart';

@@ -1,7 +1,7 @@
 // ignore_for_file: unnecessary_null_comparison
 
 import 'package:get/get.dart';
-import 'package:marvelindo_outlet/data/services/firebase_auth_services.dart';
+import 'package:marvelindo_outlet/core/firebase_auth_services.dart';
 
 import '../../../routes/app_pages.dart';
 

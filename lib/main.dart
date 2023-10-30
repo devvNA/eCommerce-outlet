@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/presentation/global/dependency_injection/bindings.dart';
 
-import 'presentation/global/utils/my_shared_pref.dart';
+import 'utils/my_shared_pref.dart';
 import 'presentation/global/theme/my_theme.dart';
 import 'presentation/routes/app_pages.dart';
 
@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
                 data: MyTheme.getThemeData(isLight: themeIsLight),
                 child: MediaQuery(
                   data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-                  child: widget!,
+                  child: widget ?? const SizedBox(),
                 ),
               );
             },

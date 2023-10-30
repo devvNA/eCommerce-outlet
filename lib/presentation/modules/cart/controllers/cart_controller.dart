@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../../../global/utils/dummy_helper.dart';
+import '../../../../utils/dummy_helper.dart';
 import '../../../../data/models/product_model.dart';
 import '../../base/controllers/base_controller.dart';
 

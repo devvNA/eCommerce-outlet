@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:marvelindo_outlet/data/types.dart';
+import 'package:marvelindo_outlet/core/types.dart';
 import 'package:marvelindo_outlet/domain/usecase/book_usecase.dart';
 
 import '../../../domain/usecase/product_usecase.dart';
@@ -10,6 +10,7 @@ import '../../../domain/usecase/product_usecase.dart';
 class ApiTestController extends GetxController {
   final listProducts = Rx<ListProduct>([]);
   final listBooks = Rx<ListBook>([]);
+  Map? selectedItems;
 
   final int _limit = 5;
   int _page = 1;

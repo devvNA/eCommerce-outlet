@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:marvelindo_outlet/data/types.dart';
+import 'package:marvelindo_outlet/core/types.dart';
 
 import '../../../../data/models/product/products_model.dart';
-import '../../../global/utils/dummy_helper.dart';
+import '../../../../utils/dummy_helper.dart';
 import '../../base/controllers/base_controller.dart';
 import '../../cart/controllers/cart_controller.dart';
 
