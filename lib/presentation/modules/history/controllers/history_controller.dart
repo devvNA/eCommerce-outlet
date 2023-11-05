@@ -2,16 +2,15 @@ import 'package:get/get.dart';
 
 // controller
 class HistoryController extends GetxController {
-  RxInt selectedIndex = 0.obs;
+  RxInt selectedIndex = RxInt(0);
 
   @override
   void onInit() {
     super.onInit();
-    changeCategory(0);
-
+    changeStatus(0);
   }
 
-  void changeCategory(int index) {
+  void changeStatus(int index) {
     selectedIndex.value = index;
   }
 }

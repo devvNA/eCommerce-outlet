@@ -7,6 +7,7 @@ class ScreenTitle extends StatelessWidget {
   final double? dividerEndIndent;
   final bool? centerTitle;
   final bool? automaticallyImplyLeading;
+  final VoidCallback? onTapLeading;
 
   const ScreenTitle({
     super.key,
@@ -14,6 +15,7 @@ class ScreenTitle extends StatelessWidget {
     this.dividerEndIndent,
     this.centerTitle = false,
     this.automaticallyImplyLeading = false,
+    this.onTapLeading,
   });
 
   @override
@@ -28,10 +30,11 @@ class ScreenTitle extends StatelessWidget {
           children: [
             automaticallyImplyLeading!
                 ? IconButton(
-                    onPressed: () {},
+                    onPressed: onTapLeading,
                     icon: const Icon(
-                      Icons.add,
+                      Icons.arrow_back_ios,
                       size: 24.0,
+                      color: Colors.black,
                     ),
                   )
                 : const SizedBox(),

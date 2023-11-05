@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:marvelindo_outlet/data/models/chat_model.dart';
 
-import '../../../domain/repositories/chat_repository.dart';
+import '../../../../domain/repositories/chat_repository.dart';
 
 class ChatController extends GetxController {
   final ChatRepository _chatRepository;

@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/presentation/global/theme/light_theme_colors.dart';
+import 'package:marvelindo_outlet/utils/currency.dart';
 
 import '../../../../utils/constants.dart';
 import '../../../global/common/no_data.dart';
@@ -96,7 +97,7 @@ class CartView extends GetView<CartController> {
                             )),
                         5.verticalSpace,
                         Text(
-                          'Rp${controller.total.toStringAsFixed(0)}',
+                          CurrencyFormat.convertToIdr(controller.total, 0),
                           style: theme.textTheme.displayLarge?.copyWith(
                             fontSize: 20,
                             decoration: TextDecoration.underline,
@@ -111,6 +112,22 @@ class CartView extends GetView<CartController> {
                             ],
                           ),
                         ),
+                        // Text(
+                        //   'Rp${controller.total.toStringAsFixed(0)}',
+                        //   style: theme.textTheme.displayLarge?.copyWith(
+                        //     fontSize: 20,
+                        //     decoration: TextDecoration.underline,
+                        //     decorationColor:
+                        //         theme.primaryColor.withOpacity(0.5),
+                        //     decorationThickness: 1,
+                        //     color: Colors.transparent,
+                        //     shadows: [
+                        //       Shadow(
+                        //           color: theme.textTheme.displayLarge!.color!,
+                        //           offset: const Offset(0, -5)),
+                        //     ],
+                        //   ),
+                        // ),
                       ],
                     ),
                   ],

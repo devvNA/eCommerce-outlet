@@ -1,24 +1,30 @@
-class Products {
-  int? id;
+class Produk {
+  final int? id;
   final String? nama;
-  final dynamic harga;
+  final double? harga;
   final String? deskripsi;
+  final String? kategori;
   final int? stok;
+  final String? image;
 
-  Products({
+  Produk({
     this.id,
     this.nama,
     this.harga,
     this.deskripsi,
-    this.stok,
+    this.kategori,
+    this.stok = 0,
+    this.image,
   });
 
-  factory Products.fromJson(Map<String, dynamic> json) => Products(
+  factory Produk.fromJson(Map<String, dynamic> json) => Produk(
         id: json["id"],
         nama: json["nama"],
-        harga: json["harga"],
+        harga: json["harga"]?.toDouble(),
         deskripsi: json["deskripsi"],
+        kategori: json["kategori"],
         stok: json["stok"],
+        image: json["image"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -26,6 +32,8 @@ class Products {
         "nama": nama,
         "harga": harga,
         "deskripsi": deskripsi,
+        "kategori": kategori,
         "stok": stok,
+        "image": image,
       };
 }

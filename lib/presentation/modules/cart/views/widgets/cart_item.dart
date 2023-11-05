@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/presentation/global/theme/light_theme_colors.dart';
+import 'package:marvelindo_outlet/utils/currency.dart';
 
 import '../../../../../data/models/product_model.dart';
 import '../../../../../utils/constants.dart';
@@ -12,6 +13,7 @@ import '../../controllers/cart_controller.dart';
 
 class CartItem extends GetView<CartController> {
   final ProductModel product;
+  // final Produk produk;
   const CartItem({
     super.key,
     required this.product,
@@ -43,7 +45,7 @@ class CartItem extends GetView<CartController> {
                 left: 0,
                 right: 0,
                 child: Image.asset(
-                  "assets/images/product1.jpg",
+                  "assets/images/product3.jpg",
                   width: 100.0,
                   height: 100.0,
                   fit: BoxFit.cover,
@@ -63,11 +65,23 @@ class CartItem extends GetView<CartController> {
               overflow: TextOverflow.ellipsis,
             ),
             5.verticalSpace,
-            Text('Jenis:',
-                style: theme.textTheme.bodyMedium?.copyWith(fontSize: 12.sp)),
+            RichText(
+              text: TextSpan(
+                style: DefaultTextStyle.of(context).style,
+                children: <TextSpan>[
+                  const TextSpan(
+                    text: 'Jenis: ',
+                  ),
+                  TextSpan(
+                      text: 'Perdana',
+                      style:
+                          theme.textTheme.bodyLarge?.copyWith(fontSize: 12.sp)),
+                ],
+              ),
+            ),
             5.verticalSpace,
             Text(
-              'Rp${product.price}',
+              CurrencyFormat.convertToIdr(product.price, 0),
               style: theme.textTheme.displayLarge
                   ?.copyWith(fontSize: 14.sp, fontWeight: FontWeight.w300),
             ),
@@ -115,7 +129,7 @@ class CartItem extends GetView<CartController> {
                         filled: true,
                         fillColor: Colors.grey[150],
                       ),
-                      onChanged: (value) async {
+                      onFieldSubmitted: (value) async {
                         await Future.delayed(const Duration(milliseconds: 300));
                         controller.onInputQuantity(
                             product.id!, int.parse(value));
@@ -134,7 +148,46 @@ class CartItem extends GetView<CartController> {
         ),
         const Spacer(),
         InkWell(
-          onTap: () => controller.onDeletePressed(product.id!),
+          onTap: () async {
+            await showDialog<void>(
+              context: context,
+              barrierDismissible: true,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text('Konfirmasi'),
+                  content: const SingleChildScrollView(
+                    child: ListBody(
+                      children: <Widget>[
+                        Text('Hapus produk dari keranjang?'),
+                      ],
+                    ),
+                  ),
+                  actions: <Widget>[
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        foregroundColor: LightThemeColors.primaryColor,
+                        side: const BorderSide(
+                          color: LightThemeColors.primaryColor,
+                        ),
+                      ),
+                      onPressed: () {
+                        Get.back();
+                      },
+                      child: const Text("Tidak"),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        controller.onDeletePressed(product.id!);
+                        Get.back();
+                      },
+                      child: const Text("Ya"),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
           customBorder: const CircleBorder(),
           child: Container(
             padding: EdgeInsets.all(10.r),

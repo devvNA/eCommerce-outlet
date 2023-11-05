@@ -4,5 +4,6 @@ import '../../core/types.dart';
 import '../../core/failure.dart';
 
 abstract class ProductRepository {
-  Future<Either<Failure, ListProduct>> getListProduct();
+  Future<Either<Failure, ListProduk>> getListProduct();
+  Future<Either<Failure, ListProduk>> getListProductByCategory(String kategori);
 }

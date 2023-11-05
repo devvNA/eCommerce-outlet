@@ -11,6 +11,11 @@ class ProductRepositoryImpl implements ProductRepository {
   ProductRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<Either<Failure, ListProduct>> getListProduct() async =>
+  Future<Either<Failure, ListProduk>> getListProduct() async =>
       await remoteDataSource.getListProduct();
+
+  @override
+  Future<Either<Failure, ListProduk>> getListProductByCategory(
+          String kategori) async =>
+      await remoteDataSource.getListProductByCategory(kategori);
 }

@@ -52,7 +52,7 @@ class ProfilView extends GetView<ProfilController> {
                 height: 10,
               ),
               Container(
-                margin: const EdgeInsets.only(bottom: 12.0),
+                margin: const EdgeInsets.only(bottom: 8.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(124 / 2),
                   color: Colors.white,
@@ -65,9 +65,9 @@ class ProfilView extends GetView<ProfilController> {
                   ],
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(14.0),
+                  padding: const EdgeInsets.all(5.0),
                   child: CircleAvatar(
-                    radius: 42.0,
+                    radius: 30.0,
                     backgroundImage: NetworkImage(
                       "${controller.getDisplayProfile()}",
                     ),

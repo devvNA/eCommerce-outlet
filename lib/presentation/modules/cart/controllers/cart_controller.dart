@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
 
 import '../../../../utils/dummy_helper.dart';
-import '../../../../data/models/product_model.dart';
 import '../../base/controllers/base_controller.dart';
 
 class CartController extends GetxController {
   // to hold the products in cart
-  List<ProductModel> products = [];
+  List products = [];
+  // RxList<ProductModel> products = RxList<ProductModel>([]);
 
   // to hold the total price of the cart products
   num total = 0.0;
@@ -17,7 +17,15 @@ class CartController extends GetxController {
     super.onInit();
   }
 
-  /// when the user press on purchase now button
+  // get the cart products from the product list
+  getCartProducts() {
+    products = DummyHelper.products.where((p) => p.quantity! > 0).toList();
+    // calculate the total price
+    total = products.fold<double>(0, (p, c) => p + c.price! * c.quantity!);
+    update();
+  }
+
+  //when the user press on purchase now button
   onPurchaseNowPressed() {
     // ambil list semua produk
     var allProducts = DummyHelper.products;
@@ -48,10 +56,9 @@ class CartController extends GetxController {
     products.clear();
     getCartProducts();
     update();
-    
   }
 
-  /// when the user press on increase button
+  // when the user press on increase button
   onIncreasePressed(int productId) {
     var product = DummyHelper.products.firstWhere((p) => p.id == productId);
     product.quantity = product.quantity! + 1;
@@ -59,7 +66,7 @@ class CartController extends GetxController {
     update(['ProductQuantity']);
   }
 
-  /// when the user press on decrease button
+  //  when the user press on decrease button
   onDecreasePressed(int productId) {
     var product = DummyHelper.products.firstWhere((p) => p.id == productId);
     if (product.quantity != 0) {
@@ -82,14 +89,6 @@ class CartController extends GetxController {
     product.quantity = 0;
     getCartProducts();
     update(['ProductQuantity']);
-  }
-
-  /// get the cart products from the product list
-  getCartProducts() {
-    products = DummyHelper.products.where((p) => p.quantity! > 0).toList();
-    // calculate the total price
-    total = products.fold<double>(0, (p, c) => p + c.price! * c.quantity!);
-    update();
   }
 
   onEmptyCartPressed() {

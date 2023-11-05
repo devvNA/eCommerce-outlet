@@ -11,7 +11,12 @@ class ProductUseCase {
     required this.repository,
   });
 
-  Future<Either<Failure, ListProduct>> getListProduct() async {
+  Future<Either<Failure, ListProduk>> getListProduct() async {
     return await repository.getListProduct();
+  }
+
+  Future<Either<Failure, ListProduk>> getListProductByCategory(
+      String kategori) async {
+    return await repository.getListProductByCategory(kategori);
   }
 }

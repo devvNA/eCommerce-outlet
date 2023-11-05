@@ -31,7 +31,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                     height: 400.h,
                     decoration: BoxDecoration(
                       image: const DecorationImage(
-                        image: AssetImage(Constants.product1),
+                        image: AssetImage(Constants.product4),
                         fit: BoxFit.cover,
                       ),
                       borderRadius: BorderRadius.only(
@@ -88,7 +88,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                 child: Row(
                   children: [
                     Text(
-                      'Rp${controller.product.harga}',
+                      'Rp ${controller.product.harga}',
                       style: theme.textTheme.displayMedium,
                     ),
                   ],
@@ -194,7 +194,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 12, right: 22),
                   child: Text.rich(TextSpan(
-                      text:
+                      text: controller.product.deskripsi ??
                           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
                       style: theme.textTheme.bodyMedium,
                       children: const <InlineSpan>[

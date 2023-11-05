@@ -36,4 +36,5 @@ class LightThemeColors {
 
   // progress bar indicator
   static const Color progressIndicatorColor = Color(0xFF40DF9F);
+  static const Color error = Color(0xFFEE2D24);
 }

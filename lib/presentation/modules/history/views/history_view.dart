@@ -3,10 +3,11 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:marvelindo_outlet/presentation/global/common/error_state_widget.dart';
+import 'package:marvelindo_outlet/presentation/global/theme/light_theme_colors.dart';
 
 import '../../../global/common/screen_title.dart';
 import '../controllers/history_controller.dart';
-import 'widgets/history_category.dart';
 import 'widgets/history_item.dart';
 
 class HistoryView extends GetView<HistoryController> {
@@ -15,32 +16,94 @@ class HistoryView extends GetView<HistoryController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        shrinkWrap: false,
-        clipBehavior: Clip.antiAlias,
-        physics: const AlwaysScrollableScrollPhysics(),
-        padding: const EdgeInsets.all(16),
-        children: [
-          15.verticalSpace,
-          const ScreenTitle(
-            title: 'History Pesanan',
-            dividerEndIndent: 150,
-          ),
-          const HorizontalCategoriesView(),
-          15.verticalSpace,
-          ListView.builder(
-            itemCount: 5,
-            itemBuilder: (context, index) =>
-                const HistoryItem().animate().fade().slideY(
-                      duration: const Duration(milliseconds: 300),
-                      begin: 1,
-                      curve: Curves.easeInSine,
-                    ),
-            shrinkWrap: true,
-            primary: false,
-          ),
-        ],
-      ),
+      body: GetBuilder<HistoryController>(builder: (_) {
+        return Column(
+          children: [
+            15.verticalSpace,
+            const Padding(
+              padding: EdgeInsets.only(top: 16, left: 16, right: 16),
+              child: ScreenTitle(
+                title: 'History Pesanan',
+                dividerEndIndent: 150,
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: DefaultTabController(
+                    length: 3,
+                    initialIndex: controller.selectedIndex.value,
+                    child: Column(
+                      children: [
+                        TabBar(
+                          automaticIndicatorColorAdjustment: true,
+                          onTap: (value) {
+                            controller.selectedIndex.value = value;
+                            debugPrint(
+                                "index : ${controller.selectedIndex.value.toString()}");
+                          },
+                          labelStyle:
+                              context.theme.textTheme.displayLarge?.copyWith(
+                            fontSize: 15.sp,
+                          ),
+                          indicator: const UnderlineTabIndicator(
+                            insets: EdgeInsets.symmetric(horizontal: 15.0),
+                            borderSide: BorderSide(
+                                color: LightThemeColors.primaryColor,
+                                width: 2.5),
+                          ),
+                          labelColor: LightThemeColors.primaryColor,
+                          labelPadding: const EdgeInsets.symmetric(
+                            horizontal: 26,
+                            vertical: 12,
+                          ),
+                          unselectedLabelColor: const Color(0xFFA3A3A3),
+                          tabs: const [
+                            Text("Proses"),
+                            Text("Selesai"),
+                            Text("Dibatalkan"),
+                          ],
+                          isScrollable: true,
+                        ),
+                        10.verticalSpace,
+                        Expanded(
+                            child: Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: TabBarView(
+                              clipBehavior: Clip.hardEdge,
+                              physics: const NeverScrollableScrollPhysics(),
+                              children: [
+                                // TAB 1
+                                ListView.builder(
+                                  itemCount: 3,
+                                  itemBuilder: (context, index) =>
+                                      const HistoryItem()
+                                          .animate()
+                                          .fade()
+                                          .slideY(
+                                            duration: const Duration(
+                                                milliseconds: 300),
+                                            begin: 1,
+                                            curve: Curves.easeInSine,
+                                          ),
+                                ),
+
+                                // TAB 2
+                                const ErrorStateWidget(
+                                    message: "Belum ada history"),
+
+                                // TAB 3
+                                const ErrorStateWidget(
+                                    message: "Belum ada history"),
+                              ]),
+                        )),
+                      ],
+                    )),
+              ),
+            ),
+          ],
+        );
+      }),
     );
   }
 }

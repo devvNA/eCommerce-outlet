@@ -22,22 +22,22 @@ class BaseView extends GetView<BaseController> {
   Widget build(BuildContext context) {
     var theme = context.theme;
 
-    return WillPopScope(
-      onWillPop: () async {
-        return controller.onBack();
-      },
-      child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        floatingActionButton: chatApp(
-          onPressed: () async {
-            _showBottom(context);
-          },
-        ),
-        body: GetBuilder<BaseController>(builder: (context) {
-          return SafeArea(
-            bottom: false,
+    return GetBuilder<BaseController>(builder: (_) {
+      return WillPopScope(
+        onWillPop: () async {
+          return controller.onBack();
+        },
+        child: Scaffold(
+          resizeToAvoidBottomInset: true,
+          floatingActionButton: chatApp(
+            onPressed: () async {
+              _showBottomChat(context);
+            },
+          ),
+          body: SafeArea(
             child: IndexedStack(
-              index: controller.currentIndex,
+              clipBehavior: Clip.hardEdge,
+              index: controller.currentIndex.value,
               children: const [
                 HomeView(),
                 CartView(),
@@ -45,59 +45,59 @@ class BaseView extends GetView<BaseController> {
                 SettingsView(),
               ],
             ),
-          );
-        }),
-        bottomNavigationBar: Container(
-          padding: EdgeInsets.only(top: 10.h, bottom: 15.h),
-          decoration: BoxDecoration(
-            color: theme.scaffoldBackgroundColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(25.r),
-              topRight: Radius.circular(25.r),
-            ),
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.black38,
-                spreadRadius: 0,
-                blurRadius: 10,
-              ),
-            ],
           ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(25.r),
-              topRight: Radius.circular(25.r),
-            ),
-            child: BottomNavigationBar(
-              currentIndex: controller.currentIndex,
-              type: BottomNavigationBarType.fixed,
-              backgroundColor: theme.scaffoldBackgroundColor,
-              showSelectedLabels: false,
-              showUnselectedLabels: false,
-              items: [
-                _mBottomNavItem(
-                  label: 'Home',
-                  icon: Constants.homeIcon,
-                ),
-                _mBottomNavItem(
-                  label: 'Cart',
-                  icon: Constants.cartIcon,
-                ),
-                _mBottomNavItem(
-                  label: 'Notifications',
-                  icon: Constants.historyIcon,
-                ),
-                _mBottomNavItem(
-                  label: 'Settings',
-                  icon: Constants.settingsIcon,
+          bottomNavigationBar: Container(
+            padding: EdgeInsets.only(top: 10.h, bottom: 15.h),
+            decoration: BoxDecoration(
+              color: theme.scaffoldBackgroundColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(25.r),
+                topRight: Radius.circular(25.r),
+              ),
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black38,
+                  spreadRadius: 0,
+                  blurRadius: 20,
                 ),
               ],
-              onTap: controller.changeScreen,
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(25.r),
+                topRight: Radius.circular(25.r),
+              ),
+              child: BottomNavigationBar(
+                currentIndex: controller.currentIndex.value,
+                type: BottomNavigationBarType.fixed,
+                backgroundColor: theme.scaffoldBackgroundColor,
+                showSelectedLabels: false,
+                showUnselectedLabels: false,
+                items: [
+                  _mBottomNavItem(
+                    label: 'Home',
+                    icon: Constants.homeIcon,
+                  ),
+                  _mBottomNavItem(
+                    label: 'Cart',
+                    icon: Constants.cartIcon,
+                  ),
+                  _mBottomNavItem(
+                    label: 'Notifications',
+                    icon: Constants.historyIcon,
+                  ),
+                  _mBottomNavItem(
+                    label: 'Settings',
+                    icon: Constants.settingsIcon,
+                  ),
+                ],
+                onTap: controller.changeScreen,
+              ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   _mBottomNavItem({required String label, required String icon}) {
@@ -129,7 +129,7 @@ Widget chatApp({required VoidCallback onPressed}) {
   );
 }
 
-void _showBottom(context) {
+void _showBottomChat(context) {
   showModalBottomSheet(
       context: context,
       builder: (context) {

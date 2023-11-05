@@ -1,6 +1,7 @@
 // MARVELINDO
-const baseUrl = 'http://scm8.satriatech.com';
-const listProducts = "/api/admin/listproduk/1";
+const baseUrl = 'http://scm8.satriatech.com/api/admin';
+const listProducts = "/listproduk/1";
+const listProductsByCategory = "/detailprodukbyjenisbarang/";
 
 // ======================================================================== //
 

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/presentation/global/theme/light_theme_colors.dart';
 
-import 'chat_controller.dart';
+import '../controllers/chat_controller.dart';
 import 'widgets/input_chat_widget.dart';
 
 class ChatView extends GetView<ChatController> {
@@ -16,7 +16,7 @@ class ChatView extends GetView<ChatController> {
     if (kDebugMode) {
       print('controller.messages: ${controller.messages.length}');
     }
-    return GetBuilder<ChatController>(builder: (controller) {
+    return GetBuilder<ChatController>(builder: (_) {
       return Scaffold(
         backgroundColor: Colors.grey[100],
         appBar: _buildAppBar(context),

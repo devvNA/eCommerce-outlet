@@ -6,15 +6,12 @@ import '../../../../utils/my_shared_pref.dart';
 import '../../../routes/app_pages.dart';
 
 class SettingsController extends GetxController {
-  final FirebaseAuthService firebaseAuthService;
+  FirebaseAuthService firebaseAuthService;
 
   SettingsController({required this.firebaseAuthService});
 
-
-  // get is light theme from shared pref
+  //get is light theme from shared pref
   var isLightTheme = MySharedPref.getThemeIsLight();
-
-  /// change the system theme
   changeTheme(bool value) {
     MyTheme.changeTheme();
     isLightTheme = MySharedPref.getThemeIsLight();

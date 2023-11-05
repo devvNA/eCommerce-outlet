@@ -101,7 +101,9 @@ class SettingsView extends GetView<SettingsController> {
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(),
                           onPressed: () {
-                            controller.signOut();
+                            controller
+                                .signOut()
+                                .then((value) => controller.dispose());
                           },
                           child: const Text("Ya"),
                         ),
@@ -109,7 +111,6 @@ class SettingsView extends GetView<SettingsController> {
                     ).animate().fade();
                   },
                 );
-                controller.dispose();
               },
               title: 'Keluar',
               icon: Constants.logoutIcon,
