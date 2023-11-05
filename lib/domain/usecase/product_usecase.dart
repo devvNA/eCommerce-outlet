@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
-import '../../core/types.dart';
 import '../../core/failure.dart';
+import '../../data/models/product/produk_model.dart';
 import '../repositories/product_repository.dart';
 
 class ProductUseCase {
@@ -11,11 +11,11 @@ class ProductUseCase {
     required this.repository,
   });
 
-  Future<Either<Failure, ListProduk>> getListProduct() async {
+  Future<Either<Failure, List<Produk>>> getListProduct() async {
     return await repository.getListProduct();
   }
 
-  Future<Either<Failure, ListProduk>> getListProductByCategory(
+  Future<Either<Failure, List<Produk>>> getListProductByCategory(
       String kategori) async {
     return await repository.getListProductByCategory(kategori);
   }

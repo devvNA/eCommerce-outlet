@@ -7,16 +7,17 @@ import 'package:marvelindo_outlet/data/datasources/products_remote_datasources.d
 import 'package:marvelindo_outlet/data/repositories/product_repository_impl.dart';
 import 'package:marvelindo_outlet/domain/usecase/product_usecase.dart';
 
-import '../../../../core/types.dart';
+import '../../../../data/models/product/produk_model.dart';
 
 class HomeController extends GetxController {
-  Rx<ListProduk> listProducts = Rx<ListProduk>([]);
-  RxBool loading = RxBool(false);
-  RxInt selectedIndex = RxInt(0);
-  Rx<ListProduk> searchList = Rx<ListProduk>([]);
+  var listProducts = <Produk>[].obs;
+  var loading = false.obs;
+  var selectedIndex = 0.obs;
+  var searchList = <Produk>[].obs;
+  var search = ''.obs;
 
   final categories =
-      RxList(["semua", "perdana", "voucher", "unlimited", "paket data"]);
+      ["semua", "perdana", "voucher", "unlimited", "paket data"].obs;
 
   @override
   void onInit() {
@@ -26,6 +27,7 @@ class HomeController extends GetxController {
 
   void onRefreshProducts() {
     listProducts.value.clear();
+    onSearchProduct('barang');
     if (selectedIndex.value == 0) {
       getAllProductsAPI();
     } else {
@@ -67,7 +69,7 @@ class HomeController extends GetxController {
     update();
   }
 
-  void onSearchProduct(String text) {
+  Future<void> onSearchProduct(String text) async {
     loading(true);
     searchList.value.clear();
     if (text.isEmpty) {

@@ -1,6 +1,7 @@
 // ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables, unrelated_type_equality_checks
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import '../../../../global/common/custom_snackbar.dart';
 import '../../../../global/theme/light_theme_colors.dart';
@@ -87,8 +88,9 @@ class LoginView extends GetView<LoginController> {
                                   height: 25,
                                   width: 25,
                                   child: CircularProgressIndicator(
-                                    strokeWidth: 3,
+                                    strokeWidth: 2.5,
                                     backgroundColor: Colors.white,
+                                    color: LightThemeColors.primaryColor,
                                   ),
                                 )
                               : const Text(
@@ -106,7 +108,7 @@ class LoginView extends GetView<LoginController> {
                             Expanded(
                               child: Divider(
                                 color: Colors.grey[350],
-                                thickness: 1,
+                                thickness: 1.5,
                               ),
                             ),
                             const Text("\t atau lanjutkan dengan \t",
@@ -117,7 +119,7 @@ class LoginView extends GetView<LoginController> {
                             Expanded(
                               child: Divider(
                                 color: Colors.grey[350],
-                                thickness: 1,
+                                thickness: 1.5,
                               ),
                             ),
                           ],
@@ -129,40 +131,40 @@ class LoginView extends GetView<LoginController> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.grey[100],
-                                elevation: 2,
-                                shape: const StadiumBorder(),
-                              ),
-                              onPressed: () {
-                                try {
-                                  controller.onGoogleSignIn();
-                                } on Exception catch (err) {
-                                  debugPrint(err.toString());
-                                }
-                              },
-                              child: controller.isGoogleTap
-                                  ? const SizedBox(
-                                      height: 25,
-                                      width: 25,
-                                      child: CircularProgressIndicator(
-                                        strokeWidth: 3,
-                                        backgroundColor: Colors.white,
-                                      ),
-                                    )
-                                  : Image.asset(
-                                      "assets/icons/google-icon.png",
-                                      width: 30,
-                                    ),
-                            ),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.grey[50],
+                                  elevation: 1.5,
+                                  shape: const StadiumBorder(),
+                                ),
+                                onPressed: () {
+                                  try {
+                                    controller.onGoogleSignIn();
+                                  } on Exception catch (err) {
+                                    debugPrint(err.toString());
+                                  }
+                                },
+                                child: controller.isGoogleTap
+                                    ? SizedBox(
+                                        height: 24,
+                                        width: 24,
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 2.5,
+                                          backgroundColor: Colors.grey[50],
+                                        ),
+                                      )
+                                    : SvgPicture.asset(
+                                        "assets/icons/google-icon.svg",
+                                        width: 28,
+                                      )),
                             const SizedBox(
                               width: 15.0,
                             ),
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.grey[100],
-                                elevation: 2,
-                                shape: const StadiumBorder(),
+                                backgroundColor: Colors.grey[50],
+                                elevation: 1.5,
+                                shape:
+                                    const StadiumBorder(side: BorderSide.none),
                               ),
                               onPressed: () async {
                                 // await controller.onFacebookSignIn();
@@ -170,7 +172,8 @@ class LoginView extends GetView<LoginController> {
                               },
                               child: Image.asset(
                                 "assets/icons/facebook-icon.png",
-                                width: 30.0,
+                                width: 28.0,
+                                filterQuality: FilterQuality.low,
                               ),
                             ),
                           ],
@@ -178,23 +181,23 @@ class LoginView extends GetView<LoginController> {
                         const SizedBox(
                           height: 8.0,
                         ),
-                        OutlinedButton(
-                          style: OutlinedButton.styleFrom(
-                            elevation: 2,
-                            backgroundColor: Colors.blue,
-                            foregroundColor: Colors.white,
-                            side: const BorderSide(
-                              color: Colors.black,
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                          onPressed: () {
-                            Get.toNamed(Routes.API_TEST);
-                          },
-                          child: const Text("TEST"),
-                        ),
+                        // OutlinedButton(
+                        //   style: OutlinedButton.styleFrom(
+                        //     elevation: 2,
+                        //     backgroundColor: Colors.blue,
+                        //     foregroundColor: Colors.white,
+                        //     side: const BorderSide(
+                        //       color: Colors.black,
+                        //     ),
+                        //     shape: RoundedRectangleBorder(
+                        //       borderRadius: BorderRadius.circular(12),
+                        //     ),
+                        //   ),
+                        //   onPressed: () {
+                        //     Get.toNamed(Routes.API_TEST);
+                        //   },
+                        //   child: const Text("TEST"),
+                        // ),
                         const SizedBox(height: 16.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,

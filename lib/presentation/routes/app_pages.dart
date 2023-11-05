@@ -46,7 +46,7 @@ class AppPages {
         binding: AppBindings()),
     GetPage(
         name: _Paths.HOME,
-        page: () => const HomeView(),
+        page: () =>  const HomeView(),
         transition: Transition.cupertino,
         transitionDuration: const Duration(seconds: 1),
         binding: AppBindings()),
@@ -83,7 +83,7 @@ class AppPages {
         binding: AppBindings()),
     GetPage(
         name: _Paths.API_TEST,
-        page: () => ApiTestPage(),
+        page: () => const ApiTestPage(),
         binding: AppBindings()),
     GetPage(
         name: _Paths.DETAIL_API,

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 import '../../../../../global/theme/light_theme_colors.dart';
 
-
 class FormFieldLogin extends StatelessWidget {
   final String hinText;
   final String value;
@@ -36,7 +35,7 @@ class FormFieldLogin extends StatelessWidget {
         contentPadding: const EdgeInsets.symmetric(horizontal: 0),
         prefixIconColor: LightThemeColors.primaryColor,
         suffixIconColor: LightThemeColors.primaryColor,
-        fillColor: Colors.grey[100],
+        fillColor: Colors.grey[80],
         filled: true,
         border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(30)),

@@ -15,9 +15,9 @@ class HistoryView extends GetView<HistoryController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: GetBuilder<HistoryController>(builder: (_) {
-        return Column(
+    return Obx(() {
+      return Scaffold(
+        body: Column(
           children: [
             15.verticalSpace,
             const Padding(
@@ -89,8 +89,13 @@ class HistoryView extends GetView<HistoryController> {
                                 ),
 
                                 // TAB 2
-                                const ErrorStateWidget(
-                                    message: "Belum ada history"),
+                                const Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ErrorStateWidget(
+                                        message: "Belum ada history"),
+                                  ],
+                                ),
 
                                 // TAB 3
                                 const ErrorStateWidget(
@@ -102,8 +107,8 @@ class HistoryView extends GetView<HistoryController> {
               ),
             ),
           ],
-        );
-      }),
-    );
+        ),
+      );
+    });
   }
 }

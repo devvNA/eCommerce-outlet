@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../routes/app_pages.dart';
 import '../../base/controllers/base_controller.dart';
 import '../../cart/controllers/cart_controller.dart';
 
@@ -26,33 +25,16 @@ class CheckoutController extends GetxController {
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    selectedPayment = null;
-    isButtonActive.value = false;
-    debugPrint(selectedPayment);
-    debugPrint(selectedPayment);
-    debugPrint(isButtonActive.value.toString());
-
-    update();
-    super.onClose();
-  }
-
-  onBack() {
-    final difference = DateTime.now().difference(timeBackPressed);
-    final isExitWarning = difference >= const Duration(milliseconds: 500);
-    timeBackPressed = DateTime.now();
-    if (isExitWarning) {
-      Get.find<BaseController>().changeScreen(1);
-      onClose();
-      return Get.offNamed(Routes.BASE);
-    }
-  }
+  // onBack() {
+  //   final difference = DateTime.now().difference(timeBackPressed);
+  //   final isExitWarning = difference >= const Duration(milliseconds: 500);
+  //   timeBackPressed = DateTime.now();
+  //   if (isExitWarning) {
+  //     Get.find<BaseController>().changeScreen(1);
+  //     onClose();
+  //     return Get.offNamed(Routes.BASE);
+  //   }
+  // }
 
   onSelectedPayment(String newPayment) {
     selectedPayment = newPayment;
@@ -65,10 +47,11 @@ class CheckoutController extends GetxController {
   onTapOrder() async {
     await Future.delayed(const Duration(milliseconds: 1200))
         .then((value) => Get.back());
+    selectedPayment = null;
+    isButtonActive.value = false;
     Get.find<CartController>().onPurchaseNowPressed();
-    onClose();
+    Get.back();
     Get.find<BaseController>().changeScreen(2);
-    Get.offNamed(Routes.BASE);
     update();
   }
 }

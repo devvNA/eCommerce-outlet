@@ -151,7 +151,7 @@ class CartView extends GetView<CartController> {
                       elevation: 1,
                     ),
                     onPressed: () {
-                      Get.toNamed(Routes.CHECKOUT);
+                      Get.toNamed(Routes.CHECKOUT, arguments: controller);
                     },
                     child: const Text("Checkout"),
                   ),

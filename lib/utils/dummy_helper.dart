@@ -21,7 +21,7 @@ class DummyHelper {
         description: ""),
     ProductModel(
         id: 3,
-        image: Constants.product3,
+        image: Constants.product2,
         name: 'The Luxe Sweater',
         stock: 100,
         quantity: 0,
@@ -29,7 +29,7 @@ class DummyHelper {
         description: ""),
     ProductModel(
         id: 4,
-        image: Constants.product4,
+        image: Constants.product2,
         name: 'The Statement Top',
         stock: 100,
         quantity: 0,
@@ -37,7 +37,7 @@ class DummyHelper {
         description: ""),
     ProductModel(
         id: 5,
-        image: Constants.product5,
+        image: Constants.product1,
         name: 'The Casual Tank',
         stock: 100,
         quantity: 0,

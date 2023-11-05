@@ -41,43 +41,6 @@
           ]
         }
       }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:13847937403:android:3ccacda17d83a5a9e4fdde",
-        "android_client_info": {
-          "package_name": "id.edspert.elearning"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "13847937403-dorn9o4hb5jjq22rmidujq1sm1l69bdp.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "id.edspert.elearning",
-            "certificate_hash": "cdbad13c7cbedbe5b0418b50a131dcbcae7f8acc"
-          }
-        },
-        {
-          "client_id": "13847937403-dqe9uul7ef8qj589gs1h54f06u277te0.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBvKSurJhdzM95zptDG9i_UjZ33qhoQWDw"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "13847937403-als40k0rk1olbk7f9psdqqf0et5794qv.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
     }
   ],
   "configuration_version": "1"

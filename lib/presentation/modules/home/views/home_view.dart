@@ -15,7 +15,7 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<HomeController>(builder: (_) {
+    return Obx(() {
       return Scaffold(
           extendBody: true,
           body: Padding(
@@ -32,11 +32,11 @@ class HomeView extends GetView<HomeController> {
                 _buildCategory(),
                 10.verticalSpace,
                 Expanded(
-                  child: GetBuilder<HomeController>(builder: (_) {
+                  child: Obx(() {
                     if (controller.loading.value) {
                       return const Center(child: CircularProgressIndicator());
                     }
-                    if (controller.listProducts.value.isEmpty) {
+                    if (controller.listProducts.isEmpty) {
                       return const Center(
                           child: ErrorStateWidget(
                               message: "Produk tidak ditemukan"));
@@ -57,9 +57,9 @@ class HomeView extends GetView<HomeController> {
                                   crossAxisCount: 2,
                                   crossAxisSpacing: 15,
                                   mainAxisExtent: 200),
-                          itemCount: controller.listProducts.value.length,
+                          itemCount: controller.listProducts.length,
                           itemBuilder: (context, index) => ProductItem(
-                            product: controller.listProducts.value[index],
+                            product: controller.listProducts[index],
                           ),
                         ),
                       ),
@@ -93,9 +93,7 @@ class HomeView extends GetView<HomeController> {
           const SizedBox(width: 8.0),
           Expanded(
             child: TextField(
-              onChanged: (value) {
-                controller.onSearchProduct(value);
-              },
+              onChanged: (value) {},
               style: Get.textTheme.bodyMedium,
               cursorColor: LightThemeColors.primaryColor,
               decoration: const InputDecoration(
@@ -117,87 +115,46 @@ class HomeView extends GetView<HomeController> {
         itemCount: controller.categories.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          return Row(
-            children: [
-              ElevatedButton(
-                autofocus: true,
-                clipBehavior: Clip.hardEdge,
-                style: ElevatedButton.styleFrom(
-                  elevation: 0.3,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                  backgroundColor: controller.selectedIndex.value == index
-                      ? LightThemeColors.primaryColor
-                      : Get.theme.scaffoldBackgroundColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(32),
+          return Obx(() {
+            return Row(
+              children: [
+                ElevatedButton(
+                  autofocus: true,
+                  clipBehavior: Clip.hardEdge,
+                  style: ElevatedButton.styleFrom(
+                    elevation: 0.0,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    backgroundColor: controller.selectedIndex.value == index
+                        ? LightThemeColors.primaryColor
+                        : Get.theme.scaffoldBackgroundColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(32),
+                    ),
+                    side: const BorderSide(
+                        color: LightThemeColors.primaryColor, width: 1),
                   ),
-                  side: const BorderSide(
-                      color: LightThemeColors.primaryColor, width: 1),
-                ),
-                onPressed: () {
-                  controller.onChangeCategory(index);
-                },
-                child: Text(
-                  controller.categories[index],
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                    color: controller.selectedIndex.value == index
-                        ? Colors.white
-                        : LightThemeColors.primaryColor,
+                  onPressed: () {
+                    controller.onChangeCategory(index);
+                  },
+                  child: Text(
+                    controller.categories[index],
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: controller.selectedIndex.value == index
+                          ? Colors.white
+                          : LightThemeColors.primaryColor,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                width: 8.0,
-              ),
-            ],
-          );
+                const SizedBox(
+                  width: 8.0,
+                ),
+              ],
+            );
+          });
         },
-      ),
-    );
-  }
-}
-
-class SearchProduct extends StatelessWidget {
-  const SearchProduct({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey[100],
-        borderRadius: BorderRadius.circular(30.0),
-        boxShadow: const [
-          BoxShadow(
-            color: Color.fromARGB(255, 207, 202, 202),
-            blurRadius: 2,
-          ),
-        ],
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-      child: Row(
-        children: [
-          const Icon(
-            Icons.search,
-          ),
-          const SizedBox(width: 8.0),
-          Expanded(
-            child: TextField(
-              onChanged: (value) {},
-              style: Get.textTheme.bodyMedium,
-              cursorColor: LightThemeColors.primaryColor,
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-                hintText: 'cari produk',
-              ),
-            ),
-          ),
-          const SizedBox(width: 8.0),
-        ],
       ),
     );
   }

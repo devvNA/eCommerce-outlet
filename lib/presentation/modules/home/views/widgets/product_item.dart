@@ -31,14 +31,14 @@ class ProductItem extends GetView<HomeController> {
         children: [
           Container(
             height: 130,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(
-                  Constants.product4,
+                image: NetworkImage(
+                  product.image ?? "https://s4.bukalapak.com/img/43229784103/s-463-463/data.jpeg.webp",
                 ),
                 fit: BoxFit.cover,
               ),
-              borderRadius: BorderRadius.all(
+              borderRadius: const BorderRadius.all(
                 Radius.circular(
                   8.0,
                 ),
@@ -87,11 +87,11 @@ class ProductItem extends GetView<HomeController> {
               Container(
                 height: 120,
                 decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
+                  borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(8),
                       topRight: Radius.circular(8)),
                   color: LightThemeColors.primaryColor.withOpacity(0.2),
-                  image: const DecorationImage(
+                  image: DecorationImage(
                     image: AssetImage(
                       Constants.product4,
                     ),
@@ -100,14 +100,14 @@ class ProductItem extends GetView<HomeController> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       product.nama ?? "haha",
                       maxLines: 2,
-                      style: const TextStyle(
+                      style: TextStyle(
                           overflow: TextOverflow.ellipsis,
                           fontSize: 12,
                           fontWeight: FontWeight.w700,
@@ -115,7 +115,7 @@ class ProductItem extends GetView<HomeController> {
                     ),
                     Text(
                       'Rp ${product.harga}',
-                      style: const TextStyle(
+                      style: TextStyle(
                           color: LightThemeColors.primaryColor,
                           fontSize: 14,
                           fontWeight: FontWeight.w500),

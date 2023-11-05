@@ -1,6 +1,5 @@
 // ignore_for_file: deprecated_member_use
 
-import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -9,20 +8,19 @@ import '../../core/failure.dart';
 import '../../core/api_endpoints.dart';
 import '../models/product/produk_model.dart';
 import '../../core/network_request.dart';
-import '../../core/types.dart';
 
 abstract class ProductRemoteDataSource {
-  Future<Either<Failure, ListProduk>> getListProduct();
-  Future<Either<Failure, ListProduk>> getListProductByCategory(String kategori);
+  Future<Either<Failure, List<Produk>>> getListProduct();
+  Future<Either<Failure, List<Produk>>> getListProductByCategory(String kategori);
 }
 
 class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   @override
-  Future<Either<Failure, ListProduk>> getListProduct() async {
+  Future<Either<Failure, List<Produk>>> getListProduct() async {
     try {
       final response = await Request().get(listProducts);
 
-      ListProduk products = [];
+      List<Produk> products = [];
       if (response.statusCode == 200) {
         // debugPrint('Status: ${response.statusMessage}');
         for (var value in response.data) {
@@ -41,12 +39,12 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, ListProduk>> getListProductByCategory(
+  Future<Either<Failure, List<Produk>>> getListProductByCategory(
       String kategori) async {
     try {
       final response = await Request().get(listProductsByCategory + kategori);
 
-      ListProduk products = [];
+      List<Produk> products = [];
       if (response.statusCode == 200) {
         for (var value in response.data['data']) {
           final result = Produk.fromJson(value);

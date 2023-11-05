@@ -45,7 +45,7 @@ class CartItem extends GetView<CartController> {
                 left: 0,
                 right: 0,
                 child: Image.asset(
-                  "assets/images/product3.jpg",
+                  "assets/images/product2.png",
                   width: 100.0,
                   height: 100.0,
                   fit: BoxFit.cover,
@@ -70,7 +70,7 @@ class CartItem extends GetView<CartController> {
                 style: DefaultTextStyle.of(context).style,
                 children: <TextSpan>[
                   const TextSpan(
-                    text: 'Jenis: ',
+                    text: 'jenis: ',
                   ),
                   TextSpan(
                       text: 'Perdana',
@@ -92,7 +92,10 @@ class CartItem extends GetView<CartController> {
                 children: [
                   GestureDetector(
                     onTap: () => controller.onDecreasePressed(product.id!),
-                    child: SvgPicture.asset(Constants.decreaseIcon),
+                    child: SvgPicture.asset(
+                      Constants.decreaseIcon,
+                      color: LightThemeColors.primaryColor,
+                    ),
                   ),
                   10.horizontalSpace,
                   SizedBox(
@@ -139,7 +142,10 @@ class CartItem extends GetView<CartController> {
                   10.horizontalSpace,
                   GestureDetector(
                     onTap: () => controller.onIncreasePressed(product.id!),
-                    child: SvgPicture.asset(Constants.increaseIcon),
+                    child: SvgPicture.asset(
+                      Constants.increaseIcon,
+                      color: LightThemeColors.primaryColor,
+                    ),
                   ),
                 ],
               ),
@@ -190,11 +196,11 @@ class CartItem extends GetView<CartController> {
           },
           customBorder: const CircleBorder(),
           child: Container(
-            padding: EdgeInsets.all(10.r),
+            padding: EdgeInsets.all(12.r),
             child: SvgPicture.asset(
               Constants.cancelIcon,
-              width: 20.w,
-              height: 20.h,
+              width: 15.w,
+              height: 15.h,
               color: theme.textTheme.bodyMedium!.color,
             ),
           ),
