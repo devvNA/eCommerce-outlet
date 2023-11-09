@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/presentation/global/dependency_injection/bindings.dart';
 import 'package:marvelindo_outlet/presentation/routes/app_pages.dart';
-import 'utils/my_shared_pref.dart';
+import 'core/utils/local/my_shared_pref.dart';
 import 'presentation/global/theme/my_theme.dart';
 
 void main() async {
@@ -85,9 +85,8 @@ class _MyAppState extends State<MyApp> {
             useInheritedMediaQuery: true,
             debugShowCheckedModeBanner: false,
             builder: (context, widget) {
-              bool themeIsLight = MySharedPref.getThemeIsLight();
               return Theme(
-                data: MyTheme.getThemeData(isLight: themeIsLight),
+                data: MyTheme.getThemeData(isLight: true),
                 child: MediaQuery(
                   data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
                   child: widget ?? const SizedBox(),

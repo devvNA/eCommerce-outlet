@@ -122,7 +122,6 @@ class RegistrationView extends StatelessWidget {
                 ),
               ),
               onPressed: () async {
-                await Future.delayed(const Duration(milliseconds: 500));
                 controller.onSubmit();
                 CustomSnackBar.showCustomToast(
                     message: "Registrasi Berhasil, silahkan login");

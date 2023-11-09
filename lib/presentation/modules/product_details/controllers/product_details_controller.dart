@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:marvelindo_outlet/presentation/modules/cart/controllers/cart_controller.dart';
 
 import '../../../../data/models/product/produk_model.dart';
-import '../../../../utils/dummy_helper.dart';
+import '../../../../core/utils/dummy_helper.dart';
 import '../../base/controllers/base_controller.dart';
 
 class ProductDetailsController extends GetxController {

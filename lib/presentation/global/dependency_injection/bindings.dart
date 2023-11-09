@@ -1,10 +1,12 @@
 // ignore_for_file: override_on_non_overriding_member
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/core/network_request.dart';
 import 'package:marvelindo_outlet/presentation/modules/auth/login/controller/login_controller.dart';
 import 'package:marvelindo_outlet/presentation/modules/auth/registration/controllers/registration_controller.dart';
 import 'package:marvelindo_outlet/presentation/modules/profil/controllers/profil_controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../data/repositories/chat_repository_impl.dart';
 import '../../../core/firebase_auth_services.dart';
@@ -24,6 +26,8 @@ import '../../modules/splash/controllers/splash_controller.dart';
 class AppBindings extends Bindings {
   @override
   Future<void> dependencies() async {
+    final firebaseAuth = FirebaseAuth.instance;
+    Get.lazyPut<FirebaseAuth>(() => firebaseAuth);
     Get.lazyPut<Request>(() => Request());
     Get.lazyPut(() => FirebaseAuthServiceImpl());
     Get.lazyPut<FirebaseAuthService>(() => FirebaseAuthServiceImpl());
@@ -60,5 +64,7 @@ class AppBindings extends Bindings {
     Get.lazyPut<DetailApiController>(
       () => DetailApiController(),
     );
+    final sharedPreferences = await SharedPreferences.getInstance();
+    Get.lazyPut<SharedPreferences>(() => sharedPreferences);
   }
 }

@@ -8,7 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/presentation/global/theme/light_theme_colors.dart';
 
-import '../../../../utils/constants.dart';
+import '../../../../core/utils/constants.dart';
 import '../controllers/product_details_controller.dart';
 import 'widgets/rounded_button.dart';
 
@@ -72,7 +72,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: Text(
-                  controller.product.id.toString(),
+                  ("Stok: ${controller.product.stok.toString()}"),
                   // "Stok: ${100}",
                   // "Stok: ${controller.product.stock!.toString()}",
                   style: theme.textTheme.bodyMedium,

@@ -9,7 +9,6 @@ class MySharedPref {
 
   // STORING KEYS
   static const String _fcmTokenKey = 'fcm_token';
-  static const String _lightThemeKey = 'is_theme_light';
 
   /// init get storage services
   static Future<void> init() async {
@@ -19,15 +18,6 @@ class MySharedPref {
   static setStorage(SharedPreferences sharedPreferences) {
     _sharedPreferences = sharedPreferences;
   }
-
-  /// set theme current type as light theme
-  static Future<void> setThemeIsLight(bool lightTheme) =>
-      _sharedPreferences.setBool(_lightThemeKey, lightTheme);
-
-  /// get if the current theme type is light
-  static bool getThemeIsLight() =>
-      _sharedPreferences.getBool(_lightThemeKey) ??
-      true; // todo set the default theme (true for light, false for dark)
 
   /// save generated fcm token
   static Future<void> setFcmToken(String token) =>

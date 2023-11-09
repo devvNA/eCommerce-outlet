@@ -30,7 +30,7 @@ class AppPages {
         binding: AppBindings()),
     GetPage(
         name: _Paths.LOGIN,
-        page: () => const LoginView(),
+        page: () =>  const LoginView(),
         transition: Transition.native,
         transitionDuration: const Duration(seconds: 1),
         binding: AppBindings()),

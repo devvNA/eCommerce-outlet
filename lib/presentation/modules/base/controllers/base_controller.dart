@@ -12,7 +12,7 @@ class BaseController extends GetxController {
     timeBackPressed = DateTime.now();
     if (isExitWarning) {
       const message = "Tekan kembali lagi untuk keluar";
-      Fluttertoast.showToast(msg: message, fontSize: 16);
+      Fluttertoast.showToast(msg: message, fontSize: 12);
       return false;
     } else {
       Fluttertoast.cancel();

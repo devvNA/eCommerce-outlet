@@ -50,7 +50,7 @@ class HomeController extends GetxController {
             repository: ProductRepositoryImpl(
                 remoteDataSource: ProductRemoteDataSourceImpl()))
         .getListProduct();
-    response.fold((failure) => printError(info: "Error: ${failure.message}"),
+    response.fold((failure) => log("Error: ${failure.message}"),
         (products) => listProducts.value = products);
     loading(false);
     update();

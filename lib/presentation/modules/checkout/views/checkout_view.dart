@@ -196,9 +196,8 @@ class CheckoutView extends GetView<CheckoutController> {
                                         description:
                                             "Apakah pesanan sudah sesuai?",
                                         onPressYes: () {
-                                          Get.back();
-                                          controller.onTapOrder();
                                           _successCheckoutDialog(context);
+                                          controller.onTapOrder();
                                         },
                                         onPressNo: () {
                                           Get.back();

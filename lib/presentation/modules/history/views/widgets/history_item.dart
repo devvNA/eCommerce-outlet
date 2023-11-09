@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-import '../../../../../utils/constants.dart';
+import '../../../../../core/utils/constants.dart';
 
 class HistoryItem extends StatelessWidget {
   const HistoryItem({super.key});

@@ -1,4 +1,4 @@
-import '../data/models/product_model.dart';
+import '../../data/models/product_model.dart';
 import 'constants.dart';
 
 class DummyHelper {
@@ -45,6 +45,22 @@ class DummyHelper {
         description: ""),
     ProductModel(
         id: 6,
+        image: Constants.product1,
+        name: 'The Denim Jean',
+        stock: 100,
+        quantity: 0,
+        price: 50000,
+        description: ""),
+    ProductModel(
+        id: 7,
+        image: Constants.product1,
+        name: 'The Denim Jean',
+        stock: 100,
+        quantity: 0,
+        price: 50000,
+        description: ""),
+    ProductModel(
+        id: 8,
         image: Constants.product1,
         name: 'The Denim Jean',
         stock: 100,

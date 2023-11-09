@@ -20,7 +20,8 @@ class BookRemoteDataSourceImpl implements BookRemoteDataSource {
       final request = Request();
 
       // final response = await Dio().get(bookUrl);
-      final response = await request.get("$listBooks?page=$page&limit=$limit");
+      final response = await request.get("$listBooks?page=$page&limit=$limit",
+          requiresAuthToken: true);
 
       ListBook books = [];
       if (response.statusCode == 200) {

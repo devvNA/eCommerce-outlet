@@ -7,8 +7,8 @@ import 'package:get/get.dart';
 import 'package:marvelindo_outlet/presentation/global/theme/light_theme_colors.dart';
 import 'package:marvelindo_outlet/presentation/routes/app_pages.dart';
 
-import '../../../../utils/constants.dart';
-import '../../../../utils/dummy_helper.dart';
+import '../../../../core/utils/constants.dart';
+import '../../../../core/utils/dummy_helper.dart';
 import '../controllers/base_controller.dart';
 import '../../cart/views/cart_view.dart';
 import '../../home/views/home_view.dart';

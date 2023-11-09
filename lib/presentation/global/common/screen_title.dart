@@ -40,7 +40,7 @@ class ScreenTitle extends StatelessWidget {
                 : const SizedBox(),
             Text(title,
                 style: context.theme.textTheme.displayLarge?.copyWith(
-                  fontSize: 28.sp,
+                  fontSize: 24.sp,
                 )),
           ],
         ),

@@ -5,7 +5,6 @@ import '../../../../../global/theme/light_theme_colors.dart';
 
 class FormFieldLogin extends StatelessWidget {
   final String hinText;
-  final String value;
   final String? initialValue;
   final TextInputType keyboardType;
   final Widget icon;
@@ -14,7 +13,6 @@ class FormFieldLogin extends StatelessWidget {
   const FormFieldLogin({
     super.key,
     required this.hinText,
-    required this.value,
     required this.keyboardType,
     required this.icon,
     this.obscureText = false,
