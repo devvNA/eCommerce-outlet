@@ -61,7 +61,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: Text(
-                  controller.product.nama!,
+                  controller.product.nama,
                   style: theme.textTheme.bodyLarge,
                 ).animate().fade().slideX(
                       duration: const Duration(milliseconds: 300),
@@ -118,58 +118,6 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                 ),
               ),
               5.verticalSpace,
-/*               20.verticalSpace,
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Text(
-                  'Pilih jenis kuota :',
-                  style: theme.textTheme.bodyMedium
-                      ?.copyWith(fontSize: 18.sp, fontWeight: FontWeight.bold),
-                ).animate().fade().slideX(
-                      duration: Duration(milliseconds: 300),
-                      begin: -1,
-                      curve: Curves.easeInSine,
-                    ),
-              ),
- */
-/*               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: GetBuilder<ProductDetailsController>(
-                  id: 'Size',
-                  builder: (_) => Row(
-                    children: [
-                      SizeItem(
-                        onPressed: () => controller.changeSelectedSize('S'),
-                        label: 'S',
-                        selected: controller.selectedSize == 'S',
-                      ),
-                      10.horizontalSpace,
-                      SizeItem(
-                        onPressed: () => controller.changeSelectedSize('M'),
-                        label: 'M',
-                        selected: controller.selectedSize == 'M',
-                      ),
-                      10.horizontalSpace,
-                      SizeItem(
-                        onPressed: () => controller.changeSelectedSize('L'),
-                        label: 'L',
-                        selected: controller.selectedSize == 'L',
-                      ),
-                      10.horizontalSpace,
-                      SizeItem(
-                        onPressed: () => controller.changeSelectedSize('XL'),
-                        label: 'XL',
-                        selected: controller.selectedSize == 'XL',
-                      ),
-                    ],
-                  ).animate().fade().slideX(
-                        duration: Duration(milliseconds: 300),
-                        begin: -1,
-                        curve: Curves.easeInSine,
-                      ),
-                ),
-              ),
- */
               const Divider(thickness: 1),
               Padding(
                 padding: const EdgeInsets.symmetric(
@@ -181,28 +129,22 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                   style: theme.textTheme.displaySmall,
                 ),
               ),
-              // Padding(
-              //   padding: const EdgeInsets.only(right: 17, left: 12),
-              //   child: Text(
-              //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-              //     textAlign: TextAlign.left,
-              //     style: theme.textTheme.bodyMedium,
-              //   ),
-              // ),
               GestureDetector(
                 onTap: () {},
                 child: Padding(
                   padding: const EdgeInsets.only(left: 12, right: 22),
                   child: Text.rich(TextSpan(
-                      text: controller.product.deskripsi ??
-                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                      // text:
+                      //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                      text: controller.product.deskripsi,
                       style: theme.textTheme.bodyMedium,
-                      children: const <InlineSpan>[
+                      children: <InlineSpan>[
                         TextSpan(
-                            text: ' selengkapnya...',
-                            // style: theme.textTheme.displaySmall,
-                            style:
-                                TextStyle(color: LightThemeColors.primaryColor))
+                          text: ' selengkapnya...',
+                          style: theme.textTheme.displaySmall!.copyWith(
+                            color: AppColors.appBarColor,
+                          ),
+                        )
                       ])),
                 ),
               )

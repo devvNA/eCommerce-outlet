@@ -1,15 +1,14 @@
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/presentation/modules/cart/controllers/cart_controller.dart';
 
-import '../../../../data/models/product/produk_model.dart';
 import '../../../../core/utils/dummy_helper.dart';
+import '../../../../data/models/produk/produk_model.dart';
 import '../../base/controllers/base_controller.dart';
 
 class ProductDetailsController extends GetxController {
   // get product details from arguments
   // ProductModel product = Get.arguments;
   Produk product = Get.arguments;
-
   Rx<List> products = Rx([]);
 
   // for the product size

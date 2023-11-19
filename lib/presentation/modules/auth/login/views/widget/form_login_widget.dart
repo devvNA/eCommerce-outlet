@@ -25,14 +25,14 @@ class FormFieldLogin extends StatelessWidget {
       initialValue: initialValue,
       obscureText: obscureText!,
       scrollPadding: EdgeInsets.only(bottom: Get.height),
-      cursorColor: LightThemeColors.primaryColor,
+      cursorColor: AppColors.primaryColor,
       keyboardType: keyboardType,
       textInputAction: TextInputAction.next,
       onSaved: (value) {},
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(horizontal: 0),
-        prefixIconColor: LightThemeColors.primaryColor,
-        suffixIconColor: LightThemeColors.primaryColor,
+        prefixIconColor: AppColors.primaryColor,
+        suffixIconColor: AppColors.primaryColor,
         fillColor: Colors.grey[80],
         filled: true,
         border: const OutlineInputBorder(

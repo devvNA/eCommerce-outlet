@@ -1,21 +1,23 @@
 // ignore_for_file: library_private_types_in_public_api, must_be_immutable, unused_element
 
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:get/get.dart';
 import '../../../global/common/error_state_widget.dart';
-import 'widgets/product_item.dart';
 import '../../../global/common/screen_title.dart';
 import '../../../global/theme/light_theme_colors.dart';
 import '../controllers/home_controller.dart';
+import 'widgets/product_item.dart';
 
 class HomeView extends GetView<HomeController> {
-  const HomeView({super.key});
+  const HomeView({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
+    return GetBuilder<HomeController>(builder: (_) {
       return Scaffold(
           extendBody: true,
           body: Padding(
@@ -41,29 +43,64 @@ class HomeView extends GetView<HomeController> {
                           child: ErrorStateWidget(
                               message: "Produk tidak ditemukan"));
                     }
-                    return RefreshIndicator(
-                      color: LightThemeColors.primaryColor,
-                      onRefresh: () async {
-                        controller.onRefreshProducts();
-                      },
-                      child: SizedBox(
-                        height: Get.height,
-                        child: GridView.builder(
-                          primary: true,
-                          physics: const BouncingScrollPhysics(
-                              parent: AlwaysScrollableScrollPhysics()),
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  crossAxisSpacing: 15,
-                                  mainAxisExtent: 200),
-                          itemCount: controller.listProducts.length,
-                          itemBuilder: (context, index) => ProductItem(
-                            product: controller.listProducts[index],
-                          ),
-                        ),
-                      ),
-                    );
+                    if (controller.searchController.value.text.isEmpty) {
+                      return RefreshIndicator(
+                        color: AppColors.primaryColor,
+                        onRefresh: () async {
+                          controller.onRefreshProducts();
+                        },
+                        child: Obx(() {
+                          return SizedBox(
+                            height: Get.height,
+                            child: GridView.builder(
+                              primary: true,
+                              physics: const BouncingScrollPhysics(
+                                  parent: AlwaysScrollableScrollPhysics()),
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      crossAxisSpacing: 15,
+                                      mainAxisExtent: 200),
+                              itemCount: controller.listProducts.length,
+                              itemBuilder: (context, index) => ProductItem(
+                                product: controller.listProducts[index],
+                              ),
+                            ),
+                          );
+                        }),
+                      );
+                    }
+                    if (controller.searchList.isEmpty) {
+                      return const Center(
+                          child: ErrorStateWidget(
+                              message: "Produk tidak ditemukan"));
+                    } else {
+                      return RefreshIndicator(
+                        color: AppColors.primaryColor,
+                        onRefresh: () async {
+                          controller.onRefreshProducts();
+                        },
+                        child: Obx(() {
+                          return SizedBox(
+                            height: Get.height,
+                            child: GridView.builder(
+                              primary: true,
+                              physics: const BouncingScrollPhysics(
+                                  parent: AlwaysScrollableScrollPhysics()),
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      crossAxisSpacing: 15,
+                                      mainAxisExtent: 200),
+                              itemCount: controller.searchList.length,
+                              itemBuilder: (context, index) => ProductItem(
+                                product: controller.searchList[index],
+                              ),
+                            ),
+                          );
+                        }),
+                      );
+                    }
                   }),
                 )
               ],
@@ -72,7 +109,7 @@ class HomeView extends GetView<HomeController> {
     });
   }
 
-  Container _searchBar() {
+  Widget _searchBar() {
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey[100],
@@ -93,9 +130,13 @@ class HomeView extends GetView<HomeController> {
           const SizedBox(width: 8.0),
           Expanded(
             child: TextField(
-              onChanged: (value) {},
+              controller: controller.searchController.value,
+              onChanged: (value) {
+                controller.onSearchProduct(value);
+                log(value);
+              },
               style: Get.textTheme.bodyMedium,
-              cursorColor: LightThemeColors.primaryColor,
+              cursorColor: AppColors.primaryColor,
               decoration: const InputDecoration(
                 border: InputBorder.none,
                 hintText: 'cari produk',
@@ -126,13 +167,13 @@ class HomeView extends GetView<HomeController> {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     backgroundColor: controller.selectedIndex.value == index
-                        ? LightThemeColors.primaryColor
+                        ? AppColors.primaryColor
                         : Get.theme.scaffoldBackgroundColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(32),
                     ),
                     side: const BorderSide(
-                        color: LightThemeColors.primaryColor, width: 1),
+                        color: AppColors.primaryColor, width: 1),
                   ),
                   onPressed: () {
                     controller.onChangeCategory(index);
@@ -144,7 +185,7 @@ class HomeView extends GetView<HomeController> {
                       fontWeight: FontWeight.w500,
                       color: controller.selectedIndex.value == index
                           ? Colors.white
-                          : LightThemeColors.primaryColor,
+                          : AppColors.primaryColor,
                     ),
                   ),
                 ),

@@ -2,19 +2,20 @@
 
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/data/datasources/products_remote_datasources.dart';
 import 'package:marvelindo_outlet/data/repositories/product_repository_impl.dart';
 import 'package:marvelindo_outlet/domain/usecase/product_usecase.dart';
 
-import '../../../../data/models/product/produk_model.dart';
+import '../../../../data/models/produk/produk_model.dart';
 
 class HomeController extends GetxController {
-  var listProducts = <Produk>[].obs;
+  RxList<Produk> listProducts = List<Produk>.empty(growable: true).obs;
   var loading = false.obs;
   var selectedIndex = 0.obs;
   var searchList = <Produk>[].obs;
-  var search = ''.obs;
+  final searchController = TextEditingController().obs;
 
   final categories =
       ["semua", "perdana", "voucher", "unlimited", "paket data"].obs;
@@ -27,7 +28,7 @@ class HomeController extends GetxController {
 
   void onRefreshProducts() {
     listProducts.value.clear();
-    onSearchProduct('barang');
+    // onSearchProduct('');
     if (selectedIndex.value == 0) {
       getAllProductsAPI();
     } else {
@@ -71,22 +72,14 @@ class HomeController extends GetxController {
 
   Future<void> onSearchProduct(String text) async {
     loading(true);
-    searchList.value.clear();
-    if (text.isEmpty) {
-      for (var element in listProducts.value) {
-        searchList.value.add(element);
-        update();
+    searchList.clear();
+    for (var element in listProducts) {
+      if (element.nama.toLowerCase().contains(text)) {
+        searchList.add(element);
       }
       update();
-    } else {
-      for (var element in listProducts.value) {
-        if (element.nama!.toLowerCase().contains(text)) {
-          searchList.value.add(element);
-          update();
-        }
-        update();
-      }
     }
+
     loading(false);
     update();
   }

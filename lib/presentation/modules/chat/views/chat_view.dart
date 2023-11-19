@@ -54,7 +54,7 @@ class ChatView extends GetView<ChatController> {
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
                     color: isSender
-                        ? LightThemeColors.primaryColor.withOpacity(0.3)
+                        ? AppColors.primaryColor.withOpacity(0.3)
                         : Colors.grey[350],
                     borderRadius: BorderRadius.only(
                       bottomLeft: const Radius.circular(10),

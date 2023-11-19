@@ -94,7 +94,7 @@ class CartItem extends GetView<CartController> {
                     onTap: () => controller.onDecreasePressed(product.id!),
                     child: SvgPicture.asset(
                       Constants.decreaseIcon,
-                      color: LightThemeColors.primaryColor,
+                      color: AppColors.primaryColor,
                     ),
                   ),
                   10.horizontalSpace,
@@ -108,7 +108,7 @@ class CartItem extends GetView<CartController> {
                       scrollPhysics: const AlwaysScrollableScrollPhysics(),
                       controller: quantityController,
                       keyboardType: TextInputType.number,
-                      cursorColor: LightThemeColors.primaryColor,
+                      cursorColor: AppColors.primaryColor,
                       textDirection: TextDirection.ltr,
                       textAlign: TextAlign.center,
                       decoration: InputDecoration(
@@ -119,16 +119,16 @@ class CartItem extends GetView<CartController> {
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                           borderSide: const BorderSide(
-                            color: LightThemeColors.primaryColor,
+                            color: AppColors.primaryColor,
                           ),
                         ),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: const BorderSide(
-                              color: LightThemeColors.primaryColor,
+                              color: AppColors.primaryColor,
                             )),
-                        prefixIconColor: LightThemeColors.primaryColor,
-                        suffixIconColor: LightThemeColors.primaryColor,
+                        prefixIconColor: AppColors.primaryColor,
+                        suffixIconColor: AppColors.primaryColor,
                         filled: true,
                         fillColor: Colors.grey[150],
                       ),
@@ -144,7 +144,7 @@ class CartItem extends GetView<CartController> {
                     onTap: () => controller.onIncreasePressed(product.id!),
                     child: SvgPicture.asset(
                       Constants.increaseIcon,
-                      color: LightThemeColors.primaryColor,
+                      color: AppColors.primaryColor,
                     ),
                   ),
                 ],
@@ -172,9 +172,9 @@ class CartItem extends GetView<CartController> {
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
-                        foregroundColor: LightThemeColors.primaryColor,
+                        foregroundColor: AppColors.primaryColor,
                         side: const BorderSide(
-                          color: LightThemeColors.primaryColor,
+                          color: AppColors.primaryColor,
                         ),
                       ),
                       onPressed: () {

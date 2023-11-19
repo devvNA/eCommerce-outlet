@@ -81,7 +81,7 @@ class _MyAppState extends State<MyApp> {
             navigatorKey: MyApp.globalKey,
             initialBinding:
                 AppBindings(), // Membuat instance dari class AppBindings
-            title: "Outlet Commerce",
+            title: "Outlet e-Commerce",
             useInheritedMediaQuery: true,
             debugShowCheckedModeBanner: false,
             builder: (context, widget) {

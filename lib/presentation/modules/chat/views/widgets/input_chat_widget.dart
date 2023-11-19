@@ -75,7 +75,7 @@ class InputChatWidget extends StatelessWidget {
             onPressed: onTapSend,
             icon: const Icon(
               Icons.send,
-              color: LightThemeColors.primaryColor,
+              color: AppColors.primaryColor,
             ),
           ),
         ],

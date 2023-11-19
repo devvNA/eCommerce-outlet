@@ -42,7 +42,7 @@ class CartView extends GetView<CartController> {
                   : Expanded(
                       child: SizedBox(
                         child: RefreshIndicator(
-                          color: LightThemeColors.primaryColor,
+                          color: AppColors.primaryColor,
                           onRefresh: () async {},
                           child: ListView.separated(
                             physics: const BouncingScrollPhysics(

@@ -19,7 +19,7 @@ class ErrorStateWidget extends StatelessWidget {
           children: [
             const Icon(
               Icons.warning_amber_rounded,
-              color: LightThemeColors.error,
+              color: AppColors.error,
               size: 32.0,
             ),
             const SizedBox(height: 16.0),

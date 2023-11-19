@@ -27,9 +27,9 @@ Future<void> customAlertDialog(
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white,
-              foregroundColor: LightThemeColors.primaryColor,
+              foregroundColor: AppColors.primaryColor,
               side: const BorderSide(
-                color: LightThemeColors.primaryColor,
+                color: AppColors.primaryColor,
               ),
             ),
             onPressed: onPressNo,

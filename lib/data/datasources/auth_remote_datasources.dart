@@ -1,9 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../../core/failure.dart';
+import '../../core/networking/failure.dart';
 
 abstract class AuthRemoteDataSource {
   Future<Either<Failure, String>> getFirebaseToken();
+  // Future<Either<Failure, String>> getAccessToken();
   // Future<Either<Failure, Token>> refreshToken(String refreshToken);
   Future<Either<Failure, List<UserInfo>>> getFirebaseProvider();
 }
@@ -33,12 +34,37 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         return const Left(Exception('unauthenticated'));
       }
 
-      final providerData = auth.currentUser!.providerData;
+      final providerData = auth.currentUser?.providerData ?? [];
       return Right(providerData);
     } catch (e) {
       return Left(Exception(e.toString()));
     }
   }
+
+  // @override
+  // Future<Either<Failure, String>> getAccessToken() async {
+  //   GoogleSignIn googleSignIn = GoogleSignIn(
+  //     scopes: [
+  //       'email',
+  //     ],
+  //   );
+  //   try {
+  //     GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+  //     GoogleSignInAuthentication googleSignInAuthentication =
+  //         await googleSignInAccount!.authentication;
+  //     final AuthCredential credential = GoogleAuthProvider.credential(
+  //       accessToken: googleSignInAuthentication.accessToken,
+  //       idToken: googleSignInAuthentication.idToken,
+  //     );
+  //     var userCredential =
+  //         await FirebaseAuth.instance.signInWithCredential(credential);
+  //     debugPrint("userCredential: $userCredential");
+  //     debugPrint("userCredential: ${credential.accessToken}");
+
+  //   } catch (e) {
+  //     return;
+  //   }
+  // }
   // @override
   // Future<Either<Failure, Token>> refreshToken(
   //     String refreshToken) async {

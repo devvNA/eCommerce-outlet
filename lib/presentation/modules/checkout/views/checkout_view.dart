@@ -36,7 +36,7 @@ class CheckoutView extends GetView<CheckoutController> {
                 margin: const EdgeInsets.all(16.0),
                 width: Get.width,
                 child: RefreshIndicator(
-                  color: LightThemeColors.primaryColor,
+                  color: AppColors.primaryColor,
                   onRefresh: () async {},
                   child: ListView(
                     children: [
@@ -181,12 +181,10 @@ class CheckoutView extends GetView<CheckoutController> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              disabledForegroundColor: LightThemeColors
-                                  .primaryColor
-                                  .withOpacity(0.38),
-                              disabledBackgroundColor: LightThemeColors
-                                  .primaryColor
-                                  .withOpacity(0.12),
+                              disabledForegroundColor:
+                                  AppColors.primaryColor.withOpacity(0.38),
+                              disabledBackgroundColor:
+                                  AppColors.primaryColor.withOpacity(0.12),
                             ),
                             onPressed: controller.isButtonActive.value
                                 ? () async {

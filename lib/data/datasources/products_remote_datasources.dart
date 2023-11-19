@@ -3,10 +3,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
-import '../../core/failure.dart';
+import '../../core/networking/failure.dart';
 import '../../core/api_endpoints.dart';
-import '../models/product/produk_model.dart';
-import '../../core/network_request.dart';
+import '../../core/networking/network_request.dart';
+import '../models/produk/produk_model.dart';
 
 abstract class ProductRemoteDataSource {
   Future<Either<Failure, List<Produk>>> getListProduct();
@@ -31,12 +31,12 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
       }
       // debugPrint('Data: ${response.data}');
       return Left(ConnectionFailure(response.data));
-    } on DioError catch (_) {
+    } on DioError catch (e) {
       //error koneksi
-      return const Left(ConnectionFailure("Terjadi Kesalahan"));
-    } catch (_) {
+      return Left(ConnectionFailure(e.toString()));
+    } catch (e) {
       //error parsing json
-      return const Left(ParsingFailure("Tidak dapat memparsing respon"));
+      return Left(ParsingFailure(e.toString()));
     }
   }
 
@@ -58,8 +58,8 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
       return Left(ConnectionFailure(response.data['message']));
     } on DioError catch (_) {
       return const Left(ConnectionFailure("Terjadi Kesalahan"));
-    } catch (_) {
-      return const Left(ParsingFailure("Tidak dapat memparsing respon"));
+    } catch (e) {
+      return Left(ParsingFailure(e.toString()));
     }
   }
 }

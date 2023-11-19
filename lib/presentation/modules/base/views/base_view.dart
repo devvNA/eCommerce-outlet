@@ -119,7 +119,7 @@ Widget chatApp({required VoidCallback onPressed}) {
     isExtended: true,
     mini: true,
     tooltip: "Chat",
-    backgroundColor: LightThemeColors.primaryColor,
+    backgroundColor: AppColors.primaryColor,
     clipBehavior: Clip.none,
     onPressed: onPressed,
     child: const Icon(

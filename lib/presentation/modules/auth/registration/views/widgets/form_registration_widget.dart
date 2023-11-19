@@ -35,7 +35,7 @@ class FormRegistrationWidget extends StatelessWidget {
           height: 6.0,
         ),
         TextFormField(
-          cursorColor: LightThemeColors.primaryColor,
+          cursorColor: AppColors.primaryColor,
           obscureText: obscureText!,
           scrollPadding: EdgeInsets.only(
               bottom: MediaQuery.of(context).viewInsets.bottom + Get.height),
@@ -90,7 +90,7 @@ class FormAddressWidget extends StatelessWidget {
         ),
         TextFormField(
           maxLines: 5,
-          cursorColor: LightThemeColors.primaryColor,
+          cursorColor: AppColors.primaryColor,
           scrollPadding: EdgeInsets.only(
               bottom: MediaQuery.of(context).viewInsets.bottom + Get.height),
           initialValue: initialValue,

@@ -2,14 +2,14 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:marvelindo_outlet/core/network_request.dart';
 import 'package:marvelindo_outlet/presentation/modules/auth/login/controller/login_controller.dart';
 import 'package:marvelindo_outlet/presentation/modules/auth/registration/controllers/registration_controller.dart';
 import 'package:marvelindo_outlet/presentation/modules/profil/controllers/profil_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../core/networking/firebase_auth_services.dart';
+import '../../../core/networking/network_request.dart';
 import '../../../data/repositories/chat_repository_impl.dart';
-import '../../../core/firebase_auth_services.dart';
 import '../../../domain/repositories/chat_repository.dart';
 import '../../modules/api_test/api_test_controller.dart';
 import '../../modules/api_test/detail_api/detail_api_controller.dart';

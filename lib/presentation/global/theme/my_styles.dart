@@ -10,9 +10,7 @@ class MyStyles {
   ///icons theme
   static IconThemeData getIconTheme({required bool isLightTheme}) =>
       IconThemeData(
-        color: isLightTheme
-            ? LightThemeColors.iconColor
-            : DarkThemeColors.iconColor,
+        color: isLightTheme ? AppColors.iconColor : DarkThemeColors.iconColor,
       );
 
   ///app bar theme
@@ -20,68 +18,67 @@ class MyStyles {
       AppBarTheme(
         elevation: 0,
         titleTextStyle:
-        getTextTheme(isLightTheme: isLightTheme).bodyMedium!.copyWith(
-          color: Colors.white,
-          fontSize: MyFonts.appBarTittleSize,
-        ),
+            getTextTheme(isLightTheme: isLightTheme).bodyMedium!.copyWith(
+                  color: Colors.white,
+                  fontSize: MyFonts.appBarTittleSize,
+                ),
         iconTheme: IconThemeData(
             color: isLightTheme
-                ? LightThemeColors.appBarIconsColor
+                ? AppColors.appBarIconsColor
                 : DarkThemeColors.appBarIconsColor),
-        backgroundColor: isLightTheme
-            ? LightThemeColors.appBarColor
-            : DarkThemeColors.appbarColor,
+        backgroundColor:
+            isLightTheme ? AppColors.appBarColor : DarkThemeColors.appbarColor,
       );
 
   ///text theme
   static TextTheme getTextTheme({required bool isLightTheme}) => TextTheme(
-    labelLarge: MyFonts.buttonTextStyle.copyWith(
-      fontSize: MyFonts.buttonTextSize,
-    ),
-    bodyLarge: (MyFonts.bodyTextStyle).copyWith(
-      fontWeight: FontWeight.bold,
-      fontSize: MyFonts.bodyLargeSize,
-      color: isLightTheme
-          ? LightThemeColors.bodyTextColor
-          : DarkThemeColors.bodyTextColor,
-    ),
-    bodyMedium: (MyFonts.bodyTextStyle).copyWith(
-      fontSize: MyFonts.bodyMediumSize,
-      color: isLightTheme
-          ? LightThemeColors.bodyTextColor
-          : DarkThemeColors.bodyTextColor,
-    ),
-    displayLarge: (MyFonts.displayTextStyle).copyWith(
-      fontSize: MyFonts.displayLargeSize,
-      fontWeight: FontWeight.bold,
-      color: isLightTheme
-          ? LightThemeColors.displayTextColor
-          : DarkThemeColors.displayTextColor,
-    ),
-    bodySmall: TextStyle(
-        color: isLightTheme
-            ? LightThemeColors.bodySmallTextColor
-            : DarkThemeColors.bodySmallTextColor,
-        fontSize: MyFonts.bodySmallTextSize),
-    displayMedium: (MyFonts.displayTextStyle).copyWith(
-        fontSize: MyFonts.displayMediumSize,
-        fontWeight: FontWeight.bold,
-        color: isLightTheme
-            ? LightThemeColors.displayTextColor
-            : DarkThemeColors.displayTextColor),
-    displaySmall: (MyFonts.displayTextStyle).copyWith(
-      fontSize: MyFonts.displaySmallSize,
-      fontWeight: FontWeight.bold,
-      color: isLightTheme
-          ? LightThemeColors.displayTextColor
-          : DarkThemeColors.displayTextColor,
-    ),
-  );
+        labelLarge: MyFonts.buttonTextStyle.copyWith(
+          fontSize: MyFonts.buttonTextSize,
+        ),
+        bodyLarge: (MyFonts.bodyTextStyle).copyWith(
+          fontWeight: FontWeight.bold,
+          fontSize: MyFonts.bodyLargeSize,
+          color: isLightTheme
+              ? AppColors.bodyTextColor
+              : DarkThemeColors.bodyTextColor,
+        ),
+        bodyMedium: (MyFonts.bodyTextStyle).copyWith(
+          fontSize: MyFonts.bodyMediumSize,
+          color: isLightTheme
+              ? AppColors.bodyTextColor
+              : DarkThemeColors.bodyTextColor,
+        ),
+        displayLarge: (MyFonts.displayTextStyle).copyWith(
+          fontSize: MyFonts.displayLargeSize,
+          fontWeight: FontWeight.bold,
+          color: isLightTheme
+              ? AppColors.displayTextColor
+              : DarkThemeColors.displayTextColor,
+        ),
+        bodySmall: TextStyle(
+            color: isLightTheme
+                ? AppColors.bodySmallTextColor
+                : DarkThemeColors.bodySmallTextColor,
+            fontSize: MyFonts.bodySmallTextSize),
+        displayMedium: (MyFonts.displayTextStyle).copyWith(
+            fontSize: MyFonts.displayMediumSize,
+            fontWeight: FontWeight.bold,
+            color: isLightTheme
+                ? AppColors.displayTextColor
+                : DarkThemeColors.displayTextColor),
+        displaySmall: (MyFonts.displayTextStyle).copyWith(
+          fontSize: MyFonts.displaySmallSize,
+          fontWeight: FontWeight.bold,
+          color: isLightTheme
+              ? AppColors.displayTextColor
+              : DarkThemeColors.displayTextColor,
+        ),
+      );
 
   static ChipThemeData getChipTheme({required bool isLightTheme}) {
     return ChipThemeData(
       backgroundColor: isLightTheme
-          ? LightThemeColors.chipBackground
+          ? AppColors.chipBackground
           : DarkThemeColors.chipBackground,
       brightness: Brightness.light,
       labelStyle: getChipTextStyle(isLightTheme: isLightTheme),
@@ -98,7 +95,7 @@ class MyStyles {
     return MyFonts.chipTextStyle.copyWith(
       fontSize: MyFonts.chipTextSize,
       color: isLightTheme
-          ? LightThemeColors.chipTextColor
+          ? AppColors.chipTextColor
           : DarkThemeColors.chipTextColor,
     );
   }
@@ -115,21 +112,21 @@ class MyStyles {
               fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
               fontSize: fontSize ?? MyFonts.buttonTextSize,
               color: isLightTheme
-                  ? LightThemeColors.buttonTextColor
+                  ? AppColors.buttonTextColor
                   : DarkThemeColors.buttonTextColor);
         } else if (states.contains(MaterialState.disabled)) {
           return MyFonts.buttonTextStyle.copyWith(
               fontSize: fontSize ?? MyFonts.buttonTextSize,
               fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
               color: isLightTheme
-                  ? LightThemeColors.buttonDisabledTextColor
+                  ? AppColors.buttonDisabledTextColor
                   : DarkThemeColors.buttonDisabledTextColor);
         }
         return MyFonts.buttonTextStyle.copyWith(
             fontSize: fontSize ?? MyFonts.buttonTextSize,
             fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
             color: isLightTheme
-                ? LightThemeColors.buttonTextColor
+                ? AppColors.buttonTextColor
                 : DarkThemeColors
                     .buttonTextColor); // Use the component's default.
       },
@@ -148,22 +145,22 @@ class MyStyles {
             ),
           ),
           elevation: MaterialStateProperty.all(0),
-          padding:
-              MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.symmetric(vertical: 8.h)),
+          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+              EdgeInsets.symmetric(vertical: 8.h)),
           textStyle: getElevatedButtonTextStyle(isLightTheme),
           backgroundColor: MaterialStateProperty.resolveWith<Color>(
             (Set<MaterialState> states) {
               if (states.contains(MaterialState.pressed)) {
                 return isLightTheme
-                    ? LightThemeColors.buttonColor.withOpacity(0.5)
+                    ? AppColors.buttonColor.withOpacity(0.5)
                     : DarkThemeColors.buttonColor.withOpacity(0.5);
               } else if (states.contains(MaterialState.disabled)) {
                 return isLightTheme
-                    ? LightThemeColors.buttonDisabledColor
+                    ? AppColors.buttonDisabledColor
                     : DarkThemeColors.buttonDisabledColor;
               }
               return isLightTheme
-                  ? LightThemeColors.buttonColor
+                  ? AppColors.buttonColor
                   : DarkThemeColors.buttonColor; // Use the component's default.
             },
           ),

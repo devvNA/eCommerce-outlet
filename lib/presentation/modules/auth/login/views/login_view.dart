@@ -3,6 +3,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import '../../../../global/common/custom_snackbar.dart';
@@ -61,6 +62,25 @@ class LoginView extends GetView<LoginController> {
                           _passwordForm(),
                           const SizedBox(height: 12.0),
                           _loginButton(),
+                          5.verticalSpace,
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.lightGreen,
+                              elevation: 3,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              maximumSize: const Size(double.infinity, 42),
+                              minimumSize: const Size(double.infinity, 42),
+                            ),
+                            onPressed: () {
+                              Get.offNamed(Routes.BASE);
+                            },
+                            child: const Text(
+                              "DEV Mode",
+                              style: TextStyle(fontWeight: FontWeight.w600),
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -151,7 +171,7 @@ class LoginView extends GetView<LoginController> {
                                     end: Alignment.bottomLeft,
                                     colors: [
                                       Colors.blue.withOpacity(0.5),
-                                      LightThemeColors.primaryColor,
+                                      AppColors.primaryColor,
                                     ],
                                   ),
                                 );
@@ -163,7 +183,7 @@ class LoginView extends GetView<LoginController> {
                           child: const Text(
                             "Daftar",
                             style: TextStyle(
-                              color: LightThemeColors.primaryColor,
+                              color: AppColors.primaryColor,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -254,7 +274,7 @@ class LoginView extends GetView<LoginController> {
               child: CircularProgressIndicator(
                 strokeWidth: 2.5,
                 backgroundColor: Colors.white,
-                color: LightThemeColors.primaryColor,
+                color: AppColors.primaryColor,
               ),
             )
           : const Text(
@@ -269,14 +289,14 @@ class LoginView extends GetView<LoginController> {
       obscureText: controller.visible.value,
       controller: controller.passwordController.value,
       scrollPadding: EdgeInsets.only(bottom: Get.height),
-      cursorColor: LightThemeColors.primaryColor,
+      cursorColor: AppColors.primaryColor,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
       onChanged: (value) {},
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(horizontal: 0),
-        prefixIconColor: LightThemeColors.primaryColor,
-        suffixIconColor: LightThemeColors.primaryColor,
+        prefixIconColor: AppColors.primaryColor,
+        suffixIconColor: AppColors.primaryColor,
         fillColor: Colors.grey[80],
         filled: true,
         border: const OutlineInputBorder(
@@ -318,14 +338,14 @@ class LoginView extends GetView<LoginController> {
     return TextFormField(
       controller: controller.emailController.value,
       scrollPadding: EdgeInsets.only(bottom: Get.height),
-      cursorColor: LightThemeColors.primaryColor,
+      cursorColor: AppColors.primaryColor,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
       onChanged: (value) {},
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(horizontal: 0),
-        prefixIconColor: LightThemeColors.primaryColor,
-        suffixIconColor: LightThemeColors.primaryColor,
+        prefixIconColor: AppColors.primaryColor,
+        suffixIconColor: AppColors.primaryColor,
         fillColor: Colors.grey[80],
         filled: true,
         border: const OutlineInputBorder(

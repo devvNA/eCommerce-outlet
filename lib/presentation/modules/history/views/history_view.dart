@@ -49,10 +49,9 @@ class HistoryView extends GetView<HistoryController> {
                           indicator: const UnderlineTabIndicator(
                             insets: EdgeInsets.symmetric(horizontal: 15.0),
                             borderSide: BorderSide(
-                                color: LightThemeColors.primaryColor,
-                                width: 2.5),
+                                color: AppColors.primaryColor, width: 2.5),
                           ),
-                          labelColor: LightThemeColors.primaryColor,
+                          labelColor: AppColors.primaryColor,
                           labelPadding: const EdgeInsets.symmetric(
                             horizontal: 26,
                             vertical: 12,
@@ -71,7 +70,6 @@ class HistoryView extends GetView<HistoryController> {
                           padding: const EdgeInsets.all(6.0),
                           child: TabBarView(
                               clipBehavior: Clip.hardEdge,
-                              physics: const NeverScrollableScrollPhysics(),
                               children: [
                                 // TAB 1
                                 ListView.builder(

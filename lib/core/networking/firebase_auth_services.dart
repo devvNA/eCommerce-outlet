@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:marvelindo_outlet/presentation/routes/app_pages.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class FirebaseAuthService {
   Future<User?> signInWithGoogle();
@@ -17,6 +20,7 @@ abstract class FirebaseAuthService {
 class FirebaseAuthServiceImpl implements FirebaseAuthService {
   @override
   Future<User?> signInWithGoogle() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     GoogleSignIn googleSignIn = GoogleSignIn(
       scopes: [
         'email',
@@ -37,8 +41,12 @@ class FirebaseAuthServiceImpl implements FirebaseAuthService {
       );
       var userCredential =
           await FirebaseAuth.instance.signInWithCredential(credential);
+      prefs.setString("accessToken", credential.accessToken.toString());
+
       debugPrint("userCredential: $userCredential");
-      await Get.offNamed(Routes.BASE);
+      log("ACCESS TOKEN: ${credential.accessToken}");
+
+      await Get.offNamed(Routes.BASE, arguments: credential.accessToken);
     } catch (e, stackTrace) {
       if (kDebugMode) {
         print('Error signInWithGoogle: $e, $stackTrace');

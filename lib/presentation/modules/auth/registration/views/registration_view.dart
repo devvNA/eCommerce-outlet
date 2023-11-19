@@ -116,7 +116,7 @@ class RegistrationView extends StatelessWidget {
             height: 45,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: LightThemeColors.primaryColor,
+                backgroundColor: AppColors.primaryColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),

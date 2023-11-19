@@ -5,7 +5,7 @@ class ChatModel {
   final String message;
   final DateTime time;
   final bool isMe;
-  
+
   ChatModel({
     required this.name,
     required this.message,

@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../data/models/product/produk_model.dart';
+import '../../../../data/models/produk/produk_model.dart';
 import 'detail_api_controller.dart';
 
 class DetailApiView extends StatelessWidget {

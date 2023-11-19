@@ -8,49 +8,40 @@ class MyTheme {
   static getThemeData({required bool isLight}) {
     return ThemeData(
       // main color (app bar,tabs..etc)
-      primaryColor: isLight
-          ? LightThemeColors.primaryColor
-          : DarkThemeColors.primaryColor,
+      primaryColor:
+          isLight ? AppColors.primaryColor : DarkThemeColors.primaryColor,
       // secondary color (for checkbox,float button, radio..etc)
       // secondary & background color
       colorScheme: ColorScheme.fromSwatch(
-        accentColor: isLight
-            ? LightThemeColors.accentColor
-            : DarkThemeColors.accentColor,
+        accentColor:
+            isLight ? AppColors.accentColor : DarkThemeColors.accentColor,
         backgroundColor: isLight
-            ? LightThemeColors.backgroundColor
+            ? AppColors.backgroundColor
             : DarkThemeColors.backgroundColor,
         brightness: isLight ? Brightness.light : Brightness.dark,
       ).copyWith(
-        secondary: isLight
-            ? LightThemeColors.accentColor
-            : DarkThemeColors.accentColor,
+        secondary:
+            isLight ? AppColors.accentColor : DarkThemeColors.accentColor,
       ),
       // color contrast (if the theme is dark text should be white for example)
       brightness: isLight ? Brightness.light : Brightness.dark,
       // card widget background color
-      cardColor:
-          isLight ? LightThemeColors.cardColor : DarkThemeColors.cardColor,
+      cardColor: isLight ? AppColors.cardColor : DarkThemeColors.cardColor,
       // hint text color
-      hintColor: isLight
-          ? LightThemeColors.hintTextColor
-          : DarkThemeColors.hintTextColor,
+      hintColor:
+          isLight ? AppColors.hintTextColor : DarkThemeColors.hintTextColor,
       // divider color
       dividerTheme: DividerThemeData(
-        color: isLight
-            ? LightThemeColors.dividerColor
-            : DarkThemeColors.dividerColor,
+        color: isLight ? AppColors.dividerColor : DarkThemeColors.dividerColor,
       ),
       // app background color
       scaffoldBackgroundColor: isLight
-          ? LightThemeColors.scaffoldBackgroundColor
+          ? AppColors.scaffoldBackgroundColor
           : DarkThemeColors.scaffoldBackgroundColor,
 
       // progress bar theme
       progressIndicatorTheme: ProgressIndicatorThemeData(
-        color: isLight
-            ? LightThemeColors.primaryColor
-            : DarkThemeColors.primaryColor,
+        color: isLight ? AppColors.primaryColor : DarkThemeColors.primaryColor,
       ),
 
       // appBar theme

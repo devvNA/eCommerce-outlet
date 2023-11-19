@@ -3,10 +3,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
-import '../../core/failure.dart';
+import '../../core/networking/failure.dart';
 import '../../core/api_endpoints.dart';
+import '../../core/networking/network_request.dart';
 import '../models/book/book_model.dart';
-import '../../core/network_request.dart';
+
 import '../../core/types.dart';
 
 abstract class BookRemoteDataSource {

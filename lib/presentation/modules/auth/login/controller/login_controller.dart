@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/presentation/routes/app_pages.dart';
 
-import '../../../../../core/firebase_auth_services.dart';
+import '../../../../../core/networking/firebase_auth_services.dart';
 
 class LoginController extends GetxController {
   final FirebaseAuthService firebaseAuthService;
