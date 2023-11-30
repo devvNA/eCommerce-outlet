@@ -152,7 +152,7 @@ class __$$ProdukImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ProdukImpl with DiagnosticableTreeMixin implements _Produk {
+class _$ProdukImpl implements _Produk {
   const _$ProdukImpl(
       {@JsonKey(name: 'id') this.id = 0,
       @JsonKey(name: 'nama') this.nama = "",
@@ -180,20 +180,8 @@ class _$ProdukImpl with DiagnosticableTreeMixin implements _Produk {
   final int stok;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'Produk(id: $id, nama: $nama, harga: $harga, deskripsi: $deskripsi, stok: $stok)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'Produk'))
-      ..add(DiagnosticsProperty('id', id))
-      ..add(DiagnosticsProperty('nama', nama))
-      ..add(DiagnosticsProperty('harga', harga))
-      ..add(DiagnosticsProperty('deskripsi', deskripsi))
-      ..add(DiagnosticsProperty('stok', stok));
   }
 
   @override

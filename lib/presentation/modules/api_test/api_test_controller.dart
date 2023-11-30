@@ -2,10 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:marvelindo_outlet/core/types.dart';
 import 'package:marvelindo_outlet/data/datasources/book%20_remote_datasources.dartbook_remote_data_source.dart';
 import 'package:marvelindo_outlet/data/repositories/book_repository_impl.dart';
 import 'package:marvelindo_outlet/domain/usecase/book_usecase.dart';
+
+import '../../../core/utils/types.dart';
 
 class ApiTestController extends GetxController {
   Rx<ListBook> listBooks = Rx<ListBook>([]);

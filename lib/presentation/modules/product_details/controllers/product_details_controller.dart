@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/presentation/modules/cart/controllers/cart_controller.dart';
 
-import '../../../../core/utils/dummy_helper.dart';
+import '../../../../core/utils/helpers/dummy_helper.dart';
 import '../../../../data/models/produk/produk_model.dart';
 import '../../base/controllers/base_controller.dart';
 

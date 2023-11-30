@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../../../../core/utils/dummy_helper.dart';
+import '../../../../core/utils/helpers/dummy_helper.dart';
 import '../../base/controllers/base_controller.dart';
 
 class CartController extends GetxController {

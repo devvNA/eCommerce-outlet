@@ -63,24 +63,7 @@ class LoginView extends GetView<LoginController> {
                           const SizedBox(height: 12.0),
                           _loginButton(),
                           5.verticalSpace,
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.lightGreen,
-                              elevation: 3,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              maximumSize: const Size(double.infinity, 42),
-                              minimumSize: const Size(double.infinity, 42),
-                            ),
-                            onPressed: () {
-                              Get.offNamed(Routes.BASE);
-                            },
-                            child: const Text(
-                              "DEV Mode",
-                              style: TextStyle(fontWeight: FontWeight.w600),
-                            ),
-                          )
+                          _devModeButton()
                         ],
                       ),
                     ),
@@ -202,6 +185,27 @@ class LoginView extends GetView<LoginController> {
         ],
       ));
     });
+  }
+
+  ElevatedButton _devModeButton() {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.lightGreen,
+        elevation: 3,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        maximumSize: const Size(double.infinity, 42),
+        minimumSize: const Size(double.infinity, 42),
+      ),
+      onPressed: () {
+        Get.offNamed(Routes.BASE);
+      },
+      child: const Text(
+        "DEV Mode",
+        style: TextStyle(fontWeight: FontWeight.w600),
+      ),
+    );
   }
 
   ElevatedButton _loginFacebook() {

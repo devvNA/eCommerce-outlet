@@ -1,10 +1,8 @@
 // ignore_for_file: invalid_annotation_target
-
-import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'produk.freezed.dart';
-part 'produk.g.dart';
+part 'produk_model.freezed.dart';
+part 'produk_model.g.dart';
 
 @freezed
 class Produk with _$Produk {

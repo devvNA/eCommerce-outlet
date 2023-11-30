@@ -1,6 +1,6 @@
 import 'package:marvelindo_outlet/data/models/chat_model.dart';
-import 'package:marvelindo_outlet/core/types.dart';
 
+import '../../core/utils/types.dart';
 import '../../domain/repositories/chat_repository.dart';
 
 

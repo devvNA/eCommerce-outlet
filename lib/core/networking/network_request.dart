@@ -5,17 +5,19 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 
 import 'package:get/instance_manager.dart';
-import 'package:marvelindo_outlet/core/api_endpoints.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:marvelindo_outlet/core/utils/local/token_cache.dart';
 import 'package:marvelindo_outlet/data/datasources/auth_remote_datasources.dart';
 import 'package:marvelindo_outlet/data/repositories/auth_repository_impl.dart';
 import 'package:marvelindo_outlet/domain/usecase/auth_usecase.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import '../compare_time_helper.dart';
-import '../types.dart';
+import '../utils/api_endpoints.dart';
+import '../utils/helpers/compare_time_helper.dart';
+import '../utils/types.dart';
 
 class Request {
   Dio _dio = Dio();
+  final box = GetStorage();
 
   Request() {
     _dio = Dio(BaseOptions(
@@ -39,12 +41,13 @@ class Request {
 
   /// Fungsi ini digunakan untuk memperbarui header authorization
   void updateAuthorization(String token) {
+    token = box.read("accessToken") ?? "null";
     _dio.options.headers['Authorization'] = 'Bearer $token';
   }
 
   /// GET request
   Future<Response> get(String endpoint,
-      {JSON? queryParameters, required bool requiresAuthToken}) async {
+      {JSON? queryParameters, bool requiresAuthToken = true}) async {
     if (requiresAuthToken) await _setFirebaseToken();
     return await _dio.get(endpoint, queryParameters: queryParameters);
   }

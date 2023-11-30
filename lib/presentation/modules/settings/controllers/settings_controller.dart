@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:get_storage/get_storage.dart';
 import '../../../../core/networking/firebase_auth_services.dart';
 import '../../../routes/app_pages.dart';
 
@@ -10,10 +9,9 @@ class SettingsController extends GetxController {
   SettingsController({required this.firebaseAuthService});
 
   Future<void> signOut() async {
-    // Get.back();
     await firebaseAuthService.signOut();
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove("accessToken");
+    final box = GetStorage();
+    box.remove("accessToken");
 
     await Get.offAllNamed(Routes.SPLASH);
   }

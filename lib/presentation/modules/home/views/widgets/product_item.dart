@@ -9,9 +9,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/presentation/global/theme/light_theme_colors.dart';
 import 'package:marvelindo_outlet/presentation/modules/home/controllers/home_controller.dart';
-
+import '../../../../../core/utils/helpers/currency.dart';
 import '../../../../../data/models/product_model.dart';
-import '../../../../../core/utils/constants.dart';
 import '../../../../../data/models/produk/produk_model.dart';
 import '../../../base/controllers/base_controller.dart';
 import '../../../../routes/app_pages.dart';
@@ -59,7 +58,7 @@ class ProductItem extends GetView<HomeController> {
                       maxLines: 2,
                       style: theme.textTheme.bodyMedium?.copyWith(
                           overflow: TextOverflow.ellipsis, fontSize: 13)),
-                  Text('Rp ${product.harga}',
+                  Text(CurrencyFormat.convertToIdr(product.harga, 0),
                       style: theme.textTheme.displaySmall?.copyWith(
                         color: AppColors.primaryColor,
                       ))

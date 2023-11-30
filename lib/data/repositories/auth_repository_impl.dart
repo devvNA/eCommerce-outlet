@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../core/networking/failure.dart';
+import '../../core/networking/failure_helper.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../datasources/auth_remote_datasources.dart';
 

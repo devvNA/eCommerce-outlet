@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/utils/constants.dart';
+import '../../../core/utils/helpers/constants.dart';
+
 
 class NoData extends StatelessWidget {
   final VoidCallback onPressed;

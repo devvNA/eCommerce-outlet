@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:get_storage/get_storage.dart';
 import '../../../data/models/token/token_model.dart';
 
 const String kTokenCacheKey = 'tokencache';
@@ -10,22 +8,20 @@ const String kTokenCacheKey = 'tokencache';
 class TokenCacheService {
   Token? _token;
   Token? get token => _token;
-  SharedPreferences get sharedPrefs => Get.find<SharedPreferences>();
+  GetStorage get getStorage => Get.find<GetStorage>();
 
-  Future<bool> saveTokenToLocalStorage(Token token) async {
+  Future<void> saveTokenToLocalStorage(Token token) async {
     final tokenNow =
         token.copyWith(tokenTime: DateTime.now().toIso8601String());
     var map = tokenNow.toJson();
-    bool saved = await sharedPrefs.setString(kTokenCacheKey, jsonEncode(map));
-    if (saved) {
-      _token = await getTokenFromLocalStorage();
-    }
+    var saved = await getStorage.write(kTokenCacheKey, jsonEncode(map));
+    _token = await getTokenFromLocalStorage();
     return saved;
   }
 
   Future<Token?> getTokenFromLocalStorage() async {
     Token tkn;
-    var tokenMap = sharedPrefs.getString(kTokenCacheKey);
+    var tokenMap = getStorage.read(kTokenCacheKey);
     if (tokenMap == null) {
       return null;
     }
@@ -34,8 +30,8 @@ class TokenCacheService {
     return tkn;
   }
 
-  Future<bool> deleteTokenFromLocalStorage() async {
+  Future<void> deleteTokenFromLocalStorage() async {
     _token = null;
-    return await sharedPrefs.remove(kTokenCacheKey);
+    return await getStorage.remove(kTokenCacheKey);
   }
 }

@@ -115,53 +115,53 @@ class ProfilView extends GetView<ProfilController> {
                           )),
                   10.verticalSpace,
                   const Divider(thickness: 1),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Card(
-                        color: Color(0xff34C759),
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            left: 12.0,
-                            right: 12.0,
-                            top: 4.0,
-                            bottom: 4.0,
-                          ),
-                          child: Text(
-                            "Lorem: ",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12.0,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 4,
-                      ),
-                      Card(
-                        color: Color(0xffAF52DE),
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            left: 12.0,
-                            right: 12.0,
-                            top: 4.0,
-                            bottom: 4.0,
-                          ),
-                          child: Text(
-                            "Lorem: ",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12.0,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const Divider(
-                    thickness: 1,
-                  ),
+                  // const Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     Card(
+                  //       color: Color(0xff34C759),
+                  //       child: Padding(
+                  //         padding: EdgeInsets.only(
+                  //           left: 12.0,
+                  //           right: 12.0,
+                  //           top: 4.0,
+                  //           bottom: 4.0,
+                  //         ),
+                  //         child: Text(
+                  //           "Lorem: ",
+                  //           style: TextStyle(
+                  //             color: Colors.white,
+                  //             fontSize: 12.0,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     SizedBox(
+                  //       width: 4,
+                  //     ),
+                  //     Card(
+                  //       color: Color(0xffAF52DE),
+                  //       child: Padding(
+                  //         padding: EdgeInsets.only(
+                  //           left: 12.0,
+                  //           right: 12.0,
+                  //           top: 4.0,
+                  //           bottom: 4.0,
+                  //         ),
+                  //         child: Text(
+                  //           "Lorem: ",
+                  //           style: TextStyle(
+                  //             color: Colors.white,
+                  //             fontSize: 12.0,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  // const Divider(
+                  //   thickness: 1,
+                  // ),
                   const SizedBox(
                     height: 10.0,
                   ),

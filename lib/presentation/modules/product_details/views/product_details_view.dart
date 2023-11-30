@@ -7,8 +7,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/presentation/global/theme/light_theme_colors.dart';
-
-import '../../../../core/utils/constants.dart';
+import '../../../../core/utils/helpers/constants.dart';
+import '../../../../core/utils/helpers/currency.dart';
 import '../controllers/product_details_controller.dart';
 import 'widgets/rounded_button.dart';
 
@@ -88,7 +88,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                 child: Row(
                   children: [
                     Text(
-                      'Rp ${controller.product.harga}',
+                      CurrencyFormat.convertToIdr(controller.product.harga, 0),
                       style: theme.textTheme.displayMedium,
                     ),
                   ],

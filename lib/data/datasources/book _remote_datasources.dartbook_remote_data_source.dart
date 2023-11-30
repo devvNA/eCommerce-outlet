@@ -1,14 +1,13 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
+import 'package:marvelindo_outlet/core/utils/types.dart';
 
-import '../../core/networking/failure.dart';
-import '../../core/api_endpoints.dart';
+import '../../core/networking/failure_helper.dart';
 import '../../core/networking/network_request.dart';
+import '../../core/utils/api_endpoints.dart';
 import '../models/book/book_model.dart';
 
-import '../../core/types.dart';
 
 abstract class BookRemoteDataSource {
   Future<Either<Failure, ListBook>> getListBook(int page, int limit);
@@ -21,8 +20,7 @@ class BookRemoteDataSourceImpl implements BookRemoteDataSource {
       final request = Request();
 
       // final response = await Dio().get(bookUrl);
-      final response = await request.get("$listBooks?page=$page&limit=$limit",
-          requiresAuthToken: true);
+      final response = await request.get("$listBooks?page=$page&limit=$limit");
 
       ListBook books = [];
       if (response.statusCode == 200) {
@@ -35,8 +33,6 @@ class BookRemoteDataSourceImpl implements BookRemoteDataSource {
       }
       // debugPrint('Data: ${response.data}');
       return Left(ConnectionFailure(response.data['message']));
-    } on DioError catch (_) {
-      return const Left(ConnectionFailure("Terjadi Kesalahan"));
     } catch (_) {
       return const Left(ParsingFailure("Tidak dapat memparsing respon"));
     }

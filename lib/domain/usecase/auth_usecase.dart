@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../core/networking/failure.dart';
+import '../../core/networking/failure_helper.dart';
 import '../repositories/auth_repository.dart';
 
 class AuthUseCase {

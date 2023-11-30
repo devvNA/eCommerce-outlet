@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:marvelindo_outlet/data/datasources/products_remote_datasources.dart';
 import 'package:marvelindo_outlet/data/repositories/product_repository_impl.dart';
 import 'package:marvelindo_outlet/domain/usecase/product_usecase.dart';
-
 import '../../../../data/models/produk/produk_model.dart';
 
 class HomeController extends GetxController {

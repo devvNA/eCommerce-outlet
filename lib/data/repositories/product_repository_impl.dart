@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 
-import '../../core/networking/failure.dart';
+import '../../core/networking/failure_helper.dart';
 import '../../domain/repositories/product_repository.dart';
 import '../datasources/products_remote_datasources.dart';
 import '../models/produk/produk_model.dart';
