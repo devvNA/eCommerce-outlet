@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import '../../../../global/common/custom_snackbar.dart';
+import '../../../../global/widgets/custom_snackbar.dart';
 import '../../../../global/theme/light_theme_colors.dart';
 import '../../../../routes/app_pages.dart';
 import '../controller/login_controller.dart';
@@ -109,23 +109,23 @@ class LoginView extends GetView<LoginController> {
                     const SizedBox(
                       height: 8.0,
                     ),
-                    // OutlinedButton(
-                    //   style: OutlinedButton.styleFrom(
-                    //     elevation: 2,
-                    //     backgroundColor: Colors.blue,
-                    //     foregroundColor: Colors.white,
-                    //     side: BorderSide(
-                    //       color: Colors.black,
-                    //     ),
-                    //     shape: RoundedRectangleBorder(
-                    //       borderRadius: BorderRadius.circular(12),
-                    //     ),
-                    //   ),
-                    //   onPressed: () {
-                    //     Get.toNamed(Routes.API_TEST);
-                    //   },
-                    //   child: Text("TEST"),
-                    // ),
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        elevation: 2,
+                        backgroundColor: Colors.blue,
+                        foregroundColor: Colors.white,
+                        side: const BorderSide(
+                          color: Colors.black,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      onPressed: () {
+                        Get.toNamed(Routes.API_TEST);
+                      },
+                      child: const Text("TEST"),
+                    ),
                     const SizedBox(height: 16.0),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -296,7 +296,6 @@ class LoginView extends GetView<LoginController> {
       cursorColor: AppColors.primaryColor,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
-      onChanged: (value) {},
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(horizontal: 0),
         prefixIconColor: AppColors.primaryColor,
@@ -345,7 +344,6 @@ class LoginView extends GetView<LoginController> {
       cursorColor: AppColors.primaryColor,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
-      onChanged: (value) {},
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(horizontal: 0),
         prefixIconColor: AppColors.primaryColor,

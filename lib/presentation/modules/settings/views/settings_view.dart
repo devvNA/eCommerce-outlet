@@ -7,8 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/utils/helpers/constants.dart';
-import '../../../global/common/custom_snackbar.dart';
-import '../../../global/common/screen_title.dart';
+import '../../../global/widgets/custom_snackbar.dart';
+import '../../../global/widgets/screen_title.dart';
 import '../../../global/theme/light_theme_colors.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/settings_controller.dart';

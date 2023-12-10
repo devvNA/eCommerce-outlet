@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'dark_theme_colors.dart';
 import 'my_fonts.dart';
 import 'light_theme_colors.dart';

@@ -45,17 +45,12 @@ class CartController extends GetxController {
     for (var product in DummyHelper.products) {
       product.quantity = 0;
     }
-
-    // update UI
-    // Get.find<BaseController>().changeScreen(0);
-    notifyChildrens();
     update();
   }
 
   onRefreshCart() {
     products.clear();
     getCartProducts();
-    update();
   }
 
   // when the user press on increase button
@@ -69,7 +64,7 @@ class CartController extends GetxController {
   //  when the user press on decrease button
   onDecreasePressed(int productId) {
     var product = DummyHelper.products.firstWhere((p) => p.id == productId);
-    if (product.quantity != 0) {
+    if (product.quantity! > 1) {
       product.quantity = product.quantity! - 1;
       getCartProducts();
       update(['ProductQuantity']);

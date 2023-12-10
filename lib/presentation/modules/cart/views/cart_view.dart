@@ -8,8 +8,8 @@ import 'package:marvelindo_outlet/presentation/global/theme/light_theme_colors.d
 import 'package:marvelindo_outlet/core/utils/helpers/currency.dart';
 
 import '../../../../core/utils/helpers/constants.dart';
-import '../../../global/common/no_data.dart';
-import '../../../global/common/screen_title.dart';
+import '../../../global/widgets/no_data.dart';
+import '../../../global/widgets/screen_title.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/cart_controller.dart';
 import 'widgets/cart_item.dart';

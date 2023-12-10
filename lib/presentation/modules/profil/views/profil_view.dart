@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:marvelindo_outlet/presentation/global/widgets/loading_custom_widget.dart';
 
-import '../../../global/common/screen_title.dart';
+import '../../../global/widgets/screen_title.dart';
 import '../controllers/profil_controller.dart';
 
 class ProfilView extends GetView<ProfilController> {
@@ -73,26 +74,6 @@ class ProfilView extends GetView<ProfilController> {
                   const SizedBox(
                     height: 10.0,
                   ),
-                  // ElevatedButton(
-                  //   onPressed: () {
-                  //     controller.onTapGetToken();
-                  //   },
-                  //   child: const Text("Token"),
-                  // ),
-                  // 10.verticalSpace,
-                  // controller.token.value.isEmpty
-                  //     ? const Center(
-                  //         child: SizedBox(
-                  //             width: 20,
-                  //             height: 20,
-                  //             child: CircularProgressIndicator()))
-                  //     : SizedBox(
-                  //         height: 100,
-                  //         child: ListView(
-                  //           children: [
-                  //             Text(controller.token.value),
-                  //           ],
-                  //         )),
                   ElevatedButton(
                     onPressed: () {
                       controller.onTapGetAccessToken();
@@ -105,7 +86,7 @@ class ProfilView extends GetView<ProfilController> {
                           child: SizedBox(
                               width: 20,
                               height: 20,
-                              child: CircularProgressIndicator()))
+                              child: LoadingCustomWidget()))
                       : SizedBox(
                           height: 100,
                           child: ListView(

@@ -64,20 +64,20 @@ class CartItem extends GetView<CartController> {
               overflow: TextOverflow.ellipsis,
             ),
             5.verticalSpace,
-            RichText(
-              text: TextSpan(
-                style: DefaultTextStyle.of(context).style,
-                children: <TextSpan>[
-                  const TextSpan(
-                    text: 'jenis: ',
-                  ),
-                  TextSpan(
-                      text: 'Perdana',
-                      style:
-                          theme.textTheme.bodyLarge?.copyWith(fontSize: 12.sp)),
-                ],
-              ),
-            ),
+            // RichText(
+            //   text: TextSpan(
+            //     style: DefaultTextStyle.of(context).style,
+            //     children: <TextSpan>[
+            //       const TextSpan(
+            //         text: 'jenis: ',
+            //       ),
+            //       TextSpan(
+            //           text: 'Perdana',
+            //           style:
+            //               theme.textTheme.bodyLarge?.copyWith(fontSize: 12.sp)),
+            //     ],
+            //   ),
+            // ),
             5.verticalSpace,
             Text(
               CurrencyFormat.convertToIdr(product.price, 0),
@@ -100,7 +100,7 @@ class CartItem extends GetView<CartController> {
                   SizedBox(
                     height: 53,
                     width: 60,
-                    child: TextFormField(
+                    child: TextField(
                       style: const TextStyle(
                           fontSize: 14, fontWeight: FontWeight.w500),
                       maxLines: 1,
@@ -131,8 +131,7 @@ class CartItem extends GetView<CartController> {
                         filled: true,
                         fillColor: Colors.grey[150],
                       ),
-                      onFieldSubmitted: (value) async {
-                        await Future.delayed(const Duration(milliseconds: 300));
+                      onSubmitted: (value) {
                         controller.onInputQuantity(
                             product.id!, int.parse(value));
                       },
@@ -174,7 +173,7 @@ class CartItem extends GetView<CartController> {
                         foregroundColor: AppColors.primaryColor,
                         side: const BorderSide(
                           color: AppColors.primaryColor,
-                        ),
+                        )
                       ),
                       onPressed: () {
                         Get.back();

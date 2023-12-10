@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/presentation/modules/auth/registration/controllers/registration_controller.dart';
 
-import '../../../../global/common/custom_snackbar.dart';
+import '../../../../global/widgets/custom_snackbar.dart';
 import '../../../../global/theme/light_theme_colors.dart';
 import 'widgets/form_registration_widget.dart';
 

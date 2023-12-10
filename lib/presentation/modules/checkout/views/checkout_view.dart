@@ -7,8 +7,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/presentation/global/theme/light_theme_colors.dart';
 
-import '../../../global/common/custom_alert_dialog.dart';
-import '../../../global/common/screen_title.dart';
+import '../../../global/widgets/custom_alert_dialog.dart';
+import '../../../global/widgets/screen_title.dart';
 import '../controllers/checkout_controller.dart';
 import 'widgets/checkout_card_widget.dart';
 

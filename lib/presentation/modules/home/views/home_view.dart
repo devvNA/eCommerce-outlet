@@ -4,8 +4,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../../global/common/error_state_widget.dart';
-import '../../../global/common/screen_title.dart';
+import '../../../global/widgets/loading_custom_widget.dart';
+import '../../../global/widgets/error_state_widget.dart';
+import '../../../global/widgets/screen_title.dart';
 import '../../../global/theme/light_theme_colors.dart';
 import '../controllers/home_controller.dart';
 import 'widgets/product_item.dart';
@@ -36,7 +37,7 @@ class HomeView extends GetView<HomeController> {
                 Expanded(
                   child: Obx(() {
                     if (controller.loading.value) {
-                      return const Center(child: CircularProgressIndicator());
+                      return const Center(child: LoadingCustomWidget());
                     }
                     if (controller.listProducts.isEmpty) {
                       return const Center(

@@ -1,6 +1,6 @@
 // ignore_for_file: deprecated_member_use
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
+
 import '../../core/networking/failure_helper.dart';
 import '../../core/networking/network_request.dart';
 import '../../core/utils/api_endpoints.dart';
@@ -29,12 +29,10 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
       }
       // debugPrint('Data: ${response.data}');
       return Left(ConnectionFailure(response.data));
-    } on DioException catch (e) {
-      //error koneksi
-      return Left(ConnectionFailure(e.toString()));
     } catch (e) {
       //error parsing json
-      return Left(ParsingFailure(e.toString()));
+      return const Left(ParsingFailure("awokawk"));
+      // return Left(ParsingFailure(e.toString()));
     }
   }
 
@@ -53,9 +51,6 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
         return Right(products);
       }
       return Left(ConnectionFailure(response.data['message']));
-    } on DioException catch (e) {
-      //error koneksi
-      return Left(ConnectionFailure(e.toString()));
     } catch (e) {
       //error parsing json
       return Left(ParsingFailure(e.toString()));

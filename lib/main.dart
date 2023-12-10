@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -15,7 +17,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // init shared preference
   await GetStorage.init();
-
   //Firebase Config
   await Firebase.initializeApp();
 
@@ -89,7 +90,8 @@ class _MyAppState extends State<MyApp> {
               return Theme(
                 data: MyTheme.getThemeData(isLight: true),
                 child: MediaQuery(
-                  data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                  data: MediaQuery.of(context)
+                      .copyWith(textScaler: const TextScaler.linear(1.0)),
                   child: widget ?? const SizedBox(),
                 ),
               );

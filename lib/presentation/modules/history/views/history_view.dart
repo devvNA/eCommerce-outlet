@@ -3,10 +3,10 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
-import 'package:marvelindo_outlet/presentation/global/common/error_state_widget.dart';
+import 'package:marvelindo_outlet/presentation/global/widgets/error_state_widget.dart';
 import 'package:marvelindo_outlet/presentation/global/theme/light_theme_colors.dart';
 
-import '../../../global/common/screen_title.dart';
+import '../../../global/widgets/screen_title.dart';
 import '../controllers/history_controller.dart';
 import 'widgets/history_item.dart';
 
@@ -72,7 +72,18 @@ class HistoryView extends GetView<HistoryController> {
                               clipBehavior: Clip.hardEdge,
                               children: [
                                 // TAB 1
-                                ListView.builder(
+                                ListView.separated(
+                                  separatorBuilder: (context, index) =>
+                                      const Divider(
+                                              height: 3, color: Colors.black54)
+                                          .animate()
+                                          .fade()
+                                          .slideY(
+                                            duration: const Duration(
+                                                milliseconds: 300),
+                                            begin: 2,
+                                            curve: Curves.easeInSine,
+                                          ),
                                   itemCount: 3,
                                   itemBuilder: (context, index) =>
                                       const HistoryItem()
