@@ -33,7 +33,7 @@ class HomeView extends GetView<HomeController> {
                 _searchBar(),
                 10.verticalSpace,
                 _buildCategory(),
-                10.verticalSpace,
+                5.verticalSpace,
                 Expanded(
                   child: Obx(() {
                     if (controller.loading.value) {

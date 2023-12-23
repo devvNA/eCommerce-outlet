@@ -17,17 +17,12 @@ class HistoryItem extends StatelessWidget {
     );
 
     return InkWell(
-      splashColor: AppColors.primaryColor.withOpacity(0.3),
+      borderRadius: BorderRadius.circular(12),
+      splashColor: AppColors.primaryColor.withOpacity(0.25),
       onTap: onTap ?? () {},
       child: Container(
         padding: const EdgeInsets.all(12.0),
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(
-            Radius.circular(
-              8.0,
-            ),
-          ),
-        ),
+        decoration: const BoxDecoration(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -40,7 +35,10 @@ class HistoryItem extends StatelessWidget {
                 spaceH,
                 const Text(
                   "•",
-                  style: TextStyle(fontSize: 12),
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 spaceH,
                 const Text(

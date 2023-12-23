@@ -76,7 +76,7 @@ class RegistrationView extends StatelessWidget {
             height: 15.0,
           ),
           const Text(
-            'Jenis Kelamin',
+            'Jenis Outlet',
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           ),
           const SizedBox(
@@ -107,7 +107,8 @@ class RegistrationView extends StatelessWidget {
           FormAddressWidget(
               formTitle: "Alamat Outlet",
               formController: addressController,
-              hintText: "JL Menuju Surga",
+              hintText:
+                  "JL Gatot Subroto, No. 40 Tambaksari, Sidanegara, Kecamatan Cilacap Tengah, Kabupaten Cilacap, Jawa Tengah ",
               initialValue: ""),
           const SizedBox(
             height: 25.0,

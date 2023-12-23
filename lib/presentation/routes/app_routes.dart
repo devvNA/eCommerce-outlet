@@ -19,6 +19,7 @@ abstract class Routes {
   static const API_TEST = _Paths.API_TEST;
   static const CHECKOUT = _Paths.CHECKOUT;
   static const DETAIL_API = _Paths.DETAIL_API;
+  static const DETAIL_HISTORY = _Paths.DETAIL_HISTORY;
 }
 
 abstract class _Paths {
@@ -37,4 +38,5 @@ abstract class _Paths {
   static const API_TEST = '/login/api_test';
   static const CHECKOUT = '/cart/checkout';
   static const DETAIL_API = '/login/api_test/detail_api';
+  static const DETAIL_HISTORY = '/detail_history';
 }

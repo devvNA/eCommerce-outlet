@@ -121,8 +121,8 @@ class FormGenderWidget extends StatelessWidget {
   FormGenderWidget({super.key});
 
   final List<String> classItems = [
-    'Laki-laki',
-    'Perempuan',
+    'Konter',
+    '...',
   ];
 
   String? selectedValue;
@@ -142,7 +142,7 @@ class FormGenderWidget extends StatelessWidget {
                 borderSide: BorderSide.none),
           ),
           hint: const Text(
-            'jenis Kelamin',
+            'jenis outlet',
             style: TextStyle(
                 fontSize: 16,
                 color: Color(0xFFD3D3D3),

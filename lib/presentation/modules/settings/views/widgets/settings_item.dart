@@ -5,24 +5,23 @@ import 'package:get/get.dart';
 
 import '../../../../../core/utils/helpers/constants.dart';
 
-
 class SettingsItem extends StatelessWidget {
-  const SettingsItem({
-    super.key,
-    required this.title,
-    required this.icon,
-    this.isAccount = false,
-    this.isDark = false,
-    required this.onTap,
-    this.subtitle,
-  });
-
-  final String icon;
+  final String? icon;
   final bool isAccount;
   final bool isDark;
   final VoidCallback onTap;
   final String title;
   final String? subtitle;
+
+  const SettingsItem({
+    super.key,
+    required this.title,
+    this.icon = "",
+    this.isAccount = false,
+    this.isDark = false,
+    required this.onTap,
+    this.subtitle,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,20 +29,14 @@ class SettingsItem extends StatelessWidget {
     return GestureDetector(
         onTap: onTap,
         child: ListTile(
-          title: Text(title,
-              style: theme.textTheme.displayMedium?.copyWith(
-                fontSize: 16.sp,
-              )),
-          subtitle: !isAccount
-              ? null
-              : Text(
-                  "$subtitle",
-                  style: context.theme.textTheme.bodyMedium,
-                ),
+          title: Text(
+            title,
+            style: theme.textTheme.labelLarge,
+          ),
           leading: CircleAvatar(
             radius: isAccount ? 30.r : 25.r,
             backgroundColor: theme.primaryColor,
-            child: SvgPicture.asset(icon, fit: BoxFit.none),
+            child: SvgPicture.asset(icon!, fit: BoxFit.none),
           ),
           trailing: Container(
             width: 40.w,

@@ -45,7 +45,7 @@ class SettingsView extends GetView<SettingsController> {
               icon: Constants.userIcon,
             ),
             20.verticalSpace,
-            Text('Settings',
+            Text('Support',
                 style: theme.textTheme.displayMedium?.copyWith(
                   fontSize: 20.sp,
                   fontWeight: FontWeight.normal,
@@ -60,7 +60,7 @@ class SettingsView extends GetView<SettingsController> {
               icon: Constants.themeIcon,
             ),
  */
-            25.verticalSpace,
+            20.verticalSpace,
             SettingsItem(
               onTap: () {
                 CustomSnackBar.showCustomErrorToast();
@@ -68,7 +68,15 @@ class SettingsView extends GetView<SettingsController> {
               title: 'Bantuan',
               icon: Constants.helpIcon,
             ),
-            25.verticalSpace,
+            20.verticalSpace,
+            SettingsItem(
+              onTap: () {
+                CustomSnackBar.showCustomErrorToast();
+              },
+              title: 'Tentang Kami',
+              icon: Constants.helpIcon,
+            ),
+            20.verticalSpace,
             SettingsItem(
               onTap: () async {
                 await showDialog<void>(

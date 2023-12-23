@@ -117,37 +117,46 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                   ),
                 ),
               ),
-              5.verticalSpace,
-              const Divider(thickness: 1),
+              15.verticalSpace,
+              Container(
+                height: 10,
+                color: Colors.grey[200],
+              ),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                ),
-                child: Text(
-                  "Deskripsi",
-                  textAlign: TextAlign.left,
-                  style: theme.textTheme.displaySmall,
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Deskripsi",
+                      textAlign: TextAlign.left,
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                    ),
+                    10.verticalSpace,
+                    GestureDetector(
+                      onTap: () {},
+                      child: Text.rich(TextSpan(
+                          // text:
+                          //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                          text: controller.product.deskripsi,
+                          style: theme.textTheme.bodyMedium,
+                          children: <InlineSpan>[
+                            const TextSpan(
+                              text:
+                                  ' Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim ',
+                            ),
+                            TextSpan(
+                              text: ' selengkapnya...',
+                              style: theme.textTheme.displaySmall!.copyWith(
+                                color: AppColors.appBarColor,
+                              ),
+                            )
+                          ])),
+                    )
+                  ],
                 ),
               ),
-              GestureDetector(
-                onTap: () {},
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 12, right: 22),
-                  child: Text.rich(TextSpan(
-                      // text:
-                      //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-                      text: controller.product.deskripsi,
-                      style: theme.textTheme.bodyMedium,
-                      children: <InlineSpan>[
-                        TextSpan(
-                          text: ' selengkapnya...',
-                          style: theme.textTheme.displaySmall!.copyWith(
-                            color: AppColors.appBarColor,
-                          ),
-                        )
-                      ])),
-                ),
-              )
             ],
           ),
         ),

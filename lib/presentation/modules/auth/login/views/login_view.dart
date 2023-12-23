@@ -56,14 +56,12 @@ class LoginView extends GetView<LoginController> {
                       child: Column(
                         children: [
                           _emailForm(),
-                          const SizedBox(
-                            height: 12.0,
-                          ),
+                          12.verticalSpace,
                           _passwordForm(),
-                          const SizedBox(height: 12.0),
+                          12.verticalSpace,
                           _loginButton(),
-                          5.verticalSpace,
-                          _devModeButton()
+                          // 5.verticalSpace,
+                          // _devModeButton()
                         ],
                       ),
                     ),
@@ -109,24 +107,8 @@ class LoginView extends GetView<LoginController> {
                     const SizedBox(
                       height: 8.0,
                     ),
-                    OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        elevation: 2,
-                        backgroundColor: Colors.blue,
-                        foregroundColor: Colors.white,
-                        side: const BorderSide(
-                          color: Colors.black,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      onPressed: () {
-                        Get.toNamed(Routes.API_TEST);
-                      },
-                      child: const Text("TEST"),
-                    ),
-                    const SizedBox(height: 16.0),
+                    // const TestButton(),
+                    20.verticalSpace,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -370,6 +352,33 @@ class LoginView extends GetView<LoginController> {
         }
         return "email tidak valid";
       },
+    );
+  }
+}
+
+class TestButton extends StatelessWidget {
+  const TestButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton(
+      style: OutlinedButton.styleFrom(
+        elevation: 2,
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
+        side: const BorderSide(
+          color: Colors.black,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+      onPressed: () {
+        Get.toNamed(Routes.API_TEST);
+      },
+      child: const Text("TEST"),
     );
   }
 }

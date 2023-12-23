@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/presentation/global/widgets/error_state_widget.dart';
 import 'package:marvelindo_outlet/presentation/global/theme/light_theme_colors.dart';
+import 'package:marvelindo_outlet/presentation/routes/app_pages.dart';
 
 import '../../../global/widgets/screen_title.dart';
 import '../controllers/history_controller.dart';
@@ -57,14 +58,14 @@ class HistoryView extends GetView<HistoryController> {
                             vertical: 12,
                           ),
                           unselectedLabelColor: const Color(0xFFA3A3A3),
-                          tabs: const [
+                          tabs: const [  
                             Text("Proses"),
                             Text("Selesai"),
                             Text("Dibatalkan"),
                           ],
                           isScrollable: true,
                         ),
-                        10.verticalSpace,
+                        5.verticalSpace,
                         Expanded(
                             child: Padding(
                           padding: const EdgeInsets.all(6.0),
@@ -73,9 +74,11 @@ class HistoryView extends GetView<HistoryController> {
                               children: [
                                 // TAB 1
                                 ListView.separated(
+                                  physics: const BouncingScrollPhysics(
+                                      parent: AlwaysScrollableScrollPhysics()),
                                   separatorBuilder: (context, index) =>
                                       const Divider(
-                                              height: 3, color: Colors.black54)
+                                              height: 4, color: Colors.black45)
                                           .animate()
                                           .fade()
                                           .slideY(
@@ -85,16 +88,16 @@ class HistoryView extends GetView<HistoryController> {
                                             curve: Curves.easeInSine,
                                           ),
                                   itemCount: 3,
-                                  itemBuilder: (context, index) =>
-                                      const HistoryItem()
-                                          .animate()
-                                          .fade()
-                                          .slideY(
-                                            duration: const Duration(
-                                                milliseconds: 300),
-                                            begin: 1,
-                                            curve: Curves.easeInSine,
-                                          ),
+                                  itemBuilder: (context, index) => HistoryItem(
+                                    onTap: () {
+                                      Get.toNamed(Routes.DETAIL_HISTORY);
+                                    },
+                                  ).animate().fade().slideY(
+                                        duration:
+                                            const Duration(milliseconds: 300),
+                                        begin: 1,
+                                        curve: Curves.easeInSine,
+                                      ),
                                 ),
 
                                 // TAB 2

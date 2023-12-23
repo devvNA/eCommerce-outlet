@@ -31,7 +31,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
       return Left(ConnectionFailure(response.data));
     } catch (e) {
       //error parsing json
-      return const Left(ParsingFailure("awokawk"));
+      return Left(ParsingFailure(e.toString()));
       // return Left(ParsingFailure(e.toString()));
     }
   }

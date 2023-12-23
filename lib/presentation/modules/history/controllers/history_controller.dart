@@ -15,6 +15,4 @@ class HistoryController extends GetxController {
   }
 }
 
-// view 
-
 

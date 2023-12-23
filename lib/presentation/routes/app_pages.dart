@@ -2,6 +2,7 @@
 
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/presentation/modules/api_test/detail_api/detail_api_view.dart';
+import 'package:marvelindo_outlet/presentation/modules/detail_history/detail_history_view.dart';
 
 import '../global/dependency_injection/bindings.dart';
 import '../modules/api_test/api_test_page.dart';
@@ -88,6 +89,10 @@ class AppPages {
     GetPage(
         name: _Paths.DETAIL_API,
         page: () => DetailApiView(),
+        binding: AppBindings()),
+    GetPage(
+        name: _Paths.DETAIL_HISTORY,
+        page: () => const DetailHistoryView(),
         binding: AppBindings()),
   ];
 }
