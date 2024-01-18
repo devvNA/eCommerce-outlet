@@ -32,7 +32,7 @@ class HomeView extends GetView<HomeController> {
                 10.verticalSpace,
                 _searchBar(),
                 10.verticalSpace,
-                _buildCategory(),
+                _categories(),
                 5.verticalSpace,
                 Expanded(
                   child: Obx(() {
@@ -44,7 +44,7 @@ class HomeView extends GetView<HomeController> {
                           child: ErrorStateWidget(
                               message: "Produk tidak ditemukan"));
                     }
-                    if (controller.searchController.value.text.isEmpty) {
+                    if (controller.searchController.text.isEmpty) {
                       return RefreshIndicator(
                         color: AppColors.primaryColor,
                         onRefresh: () async {
@@ -131,7 +131,7 @@ class HomeView extends GetView<HomeController> {
           const SizedBox(width: 8.0),
           Expanded(
             child: TextField(
-              controller: controller.searchController.value,
+              controller: controller.searchController,
               onChanged: (value) {
                 controller.onSearchProduct(value);
                 log(value);
@@ -150,7 +150,7 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  SizedBox _buildCategory() {
+  SizedBox _categories() {
     return SizedBox(
       height: 50,
       child: ListView.builder(

@@ -19,7 +19,8 @@ class CheckoutProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 1,
+      borderOnForeground: true,
+      elevation: 2.5,
       clipBehavior: Clip.hardEdge,
       child: Column(
         children: [

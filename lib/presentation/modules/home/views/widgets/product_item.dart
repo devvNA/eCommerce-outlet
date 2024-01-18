@@ -24,7 +24,6 @@ class ProductItem extends GetView<HomeController> {
     final theme = context.theme;
     return GestureDetector(
       onTap: () {
-        controller.searchController.value.clear();
         Get.toNamed(Routes.PRODUCT_DETAILS, arguments: product);
       },
       child: Column(

@@ -88,31 +88,31 @@ class Request {
         (firebaseToken) => updateAuthorization(firebaseToken));
   }
 
-  Future<String?> _getAccessToken() async {
-    const expiredTime = Duration(hours: 23);
+  // Future<String?> _getAccessToken() async {
+  //   const expiredTime = Duration(hours: 23);
 
-    final token =
-        await Get.find<TokenCacheService>().getTokenFromLocalStorage();
+  //   final token =
+  //       await Get.find<TokenCacheService>().getTokenFromLocalStorage();
 
-    if (token != null) {
-      final tokenTime = token.tokenTime != null
-          ? DateTime.parse(token.tokenTime!)
-          : DateTime.now();
-      final expired = isExpired(tokenTime, expiredTime);
-      if (expired) {
-        // updateAuthorization(token.accessToken);
-        // final result =
-        //     await Get.find<AuthUseCase>().refreshToken(token.refreshToken);
-        // if (result.isRight()) {
-        //   final newToken = result.getOrElse(() => const Token());
+  //   if (token != null) {
+  //     final tokenTime = token.tokenTime != null
+  //         ? DateTime.parse(token.tokenTime!)
+  //         : DateTime.now();
+  //     final expired = isExpired(tokenTime, expiredTime);
+  //     if (expired) {
+  //       // updateAuthorization(token.accessToken);
+  //       // final result =
+  //       //     await Get.find<AuthUseCase>().refreshToken(token.refreshToken);
+  //       // if (result.isRight()) {
+  //       //   final newToken = result.getOrElse(() => const Token());
 
-        //   await Get.find<TokenCacheService>().saveTokenToLocalStorage(newToken);
+  //       //   await Get.find<TokenCacheService>().saveTokenToLocalStorage(newToken);
 
-        //   return newToken.accessToken;
-        // }
-      }
-    }
+  //       //   return newToken.accessToken;
+  //       // }
+  //     }
+  //   }
 
-    return token?.accessToken;
-  }
+  //   return token?.accessToken;
+  // }
 }

@@ -1,7 +1,6 @@
 // ignore_for_file: invalid_use_of_protected_member
 
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/data/datasources/products_remote_datasources.dart';
@@ -14,10 +13,9 @@ class HomeController extends GetxController {
   var loading = false.obs;
   var selectedIndex = 0.obs;
   var searchList = <Produk>[].obs;
-  final searchController = TextEditingController().obs;
+  final searchController = TextEditingController();
 
-  final categories =
-      ["semua", "perdana", "voucher", "unlimited", "paket data"].obs;
+  final categories = ["semua", "perdana", "voucher", "unlimited", "paket data"];
 
   @override
   void onInit() {
@@ -27,11 +25,10 @@ class HomeController extends GetxController {
 
   void onRefreshProducts() {
     listProducts.value.clear();
-    // onSearchProduct('');
     if (selectedIndex.value == 0) {
       getAllProductsAPI();
     } else {
-      getAllProductsAPIByKategori(categories.value[selectedIndex.value]);
+      getAllProductsAPIByKategori(categories[selectedIndex.value]);
     }
     update();
   }
@@ -40,7 +37,7 @@ class HomeController extends GetxController {
     selectedIndex(index);
     onRefreshProducts();
     log("index-${selectedIndex.toString()}");
-    log(categories.value[index].toString());
+    log(categories[index].toString());
     update();
   }
 

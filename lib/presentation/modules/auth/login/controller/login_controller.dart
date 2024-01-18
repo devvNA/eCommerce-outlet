@@ -9,11 +9,11 @@ import '../../../../../core/networking/firebase_auth_services.dart';
 
 class LoginController extends GetxController {
   final FirebaseAuthService firebaseAuthService;
-  final isTap = false.obs;
   final isGoogleTap = false.obs;
   final formField = GlobalKey<FormState>().obs;
   final emailController = TextEditingController().obs;
   final passwordController = TextEditingController().obs;
+  final isTap = false.obs;
   final visible = true.obs;
   final regex =
       RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$').obs;
@@ -24,6 +24,7 @@ class LoginController extends GetxController {
     isGoogleTap.value = true;
     update();
     await firebaseAuthService.signInWithGoogle();
+    isGoogleTap.value = true;
   }
 
   Future<void> onSignIn() async {
@@ -31,6 +32,7 @@ class LoginController extends GetxController {
     update();
     await Future.delayed(const Duration(milliseconds: 300));
     Get.offAllNamed(Routes.BASE);
+    isTap.value = false;
   }
 
   Future<void> onFacebookSignIn() async {

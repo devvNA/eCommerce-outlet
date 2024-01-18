@@ -9,7 +9,7 @@ class ProductDetailsController extends GetxController {
   // get product details from arguments
   // ProductModel product = Get.arguments;
   Produk product = Get.arguments;
-  Rx<List> products = Rx([]);
+  // Rx<List> products = Rx([]);
 
   // for the product size
   var selectedSize = '';
