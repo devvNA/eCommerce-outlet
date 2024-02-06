@@ -8,9 +8,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'app/presentation/global/dependency_injection/bindings.dart';
-import 'app/presentation/global/theme/my_theme.dart';
-import 'app/routes/app_pages.dart';
+
+import 'presentation/global/dependency_injection/bindings.dart';
+import 'presentation/global/theme/my_theme.dart';
+import 'presentation/routes/app_pages.dart';
 
 void main() async {
   // wait for bindings
