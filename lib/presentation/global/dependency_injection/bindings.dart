@@ -15,7 +15,7 @@ import '../../modules/base/controllers/base_controller.dart';
 import '../../modules/cart/controllers/cart_controller.dart';
 import '../../modules/chat/controllers/chat_controller.dart';
 import '../../modules/checkout/controllers/checkout_controller.dart';
-import '../../modules/detail_history/detail_history_controller.dart';
+import '../../modules/detail_history/controllers/detail_history_controller.dart';
 import '../../modules/history/controllers/history_controller.dart';
 import '../../modules/home/controllers/home_controller.dart';
 import '../../modules/product_details/controllers/product_details_controller.dart';
@@ -31,8 +31,7 @@ class AppBindings extends Bindings {
     Get.lazyPut<Request>(() => Request());
     Get.lazyPut(() => FirebaseAuthServiceImpl());
     Get.lazyPut<FirebaseAuthService>(() => FirebaseAuthServiceImpl());
-    Get.lazyPut<SplashController>(
-        () => SplashController(firebaseAuth: FirebaseAuthServiceImpl()));
+    Get.lazyPut<SplashController>(() => SplashController());
 
     Get.lazyPut<LoginController>(
       () => LoginController(firebaseAuthService: FirebaseAuthServiceImpl()),
@@ -44,8 +43,7 @@ class AppBindings extends Bindings {
     Get.lazyPut<HomeController>(() => HomeController());
     Get.lazyPut<CartController>(() => CartController());
     Get.lazyPut<HistoryController>(() => HistoryController());
-    Get.lazyPut<SettingsController>(() => SettingsController(
-        firebaseAuthService: Get.find<FirebaseAuthService>()));
+    Get.lazyPut<SettingsController>(() => SettingsController());
     Get.lazyPut<ChatRepository>(
       () => ChatRepositoryImpl(),
     );

@@ -88,7 +88,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                 child: Row(
                   children: [
                     Text(
-                      CurrencyFormat.convertToIdr(controller.product.harga, 0),
+                      CurrencyFormat.convertToIdr(controller.product.harga),
                       style: theme.textTheme.displayMedium,
                     ),
                   ],

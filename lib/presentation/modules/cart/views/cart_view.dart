@@ -95,7 +95,7 @@ class CartView extends GetView<CartController> {
                             )),
                         5.verticalSpace,
                         Text(
-                          CurrencyFormat.convertToIdr(controller.total, 0),
+                          CurrencyFormat.convertToIdr(controller.total),
                           style: theme.textTheme.displayLarge?.copyWith(
                             fontSize: 20,
                             decoration: TextDecoration.underline,

@@ -11,7 +11,7 @@ import '../modules/base/views/base_view.dart';
 import '../modules/cart/views/cart_view.dart';
 import '../modules/chat/views/chat_view.dart';
 import '../modules/checkout/views/checkout_view.dart';
-import '../modules/detail_history/detail_history_view.dart';
+import '../modules/detail_history/views/detail_history_view.dart';
 import '../modules/history/views/history_view.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/product_details/views/product_details_view.dart';

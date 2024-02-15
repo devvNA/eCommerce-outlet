@@ -39,7 +39,7 @@ class SettingsView extends GetView<SettingsController> {
             5.verticalSpace,
             SettingsItem(
               onTap: () {
-                Get.toNamed(Routes.PROFIL);
+                controller.profilePage();
               },
               title: "Profil",
               icon: Constants.userIcon,

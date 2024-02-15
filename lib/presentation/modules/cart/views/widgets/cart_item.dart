@@ -80,7 +80,7 @@ class CartItem extends GetView<CartController> {
             // ),
             5.verticalSpace,
             Text(
-              CurrencyFormat.convertToIdr(product.price, 0),
+              CurrencyFormat.convertToIdr(product.price),
               style: theme.textTheme.displayLarge
                   ?.copyWith(fontSize: 14.sp, fontWeight: FontWeight.w300),
             ),

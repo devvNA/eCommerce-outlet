@@ -57,7 +57,7 @@ class ProductItem extends GetView<HomeController> {
                       maxLines: 2,
                       style: theme.textTheme.bodyMedium?.copyWith(
                           overflow: TextOverflow.ellipsis, fontSize: 13)),
-                  Text(CurrencyFormat.convertToIdr(product.harga, 0),
+                  Text(CurrencyFormat.convertToIdr(product.harga),
                       style: theme.textTheme.displaySmall?.copyWith(
                         color: AppColors.primaryColor,
                       ))

@@ -18,20 +18,20 @@ class SplashView extends GetView<SplashController> {
             children: [
               Image.asset(
                 Constants.logo,
-                width: 120,
+                width: 100,
               ).animate().fade().slideY(
                   duration: const Duration(milliseconds: 500),
-                  begin: 1,
+                  begin: 2,
                   curve: Curves.easeInSine),
               Text.rich(
                 TextSpan(children: [
                   TextSpan(
-                    text: 'MV',
+                    text: 'CV ',
                     style: theme.textTheme.displayMedium
                         ?.copyWith(color: theme.primaryColor),
                   ),
                   TextSpan(
-                    text: ' Shop',
+                    text: 'Marvelindo',
                     style: theme.textTheme.displayMedium,
                   ),
                 ]),

@@ -1,10 +1,7 @@
 // ignore_for_file: unused_local_variable
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/presentation/routes/app_pages.dart';
-
 import '../../../../../core/networking/firebase_auth_services.dart';
 
 class LoginController extends GetxController {
@@ -22,25 +19,14 @@ class LoginController extends GetxController {
 
   Future<void> onGoogleSignIn() async {
     isGoogleTap.value = true;
-    update();
     await firebaseAuthService.signInWithGoogle();
-    isGoogleTap.value = true;
+    isGoogleTap.value = false;
   }
 
   Future<void> onSignIn() async {
     isTap.value = true;
-    update();
     await Future.delayed(const Duration(milliseconds: 300));
     Get.offAllNamed(Routes.BASE);
     isTap.value = false;
-  }
-
-  Future<void> onFacebookSignIn() async {
-    await firebaseAuthService.signInWithFacebook();
-    try {} on Exception catch (err) {
-      if (kDebugMode) {
-        debugPrint(err as String?);
-      }
-    }
   }
 }

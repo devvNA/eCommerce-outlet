@@ -5,9 +5,7 @@ import 'package:marvelindo_outlet/presentation/routes/app_pages.dart';
 import '../../../../core/networking/firebase_auth_services.dart';
 
 class SplashController extends GetxController {
-  FirebaseAuthService firebaseAuth;
-
-  SplashController({required this.firebaseAuth});
+  FirebaseAuthService firebaseAuth = FirebaseAuthServiceImpl();
 
   @override
   void onInit() async {

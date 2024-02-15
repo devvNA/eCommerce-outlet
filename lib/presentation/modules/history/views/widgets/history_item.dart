@@ -63,7 +63,7 @@ class HistoryItem extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      CurrencyFormat.convertToIdr(50000, 0),
+                      CurrencyFormat.convertToIdr(50000),
                       style: const TextStyle(
                         fontSize: 15.0,
                         fontWeight: FontWeight.w500,
