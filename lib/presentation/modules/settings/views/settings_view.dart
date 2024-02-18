@@ -10,7 +10,6 @@ import '../../../../core/utils/helpers/constants.dart';
 import '../../../global/widgets/custom_snackbar.dart';
 import '../../../global/widgets/screen_title.dart';
 import '../../../global/theme/light_theme_colors.dart';
-import '../../../routes/app_pages.dart';
 import '../controllers/settings_controller.dart';
 import 'widgets/settings_item.dart';
 

@@ -33,7 +33,7 @@ class HomeView extends GetView<HomeController> {
                 _searchBar(),
                 10.verticalSpace,
                 _categories(),
-                5.verticalSpace,
+                10.verticalSpace,
                 Expanded(
                   child: Obx(() {
                     if (controller.loading.value) {
@@ -51,21 +51,20 @@ class HomeView extends GetView<HomeController> {
                           controller.onRefreshProducts();
                         },
                         child: Obx(() {
-                          return SizedBox(
-                            height: Get.height,
-                            child: GridView.builder(
-                              primary: true,
-                              physics: const BouncingScrollPhysics(
-                                  parent: AlwaysScrollableScrollPhysics()),
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      crossAxisSpacing: 15,
-                                      mainAxisExtent: 200),
-                              itemCount: controller.listProducts.length,
-                              itemBuilder: (context, index) => ProductItem(
-                                product: controller.listProducts[index],
-                              ),
+                          return GridView.builder(
+                            primary: true,
+                            physics: const BouncingScrollPhysics(
+                                parent: AlwaysScrollableScrollPhysics()),
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 3,
+                              mainAxisSpacing: 3,
+                              mainAxisExtent: 250,
+                            ),
+                            itemCount: controller.listProducts.length,
+                            itemBuilder: (context, index) => ProductItem(
+                              product: controller.listProducts[index],
                             ),
                           );
                         }),
@@ -82,21 +81,20 @@ class HomeView extends GetView<HomeController> {
                           controller.onRefreshProducts();
                         },
                         child: Obx(() {
-                          return SizedBox(
-                            height: Get.height,
-                            child: GridView.builder(
-                              primary: true,
-                              physics: const BouncingScrollPhysics(
-                                  parent: AlwaysScrollableScrollPhysics()),
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      crossAxisSpacing: 15,
-                                      mainAxisExtent: 200),
-                              itemCount: controller.searchList.length,
-                              itemBuilder: (context, index) => ProductItem(
-                                product: controller.searchList[index],
-                              ),
+                          return GridView.builder(
+                            primary: true,
+                            physics: const BouncingScrollPhysics(
+                                parent: AlwaysScrollableScrollPhysics()),
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 3,
+                              mainAxisSpacing: 3,
+                              mainAxisExtent: 250,
+                            ),
+                            itemCount: controller.searchList.length,
+                            itemBuilder: (context, index) => ProductItem(
+                              product: controller.searchList[index],
                             ),
                           );
                         }),

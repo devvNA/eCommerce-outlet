@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/presentation/routes/app_pages.dart';
-import '../../../../global/widgets/custom_snackbar.dart';
 import '../../../../global/theme/light_theme_colors.dart';
 import '../controller/login_controller.dart';
 

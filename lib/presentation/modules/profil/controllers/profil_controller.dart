@@ -1,15 +1,12 @@
 // ignore_for_file: unnecessary_overrides, invalid_use_of_protected_member, avoid_print
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:marvelindo_outlet/core/networking/firebase_auth_services.dart';
 import 'package:marvelindo_outlet/data/datasources/auth_remote_datasources.dart';
 import 'package:marvelindo_outlet/data/repositories/auth_repository_impl.dart';
 import 'package:marvelindo_outlet/domain/usecase/auth_usecase.dart';
 
-import '../../../routes/app_pages.dart';
 
 class ProfilController extends GetxController {
   AuthCredential? credential;

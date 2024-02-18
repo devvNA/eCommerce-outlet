@@ -26,50 +26,52 @@ class ProductItem extends GetView<HomeController> {
       onTap: () {
         Get.toNamed(Routes.PRODUCT_DETAILS, arguments: product);
       },
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 130,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(
-                  // product.image
-                  "https://s4.bukalapak.com/img/43229784103/s-463-463/data.jpeg.webp",
-                ),
-                fit: BoxFit.cover,
-              ),
-              borderRadius: BorderRadius.all(
-                Radius.circular(
-                  8.0,
+      child: Card(
+        color: Colors.white,
+        clipBehavior: Clip.antiAlias,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 150,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(
+                    "https://s4.bukalapak.com/img/43229784103/s-463-463/data.jpeg.webp",
+                  ),
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(6.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(product.nama,
-                      maxLines: 2,
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                          overflow: TextOverflow.ellipsis, fontSize: 13)),
-                  Text(CurrencyFormat.convertToIdr(product.harga),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(product.nama,
+                        maxLines: 2,
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          overflow: TextOverflow.ellipsis,
+                          fontSize: 13,
+                        )),
+                    Text(
+                      // ignore: unnecessary_string_interpolations
+                      "${CurrencyFormat.convertToIdr(product.harga)}",
                       style: theme.textTheme.displaySmall?.copyWith(
                         color: AppColors.primaryColor,
-                      ))
-                ],
-              ).animate().fade().slideY(
-                    duration: const Duration(milliseconds: 200),
-                    begin: 1,
-                    curve: Curves.easeInSine,
-                  ),
+                      ),
+                    )
+                  ],
+                ).animate().fade().slideY(
+                      duration: const Duration(milliseconds: 200),
+                      begin: 1,
+                      curve: Curves.easeInSine,
+                    ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
