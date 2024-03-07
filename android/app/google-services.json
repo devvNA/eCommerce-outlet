@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "13847937403-hae364nnk1q6mps05offkae36i1ud9sj.apps.googleusercontent.com",
+          "client_id": "13847937403-1qou6jtjirp6170umvkl41ti5634hh5t.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.marvelindo_outlet",
-            "certificate_hash": "f82ae7848390867a305828f7be71f5afa4e25bb0"
+            "certificate_hash": "77f4e4955275e99638733a597cf8b184d31258de"
           }
         },
         {
