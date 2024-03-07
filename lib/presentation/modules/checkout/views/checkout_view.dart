@@ -5,7 +5,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:marvelindo_outlet/presentation/global/theme/light_theme_colors.dart';
+import 'package:marvelindo_outlet/presentation/global/theme/my_colors.dart';
 
 import '../../../global/widgets/custom_alert_dialog.dart';
 import '../../../global/widgets/screen_title.dart';

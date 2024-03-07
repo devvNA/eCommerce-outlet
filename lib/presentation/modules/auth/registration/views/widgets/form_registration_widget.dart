@@ -4,7 +4,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../../global/theme/light_theme_colors.dart';
+import '../../../../../global/theme/my_colors.dart';
 
 class FormRegistrationWidget extends StatelessWidget {
   final String formTitle;

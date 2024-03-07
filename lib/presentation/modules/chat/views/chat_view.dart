@@ -3,7 +3,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:marvelindo_outlet/presentation/global/theme/light_theme_colors.dart';
+import 'package:marvelindo_outlet/presentation/global/theme/my_colors.dart';
 import '../controllers/chat_controller.dart';
 import 'widgets/input_chat_widget.dart';
 
@@ -13,7 +13,7 @@ class ChatView extends GetView<ChatController> {
   @override
   Widget build(BuildContext context) {
     if (kDebugMode) {
-      print('controller.messages: ${controller.messages.length}');
+      // print('controller.messages: ${controller.messages.length}');
     }
     return GetBuilder<ChatController>(builder: (_) {
       return Scaffold(
@@ -38,9 +38,11 @@ class ChatView extends GetView<ChatController> {
         physics: const BouncingScrollPhysics(),
         shrinkWrap: true,
         padding: const EdgeInsets.all(16),
-        itemCount: controller.messages.length,
+        // itemCount: controller.messages.length,
+        itemCount: 5,
         itemBuilder: (context, index) {
-          bool isSender = controller.messages[index].isMe;
+          // bool isSender = controller.messages[index].isMe;
+          bool isSender = true;
           return Column(
             crossAxisAlignment:
                 isSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
@@ -64,16 +66,18 @@ class ChatView extends GetView<ChatController> {
                           isSender ? Radius.zero : const Radius.circular(10),
                     ),
                   ),
-                  child: Column(
+                  child: const Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        controller.messages[index].message,
-                        style: const TextStyle(fontSize: 14),
+                        "",
+                        // controller.messages[index].message,
+                        style: TextStyle(fontSize: 14),
                       ),
                       Text(
-                        '${controller.messages[index].time.difference(DateTime.now()).inMinutes.abs()}m',
-                        style: const TextStyle(
+                        '',
+                        // '${controller.messages[index].time.difference(DateTime.now()).inMinutes.abs()}m',
+                        style: TextStyle(
                           color: Colors.black45,
                           fontSize: 8,
                           fontWeight: FontWeight.bold,

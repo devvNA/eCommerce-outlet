@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../theme/light_theme_colors.dart';
+import '../theme/my_colors.dart';
 
 class ErrorStateWidget extends StatelessWidget {
   final String message;

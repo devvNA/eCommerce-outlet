@@ -1,12 +1,15 @@
 // ignore_for_file: avoid_print, override_on_non_overriding_member, unused_field
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/utils/types.dart';
 
 class ApiTestController extends GetxController {
   Rx<ListBook> listBooks = Rx<ListBook>([]);
-  RxBool loading = RxBool(false);
+  final loading = false.obs;
+  final isVerified = false.obs;
   RxInt currIndex = RxInt(0);
   final int _limit = 5;
   final int _page = 1;
@@ -77,5 +80,10 @@ class ApiTestController extends GetxController {
     listBooks.value.clear();
     // getListBook();
     update();
+  }
+
+  isAccVerified() {
+    isVerified(!isVerified.value);
+    log(isVerified.toString());
   }
 }

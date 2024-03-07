@@ -12,7 +12,7 @@ part of 'produk_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Produk _$ProdukFromJson(Map<String, dynamic> json) {
   return _Produk.fromJson(json);
@@ -30,6 +30,8 @@ mixin _$Produk {
   String get deskripsi => throw _privateConstructorUsedError;
   @JsonKey(name: 'stok')
   int get stok => throw _privateConstructorUsedError;
+  @JsonKey(name: 'gambar')
+  String get gambar => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -46,7 +48,8 @@ abstract class $ProdukCopyWith<$Res> {
       @JsonKey(name: 'nama') String nama,
       @JsonKey(name: 'harga') int harga,
       @JsonKey(name: 'deskripsi') String deskripsi,
-      @JsonKey(name: 'stok') int stok});
+      @JsonKey(name: 'stok') int stok,
+      @JsonKey(name: 'gambar') String gambar});
 }
 
 /// @nodoc
@@ -67,6 +70,7 @@ class _$ProdukCopyWithImpl<$Res, $Val extends Produk>
     Object? harga = null,
     Object? deskripsi = null,
     Object? stok = null,
+    Object? gambar = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -89,6 +93,10 @@ class _$ProdukCopyWithImpl<$Res, $Val extends Produk>
           ? _value.stok
           : stok // ignore: cast_nullable_to_non_nullable
               as int,
+      gambar: null == gambar
+          ? _value.gambar
+          : gambar // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -105,7 +113,8 @@ abstract class _$$ProdukImplCopyWith<$Res> implements $ProdukCopyWith<$Res> {
       @JsonKey(name: 'nama') String nama,
       @JsonKey(name: 'harga') int harga,
       @JsonKey(name: 'deskripsi') String deskripsi,
-      @JsonKey(name: 'stok') int stok});
+      @JsonKey(name: 'stok') int stok,
+      @JsonKey(name: 'gambar') String gambar});
 }
 
 /// @nodoc
@@ -124,6 +133,7 @@ class __$$ProdukImplCopyWithImpl<$Res>
     Object? harga = null,
     Object? deskripsi = null,
     Object? stok = null,
+    Object? gambar = null,
   }) {
     return _then(_$ProdukImpl(
       id: null == id
@@ -146,6 +156,10 @@ class __$$ProdukImplCopyWithImpl<$Res>
           ? _value.stok
           : stok // ignore: cast_nullable_to_non_nullable
               as int,
+      gambar: null == gambar
+          ? _value.gambar
+          : gambar // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -158,7 +172,8 @@ class _$ProdukImpl implements _Produk {
       @JsonKey(name: 'nama') this.nama = "",
       @JsonKey(name: 'harga') this.harga = 0,
       @JsonKey(name: 'deskripsi') this.deskripsi = "",
-      @JsonKey(name: 'stok') this.stok = 0});
+      @JsonKey(name: 'stok') this.stok = 0,
+      @JsonKey(name: 'gambar') this.gambar = ""});
 
   factory _$ProdukImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProdukImplFromJson(json);
@@ -178,10 +193,13 @@ class _$ProdukImpl implements _Produk {
   @override
   @JsonKey(name: 'stok')
   final int stok;
+  @override
+  @JsonKey(name: 'gambar')
+  final String gambar;
 
   @override
   String toString() {
-    return 'Produk(id: $id, nama: $nama, harga: $harga, deskripsi: $deskripsi, stok: $stok)';
+    return 'Produk(id: $id, nama: $nama, harga: $harga, deskripsi: $deskripsi, stok: $stok, gambar: $gambar)';
   }
 
   @override
@@ -194,13 +212,14 @@ class _$ProdukImpl implements _Produk {
             (identical(other.harga, harga) || other.harga == harga) &&
             (identical(other.deskripsi, deskripsi) ||
                 other.deskripsi == deskripsi) &&
-            (identical(other.stok, stok) || other.stok == stok));
+            (identical(other.stok, stok) || other.stok == stok) &&
+            (identical(other.gambar, gambar) || other.gambar == gambar));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, nama, harga, deskripsi, stok);
+      Object.hash(runtimeType, id, nama, harga, deskripsi, stok, gambar);
 
   @JsonKey(ignore: true)
   @override
@@ -222,7 +241,8 @@ abstract class _Produk implements Produk {
       @JsonKey(name: 'nama') final String nama,
       @JsonKey(name: 'harga') final int harga,
       @JsonKey(name: 'deskripsi') final String deskripsi,
-      @JsonKey(name: 'stok') final int stok}) = _$ProdukImpl;
+      @JsonKey(name: 'stok') final int stok,
+      @JsonKey(name: 'gambar') final String gambar}) = _$ProdukImpl;
 
   factory _Produk.fromJson(Map<String, dynamic> json) = _$ProdukImpl.fromJson;
 
@@ -241,6 +261,9 @@ abstract class _Produk implements Produk {
   @override
   @JsonKey(name: 'stok')
   int get stok;
+  @override
+  @JsonKey(name: 'gambar')
+  String get gambar;
   @override
   @JsonKey(ignore: true)
   _$$ProdukImplCopyWith<_$ProdukImpl> get copyWith =>

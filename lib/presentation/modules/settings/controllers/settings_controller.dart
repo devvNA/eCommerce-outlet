@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:marvelindo_outlet/presentation/global/theme/light_theme_colors.dart';
+import 'package:marvelindo_outlet/presentation/global/theme/my_colors.dart';
 import '../../../../core/networking/firebase_auth_services.dart';
 import '../../../routes/app_pages.dart';
 

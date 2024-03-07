@@ -2,6 +2,8 @@
 const baseUrl = 'http://scm8.satriatech.com/api/admin';
 const listProduk = "/getallproduk";
 const listProdukByCategory = "/detailprodukbyjenisbarang";
+const listKeranjang = "/getkeranjang";
+const postKeranjang = "/additemkeranjang";
 
 // ======================================================================== //
 

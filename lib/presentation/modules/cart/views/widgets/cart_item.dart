@@ -1,208 +1,152 @@
+// ignore_for_file: unused_local_variable
+
+import 'package:get/get.dart';
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:marvelindo_outlet/presentation/global/theme/light_theme_colors.dart';
-import '../../../../../core/utils/helpers/constants.dart';
-import '../../../../../core/utils/helpers/currency.dart';
-import '../../../../../data/models/product_model.dart';
+import 'package:marvelindo_outlet/data/models/keranjang/keranjang_model.dart';
+import 'package:marvelindo_outlet/presentation/global/theme/my_colors.dart';
 import '../../controllers/cart_controller.dart';
 
 class CartItem extends GetView<CartController> {
-  final ProductModel product;
+  final Keranjang keranjang;
   // final Produk produk;
   const CartItem({
     super.key,
-    required this.product,
+    required this.keranjang,
   });
 
   @override
   Widget build(BuildContext context) {
     TextEditingController quantityController =
-        TextEditingController(text: product.quantity.toString());
+        TextEditingController(text: keranjang.quantity.toString());
 
-    final theme = context.theme;
-
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(20.r),
-          child: Stack(
-            children: [
-              Container(
-                width: 100,
-                height: 125,
-                color: const Color(0xFFEDF1FA),
+    return Container(
+      padding: const EdgeInsets.all(12.0),
+      decoration: BoxDecoration(
+        color: Colors.grey[100],
+        borderRadius: const BorderRadius.all(
+          Radius.circular(
+            8.0,
+          ),
+        ),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 100,
+            height: 125,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/product2.png"),
+                fit: BoxFit.cover,
               ),
-              Positioned(
-                bottom: 0,
-                top: 0,
-                left: 0,
-                right: 0,
-                child: Image.asset(
-                  "assets/images/product2.png",
-                  width: 100.0,
-                  height: 100.0,
-                  fit: BoxFit.cover,
+              borderRadius: BorderRadius.all(
+                Radius.circular(
+                  8.0,
                 ),
               ),
-            ],
+            ),
           ),
-        ),
-        10.horizontalSpace,
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            5.verticalSpace,
-            Text(
-              product.name!,
-              style: theme.textTheme.displayMedium?.copyWith(fontSize: 16),
-              overflow: TextOverflow.ellipsis,
-            ),
-            5.verticalSpace,
-            // RichText(
-            //   text: TextSpan(
-            //     style: DefaultTextStyle.of(context).style,
-            //     children: <TextSpan>[
-            //       const TextSpan(
-            //         text: 'jenis: ',
-            //       ),
-            //       TextSpan(
-            //           text: 'Perdana',
-            //           style:
-            //               theme.textTheme.bodyLarge?.copyWith(fontSize: 12.sp)),
-            //     ],
-            //   ),
-            // ),
-            5.verticalSpace,
-            Text(
-              CurrencyFormat.convertToIdr(product.price),
-              style: theme.textTheme.displayLarge
-                  ?.copyWith(fontSize: 14.sp, fontWeight: FontWeight.w300),
-            ),
-            10.verticalSpace,
-            GetBuilder<CartController>(
-              id: 'ProductQuantity',
-              builder: (_) => Row(
-                children: [
-                  GestureDetector(
-                    onTap: () => controller.onDecreasePressed(product.id!),
-                    child: SvgPicture.asset(
-                      Constants.decreaseIcon,
-                      color: AppColors.primaryColor,
-                    ),
+          const SizedBox(
+            width: 12.0,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Lorem ipsum dolor sit amet.",
+                  style: TextStyle(
+                    fontSize: 14.0,
                   ),
-                  10.horizontalSpace,
-                  SizedBox(
-                    height: 53,
-                    width: 60,
-                    child: TextField(
-                      style: const TextStyle(
-                          fontSize: 14, fontWeight: FontWeight.w500),
-                      maxLines: 1,
-                      scrollPhysics: const AlwaysScrollableScrollPhysics(),
-                      controller: quantityController,
-                      keyboardType: TextInputType.number,
-                      cursorColor: AppColors.primaryColor,
-                      textDirection: TextDirection.ltr,
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide:
-                                const BorderSide(color: Colors.black12)),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: const BorderSide(
-                            color: AppColors.primaryColor,
+                ),
+                const SizedBox(
+                  height: 6.0,
+                ),
+                const Text(
+                  "Voucher",
+                  style: TextStyle(color: AppColors.appBarColor, fontSize: 10),
+                ),
+                const SizedBox(
+                  height: 6.0,
+                ),
+                const Text(
+                  "Rp5000",
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(
+                  height: 6.0,
+                ),
+                Row(
+                  children: [
+                    InkWell(
+                      onTap: () {},
+                      child: Container(
+                        padding: const EdgeInsets.all(4.0),
+                        decoration: const BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(4.0),
                           ),
                         ),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: const BorderSide(
-                              color: AppColors.primaryColor,
-                            )),
-                        prefixIconColor: AppColors.primaryColor,
-                        suffixIconColor: AppColors.primaryColor,
-                        filled: true,
-                        fillColor: Colors.grey[150],
+                        child: const Icon(
+                          Icons.remove,
+                          color: Colors.white,
+                          size: 16.0,
+                        ),
                       ),
-                      onSubmitted: (value) {
-                        controller.onInputQuantity(
-                            product.id!, int.parse(value));
-                      },
                     ),
-                  ),
-                  10.horizontalSpace,
-                  GestureDetector(
-                    onTap: () => controller.onIncreasePressed(product.id!),
-                    child: SvgPicture.asset(
-                      Constants.increaseIcon,
-                      color: AppColors.primaryColor,
+                    const SizedBox(
+                      width: 60,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 8.0, vertical: 8.0),
+                        child: TextField(
+                          clipBehavior: Clip.antiAlias,
+                          textAlign: TextAlign.center,
+                          maxLines: 1,
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: AppColors.primaryColor),
+                            ),
+                            focusColor: Colors.red,
+                            border: OutlineInputBorder(),
+                            isDense: true, // Added this
+                            contentPadding: EdgeInsets.all(6),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-        const Spacer(),
-        InkWell(
-          onTap: () async {
-            await showDialog<void>(
-              context: context,
-              barrierDismissible: true,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: const Text('Konfirmasi'),
-                  content: const SingleChildScrollView(
-                    child: ListBody(
-                      children: <Widget>[
-                        Text('Hapus produk dari keranjang?'),
-                      ],
-                    ),
-                  ),
-                  actions: <Widget>[
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          foregroundColor: AppColors.primaryColor,
-                          side: const BorderSide(
-                            color: AppColors.primaryColor,
-                          )),
-                      onPressed: () {
-                        Get.back();
-                      },
-                      child: const Text("Tidak"),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        controller.onDeletePressed(product.id!);
-                        Get.back();
-                      },
-                      child: const Text("Ya"),
+                    InkWell(
+                      onTap: () {},
+                      child: Container(
+                        padding: const EdgeInsets.all(4.0),
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryColor.withOpacity(0.8),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(4.0),
+                          ),
+                        ),
+                        child: const Icon(
+                          Icons.add,
+                          color: Colors.white,
+                          size: 16.0,
+                        ),
+                      ),
                     ),
                   ],
-                );
-              },
-            );
-          },
-          customBorder: const CircleBorder(),
-          child: Container(
-            padding: EdgeInsets.all(12.r),
-            child: SvgPicture.asset(
-              Constants.cancelIcon,
-              width: 15.w,
-              height: 15.h,
-              color: theme.textTheme.bodyMedium!.color,
+                ),
+              ],
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

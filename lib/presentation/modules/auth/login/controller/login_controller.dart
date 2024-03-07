@@ -12,8 +12,7 @@ class LoginController extends GetxController {
   final passwordController = TextEditingController().obs;
   final isTap = false.obs;
   final visible = true.obs;
-  final regex =
-      RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$').obs;
+  final regex = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$');
 
   LoginController({required this.firebaseAuthService});
 

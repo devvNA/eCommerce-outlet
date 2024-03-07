@@ -3,7 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
-import 'package:marvelindo_outlet/presentation/global/theme/light_theme_colors.dart';
+import 'package:marvelindo_outlet/presentation/global/theme/my_colors.dart';
 import 'package:marvelindo_outlet/presentation/global/widgets/error_state_widget.dart';
 import 'package:marvelindo_outlet/presentation/routes/app_pages.dart';
 import '../../../global/widgets/screen_title.dart';

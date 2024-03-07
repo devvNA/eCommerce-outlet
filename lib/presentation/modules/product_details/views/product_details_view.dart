@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
-import 'package:marvelindo_outlet/presentation/global/theme/light_theme_colors.dart';
+import 'package:marvelindo_outlet/presentation/global/theme/my_colors.dart';
 import '../../../../core/utils/helpers/constants.dart';
 import '../../../../core/utils/helpers/currency.dart';
 import '../controllers/product_details_controller.dart';
@@ -110,7 +110,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                         elevation: 1,
                       ),
                       onPressed: () {
-                        controller.onAddToCartPressed();
+                        controller.onAddToCart();
                       },
                       child: const Text("Tambahkan ke keranjang"),
                     ),

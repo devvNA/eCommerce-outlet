@@ -12,6 +12,7 @@ class Produk with _$Produk {
     @JsonKey(name: 'harga') @Default(0) int harga,
     @JsonKey(name: 'deskripsi') @Default("") String deskripsi,
     @JsonKey(name: 'stok') @Default(0) int stok,
+    @JsonKey(name: 'gambar') @Default("") String gambar,
   }) = _Produk;
 
   factory Produk.fromJson(Map<String, Object?> json) => _$ProdukFromJson(json);

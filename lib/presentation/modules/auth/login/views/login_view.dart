@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/presentation/routes/app_pages.dart';
-import '../../../../global/theme/light_theme_colors.dart';
+import '../../../../global/theme/my_colors.dart';
 import '../controller/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
@@ -88,15 +88,10 @@ class LoginView extends GetView<LoginController> {
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 10.0,
-                    ),
+                    10.verticalSpace,
                     _loginGoogleButton(),
-                    const SizedBox(
-                      height: 8.0,
-                    ),
-                    // TestButton(),
-                    20.verticalSpace,
+                    // const TestButton(),
+                    25.verticalSpace,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -106,7 +101,7 @@ class LoginView extends GetView<LoginController> {
                         ),
                         GestureDetector(
                           onTap: () {
-/*                               Get.snackbar(
+                            /*                               Get.snackbar(
                                   padding: EdgeInsets.all(12),
                                   margin: EdgeInsets.all(12),
                                   "Belum Tersedia",
@@ -130,7 +125,7 @@ class LoginView extends GetView<LoginController> {
                                 );
                                 #############################
                                 CustomSnackBar.showCustomErrorToast();
- */
+                     */
                             Get.toNamed(Routes.REGISTRATION);
                           },
                           child: const Text(
@@ -146,7 +141,7 @@ class LoginView extends GetView<LoginController> {
                     const SizedBox(
                       height: 10.0,
                     ),
-                    _devModeButton(),
+                    // _devModeButton(),
                   ],
                 ),
               ),
@@ -207,7 +202,7 @@ class LoginView extends GetView<LoginController> {
       validator: (value) {
         if (value!.isEmpty) {
           return "masukkan email";
-        } else if (controller.regex.value.hasMatch(value)) {
+        } else if (controller.regex.hasMatch(value)) {
           return null;
         }
         return "email tidak valid";

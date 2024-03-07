@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:marvelindo_outlet/core/utils/helpers/currency.dart';
-import 'package:marvelindo_outlet/presentation/global/theme/light_theme_colors.dart';
+import 'package:marvelindo_outlet/presentation/global/theme/my_colors.dart';
 
 class HistoryItem extends StatelessWidget {
   final VoidCallback? onTap;

@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:marvelindo_outlet/presentation/global/theme/light_theme_colors.dart';
-import 'package:marvelindo_outlet/presentation/routes/app_pages.dart';
+import 'package:marvelindo_outlet/presentation/global/theme/my_colors.dart';
 import '../../../../core/utils/helpers/constants.dart';
-import '../../../../core/utils/helpers/dummy_helper.dart';
 import '../controllers/base_controller.dart';
 import '../../cart/views/cart_view.dart';
 import '../../home/views/home_view.dart';
@@ -21,7 +19,7 @@ class BaseView extends GetView<BaseController> {
   Widget build(BuildContext context) {
     var theme = context.theme;
 
-    return GetBuilder<BaseController>(builder: (_) {
+    return Obx(() {
       return WillPopScope(
         onWillPop: () async {
           return controller.onBack();
@@ -30,13 +28,13 @@ class BaseView extends GetView<BaseController> {
           resizeToAvoidBottomInset: true,
           floatingActionButton: chatApp(
             onPressed: () async {
-              _showBottomChat(context);
+              controller.onChatButton();
             },
           ),
           body: SafeArea(
             child: IndexedStack(
               clipBehavior: Clip.hardEdge,
-              index: controller.currentIndex.value,
+              index: controller.currentIndex(),
               children: const [
                 HomeView(),
                 CartView(),
@@ -128,43 +126,43 @@ Widget chatApp({required VoidCallback onPressed}) {
   );
 }
 
-void _showBottomChat(context) {
-  showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return Column(
-          children: [
-            const SizedBox(
-              height: 20.0,
-            ),
-            Expanded(
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: users.length,
-                itemBuilder: (context, index) {
-                  final user = users[index];
-                  return ListTile(
-                    onTap: () {
-                      Get.toNamed(Routes.CHAT);
-                    },
-                    title: Text(user["name"]),
-                    subtitle: Text(user["email"]),
-                    leading: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                        user["photo"],
-                      ),
-                    ),
-                    trailing: const Text(
-                      '9:45 PM',
-                      style: TextStyle(
-                        fontSize: 10,
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-          ],
-        );
-      });
-}
+// void _showBottomChat(context) {
+//   showModalBottomSheet(
+//       context: context,
+//       builder: (context) {
+//         return Column(
+//           children: [
+//             const SizedBox(
+//               height: 20.0,
+//             ),
+//             Expanded(
+//               child: ListView.builder(
+//                 shrinkWrap: true,
+//                 itemCount: users.length,
+//                 itemBuilder: (context, index) {
+//                   final user = users[index];
+//                   return ListTile(
+//                     onTap: () {
+//                       Get.toNamed(Routes.CHAT);
+//                     },
+//                     title: Text(user["name"]),
+//                     subtitle: Text(user["email"]),
+//                     leading: CircleAvatar(
+//                       backgroundImage: NetworkImage(
+//                         user["photo"],
+//                       ),
+//                     ),
+//                     trailing: const Text(
+//                       '9:45 PM',
+//                       style: TextStyle(
+//                         fontSize: 10,
+//                       ),
+//                     ),
+//                   );
+//                 },
+//               ),
+//             ),
+//           ],
+//         );
+//       });
+// }

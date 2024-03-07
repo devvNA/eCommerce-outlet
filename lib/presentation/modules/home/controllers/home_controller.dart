@@ -9,7 +9,7 @@ import 'package:marvelindo_outlet/domain/usecase/product_usecase.dart';
 import '../../../../data/models/produk/produk_model.dart';
 
 class HomeController extends GetxController {
-  RxList<Produk> listProducts = List<Produk>.empty(growable: true).obs;
+  var listProduk = <Produk>[].obs;
   var loading = false.obs;
   var selectedIndex = 0.obs;
   var searchList = <Produk>[].obs;
@@ -24,13 +24,11 @@ class HomeController extends GetxController {
   }
 
   void onRefreshProducts() {
-    listProducts.value.clear();
     if (selectedIndex.value == 0) {
       getAllProductsAPI();
     } else {
       getAllProductsAPIByKategori(categories[selectedIndex.value]);
     }
-    update();
   }
 
   void onChangeCategory(int index) {
@@ -48,7 +46,7 @@ class HomeController extends GetxController {
                 remoteDataSource: ProductRemoteDataSourceImpl()))
         .getListProduct();
     response.fold((failure) => log("Error: ${failure.message}"),
-        (products) => listProducts.value = products);
+        (products) => listProduk.value = products);
     loading(false);
     update();
   }
@@ -60,7 +58,7 @@ class HomeController extends GetxController {
                 remoteDataSource: ProductRemoteDataSourceImpl()))
         .getListProductByCategory(kategori);
     response.fold((failure) => log("Error: ${failure.message}"),
-        (products) => listProducts.value = products);
+        (products) => listProduk.value = products);
     loading(false);
 
     update();
@@ -69,7 +67,7 @@ class HomeController extends GetxController {
   Future<void> onSearchProduct(String text) async {
     loading(true);
     searchList.clear();
-    for (var element in listProducts) {
+    for (var element in listProduk) {
       if (element.nama.toLowerCase().contains(text)) {
         searchList.add(element);
       }

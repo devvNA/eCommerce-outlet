@@ -12,6 +12,7 @@ _$ProdukImpl _$$ProdukImplFromJson(Map<String, dynamic> json) => _$ProdukImpl(
       harga: json['harga'] as int? ?? 0,
       deskripsi: json['deskripsi'] as String? ?? "",
       stok: json['stok'] as int? ?? 0,
+      gambar: json['gambar'] as String? ?? "",
     );
 
 Map<String, dynamic> _$$ProdukImplToJson(_$ProdukImpl instance) =>
@@ -21,4 +22,5 @@ Map<String, dynamic> _$$ProdukImplToJson(_$ProdukImpl instance) =>
       'harga': instance.harga,
       'deskripsi': instance.deskripsi,
       'stok': instance.stok,
+      'gambar': instance.gambar,
     };

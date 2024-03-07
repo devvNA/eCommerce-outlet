@@ -44,37 +44,39 @@ class Request {
 
   /// GET request
   Future<Response> get(String endpoint,
-      {JSON? queryParameters, bool requiresAuthToken = true}) async {
+      {JSON? queryParameters,
+      bool requiresAuthToken = true,
+      Object? data}) async {
     if (requiresAuthToken) await _setFirebaseToken();
     return await _dio.get(endpoint, queryParameters: queryParameters);
   }
 
   /// POST request
   Future<Response> post(String endpoint,
-      {Object? body,
-      JSON? queryParameters,
-      required bool requiresAuthToken}) async {
+      {JSON? queryParameters,
+      required bool requiresAuthToken,
+      Object? data}) async {
     if (requiresAuthToken) await _setFirebaseToken();
-    return await _dio.post(endpoint,
-        queryParameters: queryParameters, data: body);
+    return await _dio.post(endpoint, queryParameters: queryParameters);
   }
 
   /// DELETE request
   Future<Response> delete(String endpoint,
-      {Object? body, required bool requiresAuthToken}) async {
+      {required bool requiresAuthToken, Object? data}) async {
     if (requiresAuthToken) await _setFirebaseToken();
-    return await _dio.delete(endpoint, data: body);
+    return await _dio.delete(endpoint);
   }
 
   /// PUT request
   Future<Response> put(String endpoint,
-      {Object? body,
-      JSON? queryParameters,
-      required bool requiresAuthToken}) async {
+      {JSON? queryParameters,
+      required bool requiresAuthToken,
+      Object? data}) async {
     if (requiresAuthToken) await _setFirebaseToken();
-    return await _dio.put(endpoint,
-        data: body, queryParameters: queryParameters);
+    return await _dio.put(endpoint, queryParameters: queryParameters);
   }
+
+  // ========================================================================== //
 
   Future<void> _setFirebaseToken() async {
     var response = await AuthUseCase(

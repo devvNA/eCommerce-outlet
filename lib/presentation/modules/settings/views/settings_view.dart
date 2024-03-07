@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import '../../../../core/utils/helpers/constants.dart';
 import '../../../global/widgets/custom_snackbar.dart';
 import '../../../global/widgets/screen_title.dart';
-import '../../../global/theme/light_theme_colors.dart';
+import '../../../global/theme/my_colors.dart';
 import '../controllers/settings_controller.dart';
 import 'widgets/settings_item.dart';
 
@@ -49,16 +49,6 @@ class SettingsView extends GetView<SettingsController> {
                   fontSize: 20.sp,
                   fontWeight: FontWeight.normal,
                 )),
-/*             25.verticalSpace,
-            SettingsItem(
-              isDark: true,
-              onTap: () {
-                CustomSnackBar.showCustomErrorToast();
-              },
-              title: 'Tema',
-              icon: Constants.themeIcon,
-            ),
- */
             20.verticalSpace,
             SettingsItem(
               onTap: () {
@@ -76,52 +66,53 @@ class SettingsView extends GetView<SettingsController> {
               icon: Constants.helpIcon,
             ),
             20.verticalSpace,
-            SettingsItem(
-              onTap: () async {
-                await showDialog<void>(
-                  context: context,
-                  barrierDismissible: true,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('Konfirmasi'),
-                      content: const SingleChildScrollView(
-                        child: ListBody(
-                          children: <Widget>[
-                            Text('Apakah anda yakin ingin keluar?'),
-                          ],
-                        ),
-                      ),
-                      actions: <Widget>[
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                            foregroundColor: AppColors.primaryColor,
-                            side: const BorderSide(
-                              color: AppColors.primaryColor,
-                            ),
+            if (controller.firebaseAuth.isLoggedIn())
+              SettingsItem(
+                title: 'Keluar',
+                icon: Constants.logoutIcon,
+                onTap: () async {
+                  await showDialog<void>(
+                    context: context,
+                    barrierDismissible: true,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Konfirmasi'),
+                        content: const SingleChildScrollView(
+                          child: ListBody(
+                            children: <Widget>[
+                              Text('Apakah anda yakin ingin keluar?'),
+                            ],
                           ),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text("Tidak"),
                         ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(),
-                          onPressed: () {
-                            controller
-                                .signOut()
-                                .then((value) => controller.dispose());
-                          },
-                          child: const Text("Ya"),
-                        ),
-                      ],
-                    ).animate().fade();
-                  },
-                );
-              },
-              title: 'Keluar',
-              icon: Constants.logoutIcon,
-            ),
+                        actions: <Widget>[
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.white,
+                              foregroundColor: AppColors.primaryColor,
+                              side: const BorderSide(
+                                color: AppColors.primaryColor,
+                              ),
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text("Tidak"),
+                          ),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(),
+                            onPressed: () {
+                              controller
+                                  .signOut()
+                                  .then((value) => controller.dispose());
+                            },
+                            child: const Text("Ya"),
+                          ),
+                        ],
+                      ).animate().fade();
+                    },
+                  );
+                },
+              ),
             20.verticalSpace,
           ],
         ),

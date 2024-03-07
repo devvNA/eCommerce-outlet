@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import '../../../global/widgets/loading_custom_widget.dart';
 import '../../../global/widgets/error_state_widget.dart';
 import '../../../global/widgets/screen_title.dart';
-import '../../../global/theme/light_theme_colors.dart';
+import '../../../global/theme/my_colors.dart';
 import '../controllers/home_controller.dart';
 import 'widgets/product_item.dart';
 
@@ -36,10 +36,10 @@ class HomeView extends GetView<HomeController> {
                 10.verticalSpace,
                 Expanded(
                   child: Obx(() {
-                    if (controller.loading.value) {
+                    if (controller.loading()) {
                       return const Center(child: LoadingCustomWidget());
                     }
-                    if (controller.listProducts.isEmpty) {
+                    if (controller.listProduk.isEmpty) {
                       return const Center(
                           child: ErrorStateWidget(
                               message: "Produk tidak ditemukan"));
@@ -62,9 +62,9 @@ class HomeView extends GetView<HomeController> {
                               mainAxisSpacing: 3,
                               mainAxisExtent: 250,
                             ),
-                            itemCount: controller.listProducts.length,
+                            itemCount: controller.listProduk.length,
                             itemBuilder: (context, index) => ProductItem(
-                              product: controller.listProducts[index],
+                              product: controller.listProduk[index],
                             ),
                           );
                         }),

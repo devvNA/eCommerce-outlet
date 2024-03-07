@@ -7,7 +7,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:marvelindo_outlet/presentation/global/theme/light_theme_colors.dart';
+import 'package:marvelindo_outlet/presentation/global/theme/my_colors.dart';
 import 'package:marvelindo_outlet/presentation/modules/home/controllers/home_controller.dart';
 import 'package:marvelindo_outlet/presentation/routes/app_pages.dart';
 import '../../../../../core/utils/helpers/currency.dart';

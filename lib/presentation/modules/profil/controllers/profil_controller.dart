@@ -7,14 +7,12 @@ import 'package:marvelindo_outlet/data/datasources/auth_remote_datasources.dart'
 import 'package:marvelindo_outlet/data/repositories/auth_repository_impl.dart';
 import 'package:marvelindo_outlet/domain/usecase/auth_usecase.dart';
 
-
 class ProfilController extends GetxController {
-  AuthCredential? credential;
-
   final token = "".obs;
   final accessToken = "".obs;
   final auth = FirebaseAuth.instance.obs;
   final isTap = false.obs;
+  final isVerified = true.obs;
 
   @override
   void onInit() {
@@ -38,6 +36,9 @@ class ProfilController extends GetxController {
         "https://media.istockphoto.com/id/1289670343/vector/invalid-stamp-invalid-label-round-grunge-sign.jpg?s=612x612&w=0&k=20&c=p654_tY0_Nd5N0yYbE9aNJpblSykywX9nw0g_fe4D5k=";
   }
 
+  isVerifiedTap() {
+    isVerified.value = !isVerified();
+  }
   // Future<void> onTapGetToken() async {
   //   await Future.delayed(const Duration(milliseconds: 200));
   //   isTap.value = true;
@@ -62,7 +63,7 @@ class ProfilController extends GetxController {
 
   Future<void> onTapGetAccessToken() async {
     await Future.delayed(const Duration(milliseconds: 200));
-    isTap.value = true;
+    isTap(true);
     //GET TOKEN
     final box = GetStorage();
     accessToken.value = box.read("accessToken") ?? "null";
@@ -76,6 +77,6 @@ class ProfilController extends GetxController {
     response2.fold((failure) => log("Error: ${failure.message}"),
         (provider) => log("PROVIDERID = ${provider[0].providerId}"));
 
-    isTap.value = false;
+    isTap(false);
   }
 }

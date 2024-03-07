@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/core/utils/helpers/constants.dart';
 import 'package:marvelindo_outlet/core/utils/helpers/currency.dart';
-import 'package:marvelindo_outlet/presentation/global/theme/light_theme_colors.dart';
+import 'package:marvelindo_outlet/presentation/global/theme/my_colors.dart';
 import 'package:marvelindo_outlet/presentation/routes/app_pages.dart';
 import '../../../global/widgets/no_data.dart';
 import '../../../global/widgets/screen_title.dart';
@@ -19,51 +19,29 @@ class CartView extends GetView<CartController> {
   Widget build(BuildContext context) {
     final theme = context.theme;
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
-        child: GetBuilder<CartController>(
-          builder: (_) => Column(
-            children: [
-              30.verticalSpace,
-              const ScreenTitle(
-                title: 'Keranjang',
-                dividerEndIndent: 280,
+      bottomNavigationBar: Visibility(
+        visible: controller.listKeranjang.isNotEmpty,
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 6,
+          ),
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(
+                12.0,
               ),
-              10.verticalSpace,
-              controller.products.isEmpty
-                  ? NoData(
-                      text: 'Belum ada produk di keranjang!',
-                      onPressed: () {
-                        controller.onEmptyCartPressed();
-                      },
-                    )
-                  : Expanded(
-                      child: SizedBox(
-                        child: RefreshIndicator(
-                          color: AppColors.primaryColor,
-                          onRefresh: () async {},
-                          child: ListView.separated(
-                            physics: const BouncingScrollPhysics(
-                                parent: AlwaysScrollableScrollPhysics()),
-                            shrinkWrap: true,
-                            separatorBuilder: (context, index) => const Divider(
-                              height: 20,
-                              color: Colors.grey,
-                            ),
-                            itemCount: controller.products.length,
-                            itemBuilder: (context, index) => CartItem(
-                              product: controller.products[index],
-                            ).animate().fade().slideX(
-                                  duration: const Duration(milliseconds: 300),
-                                  begin: -1,
-                                  curve: Curves.easeInSine,
-                                ),
-                          ),
-                        ),
-                      ),
-                    ),
+              topLeft: Radius.circular(
+                12.0,
+              ),
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              5.verticalSpace,
               Visibility(
-                visible: controller.products.isNotEmpty,
+                visible: controller.listKeranjang.isNotEmpty,
                 child: Row(
                   children: [
                     Container(
@@ -91,13 +69,13 @@ class CartView extends GetView<CartController> {
                       children: [
                         Text('Total:',
                             style: theme.textTheme.bodyLarge?.copyWith(
-                              fontSize: 18.sp,
+                              fontSize: 14.sp,
                             )),
                         5.verticalSpace,
                         Text(
                           CurrencyFormat.convertToIdr(controller.total),
                           style: theme.textTheme.displayLarge?.copyWith(
-                            fontSize: 20,
+                            fontSize: 16,
                             decoration: TextDecoration.underline,
                             decorationColor:
                                 theme.primaryColor.withOpacity(0.5),
@@ -122,7 +100,7 @@ class CartView extends GetView<CartController> {
                         //     shadows: [
                         //       Shadow(
                         //           color: theme.textTheme.displayLarge!.color!,
-                        //           offset: const Offset(0, -5)),
+                        //           offset: Offset(0, -5)),
                         //     ],
                         //   ),
                         // ),
@@ -135,33 +113,80 @@ class CartView extends GetView<CartController> {
                       curve: Curves.easeInSine,
                     ),
               ),
-              10.verticalSpace,
-              Visibility(
-                visible: controller.products.isNotEmpty,
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide.none,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      elevation: 1,
-                    ),
-                    onPressed: () {
-                      Get.toNamed(Routes.CHECKOUT, arguments: controller);
-                    },
-                    child: const Text("Checkout"),
-                  ),
-                ).animate().fade().slideY(
-                      duration: const Duration(milliseconds: 200),
-                      curve: Curves.easeInSine,
-                    ),
+              const SizedBox(
+                height: 10.0,
               ),
-              10.verticalSpace
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide.none,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    elevation: 1,
+                  ),
+                  onPressed: () {
+                    Get.toNamed(Routes.CHECKOUT, arguments: controller);
+                  },
+                  child: const Text("Checkout"),
+                ),
+              ).animate().fade().slideY(
+                    duration: const Duration(milliseconds: 200),
+                    curve: Curves.easeInSine,
+                  ),
+              5.verticalSpace
             ],
           ),
         ),
+      ),
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        child: Obx(() {
+          return Column(
+            children: [
+              20.verticalSpace,
+              const ScreenTitle(
+                title: 'Keranjang',
+                dividerEndIndent: 280,
+              ),
+              10.verticalSpace,
+              controller.listKeranjang.isEmpty
+                  ? NoData(
+                      text: 'Belum ada produk di keranjang!',
+                      onPressed: controller.onEmptyCartPressed,
+                    )
+                  : Expanded(
+                      child: SizedBox(
+                        child: RefreshIndicator(
+                          color: AppColors.primaryColor,
+                          onRefresh: () async {
+                            controller.listKeranjang.clear();
+                            controller.getKeranjang();
+                          },
+                          child: ListView.separated(
+                            physics: const BouncingScrollPhysics(
+                                parent: AlwaysScrollableScrollPhysics()),
+                            shrinkWrap: true,
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(
+                              height: 10,
+                            ),
+                            itemCount: controller.listKeranjang.length,
+                            itemBuilder: (context, index) => CartItem(
+                              keranjang: controller.listKeranjang[index],
+                            ).animate().fade().slideX(
+                                  duration: const Duration(milliseconds: 300),
+                                  begin: -1,
+                                  curve: Curves.easeInSine,
+                                ),
+                          ),
+                        ),
+                      ),
+                    ),
+            ],
+          );
+        }),
       ),
     );
   }

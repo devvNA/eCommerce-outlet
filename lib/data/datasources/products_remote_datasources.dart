@@ -1,4 +1,6 @@
 // ignore_for_file: deprecated_member_use
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 
 import '../../core/networking/failure_helper.dart';
@@ -10,6 +12,7 @@ abstract class ProductRemoteDataSource {
   Future<Either<Failure, List<Produk>>> getListProduct();
   Future<Either<Failure, List<Produk>>> getListProductByCategory(
       String kategori);
+  Future<void> addToCart({required Produk produk});
 }
 
 class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
@@ -49,11 +52,37 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
           products.add(result);
         }
         return Right(products);
-      }
+      } else {}
+
       return Left(ConnectionFailure(response.data['message']));
     } catch (e) {
       //error parsing json
       return Left(ParsingFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<void> addToCart({required Produk produk}) async {
+    try {
+      final query = {
+        'id_user': 1,
+        'id_produk': produk.id,
+        'quantity': 1,
+      };
+
+      final response = await Request().post(
+        postKeranjang,
+        requiresAuthToken: false,
+        queryParameters: query,
+      );
+
+      if (response.statusCode == 201) {
+      } else {
+        throw Exception(response.data["message"]);
+      }
+    } catch (e) {
+      //error parsing json
+      log(e.toString());
     }
   }
 }

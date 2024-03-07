@@ -1,65 +1,54 @@
 import 'package:flutter/material.dart';
-
-import 'dark_theme_colors.dart';
-import 'light_theme_colors.dart';
+import 'my_colors.dart';
 import 'my_styles.dart';
 
 class MyTheme {
-  static getThemeData({required bool isLight}) {
+  static getThemeData() {
     return ThemeData(
       useMaterial3: false,
       // main color (app bar,tabs..etc)
-      primaryColor:
-          isLight ? AppColors.primaryColor : DarkThemeColors.primaryColor,
+      primaryColor: AppColors.primaryColor,
       // secondary color (for checkbox,float button, radio..etc)
       // secondary & background color
       colorScheme: ColorScheme.fromSwatch(
-        accentColor:
-            isLight ? AppColors.accentColor : DarkThemeColors.accentColor,
-        backgroundColor: isLight
-            ? AppColors.backgroundColor
-            : DarkThemeColors.backgroundColor,
-        brightness: isLight ? Brightness.light : Brightness.dark,
+        accentColor: AppColors.accentColor,
+        backgroundColor: AppColors.backgroundColor,
+        brightness: Brightness.light,
       ).copyWith(
-        secondary:
-            isLight ? AppColors.accentColor : DarkThemeColors.accentColor,
+        secondary: AppColors.accentColor,
       ),
       // color contrast (if the theme is dark text should be white for example)
-      brightness: isLight ? Brightness.light : Brightness.dark,
+      brightness: Brightness.light,
       // card widget background color
-      cardColor: isLight ? AppColors.cardColor : DarkThemeColors.cardColor,
+      cardColor: AppColors.cardColor,
       // hint text color
-      hintColor:
-          isLight ? AppColors.hintTextColor : DarkThemeColors.hintTextColor,
+      hintColor: AppColors.hintTextColor,
       // divider color
-      dividerTheme: DividerThemeData(
-        color: isLight ? AppColors.dividerColor : DarkThemeColors.dividerColor,
+      dividerTheme: const DividerThemeData(
+        color: AppColors.dividerColor,
       ),
       // app background color
-      scaffoldBackgroundColor: isLight
-          ? AppColors.scaffoldBackgroundColor
-          : DarkThemeColors.scaffoldBackgroundColor,
+      scaffoldBackgroundColor: AppColors.scaffoldBackgroundColor,
 
       // progress bar theme
-      progressIndicatorTheme: ProgressIndicatorThemeData(
-        color: isLight ? AppColors.primaryColor : DarkThemeColors.primaryColor,
+      progressIndicatorTheme: const ProgressIndicatorThemeData(
+        color: AppColors.primaryColor,
       ),
 
       // appBar theme
-      appBarTheme: MyStyles.getAppBarTheme(isLightTheme: isLight),
+      appBarTheme: MyStyles.getAppBarTheme(),
 
       // elevated button theme
-      elevatedButtonTheme:
-          MyStyles.getElevatedButtonTheme(isLightTheme: isLight),
+      elevatedButtonTheme: MyStyles.getElevatedButtonTheme(),
 
       // text theme
-      textTheme: MyStyles.getTextTheme(isLightTheme: isLight),
+      textTheme: MyStyles.getTextTheme(),
 
       // chip theme
-      chipTheme: MyStyles.getChipTheme(isLightTheme: isLight),
+      chipTheme: MyStyles.getChipTheme(),
 
       // icon theme
-      iconTheme: MyStyles.getIconTheme(isLightTheme: isLight),
+      iconTheme: MyStyles.getIconTheme(),
     );
   }
 }
