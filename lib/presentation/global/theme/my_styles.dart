@@ -28,28 +28,27 @@ class MyStyles {
         bodyLarge: (MyFonts.bodyTextStyle).copyWith(
           fontWeight: FontWeight.bold,
           fontSize: MyFonts.bodyLargeSize,
-          color: AppColors.bodyTextColor,
+          color: AppColors.h2,
         ),
         bodyMedium: (MyFonts.bodyTextStyle).copyWith(
           fontSize: MyFonts.bodyMediumSize,
-          color: AppColors.bodyTextColor,
+          color: AppColors.h2,
         ),
         displayLarge: (MyFonts.displayTextStyle).copyWith(
           fontSize: MyFonts.displayLargeSize,
           fontWeight: FontWeight.bold,
-          color: AppColors.displayTextColor,
+          color: AppColors.h3,
         ),
-        bodySmall: TextStyle(
-            color: AppColors.bodySmallTextColor,
-            fontSize: MyFonts.bodySmallTextSize),
+        bodySmall:
+            TextStyle(color: AppColors.h4, fontSize: MyFonts.bodySmallTextSize),
         displayMedium: (MyFonts.displayTextStyle).copyWith(
             fontSize: MyFonts.displayMediumSize,
             fontWeight: FontWeight.bold,
-            color: AppColors.displayTextColor),
+            color: AppColors.h4),
         displaySmall: (MyFonts.displayTextStyle).copyWith(
           fontSize: MyFonts.displaySmallSize,
           fontWeight: FontWeight.bold,
-          color: AppColors.displayTextColor,
+          color: AppColors.h1,
         ),
       );
 

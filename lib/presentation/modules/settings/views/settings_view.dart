@@ -52,9 +52,9 @@ class SettingsView extends GetView<SettingsController> {
             20.verticalSpace,
             SettingsItem(
               onTap: () {
-                CustomSnackBar.showCustomErrorToast();
+                controller.onKontak();
               },
-              title: 'Bantuan',
+              title: 'Kontak',
               icon: Constants.helpIcon,
             ),
             20.verticalSpace,

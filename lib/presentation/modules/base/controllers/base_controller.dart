@@ -1,15 +1,25 @@
+// ignore_for_file: unnecessary_overrides
 import 'dart:developer';
-
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class BaseController extends GetxController {
   DateTime timeBackPressed = DateTime.now();
+  final currentIndex = 0.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   onBack() {
     final difference = DateTime.now().difference(timeBackPressed);
-    final isExitWarning = difference >= const Duration(seconds: 2);
+    final isExitWarning = difference >= const Duration(milliseconds: 1500);
     timeBackPressed = DateTime.now();
     if (isExitWarning) {
       const message = "Tekan kembali lagi untuk keluar";
@@ -21,21 +31,9 @@ class BaseController extends GetxController {
     }
   }
 
-  // current screen index
-  var currentIndex = 0.obs;
-
   /// change the selected screen index
   changeScreen(int selectedIndex) {
-    currentIndex.value = selectedIndex;
+    currentIndex(selectedIndex);
     log("halaman index = $currentIndex");
-    update();
-  }
-
-  final Uri url = Uri.parse('https://wa.me/6283871647864/');
-
-  Future<void> onChatButton() async {
-    if (!await launchUrl(url)) {
-      throw Exception('Could not launch $url');
-    }
   }
 }

@@ -1,22 +1,45 @@
-// ignore_for_file: invalid_annotation_target
-import 'package:freezed_annotation/freezed_annotation.dart';
+// To parse this JSON data, do
+//
+//     final produk = produkFromJson(jsonString);
 
-part 'produk_model.freezed.dart';
-part 'produk_model.g.dart';
+import 'dart:convert';
 
-@freezed
-class Produk with _$Produk {
-  const factory Produk({
-    @JsonKey(name: 'id') @Default(0) int id,
-    @JsonKey(name: 'nama') @Default("") String nama,
-    @JsonKey(name: 'harga') @Default(0) int harga,
-    @JsonKey(name: 'deskripsi') @Default("") String deskripsi,
-    @JsonKey(name: 'stok') @Default(0) int stok,
-    @JsonKey(name: 'gambar') @Default("") String gambar,
-  }) = _Produk;
+Produk produkFromJson(String str) => Produk.fromJson(json.decode(str));
 
-  factory Produk.fromJson(Map<String, Object?> json) => _$ProdukFromJson(json);
+String produkToJson(Produk data) => json.encode(data.toJson());
 
-  static List<Produk> jsonToList(List list) =>
-      list.map((e) => Produk.fromJson(e as Map<String, dynamic>)).toList();
+class Produk {
+  final int? id;
+  final String? gambar;
+  final String? nama;
+  final int? harga;
+  final String? deskripsi;
+  final int? stok;
+
+  Produk({
+    this.id,
+    this.gambar,
+    this.nama,
+    this.harga,
+    this.deskripsi,
+    this.stok,
+  });
+
+  factory Produk.fromJson(Map<String, dynamic> json) => Produk(
+        id: json["id"],
+        gambar: json["gambar"],
+        nama: json["nama"],
+        harga: json["harga"],
+        deskripsi: json["deskripsi"],
+        stok: json["stok"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "gambar": gambar,
+        "nama": nama,
+        "harga": harga,
+        "deskripsi": deskripsi,
+        "stok": stok,
+      };
 }

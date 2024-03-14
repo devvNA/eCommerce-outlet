@@ -1,22 +1,53 @@
-// ignore_for_file: invalid_annotation_target
-import 'package:freezed_annotation/freezed_annotation.dart';
+// To parse this JSON data, do
+//
+//     final keranjang = keranjangFromJson(jsonString);
 
-part 'keranjang_model.freezed.dart';
-part 'keranjang_model.g.dart';
+import 'dart:convert';
 
-@freezed
-class Keranjang with _$Keranjang {
-  const factory Keranjang({
-    @JsonKey(name: 'id') @Default(0) int id,
-    @JsonKey(name: 'id_user') @Default(0) int idUser,
-    @JsonKey(name: 'id_produk') @Default(0) int idProduk,
-    @JsonKey(name: 'quantity') @Default(0) int quantity,
-  }) = _Keranjang;
+Keranjang keranjangFromJson(String str) => Keranjang.fromJson(json.decode(str));
 
-  factory Keranjang.fromJson(Map<String, Object?> json) =>
-      _$KeranjangFromJson(json);
+String keranjangToJson(Keranjang data) => json.encode(data.toJson());
 
-  static List<Keranjang> jsonToList(List list) =>
-      list.map((e) => Keranjang.fromJson(e as Map<String, dynamic>)).toList();
+class Keranjang {
+  int? id;
+  int? idUser;
+  int? idProduk;
+  int? quantity;
+
+  get getId => id;
+
+  set setId(id) => this.id = id;
+
+  get getIdUser => idUser;
+
+  set setIdUser(idUser) => this.idUser = idUser;
+
+  get getIdProduk => idProduk;
+
+  set setIdProduk(idProduk) => this.idProduk = idProduk;
+
+  get getQuantity => quantity;
+
+  set setQuantity(quantity) => this.quantity = quantity;
+
+  Keranjang({
+    this.id,
+    this.idUser,
+    this.idProduk,
+    this.quantity,
+  });
+
+  factory Keranjang.fromJson(Map<String, dynamic> json) => Keranjang(
+        id: json["id"],
+        idUser: json["id_user"],
+        idProduk: json["id_produk"],
+        quantity: json["quantity"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "id_user": idUser,
+        "id_produk": idProduk,
+        "quantity": quantity,
+      };
 }
-

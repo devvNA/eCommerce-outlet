@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/core/utils/helpers/constants.dart';
-import 'package:marvelindo_outlet/core/utils/helpers/currency.dart';
 import 'package:marvelindo_outlet/presentation/global/theme/my_colors.dart';
+import 'package:marvelindo_outlet/presentation/global/widgets/shimmer_widget.dart';
 import 'package:marvelindo_outlet/presentation/routes/app_pages.dart';
 import '../../../global/widgets/no_data.dart';
 import '../../../global/widgets/screen_title.dart';
@@ -18,35 +18,120 @@ class CartView extends GetView<CartController> {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
+
     return Scaffold(
-      bottomNavigationBar: Visibility(
-        visible: controller.listKeranjang.isNotEmpty,
-        child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 6,
-          ),
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(
-                12.0,
+      body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: Column(
+            children: [
+              20.verticalSpace,
+              const ScreenTitle(
+                title: 'Keranjang',
+                dividerEndIndent: 280,
               ),
-              topLeft: Radius.circular(
-                12.0,
+              10.verticalSpace,
+              Expanded(
+                child: Obx(() {
+                  if (controller.loading()) {
+                    return ListView.separated(
+                      shrinkWrap: true,
+                      separatorBuilder: (context, index) => const SizedBox(
+                        height: 10,
+                      ),
+                      itemCount: 5,
+                      itemBuilder: (context, index) => ShimmerLayout(
+                        child: Container(
+                          height: 120.0,
+                          decoration: const BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(
+                                8.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+                  if (controller.listKeranjang.isEmpty) {
+                    return NoData(
+                      text: 'Belum ada produk di keranjang!',
+                      onPressed: controller.onEmptyCartPressed,
+                    );
+                  }
+                  return Stack(
+                    children: [
+                      RefreshIndicator(
+                        color: AppColors.primaryColor,
+                        onRefresh: () async {
+                          controller.listKeranjang().clear();
+                          controller.getKeranjang();
+                        },
+                        child: ListView.separated(
+                          physics: const BouncingScrollPhysics(
+                              parent: AlwaysScrollableScrollPhysics()),
+                          shrinkWrap: true,
+                          separatorBuilder: (context, index) => const SizedBox(
+                            height: 10,
+                          ),
+                          itemCount: controller.listKeranjang().length,
+                          itemBuilder: (context, index) {
+                            final keranjang = controller.listKeranjang()[index];
+                            return CartItem(
+                              harga: 100,
+                              kategori: "Voucher",
+                              nama: "lorem ipsum",
+                              quantity: keranjang.quantity ?? 1,
+                              onDecreasePressed: () => controller
+                                  .onDecreasePressed(keranjang.idProduk!),
+                              onIncreasePressed: () => controller
+                                  .onIncreasePressed(keranjang.idProduk!),
+                            ).animate().fade().slideX(
+                                  duration: const Duration(milliseconds: 300),
+                                  begin: -1,
+                                  curve: Curves.easeInSine,
+                                );
+                          },
+                        ),
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: _checkoutBox(theme, context),
+                          ),
+                          10.verticalSpace
+                        ],
+                      ),
+                    ],
+                  );
+                }),
               ),
-            ),
-          ),
+            ],
+          )),
+    );
+  }
+
+  Visibility _checkoutBox(ThemeData theme, BuildContext context) {
+    return Visibility(
+      visible: controller.listKeranjang.isNotEmpty,
+      child: Card(
+        clipBehavior: Clip.antiAlias,
+        elevation: 5,
+        child: Padding(
+          padding: const EdgeInsets.all(8),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              5.verticalSpace,
               Visibility(
                 visible: controller.listKeranjang.isNotEmpty,
                 child: Row(
                   children: [
                     Container(
-                      width: 70.w,
-                      height: 70.h,
+                      width: 60.w,
+                      height: 60.h,
                       decoration: BoxDecoration(
                         color: theme.primaryColor,
                         borderRadius: BorderRadius.circular(12.r),
@@ -63,7 +148,7 @@ class CartView extends GetView<CartController> {
                         ],
                       ),
                     ),
-                    20.horizontalSpace,
+                    15.horizontalSpace,
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -73,9 +158,9 @@ class CartView extends GetView<CartController> {
                             )),
                         5.verticalSpace,
                         Text(
-                          CurrencyFormat.convertToIdr(controller.total),
+                          'Rp${controller.total.toStringAsFixed(0)}',
                           style: theme.textTheme.displayLarge?.copyWith(
-                            fontSize: 16,
+                            fontSize: 18,
                             decoration: TextDecoration.underline,
                             decorationColor:
                                 theme.primaryColor.withOpacity(0.5),
@@ -88,22 +173,6 @@ class CartView extends GetView<CartController> {
                             ],
                           ),
                         ),
-                        // Text(
-                        //   'Rp${controller.total.toStringAsFixed(0)}',
-                        //   style: theme.textTheme.displayLarge?.copyWith(
-                        //     fontSize: 20,
-                        //     decoration: TextDecoration.underline,
-                        //     decorationColor:
-                        //         theme.primaryColor.withOpacity(0.5),
-                        //     decorationThickness: 1,
-                        //     color: Colors.transparent,
-                        //     shadows: [
-                        //       Shadow(
-                        //           color: theme.textTheme.displayLarge!.color!,
-                        //           offset: Offset(0, -5)),
-                        //     ],
-                        //   ),
-                        // ),
                       ],
                     ),
                   ],
@@ -113,11 +182,9 @@ class CartView extends GetView<CartController> {
                       curve: Curves.easeInSine,
                     ),
               ),
-              const SizedBox(
-                height: 10.0,
-              ),
+              5.verticalSpace,
               SizedBox(
-                width: MediaQuery.of(context).size.width,
+                width: Get.width,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
@@ -135,58 +202,9 @@ class CartView extends GetView<CartController> {
                     duration: const Duration(milliseconds: 200),
                     curve: Curves.easeInSine,
                   ),
-              5.verticalSpace
             ],
           ),
         ),
-      ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
-        child: Obx(() {
-          return Column(
-            children: [
-              20.verticalSpace,
-              const ScreenTitle(
-                title: 'Keranjang',
-                dividerEndIndent: 280,
-              ),
-              10.verticalSpace,
-              controller.listKeranjang.isEmpty
-                  ? NoData(
-                      text: 'Belum ada produk di keranjang!',
-                      onPressed: controller.onEmptyCartPressed,
-                    )
-                  : Expanded(
-                      child: SizedBox(
-                        child: RefreshIndicator(
-                          color: AppColors.primaryColor,
-                          onRefresh: () async {
-                            controller.listKeranjang.clear();
-                            controller.getKeranjang();
-                          },
-                          child: ListView.separated(
-                            physics: const BouncingScrollPhysics(
-                                parent: AlwaysScrollableScrollPhysics()),
-                            shrinkWrap: true,
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(
-                              height: 10,
-                            ),
-                            itemCount: controller.listKeranjang.length,
-                            itemBuilder: (context, index) => CartItem(
-                              keranjang: controller.listKeranjang[index],
-                            ).animate().fade().slideX(
-                                  duration: const Duration(milliseconds: 300),
-                                  begin: -1,
-                                  curve: Curves.easeInSine,
-                                ),
-                          ),
-                        ),
-                      ),
-                    ),
-            ],
-          );
-        }),
       ),
     );
   }

@@ -48,7 +48,11 @@ class Request {
       bool requiresAuthToken = true,
       Object? data}) async {
     if (requiresAuthToken) await _setFirebaseToken();
-    return await _dio.get(endpoint, queryParameters: queryParameters);
+    return await _dio.get(
+      endpoint,
+      queryParameters: queryParameters,
+      data: data,
+    );
   }
 
   /// POST request
@@ -57,7 +61,11 @@ class Request {
       required bool requiresAuthToken,
       Object? data}) async {
     if (requiresAuthToken) await _setFirebaseToken();
-    return await _dio.post(endpoint, queryParameters: queryParameters);
+    return await _dio.post(
+      endpoint,
+      queryParameters: queryParameters,
+      data: data,
+    );
   }
 
   /// DELETE request
@@ -73,7 +81,11 @@ class Request {
       required bool requiresAuthToken,
       Object? data}) async {
     if (requiresAuthToken) await _setFirebaseToken();
-    return await _dio.put(endpoint, queryParameters: queryParameters);
+    return await _dio.put(
+      endpoint,
+      queryParameters: queryParameters,
+      data: data,
+    );
   }
 
   // ========================================================================== //

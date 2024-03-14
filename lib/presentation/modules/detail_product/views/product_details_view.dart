@@ -61,7 +61,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: Text(
-                  controller.product.nama,
+                  controller.produk.nama!,
                   style: theme.textTheme.bodyLarge,
                 ).animate().fade().slideX(
                       duration: const Duration(milliseconds: 300),
@@ -72,7 +72,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: Text(
-                  ("Stok: ${controller.product.stok.toString()}"),
+                  ("stok: ${controller.produk.stok.toString()}"),
                   // "Stok: ${100}",
                   // "Stok: ${controller.product.stock!.toString()}",
                   style: theme.textTheme.bodyMedium,
@@ -88,7 +88,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                 child: Row(
                   children: [
                     Text(
-                      CurrencyFormat.convertToIdr(controller.product.harga),
+                      CurrencyFormat.convertToIdr(controller.produk.harga ?? 0),
                       style: theme.textTheme.displayMedium,
                     ),
                   ],
@@ -99,28 +99,9 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                     ),
               ),
               15.verticalSpace,
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Center(
-                  child: SizedBox(
-                    width: Get.width,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.all(12),
-                        elevation: 1,
-                      ),
-                      onPressed: () {
-                        controller.onAddToCart();
-                      },
-                      child: const Text("Tambahkan ke keranjang"),
-                    ),
-                  ),
-                ),
-              ),
-              15.verticalSpace,
               Container(
                 height: 10,
-                color: Colors.grey[200],
+                color: const Color(0xFFE9E9E9),
               ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -137,9 +118,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                     GestureDetector(
                       onTap: () {},
                       child: Text.rich(TextSpan(
-                          // text:
-                          //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-                          text: controller.product.deskripsi,
+                          text: controller.produk.deskripsi,
                           style: theme.textTheme.bodyMedium,
                           children: <InlineSpan>[
                             const TextSpan(
@@ -158,6 +137,27 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                 ),
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _addToCartButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Center(
+        child: SizedBox(
+          width: Get.width,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.all(12),
+              elevation: 1,
+            ),
+            onPressed: () {
+              controller.onAddToCart(context);
+            },
+            child: const Text("Tambahkan ke keranjang"),
           ),
         ),
       ),

@@ -7,16 +7,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:marvelindo_outlet/presentation/routes/app_pages.dart';
 
-/* Variant: debug
-Config: debug
-Store: C:\Users\devit\.android\debug.keystore
-Alias: AndroidDebugKey
-MD5: 7F:B8:36:29:3C:F9:B9:8E:3F:F7:EB:AE:FE:16:5E:E7
-SHA1: F8:2A:E7:84:83:90:86:7A:30:58:28:F7:BE:71:F5:AF:A4:E2:5B:B0
-SHA-256: 9A:6B:1E:56:F4:83:EC:78:90:0D:57:8F:BA:22:DD:97:1D:3B:98:11:2F:39:5B:7C:C3:17:78:E3:43:30:EF:A4
-Valid until: Monday, 9 February 2054
----------- */
-
 abstract class FirebaseAuthService {
   Future<User?> signInWithGoogle();
   Future<bool> signOut();

@@ -67,10 +67,8 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     //Screen Orientation
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
     return ScreenUtilInit(
         designSize: const Size(375, 812),

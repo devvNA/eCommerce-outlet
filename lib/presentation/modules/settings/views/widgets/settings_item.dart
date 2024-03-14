@@ -26,28 +26,26 @@ class SettingsItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
-    return GestureDetector(
-        onTap: onTap,
-        child: ListTile(
-          title: Text(
-            title,
-            style: theme.textTheme.labelLarge,
-          ),
-          leading: CircleAvatar(
-            radius: isAccount ? 30.r : 25.r,
-            backgroundColor: theme.primaryColor,
-            child: SvgPicture.asset(icon!, fit: BoxFit.none),
-          ),
-          trailing: Container(
-            width: 40.w,
-            height: 40.h,
-            decoration: BoxDecoration(
-              color: theme.primaryColor,
-              borderRadius: BorderRadius.circular(10.r),
-            ),
-            child:
-                SvgPicture.asset(Constants.forwardArrowIcon, fit: BoxFit.none),
-          ),
-        ));
+    return ListTile(
+      onTap: onTap,
+      title: Text(
+        title,
+        style: theme.textTheme.labelLarge,
+      ),
+      leading: CircleAvatar(
+        radius: isAccount ? 30.r : 25.r,
+        backgroundColor: theme.primaryColor,
+        child: SvgPicture.asset(icon!, fit: BoxFit.none),
+      ),
+      trailing: Container(
+        width: 40.w,
+        height: 40.h,
+        decoration: BoxDecoration(
+          color: theme.primaryColor,
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+        child: SvgPicture.asset(Constants.forwardArrowIcon, fit: BoxFit.none),
+      ),
+    );
   }
 }

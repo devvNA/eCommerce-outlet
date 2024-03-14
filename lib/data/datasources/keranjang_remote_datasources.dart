@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:marvelindo_outlet/core/networking/failure_helper.dart';
 import 'package:marvelindo_outlet/data/models/keranjang/keranjang_model.dart';
-
 import '../../core/networking/network_request.dart';
 import '../../core/utils/api_endpoints.dart';
 
@@ -14,7 +13,6 @@ class KeranjangRemoteDataSourceImpl implements KeranjangRemoteDataSource {
   Future<Either<Failure, List<Keranjang>>> getListKeranjang() async {
     try {
       final response = await Request().get(listKeranjang);
-
       List<Keranjang> keranjang = [];
       if (response.statusCode == 200) {
         // debugPrint('Status: ${response.statusMessage}');

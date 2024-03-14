@@ -15,7 +15,7 @@ import '../../modules/checkout/controllers/checkout_controller.dart';
 import '../../modules/detail_history/controllers/detail_history_controller.dart';
 import '../../modules/history/controllers/history_controller.dart';
 import '../../modules/home/controllers/home_controller.dart';
-import '../../modules/product_details/controllers/product_details_controller.dart';
+import '../../modules/detail_product/controllers/product_details_controller.dart';
 import '../../modules/profil/controllers/profil_controller.dart';
 import '../../modules/settings/controllers/settings_controller.dart';
 import '../../modules/splash/controllers/splash_controller.dart';

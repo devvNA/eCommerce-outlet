@@ -14,7 +14,7 @@ import '../modules/checkout/views/checkout_view.dart';
 import '../modules/detail_history/views/detail_history_view.dart';
 import '../modules/history/views/history_view.dart';
 import '../modules/home/views/home_view.dart';
-import '../modules/product_details/views/product_details_view.dart';
+import '../modules/detail_product/views/product_details_view.dart';
 import '../modules/profil/views/profil_view.dart';
 import '../modules/settings/views/settings_view.dart';
 import '../modules/splash/views/splash_view.dart';
@@ -83,7 +83,7 @@ class AppPages {
         binding: AppBindings()),
     GetPage(
         name: _Paths.API_TEST,
-        page: () => ApiTestPage(),
+        page: () => const ApiTestPage(),
         binding: AppBindings()),
     GetPage(
         name: _Paths.DETAIL_API,

@@ -11,18 +11,17 @@ class MyTheme {
       // secondary color (for checkbox,float button, radio..etc)
       // secondary & background color
       colorScheme: ColorScheme.fromSwatch(
-        accentColor: AppColors.accentColor,
-        backgroundColor: AppColors.backgroundColor,
+        accentColor: AppColors.lightGrey,
         brightness: Brightness.light,
       ).copyWith(
-        secondary: AppColors.accentColor,
+        secondary: AppColors.lightGrey,
       ),
       // color contrast (if the theme is dark text should be white for example)
       brightness: Brightness.light,
       // card widget background color
       cardColor: AppColors.cardColor,
       // hint text color
-      hintColor: AppColors.hintTextColor,
+      hintColor: AppColors.h4,
       // divider color
       dividerTheme: const DividerThemeData(
         color: AppColors.dividerColor,

@@ -1,35 +1,55 @@
 // ignore_for_file: unused_local_variable
 
-import 'package:get/get.dart';
-// ignore_for_file: deprecated_member_use
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:marvelindo_outlet/data/models/keranjang/keranjang_model.dart';
-import 'package:marvelindo_outlet/presentation/global/theme/my_colors.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+
+import 'package:marvelindo_outlet/core/utils/helpers/currency.dart';
+
+import '../../../../global/theme/my_colors.dart';
 import '../../controllers/cart_controller.dart';
 
 class CartItem extends GetView<CartController> {
-  final Keranjang keranjang;
-  // final Produk produk;
+  final String nama;
+  final String kategori;
+  final int harga;
+  final int quantity;
+  final void Function()? onIncreasePressed;
+  final void Function()? onDecreasePressed;
+
   const CartItem({
     super.key,
-    required this.keranjang,
+    required this.nama,
+    required this.kategori,
+    required this.harga,
+    required this.quantity,
+    this.onIncreasePressed,
+    this.onDecreasePressed,
   });
 
   @override
   Widget build(BuildContext context) {
     TextEditingController quantityController =
-        TextEditingController(text: keranjang.quantity.toString());
+        TextEditingController(text: quantity.toString());
 
     return Container(
       padding: const EdgeInsets.all(12.0),
-      decoration: BoxDecoration(
-        color: Colors.grey[100],
-        borderRadius: const BorderRadius.all(
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(
           Radius.circular(
             8.0,
           ),
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Color.fromARGB(25, 0, 0, 0),
+            blurRadius: 25,
+            offset: Offset(2, -15),
+          ),
+        ],
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,25 +76,26 @@ class CartItem extends GetView<CartController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "Lorem ipsum dolor sit amet.",
-                  style: TextStyle(
+                Text(
+                  nama,
+                  style: const TextStyle(
                     fontSize: 14.0,
                   ),
                 ),
                 const SizedBox(
                   height: 6.0,
                 ),
-                const Text(
-                  "Voucher",
-                  style: TextStyle(color: AppColors.appBarColor, fontSize: 10),
+                Text(
+                  kategori,
+                  style: const TextStyle(
+                      color: AppColors.appBarColor, fontSize: 10),
                 ),
                 const SizedBox(
                   height: 6.0,
                 ),
-                const Text(
-                  "Rp5000",
-                  style: TextStyle(
+                Text(
+                  CurrencyFormat.convertToIdr(harga),
+                  style: const TextStyle(
                     fontSize: 12.0,
                     fontWeight: FontWeight.bold,
                   ),
@@ -84,33 +105,39 @@ class CartItem extends GetView<CartController> {
                 ),
                 Row(
                   children: [
-                    InkWell(
-                      onTap: () {},
-                      child: Container(
-                        padding: const EdgeInsets.all(4.0),
-                        decoration: const BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(4.0),
+                    Ink(
+                      child: InkWell(
+                        onTap: onDecreasePressed,
+                        child: Container(
+                          padding: const EdgeInsets.all(4.0),
+                          decoration: const BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(4.0),
+                            ),
                           ),
-                        ),
-                        child: const Icon(
-                          Icons.remove,
-                          color: Colors.white,
-                          size: 16.0,
+                          child: const Icon(
+                            Icons.remove,
+                            color: Colors.white,
+                            size: 16.0,
+                          ),
                         ),
                       ),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       width: 60,
                       child: Padding(
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                             horizontal: 8.0, vertical: 8.0),
                         child: TextField(
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          controller: quantityController,
                           clipBehavior: Clip.antiAlias,
                           textAlign: TextAlign.center,
                           maxLines: 1,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             focusedBorder: OutlineInputBorder(
                               borderSide:
                                   BorderSide(color: AppColors.primaryColor),
@@ -120,11 +147,14 @@ class CartItem extends GetView<CartController> {
                             isDense: true, // Added this
                             contentPadding: EdgeInsets.all(6),
                           ),
+                          onChanged: (value) {
+                            quantityController.text = value;
+                          },
                         ),
                       ),
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: onIncreasePressed,
                       child: Container(
                         padding: const EdgeInsets.all(4.0),
                         decoration: BoxDecoration(

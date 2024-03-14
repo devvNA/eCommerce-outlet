@@ -1,15 +1,13 @@
 // ignore_for_file: deprecated_member_use
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/presentation/global/theme/my_colors.dart';
-import '../../../../core/utils/helpers/constants.dart';
 import '../controllers/base_controller.dart';
 import '../../cart/views/cart_view.dart';
 import '../../home/views/home_view.dart';
 import '../../history/views/history_view.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import '../../settings/views/settings_view.dart';
 
 class BaseView extends GetView<BaseController> {
@@ -25,12 +23,6 @@ class BaseView extends GetView<BaseController> {
           return controller.onBack();
         },
         child: Scaffold(
-          resizeToAvoidBottomInset: true,
-          floatingActionButton: chatApp(
-            onPressed: () async {
-              controller.onChatButton();
-            },
-          ),
           body: SafeArea(
             child: IndexedStack(
               clipBehavior: Clip.hardEdge,
@@ -44,125 +36,64 @@ class BaseView extends GetView<BaseController> {
             ),
           ),
           bottomNavigationBar: Container(
-            padding: EdgeInsets.only(top: 10.h, bottom: 15.h),
             decoration: BoxDecoration(
               color: theme.scaffoldBackgroundColor,
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(25.r),
-                topRight: Radius.circular(25.r),
+                topLeft: Radius.circular(24.r),
+                topRight: Radius.circular(24.r),
               ),
               boxShadow: const [
                 BoxShadow(
                   color: Colors.black38,
                   spreadRadius: 0,
-                  blurRadius: 20,
+                  blurRadius: 24,
                 ),
               ],
             ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(25.r),
-                topRight: Radius.circular(25.r),
-              ),
-              child: BottomNavigationBar(
-                currentIndex: controller.currentIndex.value,
-                type: BottomNavigationBarType.fixed,
-                backgroundColor: theme.scaffoldBackgroundColor,
-                showSelectedLabels: false,
-                showUnselectedLabels: false,
-                items: [
-                  _mBottomNavItem(
-                    label: 'Home',
-                    icon: Constants.homeIcon,
+            child: Padding(
+              padding: const EdgeInsets.all(14),
+              child: GNav(
+                  selectedIndex: controller.currentIndex(),
+                  onTabChange: (value) {
+                    controller.currentIndex(value);
+                  },
+                  rippleColor:
+                      Colors.white, // tab button ripple color when pressed
+                  hoverColor: Colors.white, // tab button hover color
+                  activeColor: Colors.white,
+                  tabBackgroundColor: AppColors.primaryColor,
+                  gap: 4,
+                  tabBorderRadius: 14,
+                  textStyle: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
                   ),
-                  _mBottomNavItem(
-                    label: 'Cart',
-                    icon: Constants.cartIcon,
-                  ),
-                  _mBottomNavItem(
-                    label: 'Notifications',
-                    icon: Constants.historyIcon,
-                  ),
-                  _mBottomNavItem(
-                    label: 'Settings',
-                    icon: Constants.settingsIcon,
-                  ),
-                ],
-                onTap: controller.changeScreen,
-              ),
+                  padding: const EdgeInsets.all(14),
+                  color: Colors.grey,
+                  curve: Curves.easeOutExpo, // tab animation curves
+                  iconSize: 25, // tab button icon size
+                  tabs: const [
+                    GButton(
+                      icon: Icons.home_filled,
+                      text: 'Home',
+                    ),
+                    GButton(
+                      icon: Icons.shopping_cart,
+                      text: 'Cart',
+                    ),
+                    GButton(
+                      icon: Icons.list_alt,
+                      text: 'History',
+                    ),
+                    GButton(
+                      icon: Icons.settings,
+                      text: 'Setting',
+                    ),
+                  ]),
             ),
           ),
         ),
       );
     });
   }
-
-  _mBottomNavItem({required String label, required String icon}) {
-    return BottomNavigationBarItem(
-      label: label,
-      icon:
-          SvgPicture.asset(icon, color: Get.theme.iconTheme.color, height: 20),
-      activeIcon: SvgPicture.asset(
-        icon,
-        color: Get.theme.primaryColor,
-        height: 18,
-      ),
-    );
-  }
 }
-
-Widget chatApp({required VoidCallback onPressed}) {
-  return FloatingActionButton(
-    isExtended: true,
-    mini: true,
-    tooltip: "Chat",
-    backgroundColor: AppColors.primaryColor,
-    clipBehavior: Clip.none,
-    onPressed: onPressed,
-    child: const Icon(
-      Icons.chat_outlined,
-      color: Colors.white,
-    ),
-  );
-}
-
-// void _showBottomChat(context) {
-//   showModalBottomSheet(
-//       context: context,
-//       builder: (context) {
-//         return Column(
-//           children: [
-//             const SizedBox(
-//               height: 20.0,
-//             ),
-//             Expanded(
-//               child: ListView.builder(
-//                 shrinkWrap: true,
-//                 itemCount: users.length,
-//                 itemBuilder: (context, index) {
-//                   final user = users[index];
-//                   return ListTile(
-//                     onTap: () {
-//                       Get.toNamed(Routes.CHAT);
-//                     },
-//                     title: Text(user["name"]),
-//                     subtitle: Text(user["email"]),
-//                     leading: CircleAvatar(
-//                       backgroundImage: NetworkImage(
-//                         user["photo"],
-//                       ),
-//                     ),
-//                     trailing: const Text(
-//                       '9:45 PM',
-//                       style: TextStyle(
-//                         fontSize: 10,
-//                       ),
-//                     ),
-//                   );
-//                 },
-//               ),
-//             ),
-//           ],
-//         );
-//       });
-// }

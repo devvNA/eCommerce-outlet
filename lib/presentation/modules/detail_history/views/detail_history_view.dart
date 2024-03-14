@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/core/utils/helpers/currency.dart';
-import 'package:marvelindo_outlet/presentation/modules/detail_history/controllers/detail_history_controller.dart';
+import '../controllers/detail_history_controller.dart';
 
 class DetailHistoryView extends GetView<DetailHistoryController> {
   const DetailHistoryView({super.key});

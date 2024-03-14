@@ -1,20 +1,25 @@
-import 'dart:developer';
+// ignore_for_file: null_check_always_fails
 
+import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/data/datasources/keranjang_remote_datasources.dart';
 import 'package:marvelindo_outlet/data/models/keranjang/keranjang_model.dart';
-import 'package:marvelindo_outlet/data/models/produk/produk_model.dart';
 import 'package:marvelindo_outlet/data/repositories/keranjang_repository_impl.dart';
 import 'package:marvelindo_outlet/domain/usecase/keranjang_usecase.dart';
-
 import '../../../../core/utils/helpers/dummy_helper.dart';
 import '../../base/controllers/base_controller.dart';
 
 class CartController extends GetxController {
   // to hold the products in cart
+
+  final _produk = {}.obs;
+
+  Map<String, Keranjang> get produk {
+    return {..._produk()};
+  }
+
+  final loading = true.obs;
   final listKeranjang = <Keranjang>[].obs;
-  final produkList = <Produk>[].obs;
-  var loading = false.obs;
 
   // RxList<ProductModel> products = RxList<ProductModel>([]);
 
@@ -38,19 +43,17 @@ class CartController extends GetxController {
   // }
 
   getKeranjang() async {
+    loading(true);
+
     var response = await KeranjangUseCase(
             repository: KeranjangRepositoryImpl(
                 remoteDataSource: KeranjangRemoteDataSourceImpl()))
         .getListKeranjang();
+
     response.fold((failure) => log("Error: ${failure.message}"),
         (keranjang) => listKeranjang(keranjang));
-  }
 
-  String getNamaProduk(int produkId) {
-    final produk = produkList.firstWhere((produk) => produk.id == produkId,
-        orElse: () =>
-            const Produk(id: 0, nama: "Produk tidak ditemukan", harga: 0));
-    return produk.nama;
+    loading(false);
   }
 
   //when the user press on purchase now button
@@ -64,7 +67,7 @@ class CartController extends GetxController {
       product.quantity = 0;
     }
     // kosongkan keranjang
-    listKeranjang.clear();
+    // listKeranjang.clear();
 
     // reset total harga
     total = 0;
@@ -76,18 +79,20 @@ class CartController extends GetxController {
     update();
   }
 
-  onRefreshCart() {
-    listKeranjang.clear();
-    // getCartProducts();
-  }
-
   // when the user press on increase button
   onIncreasePressed(int productId) {
-    var product = DummyHelper.products.firstWhere((p) => p.id == productId);
+    var product = listKeranjang.firstWhere((p) => p.id == productId);
     product.quantity = product.quantity! + 1;
     // getCartProducts();
     // update(['ProductQuantity']);
   }
+
+  // onIncreasePressed(int productId) {
+  //   var product = DummyHelper.products.firstWhere((p) => p.id == productId);
+  //   product.quantity = product.quantity! + 1;
+  //   // getCartProducts();
+  //   // update(['ProductQuantity']);
+  // }
 
   //  when the user press on decrease button
   onDecreasePressed(int productId) {

@@ -11,22 +11,26 @@ import 'package:marvelindo_outlet/presentation/global/theme/my_colors.dart';
 import 'package:marvelindo_outlet/presentation/modules/home/controllers/home_controller.dart';
 import 'package:marvelindo_outlet/presentation/routes/app_pages.dart';
 import '../../../../../core/utils/helpers/currency.dart';
-import '../../../../../data/models/product_model.dart';
+import '../../../../../data/models/produk/product_model.dart';
 import '../../../../../data/models/produk/produk_model.dart';
 import '../../../base/controllers/base_controller.dart';
 
 class ProductItem extends GetView<HomeController> {
-  final Produk product;
-  const ProductItem({super.key, required this.product});
+  final Produk produk;
+  const ProductItem({super.key, required this.produk});
 
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
     return GestureDetector(
       onTap: () {
-        Get.toNamed(Routes.PRODUCT_DETAILS, arguments: product);
+        Get.toNamed(Routes.PRODUCT_DETAILS, arguments: produk);
       },
       child: Card(
+        elevation: 1,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(6),
+        ),
         color: Colors.white,
         clipBehavior: Clip.antiAlias,
         child: Column(
@@ -49,7 +53,7 @@ class ProductItem extends GetView<HomeController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(product.nama,
+                    Text(produk.nama ?? "",
                         maxLines: 2,
                         style: theme.textTheme.bodyMedium?.copyWith(
                           overflow: TextOverflow.ellipsis,
@@ -57,7 +61,7 @@ class ProductItem extends GetView<HomeController> {
                         )),
                     Text(
                       // ignore: unnecessary_string_interpolations
-                      "${CurrencyFormat.convertToIdr(product.harga)}",
+                      "${CurrencyFormat.convertToIdr(produk.harga ?? 0)}",
                       style: theme.textTheme.displaySmall?.copyWith(
                         color: AppColors.primaryColor,
                       ),

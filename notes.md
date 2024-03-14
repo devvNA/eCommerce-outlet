@@ -20,3 +20,10 @@ mavenCentral()
 <!-- gradle-wrapper.properties -->
 
 distributionUrl=https\://services.gradle.org/distributions/gradle-8.0-all.zip
+
+<!-- key.properties -->
+
+storePassword=android
+keyPassword=android
+keyAlias=upload
+storeFile=C:\\Users\\devit\\upload-keystore.jks

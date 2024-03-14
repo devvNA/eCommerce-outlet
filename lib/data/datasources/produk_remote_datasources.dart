@@ -1,21 +1,19 @@
 // ignore_for_file: deprecated_member_use
 import 'dart:developer';
-
 import 'package:dartz/dartz.dart';
-
 import '../../core/networking/failure_helper.dart';
 import '../../core/networking/network_request.dart';
 import '../../core/utils/api_endpoints.dart';
 import '../models/produk/produk_model.dart';
 
-abstract class ProductRemoteDataSource {
+abstract class ProdukRemoteDataSource {
   Future<Either<Failure, List<Produk>>> getListProduct();
   Future<Either<Failure, List<Produk>>> getListProductByCategory(
       String kategori);
   Future<void> addToCart({required Produk produk});
 }
 
-class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
+class ProdukRemoteDataSourceImpl implements ProdukRemoteDataSource {
   @override
   Future<Either<Failure, List<Produk>>> getListProduct() async {
     try {
@@ -62,7 +60,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   }
 
   @override
-  Future<void> addToCart({required Produk produk}) async {
+  Future addToCart({required Produk produk}) async {
     try {
       final query = {
         'id_user': 1,
