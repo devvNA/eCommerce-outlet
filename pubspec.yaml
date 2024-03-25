@@ -38,6 +38,7 @@ dependencies:
   url_launcher: ^6.2.5
   google_nav_bar: ^5.0.6
   flutter_svg: ^2.0.10+1
+  google_fonts: 6.1.0
 
 dev_dependencies:
   flutter_lints: ^3.0.1
@@ -60,18 +61,7 @@ flutter:
   assets:
     - assets/images/
     - assets/vectors/
-    - assets/fonts/
     - assets/icons/
     - assets/json_models/
-
-  fonts:
-    - family: Poppins
-      fonts:
-        - asset: assets/fonts/Poppins-Regular.ttf
-          weight: 300
-        - asset: assets/fonts/Poppins-Medium.ttf
-          weight: 500
-        - asset: assets/fonts/Poppins-SemiBold.ttf
-          weight: 700
 # flutter pub run build_runner build --delete-conflicting-outputs
 # dart run build_runner build --delete-conflicting-outputs
