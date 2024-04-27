@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:marvelindo_outlet/app/core/utils/helpers/currency/int_currency.dart';
 import 'package:marvelindo_outlet/app/presentation/global/theme/my_colors.dart';
 import 'package:marvelindo_outlet/app/presentation/global/widgets/shimmer_widget.dart';
+
 import '../../../../routes/app_pages.dart';
 import '../../../global/widgets/no_data.dart';
 import '../../../global/widgets/screen_title.dart';
@@ -28,9 +29,11 @@ class CartView extends GetView<CartController> {
               20.verticalSpace,
               Row(
                 children: [
-                  const ScreenTitle(
-                    title: 'Keranjang',
-                    useDivider: false,
+                  const Padding(
+                    padding: EdgeInsets.only(top: 16, left: 16, right: 16),
+                    child: ScreenTitle(
+                      title: 'History Pesanan',
+                    ),
                   ),
                   8.horizontalSpace,
                   Obx(() {
@@ -94,7 +97,6 @@ class CartView extends GetView<CartController> {
                               child: ListView.separated(
                                 physics: const BouncingScrollPhysics(
                                     parent: AlwaysScrollableScrollPhysics()),
-                                shrinkWrap: true,
                                 separatorBuilder: (context, index) =>
                                     const SizedBox(
                                   height: 10,
@@ -103,8 +105,17 @@ class CartView extends GetView<CartController> {
                                 itemBuilder: (context, index) {
                                   final data = controller.listKeranjang[index];
                                   return CartItem(
+                                    initialValue: data.quantity.toString(),
+                                    onChanged: (value) {
+                                      controller.debounceC.run(() {
+                                        controller
+                                            .onUpdateItemCart(
+                                                data.id!, int.parse(value))
+                                            .then((_) => controller
+                                                .onRefreshKeranjang());
+                                      });
+                                    },
                                     namaProduk: data.id.toString(),
-                                    data: data,
                                     onDecreasePressed: () => controller
                                         .onDecreasePressed(data.idProduk!),
                                     onIncreasePressed: () => controller
@@ -153,9 +164,9 @@ class CartView extends GetView<CartController> {
       visible: controller.listKeranjang.isNotEmpty,
       child: Card(
         clipBehavior: Clip.antiAlias,
-        elevation: 5,
+        elevation: 3,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
           child: Row(
             children: [
               Expanded(
@@ -194,9 +205,14 @@ class CartView extends GetView<CartController> {
                     ),
                     onPressed: () {
                       Get.toNamed(Routes.CHECKOUT,
-                          arguments: controller.listKeranjang);
+                          arguments: controller.listKeranjang());
                     },
-                    child: const Text("Checkout"),
+                    child: const Text(
+                      "Checkout",
+                      style: TextStyle(
+                        fontSize: 14,
+                      ),
+                    ),
                   ),
                 ).animate().fade().slideY(
                       duration: const Duration(milliseconds: 200),

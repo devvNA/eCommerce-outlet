@@ -10,9 +10,8 @@ class HistoryController extends GetxController {
     changeStatus(0);
   }
 
+
   void changeStatus(int index) {
     selectedIndex.value = index;
   }
 }
-
-

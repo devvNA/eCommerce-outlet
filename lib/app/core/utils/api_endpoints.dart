@@ -5,6 +5,7 @@ const listProdukByCategory = "/detailprodukbyjenisbarang";
 const listKeranjang = "/getkeranjang";
 const deleteKeranjang = "/deleteitemkeranjang";
 const postKeranjang = "/additemkeranjang";
+const updateKeranjang = "/updateitemkeranjang";
 
 // ======================================================================== //
 

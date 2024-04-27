@@ -13,6 +13,7 @@ class ProfilView extends GetView<ProfilController> {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
+        elevation: 0,
         title: const Text(
           "Profil",
           style: TextStyle(
@@ -32,163 +33,160 @@ class ProfilView extends GetView<ProfilController> {
         ],
       ),
       body: Obx(() {
-        return SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                decoration: const BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black26,
-                      offset: Offset(0, 4),
-                      blurRadius: 8,
-                    ),
-                  ],
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(16),
-                    bottomRight: Radius.circular(16),
+        return Column(
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    offset: Offset(0, 4),
+                    blurRadius: 8,
                   ),
-                  color: AppColors.primaryColor,
+                ],
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(16),
+                  bottomRight: Radius.circular(16),
                 ),
-                width: Get.width,
-                padding: const EdgeInsets.only(
-                  bottom: 15.0,
-                  left: 25,
-                  right: 25,
-                ),
-                child: Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 32.0,
-                      backgroundImage:
-                          NetworkImage("${controller.getDisplayProfile()}"),
-                    ),
-                    8.verticalSpace,
-                    controller.isVerified()
-                        ? InkWell(
-                            onTap: () {
-                              controller.isVerifiedTap();
-                            },
-                            child: const Chip(
-                                backgroundColor: Colors.green,
-                                label: Text(
-                                  "terverifikasi",
-                                  style: TextStyle(
-                                    fontSize: 10.0,
-                                  ),
-                                )),
-                          )
-                        : ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 12),
-                              backgroundColor: AppColors.gray,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(32),
-                              ),
-                            ),
-                            onPressed: () {
-                              controller.isVerifiedTap();
-                            },
-                            child: const Text(
-                              "belum terverifikasi",
-                              style: TextStyle(
-                                fontSize: 10,
-                              ),
+                color: AppColors.primaryColor,
+              ),
+              width: Get.width,
+              padding: const EdgeInsets.only(
+                bottom: 15.0,
+                left: 25,
+                right: 25,
+              ),
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    radius: 32.0,
+                    backgroundImage:
+                        NetworkImage("${controller.getDisplayProfile()}"),
+                  ),
+                  8.verticalSpace,
+                  controller.isVerified()
+                      ? InkWell(
+                          onTap: () {
+                            controller.isVerifiedTap();
+                          },
+                          child: const Chip(
+                              backgroundColor: Colors.green,
+                              label: Text(
+                                "Terverifikasi",
+                                style: TextStyle(
+                                  fontSize: 10.0,
+                                ),
+                              )),
+                        )
+                      : ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                            backgroundColor: AppColors.gray,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(32),
                             ),
                           ),
-                  ],
-                ),
-              ),
-              10.verticalSpace,
-              Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: SizedBox(
-                    width: Get.width,
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      clipBehavior: Clip.antiAlias,
-                      elevation: 2,
-                      child: Padding(
-                        padding: const EdgeInsets.all(14.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Identitas Diri",
-                              style: TextStyle(
-                                fontSize: 16.0,
-                              ),
+                          onPressed: () {
+                            controller.isVerifiedTap();
+                          },
+                          child: const Text(
+                            "Belum terverifikasi",
+                            style: TextStyle(
+                              fontSize: 10,
                             ),
-                            20.verticalSpace,
-                            const Text(
-                              "Nama Lengkap",
-                              style: TextStyle(
-                                  fontSize: 12.0, color: AppColors.gray),
-                            ),
-                            Text(
-                              Get.find<ProfilController>().getUsername()!,
-                              style: const TextStyle(
-                                fontSize: 13.0,
-                              ),
-                            ),
-                            8.verticalSpace,
-                            const Text(
-                              "Email",
-                              style: TextStyle(
-                                  fontSize: 12.0, color: AppColors.gray),
-                            ),
-                            Text(
-                              Get.find<ProfilController>().getEmail()!,
-                              style: const TextStyle(
-                                fontSize: 13.0,
-                              ),
-                            ),
-                            8.verticalSpace,
-                            const Text(
-                              "Nama Outlet",
-                              style: TextStyle(
-                                  fontSize: 12.0, color: AppColors.gray),
-                            ),
-                            const Text(
-                              "Dev Cell",
-                              style: TextStyle(
-                                fontSize: 13.0,
-                              ),
-                            ),
-                            8.verticalSpace,
-                            const Text(
-                              "Jenis Outlet",
-                              style: TextStyle(
-                                  fontSize: 12.0, color: AppColors.gray),
-                            ),
-                            const Text(
-                              "Sultan",
-                              style: TextStyle(
-                                fontSize: 13.0,
-                              ),
-                            ),
-                            8.verticalSpace,
-                            const Text(
-                              "Alamat",
-                              style: TextStyle(
-                                  fontSize: 12.0, color: AppColors.gray),
-                            ),
-                            const Text(
-                              "JL Gatot Subroto, No. 40 Tambaksari, Sidanegara, Kecamatan Cilacap Tengah, Kabupaten Cilacap, Jawa Tengah ",
-                              style: TextStyle(
-                                fontSize: 13.0,
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
+                ],
+              ),
+            ),
+            10.verticalSpace,
+            Padding(
+                padding: const EdgeInsets.all(16),
+                child: SizedBox(
+                  width: Get.width,
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    clipBehavior: Clip.antiAlias,
+                    elevation: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.all(14.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Identitas Diri",
+                            style: TextStyle(
+                              fontSize: 16.0,
+                            ),
+                          ),
+                          20.verticalSpace,
+                          const Text(
+                            "Nama Lengkap",
+                            style: TextStyle(
+                                fontSize: 12.0, color: AppColors.gray),
+                          ),
+                          Text(
+                            Get.find<ProfilController>().getUsername()!,
+                            style: const TextStyle(
+                              fontSize: 13.0,
+                            ),
+                          ),
+                          8.verticalSpace,
+                          const Text(
+                            "Email",
+                            style: TextStyle(
+                                fontSize: 12.0, color: AppColors.gray),
+                          ),
+                          Text(
+                            Get.find<ProfilController>().getEmail()!,
+                            style: const TextStyle(
+                              fontSize: 13.0,
+                            ),
+                          ),
+                          8.verticalSpace,
+                          const Text(
+                            "Nama Outlet",
+                            style: TextStyle(
+                                fontSize: 12.0, color: AppColors.gray),
+                          ),
+                          const Text(
+                            "Dev Cell",
+                            style: TextStyle(
+                              fontSize: 13.0,
+                            ),
+                          ),
+                          8.verticalSpace,
+                          const Text(
+                            "Jenis Outlet",
+                            style: TextStyle(
+                                fontSize: 12.0, color: AppColors.gray),
+                          ),
+                          const Text(
+                            "Sultan",
+                            style: TextStyle(
+                              fontSize: 13.0,
+                            ),
+                          ),
+                          8.verticalSpace,
+                          const Text(
+                            "Alamat",
+                            style: TextStyle(
+                                fontSize: 12.0, color: AppColors.gray),
+                          ),
+                          const Text(
+                            "JL Gatot Subroto, No. 40 Tambaksari, Sidanegara, Kecamatan Cilacap Tengah, Kabupaten Cilacap, Jawa Tengah ",
+                            style: TextStyle(
+                              fontSize: 13.0,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  )),
-            ],
-          ),
+                  ),
+                )),
+          ],
         );
       }),
     );

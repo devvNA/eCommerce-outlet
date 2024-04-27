@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/app/presentation/modules/api_test/api_test_controller.dart';
-import 'package:marvelindo_outlet/app/presentation/modules/api_test/detail_api/detail_api_view.dart';
+import 'package:marvelindo_outlet/app/routes/app_pages.dart';
 
 class ApiTestPage extends GetView<ApiTestController> {
   ApiTestPage({super.key});
@@ -47,12 +47,7 @@ class ApiTestPage extends GetView<ApiTestController> {
                   subtitle:
                       Text('Total: ${data.total} - Status: ${data.status}'),
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              DetailApiView(historyItem: data)),
-                    );
+                    Get.toNamed(Routes.DETAIL_API, arguments: data);
                   },
                 );
               },

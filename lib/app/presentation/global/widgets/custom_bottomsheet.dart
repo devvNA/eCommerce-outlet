@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class BottomSheetExample extends StatelessWidget {
   const BottomSheetExample({super.key});
@@ -50,7 +51,7 @@ class BottomSheetExample extends StatelessWidget {
                 // tombol close
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    Get.back();
                   },
                   child: const Text('Close'),
                 ),

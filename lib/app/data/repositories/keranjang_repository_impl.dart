@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-
 import 'package:marvelindo_outlet/app/core/networking/failure_helper.dart';
 import 'package:marvelindo_outlet/app/data/datasources/keranjang_remote_datasources.dart';
 import 'package:marvelindo_outlet/app/data/models/keranjang/keranjang_model.dart';
@@ -18,5 +17,9 @@ class KeranjangRepositoryImpl implements KeranjangRepository {
 
   @override
   Future<Either<Failure, String>> deleteProdukKeranjang(int id) async =>
-      await remoteDataSource.deleteProdukKeranjang(id);
+      await remoteDataSource.deleteItemKeranjang(id);
+
+  @override
+  Future<Either<Failure, String>> updateItemKeranjang(int id, int qty) async =>
+      await remoteDataSource.updateItemKeranjang(id, qty);
 }

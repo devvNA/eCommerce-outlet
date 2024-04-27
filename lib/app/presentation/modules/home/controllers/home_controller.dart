@@ -1,21 +1,23 @@
 // ignore_for_file: invalid_use_of_protected_member, unnecessary_overrides
 
 import 'dart:developer';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/app/data/datasources/produk_remote_datasources.dart';
 import 'package:marvelindo_outlet/app/data/repositories/produk_repository_impl.dart';
 import 'package:marvelindo_outlet/app/domain/usecase/produk_usecase.dart';
+
+import '../../../../core/utils/helpers/debouncer.dart';
 import '../../../../data/models/produk/produk_model.dart';
 
 class HomeController extends GetxController {
+  final debouncerC = DebouncerC(duration: const Duration(milliseconds: 800));
   final listProduk = <Produk>[].obs;
-  final searchList = <Produk>[].obs;
   final loading = false.obs;
-  final selectedIndex = 0.obs;
   final searchController = TextEditingController();
-  final auth = FirebaseAuth.instance.obs;
+  final searchList = <Produk>[].obs;
+  final selectedIndex = 0.obs;
 
   List<String> categories = [
     "semua",
@@ -32,7 +34,7 @@ class HomeController extends GetxController {
   }
 
   void onRefreshProducts() {
-    if (selectedIndex.value == 0) {
+    if (selectedIndex() == 0) {
       getAllProductsAPI();
     } else {
       getAllProductsAPIByKategori(categories[selectedIndex.value]);
@@ -69,29 +71,15 @@ class HomeController extends GetxController {
   }
 
   void onSearchProduct() async {
-    onRefreshProducts();
-    searchList.clear();
-    for (var element in listProduk) {
-      if (element.nama!.toLowerCase().contains(searchController.text)) {
-        searchList.add(element);
+    debouncerC.run(() {
+      searchList.clear();
+      onRefreshProducts();
+      for (var element in listProduk) {
+        if (element.nama!.toLowerCase().contains(searchController.text)) {
+          searchList.clear();
+          searchList.add(element);
+        }
       }
-    }
-  }
-
-  // getDummyProducts() {
-  //   // products = DummyHelper.products;
-  // }
-
-  String getUsername() {
-    return auth.value.currentUser?.displayName ?? "Invalid";
-  }
-
-  String getEmail() {
-    return auth.value.currentUser?.email ?? "Invalid";
-  }
-
-  String getDisplayProfile() {
-    return auth.value.currentUser?.photoURL ??
-        "https://i.ibb.co/S32HNjD/no-image.jpg";
+    });
   }
 }

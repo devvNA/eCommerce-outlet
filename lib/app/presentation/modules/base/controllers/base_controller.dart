@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:marvelindo_outlet/app/presentation/modules/cart/views/cart_view.dart';
 import 'package:marvelindo_outlet/app/presentation/modules/history/views/history_view.dart';
 import 'package:marvelindo_outlet/app/presentation/modules/home/views/home_view.dart';
-import 'package:marvelindo_outlet/app/presentation/modules/settings/views/settings_view.dart';
+import 'package:marvelindo_outlet/app/presentation/modules/setting/views/setting_view.dart';
 
 class BaseController extends GetxController {
   DateTime timeBackPressed = DateTime.now();
@@ -14,17 +14,12 @@ class BaseController extends GetxController {
     const HomeView(),
     const CartView(),
     const HistoryView(),
-    const SettingsView(),
+    const SettingView(),
   ].obs;
 
   @override
   void onInit() {
     super.onInit();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   onBack() {

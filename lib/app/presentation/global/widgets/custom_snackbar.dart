@@ -10,10 +10,11 @@ class CustomSnackBar {
     Get.snackbar(
       title,
       message,
-      duration: duration ?? const Duration(seconds: 3),
-      margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
+      duration: duration ?? const Duration(seconds: 2),
+      padding: const EdgeInsets.all(12.0),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+      backgroundColor: color ?? const Color.fromARGB(255, 71, 171, 75),
       colorText: Colors.white,
-      backgroundColor: color ?? Colors.green,
       icon: const Icon(
         Icons.check_circle,
         color: Colors.white,
@@ -29,8 +30,9 @@ class CustomSnackBar {
     Get.snackbar(
       title,
       message,
-      duration: duration ?? const Duration(seconds: 3),
-      margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
+      duration: duration ?? const Duration(seconds: 2),
+      padding: const EdgeInsets.all(12.0),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
       colorText: Colors.white,
       backgroundColor: color ?? Colors.redAccent,
       icon: const Icon(
@@ -47,7 +49,7 @@ class CustomSnackBar {
       Duration? duration}) {
     Get.rawSnackbar(
       title: title,
-      duration: duration ?? const Duration(seconds: 3),
+      duration: duration ?? const Duration(seconds: 2),
       snackStyle: SnackStyle.GROUNDED,
       backgroundColor: color ?? Colors.green,
       onTap: (snack) {

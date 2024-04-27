@@ -3,8 +3,10 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:marvelindo_outlet/app/core/networking/firebase_auth_services.dart';
 import 'package:marvelindo_outlet/app/core/utils/helpers/validator.dart';
 import 'package:marvelindo_outlet/app/presentation/global/theme/my_colors.dart';
+import 'package:marvelindo_outlet/app/presentation/global/widgets/custom_snackbar.dart';
 import '../../../global/widgets/form_text_widget.dart';
 import '../controllers/edit_profil_controller.dart';
 
@@ -24,7 +26,12 @@ class EditProfilView extends GetView<EditProfilController> {
             ),
             onPressed: () {
               if (controller.formKey.currentState!.validate()) {
-                log("Sucess");
+                Get.back();
+                CustomSnackBar.showCustomSuccessSnackBar(
+                    title: "Success",
+                    message: "Profil berhasil diubah",
+                    duration: const Duration(milliseconds: 1200));
+                log("Success");
               } else {
                 log("Error");
               }
@@ -46,6 +53,7 @@ class EditProfilView extends GetView<EditProfilController> {
                         "Data Diri",
                         style: TextStyle(
                           fontSize: 20.0,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                       20.verticalSpace,
@@ -57,6 +65,8 @@ class EditProfilView extends GetView<EditProfilController> {
                       FormTextWidget(
                         textFormController: controller.namaController,
                         validator: Validator.required,
+                        hintText: FirebaseAuthServices
+                            .getCurrentSignedInUserEmailDisplayName(),
                       ),
                       15.verticalSpace,
                       const Text(
@@ -67,6 +77,7 @@ class EditProfilView extends GetView<EditProfilController> {
                       FormTextWidget(
                         textFormController: controller.emailController,
                         validator: Validator.email,
+                        hintText: FirebaseAuthServices.getEmail(),
                       ),
                       15.verticalSpace,
                       const Text(
@@ -103,34 +114,40 @@ class EditProfilView extends GetView<EditProfilController> {
     });
   }
 
-  Container _dropDown(BuildContext context, EditProfilController controller) {
-    return Container(
-      clipBehavior: Clip.antiAlias,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        color: const Color(0xFFF0F0F0),
-      ),
-      child: DropdownButton(
-          underline: const SizedBox(),
-          focusColor: Colors.grey[80],
-          padding: const EdgeInsets.symmetric(horizontal: 14),
-          style: context.theme.textTheme.bodyMedium
-              ?.copyWith(fontSize: 16.sp, fontWeight: FontWeight.w500),
-          elevation: 3,
-          borderRadius: BorderRadius.circular(8),
-          hint: Text(
-            "pilih jenis outlet",
-            style: context.theme.textTheme.bodyMedium?.copyWith(
-              fontSize: 16.sp,
-            ),
+  DropdownButtonFormField _dropDown(
+      BuildContext context, EditProfilController controller) {
+    return DropdownButtonFormField(
+        decoration: InputDecoration(
+          contentPadding: const EdgeInsets.all(15),
+          prefixIconColor: AppColors.primaryColor,
+          suffixIconColor: Colors.grey[400],
+          fillColor: const Color(0xFFE7E5E5),
+          filled: true,
+          border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+            borderSide: BorderSide(color: AppColors.primaryColor),
           ),
-          dropdownColor: const Color(0xFFF0F0F0),
-          isExpanded: true,
-          value: controller.selectedPayment,
-          onChanged: (selectedPayment) {
-            controller.onSelectedPayment(selectedPayment!);
-          },
-          items: controller.paymentDropDownItems),
-    );
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide.none,
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(color: Colors.indigo),
+          ),
+          hintText: "pilih jenis outlet",
+        ),
+        focusColor: const Color(0xFFE7E5E5),
+        style: context.theme.textTheme.bodyMedium
+            ?.copyWith(fontSize: 14.sp, fontWeight: FontWeight.w500),
+        elevation: 3,
+        borderRadius: BorderRadius.circular(8),
+        dropdownColor: const Color(0xFFF0F0F0),
+        value: controller.selectedOutlet,
+        validator: Validator.required,
+        onChanged: (value) {
+          controller.onSelectedOutlet(value);
+        },
+        items: controller.paymentItems);
   }
 }

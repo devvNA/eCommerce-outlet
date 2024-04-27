@@ -22,14 +22,9 @@ class BaseView extends GetView<BaseController> {
           body: SafeArea(child: controller.pages[controller.currentIndex()]),
           // body: SafeArea(
           //   child: IndexedStack(
-          //     clipBehavior: Clip.hardEdge,
+          //     clipBehavior: Clip.antiAlias,
           //     index: controller.currentIndex(),
-          //     children: const [
-          //       HomeView(),
-          //       CartView(),
-          //       HistoryView(),
-          //       SettingsView(),
-          //     ],
+          //     children: controller.pages(),
           //   ),
           // ),
           bottomNavigationBar: Container(
@@ -73,18 +68,38 @@ class BaseView extends GetView<BaseController> {
                     GButton(
                       icon: Icons.home_filled,
                       text: 'Beranda',
+                      textStyle: TextStyle(
+                        fontSize: 12,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     GButton(
                       icon: Icons.shopping_cart,
                       text: 'Keranjang',
+                      textStyle: TextStyle(
+                        fontSize: 12,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     GButton(
                       icon: Icons.list_alt,
                       text: 'Histori',
+                      textStyle: TextStyle(
+                        fontSize: 12,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     GButton(
                       icon: Icons.settings,
                       text: 'Pengaturan',
+                      textStyle: TextStyle(
+                        fontSize: 12,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ]),
             ),

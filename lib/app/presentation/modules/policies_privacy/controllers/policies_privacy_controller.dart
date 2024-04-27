@@ -2,11 +2,8 @@
 
 import 'package:get/get.dart';
 
-import '../api_test_page.dart';
-
-class DetailApiController extends GetxController {
-  // Book book = Get.arguments;
-  final HistoryItem? historyItem = Get.arguments;
+class PoliciesPrivacyController extends GetxController {
+  //TODO: Implement PoliciesPrivacyController.
 
   @override
   void onInit() {

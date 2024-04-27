@@ -5,13 +5,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:marvelindo_outlet/app/presentation/global/theme/my_colors.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 import '../../../../core/networking/firebase_auth_services.dart';
 import '../../../../routes/app_pages.dart';
+import '../../../global/theme/my_colors.dart';
 
-class SettingsController extends GetxController {
-  final firebaseAuth = FirebaseAuthServiceImpl();
+class SettingController extends GetxController {
   final Uri url = Uri.parse('https://wa.me/6283871647864/');
 
   @override
@@ -20,14 +20,14 @@ class SettingsController extends GetxController {
   }
 
   Future<void> signOut() async {
-    await firebaseAuth.signOut();
+    await FirebaseAuthServices.signOut();
     final box = GetStorage();
     box.remove("accessToken");
     await Get.offAllNamed(Routes.SPLASH);
   }
 
-  void toProfilePage() async {
-    if (firebaseAuth.isLoggedIn()) {
+  toProfilePage() async {
+    if (FirebaseAuthServices.isLoggedIn()) {
       Get.toNamed(Routes.PROFIL);
     } else {
       Get.defaultDialog(
@@ -46,8 +46,8 @@ class SettingsController extends GetxController {
     }
   }
 
-  void toEditProfilePage() async {
-    if (firebaseAuth.isLoggedIn()) {
+  toEditProfilePage() async {
+    if (FirebaseAuthServices.isLoggedIn()) {
       Get.toNamed(Routes.EDIT_PROFIL);
     } else {
       Get.defaultDialog(
@@ -76,5 +76,15 @@ class SettingsController extends GetxController {
     if (!await launchUrl(url)) {
       throw Exception('Could not launch $url');
     }
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
   }
 }

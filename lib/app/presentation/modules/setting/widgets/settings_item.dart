@@ -3,9 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-import '../../../../../core/utils/helpers/constants.dart';
+import '../../../../core/utils/helpers/constants.dart';
 
-class SettingsItem extends StatelessWidget {
+class SettingItem extends StatelessWidget {
   final IconData? icon;
   final bool isAccount;
   final bool isDark;
@@ -13,7 +13,7 @@ class SettingsItem extends StatelessWidget {
   final String title;
   final String? subtitle;
 
-  const SettingsItem({
+  const SettingItem({
     super.key,
     required this.title,
     this.isAccount = false,
@@ -26,11 +26,12 @@ class SettingsItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
+
     return ListTile(
       onTap: onTap,
       title: Text(
         title,
-        style: theme.textTheme.labelLarge,
+        style: theme.textTheme.bodyMedium!.copyWith(),
       ),
       leading: CircleAvatar(
         radius: isAccount ? 30.r : 25.r,

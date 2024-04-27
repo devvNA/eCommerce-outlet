@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 // todo configure text family and size
 class MyFonts {
   // return the right font depending on app language
-  static TextStyle get getAppFontType => GoogleFonts.poppins();
+  static TextStyle get getAppFontType => GoogleFonts.rubik();
 
   // headlines text font
   static TextStyle get headlineTextStyle => getAppFontType;

@@ -20,6 +20,6 @@ class ProdukRepositoryImpl implements ProdukRepository {
       await remoteDataSource.getListProductByCategory(kategori);
 
   @override
-  Future<void> addToCart({required Produk produk}) async =>
+  Future<Either<Failure, String>> addToCart({required Produk produk}) async =>
       await remoteDataSource.addToCart(produk: produk);
 }

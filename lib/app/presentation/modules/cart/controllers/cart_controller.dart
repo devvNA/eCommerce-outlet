@@ -1,11 +1,13 @@
-// ignore_for_file: null_check_always_fails
 import 'dart:developer';
+
 import 'package:get/get.dart';
+import 'package:marvelindo_outlet/app/core/utils/helpers/debouncer.dart';
 import 'package:marvelindo_outlet/app/data/datasources/keranjang_remote_datasources.dart';
 import 'package:marvelindo_outlet/app/data/models/keranjang/keranjang_model.dart';
 import 'package:marvelindo_outlet/app/data/models/produk/produk_model.dart';
 import 'package:marvelindo_outlet/app/data/repositories/keranjang_repository_impl.dart';
 import 'package:marvelindo_outlet/app/domain/usecase/keranjang_usecase.dart';
+
 import '../../../../core/utils/helpers/dummy_helper.dart';
 import '../../base/controllers/base_controller.dart';
 
@@ -15,6 +17,9 @@ class CartController extends GetxController {
   final loading = false.obs;
   final listKeranjang = <Keranjang>[].obs;
   final products = <Produk>[].obs;
+  String? message1;
+  String? message2;
+  final debounceC = DebouncerC(duration: const Duration(seconds: 1));
 
   // RxList<ProductModel> products = RxList<ProductModel>([]);
 
@@ -121,11 +126,22 @@ class CartController extends GetxController {
             repository: KeranjangRepositoryImpl(
                 remoteDataSource: KeranjangRemoteDataSourceImpl()))
         .deleteProdukKeranjang(productId);
-    response.fold((failure) => log(failure.message), (message) => log(message));
+    response.fold((failure) => message1 = failure.message,
+        (message) => message1 = message);
     onRefreshKeranjang();
   }
 
   onEmptyCartPressed() {
     Get.find<BaseController>().changeScreen(0);
+  }
+
+  onUpdateItemCart(int id, int qty) async {
+    var response = await KeranjangUseCase(
+            repository: KeranjangRepositoryImpl(
+                remoteDataSource: KeranjangRemoteDataSourceImpl()))
+        .updateItemKeranjang(id, qty);
+    response.fold((failure) => message2 = failure.message,
+        (message) => message2 = message);
+    return message2;
   }
 }

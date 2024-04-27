@@ -1,6 +1,6 @@
 // ignore_for_file: deprecated_member_use
-import 'dart:developer';
 import 'package:dartz/dartz.dart';
+
 import '../../core/networking/failure_helper.dart';
 import '../../core/networking/network_request.dart';
 import '../../core/utils/api_endpoints.dart';
@@ -10,7 +10,7 @@ abstract class ProdukRemoteDataSource {
   Future<Either<Failure, List<Produk>>> getAllProduk();
   Future<Either<Failure, List<Produk>>> getListProductByCategory(
       String kategori);
-  Future<void> addToCart({required Produk produk});
+  Future<Either<Failure, String>> addToCart({required Produk produk});
 }
 
 class ProdukRemoteDataSourceImpl implements ProdukRemoteDataSource {
@@ -64,7 +64,7 @@ class ProdukRemoteDataSourceImpl implements ProdukRemoteDataSource {
   }
 
   @override
-  Future<void> addToCart({required Produk produk}) async {
+  Future<Either<Failure, String>> addToCart({required Produk produk}) async {
     try {
       final query = {
         'id_user': 1,
@@ -76,14 +76,10 @@ class ProdukRemoteDataSourceImpl implements ProdukRemoteDataSource {
         requiresAuthToken: true,
         queryParameters: query,
       );
-
-      if (response.statusCode == 201) {
-      } else {
-        throw Exception(response.data["message"]);
-      }
+      return Right(response.data["message"]);
     } catch (e) {
       //error parsing json
-      log(e.toString());
+      return Left(ParsingFailure(e.toString()));
     }
   }
 }

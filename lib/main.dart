@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'dart:async';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -78,6 +79,7 @@ class _MyAppState extends State<MyApp> {
         rebuildFactor: (old, data) => true,
         builder: (context, widget) {
           return GetMaterialApp(
+            theme: MyTheme.getThemeData(),
             navigatorKey: MyApp.globalKey,
             initialBinding:
                 // Membuat instance dari class AppBindings
@@ -85,15 +87,6 @@ class _MyAppState extends State<MyApp> {
             title: "Outlet e-Commerce",
             useInheritedMediaQuery: true,
             debugShowCheckedModeBanner: false,
-            builder: (context, widget) {
-              return Theme(
-                data: MyTheme.getThemeData(),
-                child: MediaQuery(
-                  data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-                  child: widget ?? const SizedBox(),
-                ),
-              );
-            },
             initialRoute: Routes.SPLASH,
             // app screens
             getPages: AppPages.routes,

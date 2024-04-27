@@ -4,31 +4,30 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/app/core/utils/helpers/currency/int_currency.dart';
-import '../../../../../data/models/keranjang/keranjang_model.dart';
+
 import '../../../../global/theme/my_colors.dart';
 import '../../controllers/cart_controller.dart';
 
 class CartItem extends GetView<CartController> {
-  final Keranjang data;
   String? namaProduk;
   final void Function()? onIncreasePressed;
   final void Function()? onDecreasePressed;
   final void Function()? onDeletePressed;
+  final void Function(String)? onChanged;
+  String? initialValue;
 
   CartItem({
     super.key,
-    required this.data,
     this.namaProduk,
     this.onIncreasePressed,
     this.onDecreasePressed,
     this.onDeletePressed,
+    this.onChanged,
+    this.initialValue,
   });
 
   @override
   Widget build(BuildContext context) {
-    final quantityController =
-        TextEditingController(text: data.quantity.toString());
-
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
       decoration: const BoxDecoration(
@@ -133,11 +132,12 @@ class CartItem extends GetView<CartController> {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8.0, vertical: 8.0),
-                        child: TextField(
+                        child: TextFormField(
+                          initialValue: initialValue,
+                          onChanged: onChanged,
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly
                           ],
-                          controller: quantityController,
                           clipBehavior: Clip.antiAlias,
                           textAlign: TextAlign.center,
                           maxLines: 1,

@@ -1,10 +1,15 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:marvelindo_outlet/app/core/networking/firebase_auth_services.dart';
 import 'package:marvelindo_outlet/app/presentation/global/widgets/shimmer_widget.dart';
-import 'package:marvelindo_outlet/app/presentation/modules/settings/controllers/settings_controller.dart';
-import '../../../global/widgets/error_state_widget.dart';
+
 import '../../../global/theme/my_colors.dart';
+import '../../../global/widgets/error_state_widget.dart';
+import '../../setting/controllers/setting_controller.dart';
 import '../controllers/home_controller.dart';
 import 'widgets/product_item.dart';
 
@@ -12,34 +17,61 @@ class HomeView extends GetView<HomeController> {
   const HomeView({
     super.key,
   });
+
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return SafeArea(
-        child: Scaffold(
-            body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _profileHeader(),
-            15.verticalSpace,
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 18),
-              child: Text(
-                "Produk",
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18.0,
-                ),
+    return SafeArea(
+      child: Scaffold(
+          body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _profileHeader(context),
+          15.verticalSpace,
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 18),
+            child: Text(
+              "Produk",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
               ),
             ),
-            _categories(),
-            5.verticalSpace,
-            Expanded(
-              child: Obx(() {
-                if (controller.loading()) {
-                  return GridView.builder(
+          ),
+          _categories(),
+          5.verticalSpace,
+          Expanded(
+            child: Obx(() {
+              if (controller.loading()) {
+                return GridView.builder(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 3,
+                      mainAxisSpacing: 3,
+                      mainAxisExtent: 250,
+                    ),
+                    itemCount: 4,
+                    itemBuilder: (context, index) =>
+                        const ShimmerLayout(child: ShimmerCard()));
+              }
+              if (controller.listProduk.isEmpty) {
+                return const Center(
+                    child: ErrorStateWidget(message: "Produk tidak ditemukan"));
+              }
+              if (controller.searchController.value.text.isEmpty) {
+                return RefreshIndicator(
+                  color: AppColors.primaryColor,
+                  onRefresh: () async {
+                    controller.onRefreshProducts();
+                  },
+                  child: Obx(() {
+                    return GridView.builder(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      primary: true,
+                      physics: const BouncingScrollPhysics(
+                          parent: AlwaysScrollableScrollPhysics()),
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
@@ -47,82 +79,54 @@ class HomeView extends GetView<HomeController> {
                         mainAxisSpacing: 3,
                         mainAxisExtent: 250,
                       ),
-                      itemCount: 4,
-                      itemBuilder: (context, index) =>
-                          const ShimmerLayout(child: ShimmerCard()));
-                }
-                if (controller.listProduk.isEmpty) {
-                  return const Center(
-                      child:
-                          ErrorStateWidget(message: "Produk tidak ditemukan"));
-                }
-                if (controller.searchController.value.text.isEmpty) {
-                  return RefreshIndicator(
-                    color: AppColors.primaryColor,
-                    onRefresh: () async {
-                      controller.onRefreshProducts();
-                    },
-                    child: Obx(() {
-                      return GridView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        primary: true,
-                        physics: const BouncingScrollPhysics(
-                            parent: AlwaysScrollableScrollPhysics()),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 3,
-                          mainAxisSpacing: 3,
-                          mainAxisExtent: 250,
-                        ),
-                        itemCount: controller.listProduk.length,
-                        itemBuilder: (context, index) => ProductItem(
-                          produk: controller.listProduk[index],
-                        ),
-                      );
-                    }),
-                  );
-                }
-                if (controller.searchList().isEmpty) {
-                  return const Center(
-                      child:
-                          ErrorStateWidget(message: "Produk tidak ditemukan"));
-                } else {
-                  return RefreshIndicator(
-                    color: AppColors.primaryColor,
-                    onRefresh: () async {
-                      controller.onRefreshProducts();
-                    },
-                    child: Obx(() {
-                      return GridView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        primary: true,
-                        physics: const BouncingScrollPhysics(
-                            parent: AlwaysScrollableScrollPhysics()),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 3,
-                          mainAxisSpacing: 3,
-                          mainAxisExtent: 250,
-                        ),
-                        itemCount: controller.searchList.length,
-                        itemBuilder: (context, index) => ProductItem(
-                          produk: controller.searchList[index],
-                        ),
-                      );
-                    }),
-                  );
-                }
-              }),
-            )
-          ],
-        )),
-      );
-    });
+                      itemCount: controller.listProduk.length,
+                      itemBuilder: (context, index) => ProductItem(
+                        produk: controller.listProduk[index],
+                      ),
+                    );
+                  }),
+                );
+              }
+              if (controller.searchList().isEmpty) {
+                return const Center(
+                    child: ErrorStateWidget(message: "Produk tidak ditemukan"));
+              } else {
+                return RefreshIndicator(
+                  color: AppColors.primaryColor,
+                  onRefresh: () async {
+                    controller.onRefreshProducts();
+                  },
+                  child: Obx(() {
+                    return GridView.builder(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      primary: true,
+                      physics: const BouncingScrollPhysics(
+                          parent: AlwaysScrollableScrollPhysics()),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 3,
+                        mainAxisSpacing: 3,
+                        mainAxisExtent: 250,
+                      ),
+                      itemCount: controller.searchList.length,
+                      itemBuilder: (context, index) => ProductItem(
+                        produk: controller.searchList[index],
+                      ),
+                    );
+                  }),
+                );
+              }
+            }),
+          )
+        ],
+      )),
+    );
   }
 
-  Container _profileHeader() {
+  Container _profileHeader(context) {
+    var theme = Theme.of(context);
+
     return Container(
       padding: const EdgeInsets.all(12),
       width: Get.width,
@@ -137,28 +141,26 @@ class HomeView extends GetView<HomeController> {
         children: [
           ListTile(
             onTap: () {
-              Get.find<SettingsController>().toProfilePage();
+              Get.find<SettingController>().toProfilePage();
             },
             leading: CircleAvatar(
               backgroundImage: NetworkImage(
-                controller.getDisplayProfile(),
+                FirebaseAuthServices.getDisplayProfile(),
               ),
             ),
-            title: Text(
-              "Hai, ${controller.getUsername()}",
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15),
-            ),
+            title: Text("Hai, ${FirebaseAuthServices.getUsername()}",
+                style: theme.textTheme.bodyMedium!.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14)),
             subtitle: Text(
-              controller.getEmail(),
+              FirebaseAuthServices.getEmail(),
               style: const TextStyle(color: Colors.white70, fontSize: 12),
             ),
             trailing: _badgeNotification(),
           ),
           5.verticalSpace,
-          _searchBar(),
+          _searchBox(),
         ],
       ),
     );
@@ -166,7 +168,9 @@ class HomeView extends GetView<HomeController> {
 
   InkWell _badgeNotification() {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        log(FirebaseAuth.instance.currentUser!.uid);
+      },
       child: Container(
         padding: const EdgeInsets.all(5.0),
         decoration: BoxDecoration(
@@ -189,7 +193,7 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  Widget _searchBar() {
+  Widget _searchBox() {
     return Container(
       margin: const EdgeInsets.only(right: 16, left: 16, bottom: 10),
       decoration: BoxDecoration(
@@ -214,7 +218,7 @@ class HomeView extends GetView<HomeController> {
                 border: InputBorder.none,
                 hintText: 'cari produk',
                 hintStyle: TextStyle(
-                  fontSize: 12,
+                  fontSize: 13,
                 ),
               ),
             ),

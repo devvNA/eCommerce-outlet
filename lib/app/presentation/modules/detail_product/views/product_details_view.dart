@@ -7,7 +7,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/app/core/utils/helpers/currency/int_currency.dart';
 import 'package:marvelindo_outlet/app/presentation/global/theme/my_colors.dart';
+
 import '../../../../core/utils/helpers/constants.dart';
+import '../../../global/widgets/custom_snackbar.dart';
 import '../controllers/product_details_controller.dart';
 import 'widgets/round_button.dart';
 
@@ -79,6 +81,23 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      child: Text(
+                        controller.produk.nama!,
+                        style: const TextStyle(
+                          color: AppColors.h2,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ).animate().fade().slideX(
+                            duration: const Duration(milliseconds: 300),
+                            begin: -1,
+                            curve: Curves.easeInSine,
+                          ),
+                    ),
+                  ),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 16),
                     decoration: BoxDecoration(
@@ -86,49 +105,34 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                       borderRadius: BorderRadius.circular(24),
                     ),
                     child: const Padding(
-                      padding: EdgeInsets.all(5.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Text(
                         "Voucher",
                         style: TextStyle(
-                          fontSize: 8.0,
+                          fontSize: 9.0,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: Text(
-                      ("stok: ${controller.produk.stok.toString()}"),
-                      // "Stok: ${100}",
-                      // "Stok: ${controller.product.stock!.toString()}",
-                      style: theme.textTheme.bodySmall,
-                    ).animate().fade().slideX(
-                          duration: const Duration(milliseconds: 300),
-                          begin: -1,
-                          curve: Curves.easeInSine,
-                        ),
-                  ),
                 ],
               ),
-              6.verticalSpace,
+              8.verticalSpace,
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: Text(
-                  controller.produk.nama!,
-                  style: const TextStyle(
-                    color: AppColors.h2,
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  ("stok: ${controller.produk.stok.toString()}"),
+                  // "Stok: ${100}",
+                  // "Stok: ${controller.product.stock!.toString()}",
+                  style: theme.textTheme.bodySmall,
                 ).animate().fade().slideX(
                       duration: const Duration(milliseconds: 300),
                       begin: -1,
                       curve: Curves.easeInSine,
                     ),
               ),
-              3.verticalSpace,
+              2.verticalSpace,
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: Row(
@@ -207,7 +211,9 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
         ),
       ),
       onPressed: () {
-        controller.onAddToCart(context);
+        controller.onAddToCart().then((value) =>
+            CustomSnackBar.showCustomSuccessSnackBar(
+                title: "Sukses", message: value));
       },
       child: const Padding(
         padding: EdgeInsets.all(8.0),

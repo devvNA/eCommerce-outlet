@@ -11,6 +11,7 @@ import 'package:marvelindo_outlet/app/core/utils/helpers/currency/int_currency.d
 import 'package:marvelindo_outlet/app/presentation/global/theme/my_colors.dart';
 import 'package:marvelindo_outlet/app/presentation/modules/home/controllers/home_controller.dart';
 import 'package:marvelindo_outlet/app/routes/app_pages.dart';
+
 import '../../../../../data/models/produk/product_model.dart';
 import '../../../../../data/models/produk/produk_model.dart';
 import '../../../base/controllers/base_controller.dart';
@@ -59,6 +60,7 @@ class ProductItem extends GetView<HomeController> {
                           overflow: TextOverflow.ellipsis,
                           fontSize: 13,
                         )),
+                    3.verticalSpace,
                     Text(
                       // ignore: unnecessary_string_interpolations
                       produk.harga?.currencyFormatRp ?? 0.currencyFormatRp,

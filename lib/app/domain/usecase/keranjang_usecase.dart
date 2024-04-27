@@ -18,4 +18,8 @@ class KeranjangUseCase {
   Future<Either<Failure, String>> deleteProdukKeranjang(int id) async {
     return await repository.deleteProdukKeranjang(id);
   }
+
+  Future<Either<Failure, String>> updateItemKeranjang(int id, int qty) async {
+    return await repository.updateItemKeranjang(id, qty);
+  }
 }

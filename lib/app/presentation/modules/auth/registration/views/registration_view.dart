@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:marvelindo_outlet/app/core/utils/helpers/validator.dart';
 import '../../../../global/theme/my_colors.dart';
 import '../../../../global/widgets/custom_snackbar.dart';
 import '../controllers/registration_controller.dart';
@@ -15,14 +16,14 @@ class RegistrationView extends GetView<RegistrationController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.grey[100],
       body: SafeArea(
-        child: ListView(
-          physics: const NeverScrollableScrollPhysics(),
+        child: Column(
           children: [
             _headerAppbar(context),
-            _bodyContains(context),
+            Expanded(
+              child: _bodyContains(context),
+            ),
           ],
         ),
       ),
@@ -39,11 +40,8 @@ class RegistrationView extends GetView<RegistrationController> {
           child: ListView(
             shrinkWrap: true,
             clipBehavior: Clip.antiAlias,
-            padding: EdgeInsets.only(
-                top: 16,
-                left: 22,
-                right: 22,
-                bottom: MediaQuery.of(context).viewInsets.bottom),
+            padding:
+                const EdgeInsets.only(top: 16, left: 22, right: 22, bottom: 16),
             physics: const AlwaysScrollableScrollPhysics(
                 parent: BouncingScrollPhysics()),
             children: [
@@ -72,17 +70,39 @@ class RegistrationView extends GetView<RegistrationController> {
               const SizedBox(
                 height: 6.0,
               ),
-              Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(
-                      30,
+              DropdownButtonFormField(
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                    prefixIconColor: AppColors.primaryColor,
+                    suffixIconColor: Colors.grey[400],
+                    fillColor: Colors.white,
+                    filled: true,
+                    border: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(32)),
+                      borderSide: BorderSide(color: AppColors.primaryColor),
                     ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(32),
+                      borderSide: BorderSide.none,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(32),
+                      borderSide: const BorderSide(color: Colors.indigo),
+                    ),
+                    hintText: "pilih jenis outlet",
                   ),
-                ),
-                child: FormGenderWidget(),
-              ),
+                  focusColor: const Color(0xFFE7E5E5),
+                  style: context.theme.textTheme.bodyMedium
+                      ?.copyWith(fontSize: 14, fontWeight: FontWeight.w500),
+                  elevation: 3,
+                  borderRadius: BorderRadius.circular(8),
+                  dropdownColor: const Color(0xFFF0F0F0),
+                  value: controller.selectedOutlet,
+                  validator: Validator.required,
+                  onChanged: (value) {
+                    controller.onSelectedOutlet(value!);
+                  },
+                  items: controller.paymentItems),
               const SizedBox(
                 height: 15.0,
               ),

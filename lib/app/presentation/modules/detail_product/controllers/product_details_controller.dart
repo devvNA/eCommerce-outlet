@@ -4,18 +4,18 @@ import 'package:marvelindo_outlet/app/core/networking/firebase_auth_services.dar
 import 'package:marvelindo_outlet/app/data/datasources/produk_remote_datasources.dart';
 import 'package:marvelindo_outlet/app/data/repositories/produk_repository_impl.dart';
 import 'package:marvelindo_outlet/app/domain/usecase/produk_usecase.dart';
-import 'package:marvelindo_outlet/app/presentation/global/widgets/custom_snackbar.dart';
 import 'package:marvelindo_outlet/app/presentation/modules/cart/controllers/cart_controller.dart';
-import 'package:marvelindo_outlet/app/presentation/modules/settings/controllers/settings_controller.dart';
+
 import '../../../../data/models/produk/produk_model.dart';
 import '../../../global/theme/my_colors.dart';
 import '../../base/controllers/base_controller.dart';
+import '../../setting/controllers/setting_controller.dart';
 
 class ProductDetailsController extends GetxController {
-  final firebaseAuth = FirebaseAuthServiceImpl();
   // get product details from arguments
   // ProductModel product = Get.arguments;
   Produk produk = Get.arguments;
+  String? messageServer;
   // final products = Rx([]);
 
   // for the product size
@@ -33,16 +33,16 @@ class ProductDetailsController extends GetxController {
   //   update();
   // }
 
-  onAddToCart(final context) async {
-    if (firebaseAuth.isLoggedIn()) {
-      ProdukUseCase(
+  Future onAddToCart() async {
+    if (FirebaseAuthServices.isLoggedIn()) {
+      var response = await ProdukUseCase(
               repository: ProdukRepositoryImpl(
                   remoteDataSource: ProdukRemoteDataSourceImpl()))
-          .addToCart(produk: produk)
-          .then((value) => CustomSnackBar.showCustomSuccessSnackBar(
-              title: "Sukses", message: "Produk berhasil ditambahkan"));
+          .addToCart(produk: produk);
+      response.fold((failure) => messageServer = failure.message,
+          (message) => messageServer = message);
       Get.back();
-      await Future.delayed(const Duration(milliseconds: 300));
+      await Future.delayed(const Duration(milliseconds: 250));
       Get.find<BaseController>().changeScreen(1);
       Get.find<CartController>().onRefreshKeranjang();
     } else {
@@ -54,9 +54,10 @@ class ProductDetailsController extends GetxController {
         textCancel: "kembali",
         textConfirm: "login",
         confirmTextColor: Colors.white,
-        onConfirm: () => Get.find<SettingsController>().toLoginPage(),
+        onConfirm: () => Get.find<SettingController>().toLoginPage(),
         middleText: "Anda harus login terlebih dahulu",
       );
     }
+    return messageServer;
   }
 }
