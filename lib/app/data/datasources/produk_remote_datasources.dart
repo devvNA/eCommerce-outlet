@@ -10,7 +10,7 @@ abstract class ProdukRemoteDataSource {
   Future<Either<Failure, List<Produk>>> getAllProduk();
   Future<Either<Failure, List<Produk>>> getListProductByCategory(
       String kategori);
-  Future<Either<Failure, String>> addToCart({required Produk produk});
+  Future<Either<Failure, String>> addToCart({required int id,required Produk produk});
 }
 
 class ProdukRemoteDataSourceImpl implements ProdukRemoteDataSource {
@@ -64,10 +64,11 @@ class ProdukRemoteDataSourceImpl implements ProdukRemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, String>> addToCart({required Produk produk}) async {
+  Future<Either<Failure, String>> addToCart(
+      {required int id, required Produk produk}) async {
     try {
       final query = {
-        'id_user': 1,
+        'id_user': id,
         'id_produk': produk.id,
       };
 

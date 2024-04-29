@@ -95,4 +95,8 @@ class FirebaseAuthServices {
     return FirebaseAuth.instance.currentUser?.photoURL ??
         "https://i.ibb.co/S32HNjD/no-image.jpg";
   }
+
+  static int getUID() {
+    return FirebaseAuth.instance.currentUser?.uid.hashCode ?? 1;
+  }
 }

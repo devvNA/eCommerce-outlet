@@ -2,9 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:marvelindo_outlet/app/presentation/global/theme/my_colors.dart';
-import '../controllers/base_controller.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:marvelindo_outlet/app/presentation/global/theme/my_colors.dart';
+
+import '../controllers/base_controller.dart';
 
 class BaseView extends GetView<BaseController> {
   const BaseView({super.key});
@@ -19,7 +20,7 @@ class BaseView extends GetView<BaseController> {
           return controller.onBack();
         },
         child: Scaffold(
-          body: SafeArea(child: controller.pages[controller.currentIndex()]),
+          body: controller.pages[controller.currentIndex()],
           // body: SafeArea(
           //   child: IndexedStack(
           //     clipBehavior: Clip.antiAlias,

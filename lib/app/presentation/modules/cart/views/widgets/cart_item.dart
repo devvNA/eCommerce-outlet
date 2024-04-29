@@ -80,10 +80,10 @@ class CartItem extends GetView<CartController> {
                     ),
                     GestureDetector(
                       onTap: onDeletePressed,
-                      child: const Icon(
-                        Icons.cancel_sharp,
-                        size: 18.0,
-                        color: Colors.grey,
+                      child: Icon(
+                        Icons.delete_forever,
+                        size: 20.0,
+                        color: Colors.red[800],
                       ),
                     ),
                   ],
@@ -128,11 +128,14 @@ class CartItem extends GetView<CartController> {
                       ),
                     ),
                     SizedBox(
-                      width: 60,
+                      width: 65,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8.0, vertical: 8.0),
                         child: TextFormField(
+                          style: const TextStyle(
+                            fontSize: 14,
+                          ),
                           initialValue: initialValue,
                           onChanged: onChanged,
                           inputFormatters: [

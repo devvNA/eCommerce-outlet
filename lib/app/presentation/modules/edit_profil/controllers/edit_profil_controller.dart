@@ -17,7 +17,7 @@ class EditProfilController extends GetxController {
     const DropdownMenuItem(value: "Sultan", child: Text("Sultan")),
     const DropdownMenuItem(value: "Regular", child: Text("Regular")),
     const DropdownMenuItem(value: "Silver", child: Text("Silver")),
-  ];
+  ].obs;
 
   @override
   void onInit() {

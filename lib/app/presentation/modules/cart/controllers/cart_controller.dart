@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:marvelindo_outlet/app/core/utils/helpers/debouncer.dart';
 import 'package:marvelindo_outlet/app/data/datasources/keranjang_remote_datasources.dart';
 import 'package:marvelindo_outlet/app/data/models/keranjang/keranjang_model.dart';
-import 'package:marvelindo_outlet/app/data/models/produk/produk_model.dart';
 import 'package:marvelindo_outlet/app/data/repositories/keranjang_repository_impl.dart';
 import 'package:marvelindo_outlet/app/domain/usecase/keranjang_usecase.dart';
 
@@ -12,15 +11,14 @@ import '../../../../core/utils/helpers/dummy_helper.dart';
 import '../../base/controllers/base_controller.dart';
 
 class CartController extends GetxController {
+  final debounceC = DebouncerC(duration: const Duration(seconds: 1));
+  final listKeranjang = <Keranjang>[].obs;
   // to hold the products in cart
 
   final loading = false.obs;
-  final listKeranjang = <Keranjang>[].obs;
-  final products = <Produk>[].obs;
-  String? message1;
-  String? message2;
-  final debounceC = DebouncerC(duration: const Duration(seconds: 1));
 
+  String? messageDelete;
+  // final products = <Produk>[].obs;
   // RxList<ProductModel> products = RxList<ProductModel>([]);
 
   // to hold the total price of the cart products
@@ -32,15 +30,6 @@ class CartController extends GetxController {
     getKeranjang();
     super.onInit();
   }
-
-  // get the cart products from the product list
-
-  // getCartProducts() {
-  //   products = DummyHelper.products.where((p) => p.quantity! > 0).toList();
-  //   // calculate the total price
-  //   total = products.fold<double>(0, (p, c) => p + c.price! * c.quantity!);
-  //   update();
-  // }
 
   getKeranjang() async {
     loading(true);
@@ -61,7 +50,7 @@ class CartController extends GetxController {
     // ambil list semua produk
     var allProducts = DummyHelper.products;
 
-// lakukan loop
+    // lakukan loop
     for (var product in allProducts) {
       // reset quantity jadi 0
       product.quantity = 0;
@@ -79,13 +68,13 @@ class CartController extends GetxController {
     update();
   }
 
-  // when the user press on increase button
-  onIncreasePressed(int productId) {
-    var product = listKeranjang.firstWhere((p) => p.id == productId);
-    product.quantity = product.quantity! + 1;
-    // getCartProducts();
-    // update(['ProductQuantity']);
-  }
+  // // when the user press on increase button
+  // onIncreasePressed(int productId) {
+  //   var product = listKeranjang.firstWhere((p) => p.id == productId);
+  //   product.quantity = product.quantity! + 1;
+  //   // getCartProducts();
+  //   // update(['ProductQuantity']);
+  // }
 
   onRefreshKeranjang() {
     listKeranjang().clear();
@@ -99,35 +88,31 @@ class CartController extends GetxController {
   //   // update(['ProductQuantity']);
   // }
 
-  //  when the user press on decrease button
-  onDecreasePressed(int productId) {
-    var product = DummyHelper.products.firstWhere((p) => p.id == productId);
-    if (product.quantity! > 1) {
-      product.quantity = product.quantity! - 1;
-      // getCartProducts();
-      // update(['ProductQuantity']);
-    }
-  }
+  // //  when the user press on decrease button
+  // onDecreasePressed(int productId) {
+  //   var product = DummyHelper.products.firstWhere((p) => p.id == productId);
+  //   if (product.quantity! > 1) {
+  //     product.quantity = product.quantity! - 1;
+  //     // getCartProducts();
+  //     // update(['ProductQuantity']);
+  //   }
+  // }
 
-  onInputQuantity(int productId, int quantity) {
-    var product = DummyHelper.products.firstWhere((p) => p.id == productId);
-    product.quantity = quantity;
-    // getCartProducts();
-    // update(['ProductQuantity']);
-  }
+  // onInputQuantity(int productId, int quantity) {
+  //   var product = DummyHelper.products.firstWhere((p) => p.id == productId);
+  //   product.quantity = quantity;
+  //   // getCartProducts();
+  //   // update(['ProductQuantity']);
+  // }
 
   /// when the user press on delete icon
   onDeletePressed(int productId) async {
-    // var product = DummyHelper.products.firstWhere((p) => p.id == productId);
-    // product.quantity = 0;
-    // getCartProducts();
-    // update(['ProductQuantity']);
     var response = await KeranjangUseCase(
             repository: KeranjangRepositoryImpl(
                 remoteDataSource: KeranjangRemoteDataSourceImpl()))
         .deleteProdukKeranjang(productId);
-    response.fold((failure) => message1 = failure.message,
-        (message) => message1 = message);
+    response.fold((failure) => messageDelete = failure.message,
+        (message) => messageDelete = message);
     onRefreshKeranjang();
   }
 
@@ -135,13 +120,30 @@ class CartController extends GetxController {
     Get.find<BaseController>().changeScreen(0);
   }
 
-  onUpdateItemCart(int id, int qty) async {
-    var response = await KeranjangUseCase(
+  onInputItemCart(int productId, int qty) async {
+    final response = await KeranjangUseCase(
             repository: KeranjangRepositoryImpl(
                 remoteDataSource: KeranjangRemoteDataSourceImpl()))
-        .updateItemKeranjang(id, qty);
-    response.fold((failure) => message2 = failure.message,
-        (message) => message2 = message);
-    return message2;
+        .updateItemKeranjang(productId, qty);
+    response.fold((failure) => log(failure.message), (message) => log(message));
+    return response;
+  }
+
+  onIncreasePressed(int productId, int currQty) async {
+    final response = await KeranjangUseCase(
+            repository: KeranjangRepositoryImpl(
+                remoteDataSource: KeranjangRemoteDataSourceImpl()))
+        .increaseItemKeranjang(productId, currQty);
+    response.fold((failure) => log(failure.message), (message) => log(message));
+    return response;
+  }
+
+  onDecreasePressed(int productId, int currQty) async {
+    final response = await KeranjangUseCase(
+            repository: KeranjangRepositoryImpl(
+                remoteDataSource: KeranjangRemoteDataSourceImpl()))
+        .decreaseItemKeranjang(productId, currQty);
+    response.fold((failure) => log(failure.message), (message) => log(message));
+    return response;
   }
 }

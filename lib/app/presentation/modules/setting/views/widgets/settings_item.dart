@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/utils/helpers/constants.dart';
+import '../../../../../core/utils/helpers/constants.dart';
 
 class SettingItem extends StatelessWidget {
   final IconData? icon;
@@ -25,6 +26,8 @@ class SettingItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+
     final theme = context.theme;
 
     return ListTile(

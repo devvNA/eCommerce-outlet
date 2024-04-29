@@ -36,7 +36,6 @@ class AboutAppView extends GetView<AboutAppController> {
                 child: Image.asset(
                   "assets/icons/mv-logo.png",
                   width: MediaQuery.of(context).size.width,
-                  height: 230.0,
                   fit: BoxFit.cover,
                 ),
               ),

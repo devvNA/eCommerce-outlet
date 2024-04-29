@@ -7,6 +7,7 @@ import 'package:marvelindo_outlet/app/core/networking/firebase_auth_services.dar
 import 'package:marvelindo_outlet/app/core/utils/helpers/validator.dart';
 import 'package:marvelindo_outlet/app/presentation/global/theme/my_colors.dart';
 import 'package:marvelindo_outlet/app/presentation/global/widgets/custom_snackbar.dart';
+
 import '../../../global/widgets/form_text_widget.dart';
 import '../controllers/edit_profil_controller.dart';
 
@@ -15,35 +16,35 @@ class EditProfilView extends GetView<EditProfilController> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<EditProfilController>(builder: (controller) {
-      return Scaffold(
-          floatingActionButton: FloatingActionButton(
-            backgroundColor: AppColors.primaryColor,
-            child: const Icon(
-              Icons.check,
-              color: Colors.white,
-              size: 25,
-            ),
-            onPressed: () {
-              if (controller.formKey.currentState!.validate()) {
-                Get.back();
-                CustomSnackBar.showCustomSuccessSnackBar(
-                    title: "Success",
-                    message: "Profil berhasil diubah",
-                    duration: const Duration(milliseconds: 1200));
-                log("Success");
-              } else {
-                log("Error");
-              }
-            },
+    return Scaffold(
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: AppColors.primaryColor,
+          child: const Icon(
+            Icons.check,
+            color: Colors.white,
+            size: 25,
           ),
-          appBar: AppBar(
-            title: const Text('Edit Profil'),
-            centerTitle: true,
-          ),
-          body: Form(
-            key: controller.formKey,
-            child: Column(
+          onPressed: () {
+            if (controller.formKey.currentState!.validate()) {
+              Get.back();
+              CustomSnackBar.showCustomSuccessSnackBar(
+                  title: "Success",
+                  message: "Profil berhasil diubah",
+                  duration: const Duration(milliseconds: 1200));
+              log("Success");
+            } else {
+              log("Error");
+            }
+          },
+        ),
+        appBar: AppBar(
+          title: const Text('Edit Profil'),
+          centerTitle: true,
+        ),
+        body: Form(
+          key: controller.formKey,
+          child: Obx(() {
+            return Column(
               children: [
                 Expanded(
                   child: ListView(
@@ -109,9 +110,9 @@ class EditProfilView extends GetView<EditProfilController> {
                   ),
                 )
               ],
-            ),
-          ));
-    });
+            );
+          }),
+        ));
   }
 
   DropdownButtonFormField _dropDown(

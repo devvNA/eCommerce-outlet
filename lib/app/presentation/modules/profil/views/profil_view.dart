@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/app/routes/app_pages.dart';
+
 import '../../../global/theme/my_colors.dart';
 import '../controllers/profil_controller.dart';
 
@@ -50,7 +51,7 @@ class ProfilView extends GetView<ProfilController> {
                 ),
                 color: AppColors.primaryColor,
               ),
-              width: Get.width,
+              width: MediaQuery.of(context).size.width,
               padding: const EdgeInsets.only(
                 bottom: 15.0,
                 left: 25,
@@ -58,10 +59,13 @@ class ProfilView extends GetView<ProfilController> {
               ),
               child: Column(
                 children: [
-                  CircleAvatar(
-                    radius: 32.0,
-                    backgroundImage:
-                        NetworkImage("${controller.getDisplayProfile()}"),
+                  Hero(
+                    tag: "profile",
+                    child: CircleAvatar(
+                      radius: 36.0,
+                      backgroundImage:
+                          NetworkImage("${controller.getDisplayProfile()}"),
+                    ),
                   ),
                   8.verticalSpace,
                   controller.isVerified()
@@ -103,7 +107,7 @@ class ProfilView extends GetView<ProfilController> {
             Padding(
                 padding: const EdgeInsets.all(16),
                 child: SizedBox(
-                  width: Get.width,
+                  width: MediaQuery.of(context).size.width,
                   child: Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),

@@ -7,4 +7,6 @@ abstract class KeranjangRepository {
   Future<Either<Failure, List<Keranjang>>> getListKeranjang();
   Future<Either<Failure, String>> deleteProdukKeranjang(int id);
   Future<Either<Failure, String>> updateItemKeranjang(int id, int qty);
+  Future<Either<Failure, String>> increaseItemKeranjang(int id, int currQty);
+  Future<Either<Failure, String>> decreaseItemKeranjang(int id, int currQty);
 }

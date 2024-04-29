@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,6 +13,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:marvelindo_outlet/app/presentation/global/dependency_injection/bindings.dart';
 import 'package:marvelindo_outlet/app/presentation/global/theme/my_theme.dart';
 import 'package:marvelindo_outlet/app/routes/app_pages.dart';
+import 'package:marvelindo_outlet/firebase_options.dart';
 
 void main() async {
   // wait for bindings
@@ -19,15 +21,18 @@ void main() async {
   // init shared preference
   await GetStorage.init();
   //Firebase Config
-  await Firebase.initializeApp();
-
-  runApp(const MyApp());
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(DevicePreview(builder: (context) {
+    return const MyApp();
+  }));
 }
 
 class MyApp extends StatefulWidget {
-  static GlobalKey<NavigatorState> globalKey = GlobalKey<NavigatorState>();
-
   const MyApp({super.key});
+
+  static GlobalKey<NavigatorState> globalKey = GlobalKey<NavigatorState>();
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -35,6 +40,12 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late final StreamSubscription _connectivityStream;
+
+  @override
+  void dispose() {
+    _connectivityStream.cancel();
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -45,7 +56,7 @@ class _MyAppState extends State<MyApp> {
 
   void checkInitialInternetConnection() async {
     final result = await Connectivity().checkConnectivity();
-    handleConnectivityStates(result);
+    handleConnectivityStates(result.first);
   }
 
   void checkInternetConnectivityStatus() {}
@@ -76,27 +87,18 @@ class _MyAppState extends State<MyApp> {
         minTextAdapt: true,
         splitScreenMode: true,
         useInheritedMediaQuery: true,
-        rebuildFactor: (old, data) => true,
         builder: (context, widget) {
           return GetMaterialApp(
             theme: MyTheme.getThemeData(),
             navigatorKey: MyApp.globalKey,
             initialBinding:
-                // Membuat instance dari class AppBindings
-                AppBindings(),
+                AppBindings(), // Membuat instance dari class AppBindings
             title: "Outlet e-Commerce",
             useInheritedMediaQuery: true,
             debugShowCheckedModeBanner: false,
             initialRoute: Routes.SPLASH,
-            // app screens
             getPages: AppPages.routes,
           );
         });
-  }
-
-  @override
-  void dispose() {
-    _connectivityStream.cancel();
-    super.dispose();
   }
 }

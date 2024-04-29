@@ -12,7 +12,7 @@ import '../../../../core/utils/helpers/debouncer.dart';
 import '../../../../data/models/produk/produk_model.dart';
 
 class HomeController extends GetxController {
-  final debouncerC = DebouncerC(duration: const Duration(milliseconds: 800));
+  final debouncerC = DebouncerC(duration: const Duration(milliseconds: 500));
   final listProduk = <Produk>[].obs;
   final loading = false.obs;
   final searchController = TextEditingController();
@@ -71,15 +71,35 @@ class HomeController extends GetxController {
   }
 
   void onSearchProduct() async {
-    debouncerC.run(() {
-      searchList.clear();
-      onRefreshProducts();
-      for (var element in listProduk) {
-        if (element.nama!.toLowerCase().contains(searchController.text)) {
-          searchList.clear();
-          searchList.add(element);
-        }
+    debouncerC.run(() async {
+      String searchText = searchController.text.toLowerCase();
+      if (searchText.isEmpty) {
+        // Jika teks pencarian kosong, tampilkan semua produk
+        searchList.assignAll(listProduk);
+      } else {
+        // Bersihkan searchList sebelum melakukan pencarian
+        searchList.clear();
+        // Lakukan pencarian berdasarkan teks yang dimasukkan
+        var filteredList = listProduk
+            .where(
+                (element) => element.nama!.toLowerCase().contains(searchText))
+            .toList();
+        searchList.assignAll(filteredList);
       }
+      onRefreshProducts();
     });
   }
+
+  // void onSearchProduct() async {
+  //   debouncerC.run(() {
+  //     searchList.clear();
+  //     onRefreshProducts();
+  //     for (var element in listProduk) {
+  //       if (element.nama!.toLowerCase().contains(searchController.text)) {
+  //         searchList.clear();
+  //         searchList.add(element);
+  //       }
+  //     }
+  //   });
+  // }
 }

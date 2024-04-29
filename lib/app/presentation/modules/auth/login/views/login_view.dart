@@ -35,10 +35,13 @@ class LoginView extends GetView<LoginController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      "assets/icons/mv-logo.png",
-                      fit: BoxFit.cover,
-                      width: 150,
+                    Hero(
+                      tag: 'logo',
+                      child: Image.asset(
+                        "assets/icons/mv-logo.png",
+                        fit: BoxFit.cover,
+                        width: 150,
+                      ),
                     ),
                   ],
                 ),
@@ -54,9 +57,9 @@ class LoginView extends GetView<LoginController> {
                             key: controller.formField.value,
                             child: Column(
                               children: [
-                                _emailForm(),
+                                _emailForm(context),
                                 12.verticalSpace,
-                                _passwordForm(),
+                                _passwordForm(context),
                                 12.verticalSpace,
                                 _loginButton(),
                                 5.verticalSpace,
@@ -179,10 +182,11 @@ class LoginView extends GetView<LoginController> {
     );
   }
 
-  TextFormField _emailForm() {
+  TextFormField _emailForm(context) {
     return TextFormField(
       controller: controller.emailController.value,
-      scrollPadding: EdgeInsets.only(bottom: Get.height),
+      scrollPadding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).size.height),
       cursorColor: AppColors.primaryColor,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
@@ -216,11 +220,12 @@ class LoginView extends GetView<LoginController> {
     );
   }
 
-  TextFormField _passwordForm() {
+  TextFormField _passwordForm(context) {
     return TextFormField(
       obscureText: controller.visible.value,
       controller: controller.passwordController.value,
-      scrollPadding: EdgeInsets.only(bottom: Get.height),
+      scrollPadding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).size.height),
       cursorColor: AppColors.primaryColor,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,

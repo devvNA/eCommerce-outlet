@@ -10,6 +10,8 @@ abstract class KeranjangRemoteDataSource {
   Future<Either<Failure, List<Keranjang>>> getListKeranjang();
   Future<Either<Failure, String>> deleteItemKeranjang(int id);
   Future<Either<Failure, String>> updateItemKeranjang(int id, int qty);
+  Future<Either<Failure, String>> increaseItemKeranjang(int id, int currQty);
+  Future<Either<Failure, String>> decreaseItemKeranjang(int id, int currQty);
 }
 
 class KeranjangRemoteDataSourceImpl implements KeranjangRemoteDataSource {
@@ -56,11 +58,70 @@ class KeranjangRemoteDataSourceImpl implements KeranjangRemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, String>> updateItemKeranjang(int id, int qty) async {
+  Future<Either<Failure, String>> updateItemKeranjang(
+    int productId,
+    int qty,
+  ) async {
     try {
+      final query = {
+        'quantity': qty,
+      };
+
       final response = await Request().put(
-        "$updateKeranjang/$id?quantity=$qty",
+        // "$updateKeranjang/$id?quantity=$qty",
+        "$updateKeranjang/$productId",
         requiresAuthToken: true,
+        queryParameters: query,
+      );
+      if (response.statusCode == 200) {
+        return Right(response.data['message']);
+      }
+      return Left(ConnectionFailure(response.data));
+    } on DioException catch (e) {
+      return Left(ParsingFailure(e.toString()));
+    } catch (e) {
+      return const Left(ParsingFailure('Tidak dapat memparsing respon'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> increaseItemKeranjang(
+      int productId, int currQty) async {
+    try {
+      final query = {
+        'quantity': currQty + 1,
+      };
+
+      final response = await Request().put(
+        "$updateKeranjang/$productId",
+        requiresAuthToken: true,
+        queryParameters: query,
+      );
+      if (response.statusCode == 200) {
+        return Right(response.data['message']);
+      }
+      return Left(ConnectionFailure(response.data));
+    } on DioException catch (e) {
+      return Left(ParsingFailure(e.toString()));
+    } catch (e) {
+      return const Left(ParsingFailure('Tidak dapat memparsing respon'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> decreaseItemKeranjang(
+    int productId,
+    int currQty,
+  ) async {
+    try {
+      final query = {
+        'quantity': currQty - 1,
+      };
+
+      final response = await Request().put(
+        "$updateKeranjang/$productId",
+        requiresAuthToken: true,
+        queryParameters: query,
       );
       if (response.statusCode == 200) {
         return Right(response.data['message']);

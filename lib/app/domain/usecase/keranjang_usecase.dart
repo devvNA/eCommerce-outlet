@@ -22,4 +22,14 @@ class KeranjangUseCase {
   Future<Either<Failure, String>> updateItemKeranjang(int id, int qty) async {
     return await repository.updateItemKeranjang(id, qty);
   }
+
+  Future<Either<Failure, String>> increaseItemKeranjang(
+      int id, int currQty) async {
+    return await repository.increaseItemKeranjang(id, currQty);
+  }
+
+  Future<Either<Failure, String>> decreaseItemKeranjang(
+      int id, int currQty) async {
+    return await repository.decreaseItemKeranjang(id, currQty);
+  }
 }

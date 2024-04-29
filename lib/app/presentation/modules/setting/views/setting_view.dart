@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -7,23 +8,24 @@ import '../../../../routes/app_pages.dart';
 import '../../../global/theme/my_colors.dart';
 import '../../../global/widgets/screen_title.dart';
 import '../controllers/setting_controller.dart';
-import '../widgets/settings_item.dart';
+import 'widgets/settings_item.dart';
 
 class SettingView extends GetView<SettingController> {
   const SettingView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+
     return Scaffold(
         body: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 18),
       child: Column(
         children: [
-          30.verticalSpace,
+          20.verticalSpace,
           const ScreenTitle(
             title: 'Pengaturan',
           ),
-          15.verticalSpace,
           Expanded(
             child: ListView(
               children: [

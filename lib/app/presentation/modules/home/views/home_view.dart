@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/app/core/networking/firebase_auth_services.dart';
@@ -20,31 +21,57 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _profileHeader(context),
-          15.verticalSpace,
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 18),
-            child: Text(
-              "Produk",
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18.0,
-              ),
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+    return Scaffold(
+        body: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _profileHeader(context),
+        15.verticalSpace,
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 18),
+          child: Text(
+            "Produk",
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18.0,
             ),
           ),
-          _categories(),
-          5.verticalSpace,
-          Expanded(
-            child: Obx(() {
-              if (controller.loading()) {
-                return GridView.builder(
+        ),
+        _categories(),
+        5.verticalSpace,
+        Expanded(
+          child: Obx(() {
+            if (controller.loading()) {
+              return GridView.builder(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 3,
+                    mainAxisSpacing: 3,
+                    mainAxisExtent: 250,
+                  ),
+                  itemCount: 4,
+                  itemBuilder: (context, index) =>
+                      const ShimmerLayout(child: ShimmerCard()));
+            }
+            if (controller.listProduk.isEmpty) {
+              return const Center(
+                  child: ErrorStateWidget(message: "Produk tidak ditemukan"));
+            }
+            if (controller.searchController.value.text.isEmpty) {
+              return RefreshIndicator(
+                color: AppColors.primaryColor,
+                onRefresh: () async {
+                  controller.onRefreshProducts();
+                },
+                child: Obx(() {
+                  return GridView.builder(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    primary: true,
+                    physics: const BouncingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics()),
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
@@ -52,76 +79,48 @@ class HomeView extends GetView<HomeController> {
                       mainAxisSpacing: 3,
                       mainAxisExtent: 250,
                     ),
-                    itemCount: 4,
-                    itemBuilder: (context, index) =>
-                        const ShimmerLayout(child: ShimmerCard()));
-              }
-              if (controller.listProduk.isEmpty) {
-                return const Center(
-                    child: ErrorStateWidget(message: "Produk tidak ditemukan"));
-              }
-              if (controller.searchController.value.text.isEmpty) {
-                return RefreshIndicator(
-                  color: AppColors.primaryColor,
-                  onRefresh: () async {
-                    controller.onRefreshProducts();
-                  },
-                  child: Obx(() {
-                    return GridView.builder(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      primary: true,
-                      physics: const BouncingScrollPhysics(
-                          parent: AlwaysScrollableScrollPhysics()),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 3,
-                        mainAxisSpacing: 3,
-                        mainAxisExtent: 250,
-                      ),
-                      itemCount: controller.listProduk.length,
-                      itemBuilder: (context, index) => ProductItem(
-                        produk: controller.listProduk[index],
-                      ),
-                    );
-                  }),
-                );
-              }
-              if (controller.searchList().isEmpty) {
-                return const Center(
-                    child: ErrorStateWidget(message: "Produk tidak ditemukan"));
-              } else {
-                return RefreshIndicator(
-                  color: AppColors.primaryColor,
-                  onRefresh: () async {
-                    controller.onRefreshProducts();
-                  },
-                  child: Obx(() {
-                    return GridView.builder(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      primary: true,
-                      physics: const BouncingScrollPhysics(
-                          parent: AlwaysScrollableScrollPhysics()),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 3,
-                        mainAxisSpacing: 3,
-                        mainAxisExtent: 250,
-                      ),
-                      itemCount: controller.searchList.length,
-                      itemBuilder: (context, index) => ProductItem(
-                        produk: controller.searchList[index],
-                      ),
-                    );
-                  }),
-                );
-              }
-            }),
-          )
-        ],
-      )),
-    );
+                    itemCount: controller.listProduk.length,
+                    itemBuilder: (context, index) => ProductItem(
+                      produk: controller.listProduk[index],
+                    ),
+                  );
+                }),
+              );
+            }
+            if (controller.searchList().isEmpty) {
+              return const Center(
+                  child: ErrorStateWidget(message: "Produk tidak ditemukan"));
+            } else {
+              return RefreshIndicator(
+                color: AppColors.primaryColor,
+                onRefresh: () async {
+                  controller.onRefreshProducts();
+                },
+                child: Obx(() {
+                  return GridView.builder(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    primary: true,
+                    physics: const BouncingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics()),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 3,
+                      mainAxisSpacing: 3,
+                      mainAxisExtent: 250,
+                    ),
+                    itemCount: controller.searchList.length,
+                    itemBuilder: (context, index) => ProductItem(
+                      produk: controller.searchList[index],
+                    ),
+                  );
+                }),
+              );
+            }
+          }),
+        )
+      ],
+    ));
   }
 
   Container _profileHeader(context) {
@@ -129,7 +128,7 @@ class HomeView extends GetView<HomeController> {
 
     return Container(
       padding: const EdgeInsets.all(12),
-      width: Get.width,
+      width: MediaQuery.of(context).size.width,
       decoration: const BoxDecoration(
         color: AppColors.primaryColor,
         borderRadius: BorderRadius.only(
@@ -139,13 +138,17 @@ class HomeView extends GetView<HomeController> {
       ),
       child: Column(
         children: [
+          15.verticalSpace,
           ListTile(
             onTap: () {
               Get.find<SettingController>().toProfilePage();
             },
-            leading: CircleAvatar(
-              backgroundImage: NetworkImage(
-                FirebaseAuthServices.getDisplayProfile(),
+            leading: Hero(
+              tag: "profile",
+              child: CircleAvatar(
+                backgroundImage: NetworkImage(
+                  FirebaseAuthServices.getDisplayProfile(),
+                ),
               ),
             ),
             title: Text("Hai, ${FirebaseAuthServices.getUsername()}",

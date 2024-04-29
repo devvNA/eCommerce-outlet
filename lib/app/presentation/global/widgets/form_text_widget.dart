@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:marvelindo_outlet/app/presentation/global/theme/my_colors.dart';
 
 class FormTextWidget extends StatelessWidget {
@@ -27,7 +26,8 @@ class FormTextWidget extends StatelessWidget {
     return TextFormField(
       onChanged: onChanged,
       controller: textFormController,
-      scrollPadding: EdgeInsets.only(bottom: Get.height),
+      scrollPadding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).size.height),
       cursorColor: AppColors.primaryColor,
       keyboardType: keyboardType,
       maxLines: maxlines,

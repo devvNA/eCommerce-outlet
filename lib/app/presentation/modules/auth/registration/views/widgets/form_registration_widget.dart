@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable, unused_field
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../../../../../global/theme/my_colors.dart';
 
@@ -36,7 +35,8 @@ class FormRegistrationWidget extends StatelessWidget {
           cursorColor: AppColors.primaryColor,
           obscureText: obscureText!,
           scrollPadding: EdgeInsets.only(
-              bottom: MediaQuery.of(context).viewInsets.bottom + Get.height),
+              bottom: MediaQuery.of(context).viewInsets.bottom +
+                  MediaQuery.of(context).size.height),
           initialValue: initialValue,
           controller: formController,
           decoration: InputDecoration(
@@ -90,7 +90,8 @@ class FormAddressWidget extends StatelessWidget {
           maxLines: 5,
           cursorColor: AppColors.primaryColor,
           scrollPadding: EdgeInsets.only(
-              bottom: MediaQuery.of(context).viewInsets.bottom + Get.height),
+              bottom: MediaQuery.of(context).viewInsets.bottom +
+                  MediaQuery.of(context).size.height),
           initialValue: initialValue,
           controller: formController,
           decoration: InputDecoration(

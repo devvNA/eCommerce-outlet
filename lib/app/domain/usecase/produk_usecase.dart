@@ -18,6 +18,6 @@ class ProdukUseCase {
           String kategori) async =>
       await repository.getListProductByCategory(kategori);
 
-  Future<Either<Failure, String>> addToCart({required Produk produk}) async =>
-      await repository.addToCart(produk: produk);
+  Future<Either<Failure, String>> addToCart({required int id,required Produk produk}) async =>
+      await repository.addToCart(produk: produk, id: id);
 }

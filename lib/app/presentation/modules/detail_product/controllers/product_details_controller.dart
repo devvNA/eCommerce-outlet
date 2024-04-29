@@ -16,6 +16,8 @@ class ProductDetailsController extends GetxController {
   // ProductModel product = Get.arguments;
   Produk produk = Get.arguments;
   String? messageServer;
+  final isExpanded = false.obs;
+  final expansionTileKey = GlobalKey();
   // final products = Rx([]);
 
   // for the product size
@@ -38,7 +40,7 @@ class ProductDetailsController extends GetxController {
       var response = await ProdukUseCase(
               repository: ProdukRepositoryImpl(
                   remoteDataSource: ProdukRemoteDataSourceImpl()))
-          .addToCart(produk: produk);
+          .addToCart(id: FirebaseAuthServices.getUID(), produk: produk);
       response.fold((failure) => messageServer = failure.message,
           (message) => messageServer = message);
       Get.back();
@@ -59,5 +61,15 @@ class ProductDetailsController extends GetxController {
       );
     }
     return messageServer;
+  }
+
+  scrollToSelectedContent() {
+    final keyContext = expansionTileKey.currentContext;
+    if (keyContext != null) {
+      Future.delayed(const Duration(milliseconds: 200)).then((value) {
+        Scrollable.ensureVisible(keyContext,
+            duration: const Duration(milliseconds: 200));
+      });
+    }
   }
 }

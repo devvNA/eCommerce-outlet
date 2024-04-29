@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/app/core/utils/helpers/validator.dart';
+
 import '../../../../global/theme/my_colors.dart';
 import '../../../../global/widgets/custom_snackbar.dart';
 import '../controllers/registration_controller.dart';
@@ -155,8 +156,8 @@ class RegistrationView extends GetView<RegistrationController> {
 Widget _headerAppbar(BuildContext context) {
   return Container(
     padding: const EdgeInsets.all(8),
-    width: Get.width,
-    height: Get.height / 10,
+    width: MediaQuery.of(context).size.width,
+    height: MediaQuery.of(context).size.height / 10,
     decoration: const BoxDecoration(
       boxShadow: [
         BoxShadow(

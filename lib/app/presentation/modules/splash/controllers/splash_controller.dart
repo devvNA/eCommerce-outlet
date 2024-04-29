@@ -2,6 +2,7 @@
 
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/app/routes/app_pages.dart';
+
 import '../../../../core/networking/firebase_auth_services.dart';
 
 class SplashController extends GetxController {
