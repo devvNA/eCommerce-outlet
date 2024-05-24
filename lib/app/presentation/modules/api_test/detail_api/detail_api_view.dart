@@ -1,14 +1,10 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
-import 'package:marvelindo_outlet/app/presentation/modules/api_test/api_test_page.dart';
+import 'package:get/get.dart';
+import 'package:marvelindo_outlet/app/presentation/modules/api_test/detail_api/detail_api_controller.dart';
 
-class DetailApiView extends StatelessWidget {
-  final HistoryItem? historyItem;
-
-  const DetailApiView({
-    super.key,
-    this.historyItem,
-  });
+class DetailApiView extends GetView<DetailApiController> {
+  const DetailApiView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +17,15 @@ class DetailApiView extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('Tanggal: ${historyItem!.date}'),
+            child: Text('Tanggal: ${controller.historyItem!.date}'),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('Total: ${historyItem!.total}'),
+            child: Text('Total: ${controller.historyItem!.total}'),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('Status: ${historyItem!.status}'),
+            child: Text('Status: ${controller.historyItem!.status}'),
           ),
           const Divider(),
           const Padding(
@@ -41,12 +37,12 @@ class DetailApiView extends StatelessWidget {
           ),
           ListView.builder(
             shrinkWrap: true,
-            itemCount: historyItem!.products.length,
+            itemCount: controller.historyItem!.products.length,
             itemBuilder: (context, index) {
               return ListTile(
-                title: Text(historyItem!.products[index].name),
+                title: Text(controller.historyItem!.products[index].name),
                 subtitle: Text(
-                    'Harga: ${historyItem!.products[index].price} - Jumlah: ${historyItem!.products[index].quantity}'),
+                    'Harga: ${controller.historyItem!.products[index].price} - Jumlah: ${controller.historyItem!.products[index].quantity}'),
               );
             },
           ),

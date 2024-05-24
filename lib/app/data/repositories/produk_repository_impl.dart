@@ -16,11 +16,11 @@ class ProdukRepositoryImpl implements ProdukRepository {
 
   @override
   Future<Either<Failure, List<Produk>>> getListProductByCategory(
-          String kategori) async =>
-      await remoteDataSource.getListProductByCategory(kategori);
+          {required String kategori}) async =>
+      await remoteDataSource.getListProductByCategory(kategori: kategori);
 
   @override
   Future<Either<Failure, String>> addToCart(
           {required int id, required Produk produk}) async =>
-      await remoteDataSource.addToCart(id: id,produk: produk);
+      await remoteDataSource.addToCart(id: id, produk: produk);
 }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -39,8 +41,7 @@ class HistoryView extends GetView<HistoryController> {
                             automaticIndicatorColorAdjustment: true,
                             onTap: (value) {
                               controller.selectedIndex.value = value;
-                              debugPrint(
-                                  "index : ${controller.selectedIndex.value.toString()}");
+                              log("tab : ${value + 1}");
                             },
                             labelStyle:
                                 context.theme.textTheme.displayLarge?.copyWith(
@@ -57,11 +58,7 @@ class HistoryView extends GetView<HistoryController> {
                               vertical: 12,
                             ),
                             unselectedLabelColor: const Color(0xFFA3A3A3),
-                            tabs: const [
-                              Text("Proses"),
-                              Text("Selesai"),
-                              Text("Dibatalkan"),
-                            ],
+                            tabs: controller.tabs,
                             isScrollable: true,
                           ),
                           5.verticalSpace,

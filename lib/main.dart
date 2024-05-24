@@ -21,9 +21,7 @@ void main() async {
   // init shared preference
   await GetStorage.init();
   //Firebase Config
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(DevicePreview(builder: (context) {
     return const MyApp();
   }));
@@ -43,6 +41,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void dispose() {
+    checkInitialInternetConnection();
     _connectivityStream.cancel();
     super.dispose();
   }
@@ -50,7 +49,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     checkInitialInternetConnection();
-    checkInternetConnectivityStatus();
     super.initState();
   }
 
@@ -59,14 +57,19 @@ class _MyAppState extends State<MyApp> {
     handleConnectivityStates(result.first);
   }
 
-  void checkInternetConnectivityStatus() {}
-
   void handleConnectivityStates(ConnectivityResult status) {
     if (status != ConnectivityResult.mobile &&
         status != ConnectivityResult.wifi) {
       Get.showSnackbar(const GetSnackBar(
-        title: 'No internet!',
-        message: 'Please check your internet connectivity',
+        title: "Tidak ada koneksi",
+        message: "Periksa jaringan anda",
+        padding: EdgeInsets.all(12.0),
+        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+        backgroundColor: Colors.redAccent,
+        icon: Icon(
+          Icons.error,
+          color: Colors.white,
+        ),
         isDismissible: false,
       ));
     } else {
@@ -83,7 +86,7 @@ class _MyAppState extends State<MyApp> {
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
     return ScreenUtilInit(
-        designSize: const Size(375, 812),
+        designSize: const Size(360, 720),
         minTextAdapt: true,
         splitScreenMode: true,
         useInheritedMediaQuery: true,

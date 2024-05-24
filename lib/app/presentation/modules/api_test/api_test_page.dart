@@ -2,7 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/app/presentation/modules/api_test/api_test_controller.dart';
-import 'package:marvelindo_outlet/app/routes/app_pages.dart';
+
+import '../../../routes/app_pages.dart';
 
 class ApiTestPage extends GetView<ApiTestController> {
   ApiTestPage({super.key});
@@ -25,6 +26,8 @@ class ApiTestPage extends GetView<ApiTestController> {
       status: 'Selesai',
       products: [
         ProductItem(name: 'Es Teh Manis', price: 10000, quantity: 3),
+        ProductItem(name: 'Nasi Goreng', price: 25000, quantity: 2),
+        ProductItem(name: 'Nasi Goreng', price: 25000, quantity: 2),
       ],
     ),
   ];
@@ -60,25 +63,25 @@ class ApiTestPage extends GetView<ApiTestController> {
 }
 
 class HistoryItem {
-  final int id;
-  final String date;
-  final int total;
-  final String status;
-  final List<ProductItem> products;
-
   HistoryItem(
       {required this.id,
       required this.date,
       required this.total,
       required this.status,
       required this.products});
+
+  final String date;
+  final int id;
+  final List<ProductItem> products;
+  final String status;
+  final int total;
 }
 
 class ProductItem {
+  ProductItem(
+      {required this.name, required this.price, required this.quantity});
+
   final String name;
   final int price;
   final int quantity;
-
-  ProductItem(
-      {required this.name, required this.price, required this.quantity});
 }

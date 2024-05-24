@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
+import '../../core/api_endpoints.dart';
 import '../../core/networking/failure_helper.dart';
 import '../../core/networking/network_request.dart';
-import '../../core/utils/api_endpoints.dart';
 import '../models/keranjang/keranjang_model.dart';
 
 abstract class KeranjangRemoteDataSource {
@@ -20,7 +20,7 @@ class KeranjangRemoteDataSourceImpl implements KeranjangRemoteDataSource {
     try {
       final response = await Request().get(
         listKeranjang,
-        requiresAuthToken: true,
+        requiresAuthToken: false,
       );
       List<Keranjang> keranjang = [];
       if (response.statusCode == 200) {
@@ -44,7 +44,7 @@ class KeranjangRemoteDataSourceImpl implements KeranjangRemoteDataSource {
     try {
       final response = await Request().delete(
         "$deleteKeranjang/$id",
-        requiresAuthToken: true,
+        requiresAuthToken: false,
       );
       if (response.statusCode == 200) {
         return Right(response.data['message']);
@@ -63,15 +63,15 @@ class KeranjangRemoteDataSourceImpl implements KeranjangRemoteDataSource {
     int qty,
   ) async {
     try {
-      final query = {
+      final queryParameters = {
         'quantity': qty,
       };
 
       final response = await Request().put(
         // "$updateKeranjang/$id?quantity=$qty",
         "$updateKeranjang/$productId",
-        requiresAuthToken: true,
-        queryParameters: query,
+        requiresAuthToken: false,
+        queryParameters: queryParameters,
       );
       if (response.statusCode == 200) {
         return Right(response.data['message']);
@@ -94,7 +94,7 @@ class KeranjangRemoteDataSourceImpl implements KeranjangRemoteDataSource {
 
       final response = await Request().put(
         "$updateKeranjang/$productId",
-        requiresAuthToken: true,
+        requiresAuthToken: false,
         queryParameters: query,
       );
       if (response.statusCode == 200) {
@@ -120,7 +120,7 @@ class KeranjangRemoteDataSourceImpl implements KeranjangRemoteDataSource {
 
       final response = await Request().put(
         "$updateKeranjang/$productId",
-        requiresAuthToken: true,
+        requiresAuthToken: false,
         queryParameters: query,
       );
       if (response.statusCode == 200) {

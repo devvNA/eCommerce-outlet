@@ -1,5 +1,7 @@
 // ignore_for_file: unnecessary_overrides
 import 'dart:developer';
+
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/app/presentation/modules/cart/views/cart_view.dart';
@@ -20,6 +22,7 @@ class BaseController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
   }
 
   onBack() {
@@ -40,5 +43,11 @@ class BaseController extends GetxController {
   changeScreen(int selectedIndex) {
     currentIndex(selectedIndex);
     log("halaman index = $currentIndex");
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
   }
 }

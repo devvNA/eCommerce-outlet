@@ -8,7 +8,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import '../../data/datasources/auth_remote_datasources.dart';
 import '../../data/repositories/auth_repository_impl.dart';
 import '../../domain/usecase/auth_usecase.dart';
-import '../utils/api_endpoints.dart';
+import '../api_endpoints.dart';
 import '../utils/helpers/types.dart';
 
 class Request {

@@ -1,11 +1,12 @@
 // MARVELINDO
 const baseUrl = 'http://scm8.satriatech.com/api/admin';
 const listProduk = "/products";
-const listProdukByCategory = "/detailprodukbyjenisbarang";
+const listProdukByCategory = "/productsbytype";
 const listKeranjang = "/getkeranjang";
 const deleteKeranjang = "/deleteitemkeranjang";
 const postKeranjang = "/additemkeranjang";
 const updateKeranjang = "/updateitemkeranjang";
+const checkout = "/transaksi";
 
 // ======================================================================== //
 

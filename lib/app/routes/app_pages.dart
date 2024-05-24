@@ -15,10 +15,13 @@ import 'package:marvelindo_outlet/app/presentation/modules/history/views/history
 import 'package:marvelindo_outlet/app/presentation/modules/home/views/home_view.dart';
 import 'package:marvelindo_outlet/app/presentation/modules/profil/views/profil_view.dart';
 import 'package:marvelindo_outlet/app/presentation/modules/splash/views/splash_view.dart';
-import '../presentation/modules/about_us/views/about_app_page.dart';
-import '../presentation/modules/edit_profil/views/edit_profil_view.dart';
+
+import '../presentation/modules/about/views/about_app_page.dart';
+import '../presentation/modules/edit_profil/views/edit_profil_page.dart';
+import '../presentation/modules/notifikasi/views/notifikasi_view.dart';
 import '../presentation/modules/policies_privacy/views/policies_privacy_page.dart';
 import '../presentation/modules/setting/views/setting_view.dart';
+
 part 'app_routes.dart';
 
 class AppPages {
@@ -68,7 +71,7 @@ class AppPages {
       page: () => const ProductDetailsView(),
       binding: AppBindings(),
       transition: Transition.rightToLeft,
-      transitionDuration: const Duration(milliseconds: 200),
+      transitionDuration: const Duration(milliseconds: 300),
     ),
     GetPage(
         name: _Paths.PROFIL,
@@ -87,11 +90,6 @@ class AppPages {
         page: () => const DetailHistoryView(),
         binding: AppBindings()),
     GetPage(
-      name: _Paths.EDIT_PROFIL,
-      page: () => const EditProfilView(),
-      binding: AppBindings(),
-    ),
-    GetPage(
       name: _Paths.ABOUT_US,
       page: () => const AboutAppView(),
       binding: AppBindings(),
@@ -104,6 +102,16 @@ class AppPages {
     GetPage(
       name: _Paths.SETTING,
       page: () => const SettingView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_PROFIL,
+      page: () => const EditProfilView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: _Paths.NOTIFIKASI,
+      page: () =>  const NotifikasiView(),
       binding: AppBindings(),
     ),
   ];

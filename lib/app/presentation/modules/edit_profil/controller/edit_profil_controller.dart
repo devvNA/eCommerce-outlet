@@ -6,18 +6,24 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class EditProfilController extends GetxController {
-  final namaController = TextEditingController();
-  final emailController = TextEditingController();
-  final outletController = TextEditingController();
-  final alamatController = TextEditingController();
-  String? selectedOutlet;
+  final alamatController = TextEditingController().obs;
+  final emailController = TextEditingController().obs;
   final formKey = GlobalKey<FormState>();
+  final namaController = TextEditingController().obs;
+  final outletController = TextEditingController().obs;
 
-  final paymentItems = [
+  final listJenisOutlet = [
     const DropdownMenuItem(value: "Sultan", child: Text("Sultan")),
     const DropdownMenuItem(value: "Regular", child: Text("Regular")),
     const DropdownMenuItem(value: "Silver", child: Text("Silver")),
   ].obs;
+
+  String? selectedOutlet;
+
+  @override
+  void onClose() {
+    super.onClose();
+  }
 
   @override
   void onInit() {
@@ -29,14 +35,8 @@ class EditProfilController extends GetxController {
     super.onReady();
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
   onSelectedOutlet(String outlet) {
     selectedOutlet = outlet;
-    update();
     log(outlet);
   }
 }

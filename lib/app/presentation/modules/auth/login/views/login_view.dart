@@ -64,6 +64,7 @@ class LoginView extends GetView<LoginController> {
                                 _loginButton(),
                                 5.verticalSpace,
                                 // _guestButton()
+                                // const TestButton()
                               ],
                             ),
                           ),
@@ -162,7 +163,7 @@ class LoginView extends GetView<LoginController> {
       style: OutlinedButton.styleFrom(
         foregroundColor: Colors.black,
         side: const BorderSide(
-          color: AppColors.primary2,
+          color: AppColors.secondary,
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),

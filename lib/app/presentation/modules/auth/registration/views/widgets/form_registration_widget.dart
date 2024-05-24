@@ -9,6 +9,8 @@ class FormRegistrationWidget extends StatelessWidget {
   final String? hintText;
   final TextEditingController? formController;
   final bool? obscureText;
+  final String? Function(String?)? validator;
+  final EdgeInsetsGeometry? contentPadding;
 
   const FormRegistrationWidget({
     super.key,
@@ -17,6 +19,8 @@ class FormRegistrationWidget extends StatelessWidget {
     this.hintText,
     this.formController,
     this.obscureText = false,
+    this.validator,
+    this.contentPadding,
   });
 
   @override
@@ -32,6 +36,7 @@ class FormRegistrationWidget extends StatelessWidget {
           height: 6.0,
         ),
         TextFormField(
+          validator: validator,
           cursorColor: AppColors.primaryColor,
           obscureText: obscureText!,
           scrollPadding: EdgeInsets.only(
@@ -39,21 +44,44 @@ class FormRegistrationWidget extends StatelessWidget {
                   MediaQuery.of(context).size.height),
           initialValue: initialValue,
           controller: formController,
+          // decoration: InputDecoration(
+          //   contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+          //   hintText: hintText,
+          //   hintStyle: const TextStyle(
+          //       color: Color(0xFFD3D3D3),
+          //       fontSize: 16,
+          //       fontWeight: FontWeight.w500),
+          //   filled: true,
+          //   fillColor: Colors.white,
+          //   border: OutlineInputBorder(
+          //     borderSide: BorderSide.none,
+          //     borderRadius: BorderRadius.circular(20),
+          //   ),
+          // ),
           decoration: InputDecoration(
-            contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+            contentPadding: contentPadding ?? const EdgeInsets.all(15),
+            prefixIconColor: AppColors.primaryColor,
+            suffixIconColor: Colors.grey[400],
+            filled: true,
+            fillColor: Colors.white,
+            border: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(32)),
+              borderSide: BorderSide(color: AppColors.primaryColor),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(32),
+              borderSide: BorderSide.none,
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(32),
+              borderSide: const BorderSide(color: AppColors.primaryColor),
+            ),
             hintText: hintText,
             hintStyle: const TextStyle(
                 color: Color(0xFFD3D3D3),
                 fontSize: 16,
                 fontWeight: FontWeight.w500),
-            filled: true,
-            fillColor: Colors.white,
-            border: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(20),
-            ),
           ),
-          onChanged: (value) {},
         ),
       ],
     );
@@ -65,6 +93,7 @@ class FormAddressWidget extends StatelessWidget {
   final String? initialValue;
   final String? hintText;
   final TextEditingController? formController;
+  final String? Function(String?)? validator;
 
   const FormAddressWidget({
     super.key,
@@ -72,6 +101,7 @@ class FormAddressWidget extends StatelessWidget {
     this.initialValue,
     this.hintText,
     this.formController,
+    this.validator,
   });
 
   @override
@@ -87,6 +117,7 @@ class FormAddressWidget extends StatelessWidget {
           height: 6.0,
         ),
         TextFormField(
+          validator: validator,
           maxLines: 5,
           cursorColor: AppColors.primaryColor,
           scrollPadding: EdgeInsets.only(
@@ -95,21 +126,29 @@ class FormAddressWidget extends StatelessWidget {
           initialValue: initialValue,
           controller: formController,
           decoration: InputDecoration(
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            contentPadding: const EdgeInsets.all(15),
+            prefixIconColor: AppColors.primaryColor,
+            suffixIconColor: Colors.grey[400],
+            filled: true,
+            fillColor: Colors.white,
+            border: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(12)),
+              borderSide: BorderSide(color: AppColors.primaryColor),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide.none,
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: AppColors.primaryColor),
+            ),
             hintText: hintText,
             hintStyle: const TextStyle(
                 color: Color(0xFFD3D3D3),
                 fontSize: 16,
                 fontWeight: FontWeight.w500),
-            filled: true,
-            fillColor: Colors.white,
-            border: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(20),
-            ),
           ),
-          onChanged: (value) {},
         ),
       ],
     );

@@ -1,0 +1,14 @@
+{
+    "status": true,
+    "message": "Success",
+    "data": [
+        {
+            "title": "Pesanan dibuat",
+            "status": "completed"
+        },
+        {
+            "title": "Pembayaran",
+            "status": "pending"
+        }
+    ]
+}

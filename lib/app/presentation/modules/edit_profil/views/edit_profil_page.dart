@@ -7,9 +7,9 @@ import 'package:marvelindo_outlet/app/core/networking/firebase_auth_services.dar
 import 'package:marvelindo_outlet/app/core/utils/helpers/validator.dart';
 import 'package:marvelindo_outlet/app/presentation/global/theme/my_colors.dart';
 import 'package:marvelindo_outlet/app/presentation/global/widgets/custom_snackbar.dart';
+import 'package:marvelindo_outlet/app/presentation/modules/edit_profil/controller/edit_profil_controller.dart';
 
 import '../../../global/widgets/form_text_widget.dart';
-import '../controllers/edit_profil_controller.dart';
 
 class EditProfilView extends GetView<EditProfilController> {
   const EditProfilView({super.key});
@@ -28,9 +28,9 @@ class EditProfilView extends GetView<EditProfilController> {
             if (controller.formKey.currentState!.validate()) {
               Get.back();
               CustomSnackBar.showCustomSuccessSnackBar(
-                  title: "Success",
-                  message: "Profil berhasil diubah",
-                  duration: const Duration(milliseconds: 1200));
+                title: "Success",
+                message: "Profil berhasil diubah",
+              );
               log("Success");
             } else {
               log("Error");
@@ -41,10 +41,10 @@ class EditProfilView extends GetView<EditProfilController> {
           title: const Text('Edit Profil'),
           centerTitle: true,
         ),
-        body: Form(
-          key: controller.formKey,
-          child: Obx(() {
-            return Column(
+        body: Obx(() {
+          return Form(
+            key: controller.formKey,
+            child: Column(
               children: [
                 Expanded(
                   child: ListView(
@@ -64,10 +64,9 @@ class EditProfilView extends GetView<EditProfilController> {
                       ),
                       5.verticalSpace,
                       FormTextWidget(
-                        textFormController: controller.namaController,
+                        textFormController: controller.namaController.value,
                         validator: Validator.required,
-                        hintText: FirebaseAuthServices
-                            .getCurrentSignedInUserEmailDisplayName(),
+                        hintText: FirebaseAuthServices.getUsername(),
                       ),
                       15.verticalSpace,
                       const Text(
@@ -76,7 +75,7 @@ class EditProfilView extends GetView<EditProfilController> {
                       ),
                       5.verticalSpace,
                       FormTextWidget(
-                        textFormController: controller.emailController,
+                        textFormController: controller.emailController.value,
                         validator: Validator.email,
                         hintText: FirebaseAuthServices.getEmail(),
                       ),
@@ -87,7 +86,7 @@ class EditProfilView extends GetView<EditProfilController> {
                       ),
                       5.verticalSpace,
                       FormTextWidget(
-                        textFormController: controller.outletController,
+                        textFormController: controller.outletController.value,
                         validator: Validator.required,
                       ),
                       15.verticalSpace,
@@ -110,9 +109,9 @@ class EditProfilView extends GetView<EditProfilController> {
                   ),
                 )
               ],
-            );
-          }),
-        ));
+            ),
+          );
+        }));
   }
 
   DropdownButtonFormField _dropDown(
@@ -149,6 +148,6 @@ class EditProfilView extends GetView<EditProfilController> {
         onChanged: (value) {
           controller.onSelectedOutlet(value);
         },
-        items: controller.paymentItems);
+        items: controller.listJenisOutlet);
   }
 }

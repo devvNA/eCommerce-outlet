@@ -71,29 +71,21 @@ class FirebaseAuthServices {
     }
   }
 
-  static String? getCurrentSignedInUserEmail() {
-    return FirebaseAuth.instance.currentUser?.email;
-  }
-
-  static String? getCurrentSignedInUserEmailDisplayName() {
-    return FirebaseAuth.instance.currentUser?.displayName;
-  }
-
   static bool isLoggedIn() {
     return FirebaseAuth.instance.currentUser != null;
   }
 
   static String getUsername() {
-    return FirebaseAuth.instance.currentUser?.displayName ?? "Invalid";
+    return FirebaseAuth.instance.currentUser?.displayName ?? "Guest";
   }
 
   static String getEmail() {
-    return FirebaseAuth.instance.currentUser?.email ?? "Invalid";
+    return FirebaseAuth.instance.currentUser?.email ?? "Guest";
   }
 
   static String getDisplayProfile() {
     return FirebaseAuth.instance.currentUser?.photoURL ??
-        "https://i.ibb.co/S32HNjD/no-image.jpg";
+        "https://media.istockphoto.com/id/1327592506/vector/default-avatar-photo-placeholder-icon-grey-profile-picture-business-man.jpg?s=612x612&w=0&k=20&c=BpR0FVaEa5F24GIw7K8nMWiiGmbb8qmhfkpXcp1dhQg=";
   }
 
   static int getUID() {

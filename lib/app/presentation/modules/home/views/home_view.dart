@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:marvelindo_outlet/app/core/networking/firebase_auth_services.dart';
 import 'package:marvelindo_outlet/app/presentation/global/widgets/shimmer_widget.dart';
 
+import '../../../../routes/app_pages.dart';
 import '../../../global/theme/my_colors.dart';
 import '../../../global/widgets/error_state_widget.dart';
 import '../../setting/controllers/setting_controller.dart';
@@ -66,25 +64,21 @@ class HomeView extends GetView<HomeController> {
                 onRefresh: () async {
                   controller.onRefreshProducts();
                 },
-                child: Obx(() {
-                  return GridView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    primary: true,
-                    physics: const BouncingScrollPhysics(
-                        parent: AlwaysScrollableScrollPhysics()),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 3,
-                      mainAxisSpacing: 3,
-                      mainAxisExtent: 250,
-                    ),
-                    itemCount: controller.listProduk.length,
-                    itemBuilder: (context, index) => ProductItem(
-                      produk: controller.listProduk[index],
-                    ),
-                  );
-                }),
+                child: GridView.builder(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  primary: true,
+                  physics: const BouncingScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 3,
+                    mainAxisSpacing: 3,
+                    mainAxisExtent: 250,
+                  ),
+                  itemCount: controller.listProduk.length,
+                  itemBuilder: (context, index) => ProductItem(
+                    produk: controller.listProduk[index],
+                  ),
+                ),
               );
             }
             if (controller.searchList().isEmpty) {
@@ -125,12 +119,11 @@ class HomeView extends GetView<HomeController> {
 
   Container _profileHeader(context) {
     var theme = Theme.of(context);
-
     return Container(
       padding: const EdgeInsets.all(12),
       width: MediaQuery.of(context).size.width,
       decoration: const BoxDecoration(
-        color: AppColors.primaryColor,
+        gradient: AppColors.gradientBG,
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(32),
           bottomRight: Radius.circular(32),
@@ -146,9 +139,8 @@ class HomeView extends GetView<HomeController> {
             leading: Hero(
               tag: "profile",
               child: CircleAvatar(
-                backgroundImage: NetworkImage(
-                  FirebaseAuthServices.getDisplayProfile(),
-                ),
+                backgroundImage:
+                    NetworkImage(FirebaseAuthServices.getDisplayProfile()),
               ),
             ),
             title: Text("Hai, ${FirebaseAuthServices.getUsername()}",
@@ -172,7 +164,8 @@ class HomeView extends GetView<HomeController> {
   InkWell _badgeNotification() {
     return InkWell(
       onTap: () {
-        log(FirebaseAuth.instance.currentUser!.uid);
+        Get.toNamed(Routes.NOTIFIKASI);
+        // log(FirebaseAuth.instance.currentUser!.uid);
       },
       child: Container(
         padding: const EdgeInsets.all(5.0),
@@ -181,8 +174,9 @@ class HomeView extends GetView<HomeController> {
           borderRadius: BorderRadius.circular(8),
         ),
         child: const Badge(
+          backgroundColor: AppColors.blue,
           label: Text(
-            "4",
+            "5",
             style: TextStyle(
               color: Colors.white,
             ),

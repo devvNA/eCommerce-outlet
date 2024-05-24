@@ -16,165 +16,6 @@ import 'widgets/cart_item.dart';
 class CartView extends GetView<CartController> {
   const CartView({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
-    final theme = context.theme;
-
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18),
-            child: Column(
-              children: [
-                20.verticalSpace,
-                const ScreenTitle(
-                  title: 'Keranjang',
-                ),
-                5.verticalSpace,
-                Obx(() {
-                  return Align(
-                    alignment: Alignment.topRight,
-                    child: Text(
-                      "Total Barang: ${controller.listKeranjang.length}",
-                      style: const TextStyle(
-                        fontSize: 12.0,
-                      ),
-                    ),
-                  );
-                }),
-                3.verticalSpace,
-                Expanded(
-                  child: Obx(() {
-                    if (controller.loading()) {
-                      return ListView.separated(
-                        physics: const AlwaysScrollableScrollPhysics(),
-                        separatorBuilder: (context, index) => const SizedBox(
-                          height: 10,
-                        ),
-                        itemCount: 5,
-                        itemBuilder: (context, index) => ShimmerLayout(
-                          child: Container(
-                            height: 120.0,
-                            decoration: const BoxDecoration(
-                              color: Colors.black,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(
-                                  8.0,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
-                    }
-                    if (controller.listKeranjang.isEmpty) {
-                      return NoData(
-                        text: 'Belum ada produk di keranjang!',
-                        onPressed: controller.onEmptyCartPressed,
-                      );
-                    }
-                    return Stack(
-                      children: [
-                        Column(
-                          children: [
-                            Expanded(
-                              child: RefreshIndicator(
-                                color: AppColors.primaryColor,
-                                onRefresh: () async {
-                                  controller.onRefreshKeranjang();
-                                },
-                                child: ListView.separated(
-                                  physics: const BouncingScrollPhysics(
-                                      parent: AlwaysScrollableScrollPhysics()),
-                                  separatorBuilder: (context, index) =>
-                                      const SizedBox(
-                                    height: 10,
-                                  ),
-                                  itemCount: controller.listKeranjang.length,
-                                  itemBuilder: (context, index) {
-                                    final product =
-                                        controller.listKeranjang[index];
-                                    return Dismissible(
-                                      key: ValueKey(product.id),
-                                      onDismissed: (direction) async {
-                                        controller.onDeletePressed(product.id!);
-                                      },
-                                      background: Container(
-                                          color: Colors.red,
-                                          child: const Icon(
-                                              Icons.delete_forever,
-                                              color: Colors.white)),
-                                      direction: DismissDirection.endToStart,
-                                      child: CartItem(
-                                        initialValue:
-                                            product.quantity.toString(),
-                                        onChanged: (value) {
-                                          controller.debounceC.run(() {
-                                            controller
-                                                .onInputItemCart(product.id!,
-                                                    int.parse(value))
-                                                .then((_) => controller
-                                                    .onRefreshKeranjang());
-                                          });
-                                        },
-                                        namaProduk: product.id.toString(),
-                                        onIncreasePressed: () async {
-                                          controller
-                                              .onIncreasePressed(product.id!,
-                                                  product.quantity!)
-                                              .then((_) => controller
-                                                  .onRefreshKeranjang());
-                                        },
-                                        onDecreasePressed: () {
-                                          if (product.quantity! > 1) {
-                                            controller
-                                                .onDecreasePressed(product.id!,
-                                                    product.quantity!)
-                                                .then((_) => controller
-                                                    .onRefreshKeranjang());
-                                          }
-                                        },
-                                        onDeletePressed: () async {
-                                          controller
-                                              .onDeletePressed(product.id!);
-                                          await Future.delayed(const Duration(
-                                              milliseconds: 800));
-                                        },
-                                      ).animate().fade().slideX(
-                                            duration: const Duration(
-                                                milliseconds: 300),
-                                            begin: -1,
-                                            curve: Curves.easeInSine,
-                                          ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                            70.verticalSpace
-                          ],
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Align(
-                              alignment: Alignment.bottomCenter,
-                              child: _checkoutBox(theme, context),
-                            ),
-                            10.verticalSpace
-                          ],
-                        ),
-                      ],
-                    );
-                  }),
-                ),
-              ],
-            )),
-      ),
-    );
-  }
-
   Visibility _checkoutBox(ThemeData theme, BuildContext context) {
     return Visibility(
       visible: controller.listKeranjang.isNotEmpty,
@@ -196,7 +37,7 @@ class CartView extends GetView<CartController> {
                           color: AppColors.h4,
                         )),
                     Text(
-                      500000.currencyFormatRp,
+                      controller.totalPayment().currencyFormatRp,
                       style: theme.textTheme.displayMedium
                           ?.copyWith(color: AppColors.h2, fontSize: 16),
                     ),
@@ -238,6 +79,160 @@ class CartView extends GetView<CartController> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+    final theme = context.theme;
+
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 18),
+            child: Column(
+              children: [
+                20.verticalSpace,
+                const ScreenTitle(
+                  title: 'Keranjang',
+                ),
+                5.verticalSpace,
+                Obx(() {
+                  return Align(
+                    alignment: Alignment.topRight,
+                    child: Text(
+                      "Total Barang: ${controller.listKeranjang.length}",
+                      style: const TextStyle(
+                        fontSize: 12.0,
+                      ),
+                    ),
+                  );
+                }),
+                5.verticalSpace,
+                Expanded(
+                  child: Obx(() {
+                    if (controller.loading()) {
+                      return ListView.separated(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        separatorBuilder: (context, index) => const SizedBox(
+                          height: 10,
+                        ),
+                        itemCount: 5,
+                        itemBuilder: (context, index) => ShimmerLayout(
+                          child: Container(
+                            height: 120.0,
+                            decoration: const BoxDecoration(
+                              color: Colors.black,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(
+                                  8.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                    if (controller.listKeranjang.isEmpty) {
+                      return NoData(
+                        text: 'Belum ada produk di keranjang!',
+                        onPressed: controller.onEmptyCartPressed,
+                      );
+                    }
+                    return Stack(
+                      children: [
+                        Column(
+                          children: [
+                            Expanded(
+                              child: Material(
+                                child: RefreshIndicator(
+                                  color: AppColors.primaryColor,
+                                  onRefresh: () async {
+                                    controller.onRefreshKeranjang();
+                                  },
+                                  child: ListView.separated(
+                                    shrinkWrap: true,
+                                    separatorBuilder: (context, index) =>
+                                        const SizedBox(
+                                      height: 10,
+                                    ),
+                                    itemCount: controller.listKeranjang.length,
+                                    itemBuilder: (context, index) {
+                                      final product =
+                                          controller.listKeranjang[index];
+                                      return Dismissible(
+                                        key: ValueKey(product.namaBarang),
+                                        onDismissed: (direction) async {
+                                          controller.onDeletePressed(
+                                              product.idKeranjang!);
+                                        },
+                                        background: Container(
+                                            color: Colors.red,
+                                            child: const Icon(
+                                                Icons.delete_forever,
+                                                color: Colors.white)),
+                                        direction: DismissDirection.endToStart,
+                                        child: CartItem(
+                                          onDeacreasePressed: () {
+                                            controller.decreaseQuantity(
+                                                index, product.idKeranjang!);
+                                          },
+                                          onIncreasePressed: () {
+                                            controller.increaseQuantity(
+                                                index, product.idKeranjang!);
+                                          },
+                                          quantityController:
+                                              TextEditingController(
+                                                  text: product.quantity
+                                                      .toString()),
+                                          item: product,
+                                          onChanged: (value) {
+                                            controller.debounceC.run(() {
+                                              controller
+                                                  .onInputItemCart(
+                                                      product.idKeranjang!,
+                                                      int.parse(value))
+                                                  .then((_) => controller
+                                                      .onRefreshKeranjang());
+                                            });
+                                          },
+                                          onDeletePressed: () {
+                                            controller.onDeletePressed(
+                                                product.idKeranjang!);
+                                          },
+                                        ).animate().fade().slideX(
+                                              duration: const Duration(
+                                                  milliseconds: 300),
+                                              begin: -1,
+                                              curve: Curves.easeInSine,
+                                            ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ),
+                            70.verticalSpace
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: _checkoutBox(theme, context),
+                            ),
+                            10.verticalSpace
+                          ],
+                        ),
+                      ],
+                    );
+                  }),
+                ),
+              ],
+            )),
       ),
     );
   }

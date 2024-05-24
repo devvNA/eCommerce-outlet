@@ -4,43 +4,54 @@ import 'package:flutter/material.dart';
 
 import '../theme/my_colors.dart';
 
-Future<void> customAlertDialog(
-    {required BuildContext context,
+class CustomAlertDialog {
+  static customAlertDialog({
+    required BuildContext context,
     required String title,
     required String description,
+    String? yes,
+    String? no,
     required VoidCallback onPressYes,
-    required VoidCallback onPressNo}) async {
-  await showDialog<void>(
-    context: context,
-    barrierDismissible: true,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text(title),
-        content: SingleChildScrollView(
-          child: ListBody(
-            children: <Widget>[
-              Text(description),
-            ],
+    required VoidCallback onPressNo,
+  }) async {
+    await showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(description),
+              ],
+            ),
           ),
-        ),
-        actions: <Widget>[
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
-              foregroundColor: AppColors.primaryColor,
-              side: const BorderSide(
-                color: AppColors.primaryColor,
+          actions: <Widget>[
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                foregroundColor: AppColors.primaryColor,
+                side: const BorderSide(
+                  color: AppColors.primaryColor,
+                ),
+              ),
+              onPressed: onPressNo,
+              child: Text(
+                no ?? "Tidak",
+                style: const TextStyle(fontSize: 12),
               ),
             ),
-            onPressed: onPressNo,
-            child: const Text("Tidak"),
-          ),
-          ElevatedButton(
-            onPressed: onPressYes,
-            child: const Text("Ya"),
-          ),
-        ],
-      );
-    },
-  );
+            ElevatedButton(
+              onPressed: onPressYes,
+              child: Text(
+                yes ?? "Ya",
+                style: const TextStyle(fontSize: 12),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }

@@ -19,10 +19,11 @@ abstract class Routes {
   static const CHECKOUT = _Paths.CHECKOUT;
   static const DETAIL_API = _Paths.DETAIL_API;
   static const DETAIL_HISTORY = _Paths.DETAIL_HISTORY;
-  static const EDIT_PROFIL = _Paths.EDIT_PROFIL;
   static const ABOUT_US = _Paths.ABOUT_US;
   static const POLICIES_PRIVACY = _Paths.POLICIES_PRIVACY;
   static const SETTING = _Paths.SETTING;
+  static const EDIT_PROFIL = _Paths.EDIT_PROFIL;
+  static const NOTIFIKASI = _Paths.NOTIFIKASI;
 }
 
 abstract class _Paths {
@@ -34,15 +35,16 @@ abstract class _Paths {
   static const CART = '/cart';
   static const HISTORY = '/history';
   static const SETTINGS = '/settings';
-  static const PRODUCT_DETAILS = '/home/product-details';
+  static const PRODUCT_DETAILS = '/product-details';
   static const PROFIL = '/profil';
   static const REGISTRATION = '/registration';
   static const API_TEST = '/login/api_test';
   static const CHECKOUT = '/cart/checkout';
-  static const DETAIL_API = '/login/api_test/detail_api';
-  static const DETAIL_HISTORY = '/detail_history';
-  static const EDIT_PROFIL = '/profil/edit-profil';
+  static const DETAIL_API = '/login/api-test/detail-api';
+  static const DETAIL_HISTORY = '/history/detail-history';
   static const ABOUT_US = '/about-us';
   static const POLICIES_PRIVACY = '/policies-privacy';
   static const SETTING = '/setting';
+  static const EDIT_PROFIL = '/edit-profil';
+  static const NOTIFIKASI = '/notifikasi';
 }

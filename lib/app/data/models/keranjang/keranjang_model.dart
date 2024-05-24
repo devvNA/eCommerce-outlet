@@ -1,32 +1,35 @@
-
 class Keranjang {
-  final int? id;
-  final int? idUser;
+  final int? idKeranjang;
   final int? idProduk;
+  final String? namaBarang;
+  final String? jenisBarang;
+  final int? hargaBarang;
   int? quantity;
-  // final Produk produk;
 
   Keranjang({
-    this.id,
-    this.idUser,
+    this.idKeranjang,
     this.idProduk,
+    this.namaBarang,
+    this.jenisBarang,
+    this.hargaBarang,
     this.quantity,
-    // required this.produk,
   });
 
   factory Keranjang.fromJson(Map<String, dynamic> json) => Keranjang(
-        id: json["id"],
-        idUser: json["id_user"],
+        idKeranjang: json["id_keranjang"],
         idProduk: json["id_produk"],
+        namaBarang: json["nama_barang"],
+        jenisBarang: json["jenis_barang"],
+        hargaBarang: json["harga_barang"],
         quantity: json["quantity"],
-        // produk: Produk.fromJson(json["produk"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "id_user": idUser,
+        "id_keranjang": idKeranjang,
         "id_produk": idProduk,
+        "nama_barang": namaBarang,
+        "jenis_barang": jenisBarang,
+        "harga_barang": hargaBarang,
         "quantity": quantity,
-        // "produk": produk.toJson(),
       };
 }

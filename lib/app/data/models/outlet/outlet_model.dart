@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:flutter/widgets.dart';
+
 class Outlet {
   final String? id;
   final String? idBts;
@@ -15,25 +19,79 @@ class Outlet {
     this.updatedAt,
   });
 
-  factory Outlet.fromJson(Map<String, dynamic> json) => Outlet(
-        id: json["id"],
-        idBts: json["id_bts"],
-        nama: json["nama"],
-        idJenis: json["id_jenis"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
-      );
+  Outlet copyWith({
+    ValueGetter<String?>? id,
+    ValueGetter<String?>? idBts,
+    ValueGetter<String?>? nama,
+    ValueGetter<String?>? idJenis,
+    ValueGetter<DateTime?>? createdAt,
+    ValueGetter<DateTime?>? updatedAt,
+  }) {
+    return Outlet(
+      id: id != null ? id() : this.id,
+      idBts: idBts != null ? idBts() : this.idBts,
+      nama: nama != null ? nama() : this.nama,
+      idJenis: idJenis != null ? idJenis() : this.idJenis,
+      createdAt: createdAt != null ? createdAt() : this.createdAt,
+      updatedAt: updatedAt != null ? updatedAt() : this.updatedAt,
+    );
+  }
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "id_bts": idBts,
-        "nama": nama,
-        "id_jenis": idJenis,
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
-      };
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'idBts': idBts,
+      'nama': nama,
+      'idJenis': idJenis,
+      'createdAt': createdAt?.millisecondsSinceEpoch,
+      'updatedAt': updatedAt?.millisecondsSinceEpoch,
+    };
+  }
+
+  factory Outlet.fromMap(Map<String, dynamic> map) {
+    return Outlet(
+      id: map['id'],
+      idBts: map['idBts'],
+      nama: map['nama'],
+      idJenis: map['idJenis'],
+      createdAt: map['createdAt'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['createdAt'])
+          : null,
+      updatedAt: map['updatedAt'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['updatedAt'])
+          : null,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory Outlet.fromJson(String source) => Outlet.fromMap(json.decode(source));
+
+  @override
+  String toString() {
+    return 'Outlet(id: $id, idBts: $idBts, nama: $nama, idJenis: $idJenis, createdAt: $createdAt, updatedAt: $updatedAt)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is Outlet &&
+        other.id == id &&
+        other.idBts == idBts &&
+        other.nama == nama &&
+        other.idJenis == idJenis &&
+        other.createdAt == createdAt &&
+        other.updatedAt == updatedAt;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^
+        idBts.hashCode ^
+        nama.hashCode ^
+        idJenis.hashCode ^
+        createdAt.hashCode ^
+        updatedAt.hashCode;
+  }
 }

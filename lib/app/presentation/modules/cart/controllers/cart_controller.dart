@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable, unnecessary_overrides
+
 import 'dart:developer';
 
 import 'package:get/get.dart';
@@ -7,28 +9,49 @@ import 'package:marvelindo_outlet/app/data/models/keranjang/keranjang_model.dart
 import 'package:marvelindo_outlet/app/data/repositories/keranjang_repository_impl.dart';
 import 'package:marvelindo_outlet/app/domain/usecase/keranjang_usecase.dart';
 
-import '../../../../core/utils/helpers/dummy_helper.dart';
 import '../../base/controllers/base_controller.dart';
 
 class CartController extends GetxController {
-  final debounceC = DebouncerC(duration: const Duration(seconds: 1));
+  final debounceC = DebouncerC(duration: const Duration(milliseconds: 1200));
   final listKeranjang = <Keranjang>[].obs;
   // to hold the products in cart
-
   final loading = false.obs;
 
   String? messageDelete;
+
   // final products = <Produk>[].obs;
   // RxList<ProductModel> products = RxList<ProductModel>([]);
 
-  // to hold the total price of the cart products
-  num total = 0.0;
-
   @override
   void onInit() {
+    super.onInit();
     // getCartProducts();
     getKeranjang();
-    super.onInit();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+  }
+
+  void increaseQuantity(int index, int productId) {
+    listKeranjang[index].quantity = listKeranjang[index].quantity! + 1;
+    listKeranjang.refresh();
+    debounceC.run(() {
+    log(listKeranjang[index].quantity!.toString());
+      onInputItemCart(productId, listKeranjang[index].quantity!);
+    });
+  }
+
+  void decreaseQuantity(int index, int productId) {
+    if (listKeranjang[index].quantity! > 1) {
+      listKeranjang[index].quantity = listKeranjang[index].quantity! - 1;
+      listKeranjang.refresh();
+      log(listKeranjang[index].quantity!.toString());
+      debounceC.run(() {
+        onInputItemCart(productId, listKeranjang[index].quantity!);
+      });
+    }
   }
 
   getKeranjang() async {
@@ -45,29 +68,6 @@ class CartController extends GetxController {
     loading(false);
   }
 
-  //when the user press on purchase now button
-  onPurchaseNowPressed() {
-    // ambil list semua produk
-    var allProducts = DummyHelper.products;
-
-    // lakukan loop
-    for (var product in allProducts) {
-      // reset quantity jadi 0
-      product.quantity = 0;
-    }
-    // kosongkan keranjang
-    // listKeranjang.clear();
-
-    // reset total harga
-    total = 0;
-
-    // reset quantity semua produk
-    for (var product in DummyHelper.products) {
-      product.quantity = 0;
-    }
-    update();
-  }
-
   // // when the user press on increase button
   // onIncreasePressed(int productId) {
   //   var product = listKeranjang.firstWhere((p) => p.id == productId);
@@ -76,9 +76,16 @@ class CartController extends GetxController {
   //   // update(['ProductQuantity']);
   // }
 
-  onRefreshKeranjang() {
+  onRefreshKeranjang() async {
     listKeranjang().clear();
     getKeranjang();
+    // final response = await KeranjangUseCase(
+    //         repository: KeranjangRepositoryImpl(
+    //             remoteDataSource: KeranjangRemoteDataSourceImpl()))
+    //     .getListKeranjang();
+
+    // response.fold((failure) => log("Error: ${failure.message}"),
+    //     (keranjang) => listKeranjang(keranjang));
   }
 
   // onIncreasePressed(int productId) {
@@ -105,6 +112,10 @@ class CartController extends GetxController {
   //   // update(['ProductQuantity']);
   // }
 
+  onEmptyCartPressed() {
+    Get.find<BaseController>().changeScreen(0);
+  }
+
   /// when the user press on delete icon
   onDeletePressed(int productId) async {
     var response = await KeranjangUseCase(
@@ -116,10 +127,6 @@ class CartController extends GetxController {
     onRefreshKeranjang();
   }
 
-  onEmptyCartPressed() {
-    Get.find<BaseController>().changeScreen(0);
-  }
-
   onInputItemCart(int productId, int qty) async {
     final response = await KeranjangUseCase(
             repository: KeranjangRepositoryImpl(
@@ -129,21 +136,29 @@ class CartController extends GetxController {
     return response;
   }
 
-  onIncreasePressed(int productId, int currQty) async {
-    final response = await KeranjangUseCase(
-            repository: KeranjangRepositoryImpl(
-                remoteDataSource: KeranjangRemoteDataSourceImpl()))
-        .increaseItemKeranjang(productId, currQty);
-    response.fold((failure) => log(failure.message), (message) => log(message));
-    return response;
-  }
+  // onIncreasePressed(int productId, int currQty) async {
+  //   final response = await KeranjangUseCase(
+  //           repository: KeranjangRepositoryImpl(
+  //               remoteDataSource: KeranjangRemoteDataSourceImpl()))
+  //       .increaseItemKeranjang(productId, currQty);
+  //   response.fold((failure) => log(failure.message), (message) => log(message));
+  //   return response;
+  // }
 
-  onDecreasePressed(int productId, int currQty) async {
-    final response = await KeranjangUseCase(
-            repository: KeranjangRepositoryImpl(
-                remoteDataSource: KeranjangRemoteDataSourceImpl()))
-        .decreaseItemKeranjang(productId, currQty);
-    response.fold((failure) => log(failure.message), (message) => log(message));
-    return response;
+  // onDecreasePressed(int productId, int currQty) async {
+  //   final response = await KeranjangUseCase(
+  //           repository: KeranjangRepositoryImpl(
+  //               remoteDataSource: KeranjangRemoteDataSourceImpl()))
+  //       .decreaseItemKeranjang(productId, currQty);
+  //   response.fold((failure) => log(failure.message), (message) => log(message));
+  //   return response;
+  // }
+
+  int totalPayment() {
+    int totalPembayaran = 0;
+    for (var produk in listKeranjang) {
+      totalPembayaran += produk.hargaBarang! * produk.quantity!;
+    }
+    return totalPembayaran;
   }
 }

@@ -37,14 +37,16 @@ class SplashView extends GetView<SplashController> {
               Text.rich(
                 TextSpan(children: [
                   TextSpan(
-                    text: 'CV ',
-                    style: theme.textTheme.displayMedium
-                        ?.copyWith(color: theme.primaryColor),
+                    text: 'MV ',
+                    style: theme.textTheme.displayMedium?.copyWith(
+                      color: AppColors.primaryColor,
+                    ),
                   ),
                   TextSpan(
-                    text: 'Marvelindo',
-                    style: theme.textTheme.displayMedium
-                        ?.copyWith(color: AppColors.h1),
+                    text: 'Shop',
+                    style: theme.textTheme.displayMedium?.copyWith(
+                      color: Colors.black,
+                    ),
                   ),
                 ]),
               ).animate().fade().slideY(

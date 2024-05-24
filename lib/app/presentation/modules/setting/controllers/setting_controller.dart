@@ -8,8 +8,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/networking/firebase_auth_services.dart';
-import '../../../global/theme/my_colors.dart';
 import '../../../../routes/app_pages.dart';
+import '../../../global/theme/my_colors.dart';
 
 class SettingController extends GetxController {
   final Uri url = Uri.parse('https://wa.me/6283871647864/');
@@ -48,7 +48,7 @@ class SettingController extends GetxController {
 
   toEditProfilePage() async {
     if (FirebaseAuthServices.isLoggedIn()) {
-      Get.toNamed(Routes.EDIT_PROFIL);
+      Get.toNamed(Routes.PROFIL);
     } else {
       Get.defaultDialog(
         title: "Peringatan",

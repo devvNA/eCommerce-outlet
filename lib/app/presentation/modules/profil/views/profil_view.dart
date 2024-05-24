@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:marvelindo_outlet/app/routes/app_pages.dart';
 
+import '../../../../routes/app_pages.dart';
 import '../../../global/theme/my_colors.dart';
 import '../controllers/profil_controller.dart';
 
@@ -13,31 +13,12 @@ class ProfilView extends GetView<ProfilController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
-      appBar: AppBar(
-        elevation: 0,
-        title: const Text(
-          "Profil",
-          style: TextStyle(
-            fontSize: 20,
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Get.toNamed(Routes.EDIT_PROFIL);
-            },
-            child: const Text(
-              "Edit",
-              style: TextStyle(color: Colors.white, fontSize: 15),
-            ),
-          ),
-        ],
-      ),
       body: Obx(() {
         return Column(
           children: [
             Container(
               decoration: const BoxDecoration(
+                gradient: AppColors.gradientBG,
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black26,
@@ -52,13 +33,39 @@ class ProfilView extends GetView<ProfilController> {
                 color: AppColors.primaryColor,
               ),
               width: MediaQuery.of(context).size.width,
-              padding: const EdgeInsets.only(
-                bottom: 15.0,
-                left: 25,
-                right: 25,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
               child: Column(
                 children: [
+                  30.verticalSpace,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          size: 24.0,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const Text(
+                        "Profil",
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Image.asset(
+                        "assets/icons/mv-logo.png",
+                        height: 50.0,
+                        fit: BoxFit.cover,
+                      ),
+                    ],
+                  ),
+                  15.verticalSpace,
                   Hero(
                     tag: "profile",
                     child: CircleAvatar(
@@ -71,7 +78,7 @@ class ProfilView extends GetView<ProfilController> {
                   controller.isVerified()
                       ? InkWell(
                           onTap: () {
-                            controller.isVerifiedTap();
+                            // controller.isVerifiedTap();
                           },
                           child: const Chip(
                               backgroundColor: Colors.green,
@@ -119,13 +126,27 @@ class ProfilView extends GetView<ProfilController> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            "Identitas Diri",
-                            style: TextStyle(
-                              fontSize: 16.0,
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                "Identitas Diri",
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Get.toNamed(Routes.EDIT_PROFIL);
+                                },
+                                child: const Text(
+                                  "Edit",
+                                  style: TextStyle(
+                                      color: Colors.indigo, fontSize: 15),
+                                ),
+                              ),
+                            ],
                           ),
-                          20.verticalSpace,
                           const Text(
                             "Nama Lengkap",
                             style: TextStyle(

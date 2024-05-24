@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print, override_on_non_overriding_member, unused_field
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -31,11 +32,6 @@ class ApiTestController extends GetxController {
     // );
     super.onInit();
     // getListBook();
-  }
-
-  onChangeCategory(index) {
-    currIndex(index);
-    update();
   }
 
   // Future getListProduct() async {
@@ -70,7 +66,6 @@ class ApiTestController extends GetxController {
   //   );
   //   update();
   // }
-
 
   isAccVerified() {
     isVerified(!isVerified.value);

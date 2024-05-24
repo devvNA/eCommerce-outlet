@@ -3,6 +3,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/app/core/utils/helpers/validator.dart';
 
@@ -18,15 +19,13 @@ class RegistrationView extends GetView<RegistrationController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
-      body: SafeArea(
-        child: Column(
-          children: [
-            _headerAppbar(context),
-            Expanded(
-              child: _bodyContains(context),
-            ),
-          ],
-        ),
+      body: Column(
+        children: [
+          _headerAppbar(context),
+          Expanded(
+            child: _bodyContains(context),
+          ),
+        ],
       ),
     );
   }
@@ -37,12 +36,11 @@ class RegistrationView extends GetView<RegistrationController> {
       return Form(
         key: controller.formKey,
         child: SizedBox(
-          height: MediaQuery.of(context).size.height - 115,
           child: ListView(
             shrinkWrap: true,
             clipBehavior: Clip.antiAlias,
             padding:
-                const EdgeInsets.only(top: 16, left: 22, right: 22, bottom: 16),
+                const EdgeInsets.only(top: 12, left: 22, right: 22, bottom: 12),
             physics: const AlwaysScrollableScrollPhysics(
                 parent: BouncingScrollPhysics()),
             children: [
@@ -51,7 +49,9 @@ class RegistrationView extends GetView<RegistrationController> {
               ),
               FormRegistrationWidget(
                 formTitle: 'Email',
+                hintText: 'jon@gmail.com',
                 formController: controller.emailController(),
+                validator: Validator.email,
               ),
               const SizedBox(
                 height: 15.0,
@@ -59,7 +59,9 @@ class RegistrationView extends GetView<RegistrationController> {
               FormRegistrationWidget(
                 obscureText: true,
                 formTitle: 'Password',
+                hintText: "********",
                 formController: controller.passwordController(),
+                validator: Validator.required,
               ),
               const SizedBox(
                 height: 15.0,
@@ -103,7 +105,7 @@ class RegistrationView extends GetView<RegistrationController> {
                   onChanged: (value) {
                     controller.onSelectedOutlet(value!);
                   },
-                  items: controller.paymentItems),
+                  items: controller.jenisOutlet),
               const SizedBox(
                 height: 15.0,
               ),
@@ -111,6 +113,7 @@ class RegistrationView extends GetView<RegistrationController> {
                 formTitle: 'Nama Outlet',
                 formController: controller.nama(),
                 hintText: 'JonSeluler',
+                validator: Validator.required,
               ),
               const SizedBox(
                 height: 15.0,
@@ -120,6 +123,7 @@ class RegistrationView extends GetView<RegistrationController> {
                 formController: controller.alamat(),
                 hintText:
                     "JL Gatot Subroto, No. 40 Tambaksari, Sidanegara, Kecamatan Cilacap Tengah, Kabupaten Cilacap, Jawa Tengah ",
+                validator: Validator.required,
               ),
               const SizedBox(
                 height: 25.0,
@@ -157,7 +161,7 @@ Widget _headerAppbar(BuildContext context) {
   return Container(
     padding: const EdgeInsets.all(8),
     width: MediaQuery.of(context).size.width,
-    height: MediaQuery.of(context).size.height / 10,
+    height: MediaQuery.of(context).size.height * 0.11,
     decoration: const BoxDecoration(
       boxShadow: [
         BoxShadow(
@@ -176,6 +180,7 @@ Widget _headerAppbar(BuildContext context) {
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
+        15.verticalSpace,
         Row(
           children: [
             IconButton(

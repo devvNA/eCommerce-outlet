@@ -1,10 +1,13 @@
+import 'dart:convert';
+
 class Produk {
-  final int? id;
-  final String? gambar;
-  final String? nama;
-  final int? harga;
-  final String? deskripsi;
-  final int? stok;
+  int? id;
+  String? gambar;
+  String? nama;
+  int? harga;
+  String? deskripsi;
+  String? jenisBarang;
+  int? stok;
 
   Produk({
     this.id,
@@ -12,8 +15,32 @@ class Produk {
     this.nama,
     this.harga,
     this.deskripsi,
+    this.jenisBarang,
     this.stok,
   });
+
+  Produk copyWith({
+    int? id,
+    String? gambar,
+    String? nama,
+    int? harga,
+    String? deskripsi,
+    String? jenisBarang,
+    int? stok,
+  }) =>
+      Produk(
+        id: id ?? this.id,
+        gambar: gambar ?? this.gambar,
+        nama: nama ?? this.nama,
+        harga: harga ?? this.harga,
+        deskripsi: deskripsi ?? this.deskripsi,
+        jenisBarang: jenisBarang ?? this.jenisBarang,
+        stok: stok ?? this.stok,
+      );
+
+  factory Produk.fromRawJson(String str) => Produk.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
 
   factory Produk.fromJson(Map<String, dynamic> json) => Produk(
         id: json["id"],
@@ -21,6 +48,7 @@ class Produk {
         nama: json["nama"],
         harga: json["harga"],
         deskripsi: json["deskripsi"],
+        jenisBarang: json["jenis_barang"],
         stok: json["stok"],
       );
 
@@ -30,6 +58,7 @@ class Produk {
         "nama": nama,
         "harga": harga,
         "deskripsi": deskripsi,
+        "jenis_barang": jenisBarang,
         "stok": stok,
       };
 }

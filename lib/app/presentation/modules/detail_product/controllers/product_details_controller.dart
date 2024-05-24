@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/app/core/networking/firebase_auth_services.dart';
 import 'package:marvelindo_outlet/app/data/datasources/produk_remote_datasources.dart';
@@ -34,6 +35,11 @@ class ProductDetailsController extends GetxController {
   //   Get.find<BaseController>().changeScreen(1);
   //   update();
   // }
+
+  @override
+  void onInit() {
+    super.onInit();
+  }
 
   Future onAddToCart() async {
     if (FirebaseAuthServices.isLoggedIn()) {
@@ -71,5 +77,11 @@ class ProductDetailsController extends GetxController {
             duration: const Duration(milliseconds: 200));
       });
     }
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
   }
 }

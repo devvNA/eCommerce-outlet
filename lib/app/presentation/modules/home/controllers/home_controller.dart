@@ -64,7 +64,7 @@ class HomeController extends GetxController {
     var response = await ProdukUseCase(
             repository: ProdukRepositoryImpl(
                 remoteDataSource: ProdukRemoteDataSourceImpl()))
-        .getListProductByCategory(kategori);
+        .getListProductByCategory(kategori: kategori);
     response.fold((failure) => log("Error: ${failure.message}"),
         (products) => listProduk.value = products);
     loading(false);

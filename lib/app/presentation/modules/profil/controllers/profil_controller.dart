@@ -1,6 +1,8 @@
 // ignore_for_file: unnecessary_overrides, invalid_use_of_protected_member, avoid_print
 import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:marvelindo_outlet/app/data/datasources/auth_remote_datasources.dart';
@@ -24,11 +26,11 @@ class ProfilController extends GetxController {
   }
 
   String? getUsername() {
-    return auth.value.currentUser?.displayName ?? "Invalid";
+    return auth.value.currentUser?.displayName ?? "Guest";
   }
 
   String? getEmail() {
-    return auth.value.currentUser?.email ?? "Invalid";
+    return auth.value.currentUser?.email ?? "Guest";
   }
 
   String? getDisplayProfile() {
@@ -78,5 +80,11 @@ class ProfilController extends GetxController {
         (provider) => log("PROVIDERID = ${provider[0].providerId}"));
 
     isTap(false);
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
   }
 }

@@ -14,7 +14,7 @@ class RegistrationController extends GetxController {
   final formKey = GlobalKey<FormState>();
 
   String? selectedOutlet;
-  List<DropdownMenuItem<String>> paymentItems = [
+  final jenisOutlet = [
     const DropdownMenuItem(value: "Sultan", child: Text("Sultan")),
     const DropdownMenuItem(value: "Regular", child: Text("Regular")),
     const DropdownMenuItem(value: "Silver", child: Text("Silver")),

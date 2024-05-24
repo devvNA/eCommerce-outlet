@@ -1,28 +1,30 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marvelindo_outlet/app/core/utils/helpers/currency/int_currency.dart';
-import 'package:marvelindo_outlet/app/data/models/keranjang/keranjang_model.dart';
 
 class CheckoutProduct extends StatelessWidget {
-  Keranjang keranjang;
   final String? imgUrl;
   final String? title;
   final String? description;
   final String? category;
-  final String? time;
+  final int? quantity;
+  final int? totalPayment;
 
-  CheckoutProduct({
+  const CheckoutProduct({
     super.key,
-    required this.keranjang,
     this.imgUrl = "",
     this.title = "",
     this.description = "",
     this.category = "",
-    this.time = "",
+    this.quantity,
+    this.totalPayment,
   });
 
   @override
   Widget build(BuildContext context) {
+    // final time = DateFormat('dd/MM/yyyy, HH:mm:ss').format(DateTime.now());
+
     return Card(
       borderOnForeground: true,
       elevation: 2.5,
@@ -76,27 +78,21 @@ class CheckoutProduct extends StatelessWidget {
                       const SizedBox(
                         height: 6.0,
                       ),
-                      Row(
-                        children: [
-                          Text(
-                            category!,
-                            style: const TextStyle(
-                              fontSize: 11.0,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.blue,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 5.0,
-                          ),
-                          Text(
-                            time!,
-                            style: const TextStyle(
-                              fontSize: 12.0,
-                              color: Colors.black38,
-                            ),
-                          ),
-                        ],
+                      Text(
+                        category!,
+                        style: const TextStyle(
+                          fontSize: 11.0,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.blue,
+                        ),
+                      ),
+                      5.verticalSpace,
+                      const Text(
+                        "time",
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.black38,
+                        ),
                       ),
                     ],
                   ),
@@ -117,14 +113,15 @@ class CheckoutProduct extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Total Order (${keranjang.quantity}) : ",
+                  "Total Order ($quantity item) : ",
+                  // "Total Order (${keranjang.quantity} item) : ",
                   style: const TextStyle(
                     fontSize: 14.0,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 Text(
-                  20000.currencyFormatRp,
+                  "${totalPayment?.currencyFormatRp}",
                   style: const TextStyle(
                     fontSize: 14.0,
                     fontWeight: FontWeight.w600,

@@ -1,34 +1,32 @@
 // ignore_for_file: unused_local_variable, must_be_immutable
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:marvelindo_outlet/app/core/utils/helpers/currency/int_currency.dart';
 
+import '../../../../../data/models/keranjang/keranjang_model.dart';
 import '../../../../global/theme/my_colors.dart';
-import '../../controllers/cart_controller.dart';
 
-class CartItem extends GetView<CartController> {
-  String? namaProduk;
+class CartItem extends StatelessWidget {
+  Keranjang item;
+  final void Function()? onDeacreasePressed;
+  void Function(String)? onChanged;
   final void Function()? onIncreasePressed;
-  final void Function()? onDecreasePressed;
   final void Function()? onDeletePressed;
-  final void Function(String)? onChanged;
-  String? initialValue;
+  final TextEditingController? quantityController;
 
   CartItem({
     super.key,
-    this.namaProduk,
+    required this.item,
     this.onIncreasePressed,
-    this.onDecreasePressed,
+    this.onDeacreasePressed,
     this.onDeletePressed,
     this.onChanged,
-    this.initialValue,
+    this.quantityController,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Ink(
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -69,61 +67,47 @@ class CartItem extends GetView<CartController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 3.verticalSpace,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      namaProduk ?? "Lorem Ipsum",
-                      style: const TextStyle(
-                        fontSize: 14.0,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: onDeletePressed,
-                      child: Icon(
-                        Icons.delete_forever,
-                        size: 20.0,
-                        color: Colors.red[800],
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 6.0,
-                ),
-                const Text(
-                  "Voucher",
-                  style: TextStyle(color: AppColors.appBarColor, fontSize: 10),
-                ),
-                6.verticalSpace,
                 Text(
-                  0.currencyFormatRp,
+                  item.namaBarang ?? "Lorem Ipsum",
                   style: const TextStyle(
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 14.0,
                   ),
                 ),
                 const SizedBox(
                   height: 6.0,
                 ),
+                Text(
+                  item.jenisBarang ?? "Voucher",
+                  style: const TextStyle(
+                      color: AppColors.appBarColor, fontSize: 10.5),
+                ),
+                6.verticalSpace,
+                Text(
+                  item.hargaBarang!.currencyFormatRp,
+                  style: const TextStyle(
+                      fontSize: 14.5,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF2C47A3)),
+                ),
+                const SizedBox(
+                  height: 6.0,
+                ),
                 Row(
                   children: [
-                    Ink(
-                      child: InkWell(
-                        onTap: onDecreasePressed,
-                        child: Container(
-                          padding: const EdgeInsets.all(4.0),
-                          decoration: const BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(4.0),
-                            ),
+                    GestureDetector(
+                      onTap: onDeacreasePressed,
+                      child: Container(
+                        padding: const EdgeInsets.all(5.0),
+                        decoration: const BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(4.0),
                           ),
-                          child: const Icon(
-                            Icons.remove,
-                            color: Colors.white,
-                            size: 16.0,
-                          ),
+                        ),
+                        child: const Icon(
+                          Icons.remove,
+                          color: Colors.white,
+                          size: 16.0,
                         ),
                       ),
                     ),
@@ -133,14 +117,12 @@ class CartItem extends GetView<CartController> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8.0, vertical: 8.0),
                         child: TextFormField(
+                          controller: quantityController,
                           style: const TextStyle(
                             fontSize: 14,
                           ),
-                          initialValue: initialValue,
                           onChanged: onChanged,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly
-                          ],
+                          keyboardType: TextInputType.number,
                           clipBehavior: Clip.antiAlias,
                           textAlign: TextAlign.center,
                           maxLines: 1,
@@ -157,10 +139,10 @@ class CartItem extends GetView<CartController> {
                         ),
                       ),
                     ),
-                    InkWell(
+                    GestureDetector(
                       onTap: onIncreasePressed,
                       child: Container(
-                        padding: const EdgeInsets.all(4.0),
+                        padding: const EdgeInsets.all(5.0),
                         decoration: BoxDecoration(
                           color: AppColors.primaryColor.withOpacity(0.8),
                           borderRadius: const BorderRadius.all(
@@ -177,6 +159,15 @@ class CartItem extends GetView<CartController> {
                   ],
                 ),
               ],
+            ),
+          ),
+          InkWell(
+            borderRadius: BorderRadius.circular(4.0),
+            onTap: onDeletePressed,
+            child: Icon(
+              Icons.delete_forever,
+              size: 21.0,
+              color: Colors.red[800],
             ),
           ),
         ],

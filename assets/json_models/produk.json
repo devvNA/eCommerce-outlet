@@ -1,7 +1,31 @@
+{
+    "status": true,
+    "message": "Success",
+    "data": [
         {
-            "id": 3,
-            "nama": "barang satu",
-            "harga": 0,
-            "deskripsi": "asdfasdf",
-            "stok": 0
+            "title": "Pesanan dibuat",
+            "description": "This is the description for step 1",
+            "status": "completed"
+        },
+        {
+            "title": "Pembayaran",
+            "description": "This is the description for step 2",
+            "status": "completed"
+        },
+        {
+            "title": "Diproses",
+            "description": "This is the description for step 3",
+            "status": "pending"
+        },
+        {
+            "title": "Dikirim",
+            "description": "This is the description for step 4",
+            "status": "pending"
+        },
+        {
+            "title": "Diterima",
+            "description": "This is the description for step 5",
+            "status": "pending"
         }
+    ]
+}

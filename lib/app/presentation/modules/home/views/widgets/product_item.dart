@@ -12,7 +12,6 @@ import 'package:marvelindo_outlet/app/presentation/global/theme/my_colors.dart';
 import 'package:marvelindo_outlet/app/presentation/modules/home/controllers/home_controller.dart';
 import 'package:marvelindo_outlet/app/routes/app_pages.dart';
 
-import '../../../../../data/models/produk/product_model.dart';
 import '../../../../../data/models/produk/produk_model.dart';
 import '../../../base/controllers/base_controller.dart';
 
@@ -25,7 +24,10 @@ class ProductItem extends GetView<HomeController> {
     final theme = context.theme;
     return GestureDetector(
       onTap: () {
-        Get.toNamed(Routes.PRODUCT_DETAILS, arguments: produk);
+        Get.toNamed(
+          Routes.PRODUCT_DETAILS,
+          arguments: produk,
+        );
       },
       child: Card(
         elevation: 1,

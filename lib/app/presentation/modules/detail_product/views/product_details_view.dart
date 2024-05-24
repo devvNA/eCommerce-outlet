@@ -8,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/app/core/utils/helpers/currency/int_currency.dart';
 import 'package:marvelindo_outlet/app/presentation/global/theme/my_colors.dart';
+import 'package:readmore/readmore.dart';
 
 import '../../../../core/utils/helpers/constants.dart';
 import '../../../global/widgets/custom_snackbar.dart';
@@ -106,11 +107,11 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                     color: AppColors.blue,
                     borderRadius: BorderRadius.circular(24),
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "Voucher",
-                      style: TextStyle(
+                      controller.produk.jenisBarang ?? "Voucher",
+                      style: const TextStyle(
                         fontSize: 9.0,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -127,14 +128,14 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                 ("stok: ${controller.produk.stok.toString()}"),
                 // "Stok: ${100}",
                 // "Stok: ${controller.product.stock!.toString()}",
-                style: theme.textTheme.bodySmall,
+                style: theme.textTheme.bodySmall!.copyWith(fontSize: 14),
               ).animate().fade().slideX(
                     duration: const Duration(milliseconds: 300),
                     begin: -1,
                     curve: Curves.easeInSine,
                   ),
             ),
-            2.verticalSpace,
+            3.verticalSpace,
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: Row(
@@ -171,27 +172,14 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                   ),
                   10.verticalSpace,
-                  GestureDetector(
-                    onTap: () {},
-                    child: Text.rich(TextSpan(
-                        text: controller.produk.deskripsi,
-                        style: theme.textTheme.bodyMedium,
-                        children: <InlineSpan>[
-                          const TextSpan(
-                            text:
-                                " Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-                            style: TextStyle(
-                              color: AppColors.h1,
-                            ),
-                          ),
-                          TextSpan(
-                            text: ' selengkapnya...',
-                            style: theme.textTheme.displaySmall!.copyWith(
-                              color: AppColors.appBarColor,
-                              decoration: TextDecoration.underline,
-                            ),
-                          ),
-                        ])),
+                  ReadMoreText(
+                    "${controller.produk.deskripsi!} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                    trimLength: 200,
+                    colorClickableText: AppColors.primaryColor,
+                    isExpandable: true,
+                    trimMode: TrimMode.Length,
+                    trimCollapsedText: "selengkapnya",
+                    trimExpandedText: " tutup",
                   ),
                   // Obx(() {
                   //   return ExpansionPanelList(
@@ -208,11 +196,11 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                   //       ExpansionPanel(
                   //           headerBuilder:
                   //               (BuildContext context, bool isExpanded) {
-                  //             return const ListTile(
+                  //             return ListTile(
                   //               title: Text('Header Title'),
                   //             );
                   //           },
-                  //           body: const ListTile(
+                  //           body: ListTile(
                   //             title: Text('Content goes here'),
                   //             subtitle: Text('Details goes here'),
                   //           ),
@@ -234,18 +222,20 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
   Widget _addToCartButton(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        elevation: 5,
+        elevation: 3,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(32),
         ),
       ),
-      onPressed: () {
-        controller.onAddToCart().then((value) =>
-            CustomSnackBar.showCustomSuccessSnackBar(
-                title: "Sukses", message: value));
-      },
+      onPressed: controller.produk.stok! < 1
+          ? null
+          : () {
+              controller.onAddToCart().then((value) =>
+                  CustomSnackBar.showCustomSuccessSnackBar(
+                      title: "Sukses", message: value));
+            },
       child: const Padding(
-        padding: EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(6.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

@@ -1,24 +1,28 @@
-// ignore_for_file: deprecated_member_use
 import 'package:dartz/dartz.dart';
+import 'package:marvelindo_outlet/app/core/networking/network_request.dart';
 
+import '../../core/api_endpoints.dart';
 import '../../core/networking/failure_helper.dart';
-import '../../core/networking/network_request.dart';
-import '../../core/utils/api_endpoints.dart';
 import '../models/produk/produk_model.dart';
 
 abstract class ProdukRemoteDataSource {
   Future<Either<Failure, List<Produk>>> getAllProduk();
   Future<Either<Failure, List<Produk>>> getListProductByCategory(
-      String kategori);
-  Future<Either<Failure, String>> addToCart({required int id,required Produk produk});
+      {required String kategori});
+  Future<Either<Failure, String>> addToCart(
+      {required int id, required Produk produk});
 }
 
 class ProdukRemoteDataSourceImpl implements ProdukRemoteDataSource {
+  final request = Request();
+
   @override
   Future<Either<Failure, List<Produk>>> getAllProduk() async {
     try {
-      final response =
-          await Request().get(listProduk, requiresAuthToken: false);
+      final response = await request.get(
+        listProduk,
+        requiresAuthToken: false,
+      );
 
       List<Produk> products = [];
       if (response.statusCode == 200) {
@@ -40,11 +44,11 @@ class ProdukRemoteDataSourceImpl implements ProdukRemoteDataSource {
 
   @override
   Future<Either<Failure, List<Produk>>> getListProductByCategory(
-      String kategori) async {
+      {required String kategori}) async {
     try {
-      final response = await Request().get(
+      final response = await request.get(
         "$listProdukByCategory/$kategori",
-        requiresAuthToken: true,
+        requiresAuthToken: false,
       );
 
       List<Produk> products = [];
@@ -72,9 +76,9 @@ class ProdukRemoteDataSourceImpl implements ProdukRemoteDataSource {
         'id_produk': produk.id,
       };
 
-      final response = await Request().post(
+      final response = await request.post(
         postKeranjang,
-        requiresAuthToken: true,
+        requiresAuthToken: false,
         queryParameters: query,
       );
       return Right(response.data["message"]);
