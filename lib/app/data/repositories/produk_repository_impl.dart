@@ -3,7 +3,7 @@ import 'package:dartz/dartz.dart';
 import '../../core/networking/failure_helper.dart';
 import '../../domain/repositories/produk_repository.dart';
 import '../datasources/produk_remote_datasources.dart';
-import '../models/produk/produk_model.dart';
+import '../models/produk_model.dart';
 
 class ProdukRepositoryImpl implements ProdukRepository {
   final ProdukRemoteDataSource remoteDataSource;

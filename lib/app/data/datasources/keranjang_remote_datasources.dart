@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import '../../core/api_endpoints.dart';
 import '../../core/networking/failure_helper.dart';
 import '../../core/networking/network_request.dart';
-import '../models/keranjang/keranjang_model.dart';
+import '../models/keranjang_model.dart';
 
 abstract class KeranjangRemoteDataSource {
   Future<Either<Failure, List<Keranjang>>> getListKeranjang();

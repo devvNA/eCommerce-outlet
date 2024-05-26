@@ -9,7 +9,7 @@ import 'package:marvelindo_outlet/app/data/repositories/produk_repository_impl.d
 import 'package:marvelindo_outlet/app/domain/usecase/produk_usecase.dart';
 
 import '../../../../core/utils/helpers/debouncer.dart';
-import '../../../../data/models/produk/produk_model.dart';
+import '../../../../data/models/produk_model.dart';
 
 class HomeController extends GetxController {
   final debouncerC = DebouncerC(duration: const Duration(milliseconds: 500));

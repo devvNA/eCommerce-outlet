@@ -3,7 +3,7 @@ import 'package:marvelindo_outlet/app/core/networking/network_request.dart';
 
 import '../../core/api_endpoints.dart';
 import '../../core/networking/failure_helper.dart';
-import '../models/produk/produk_model.dart';
+import '../models/produk_model.dart';
 
 abstract class ProdukRemoteDataSource {
   Future<Either<Failure, List<Produk>>> getAllProduk();

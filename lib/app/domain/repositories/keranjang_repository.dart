@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import '../../core/networking/failure_helper.dart';
-import '../../data/models/keranjang/keranjang_model.dart';
+import '../../data/models/keranjang_model.dart';
 
 abstract class KeranjangRepository {
   Future<Either<Failure, List<Keranjang>>> getListKeranjang();

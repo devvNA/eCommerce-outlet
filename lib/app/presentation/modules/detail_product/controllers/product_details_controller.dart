@@ -7,7 +7,7 @@ import 'package:marvelindo_outlet/app/data/repositories/produk_repository_impl.d
 import 'package:marvelindo_outlet/app/domain/usecase/produk_usecase.dart';
 import 'package:marvelindo_outlet/app/presentation/modules/cart/controllers/cart_controller.dart';
 
-import '../../../../data/models/produk/produk_model.dart';
+import '../../../../data/models/produk_model.dart';
 import '../../../global/theme/my_colors.dart';
 import '../../base/controllers/base_controller.dart';
 import '../../setting/controllers/setting_controller.dart';

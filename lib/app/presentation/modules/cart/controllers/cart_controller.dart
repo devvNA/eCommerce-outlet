@@ -5,7 +5,7 @@ import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/app/core/utils/helpers/debouncer.dart';
 import 'package:marvelindo_outlet/app/data/datasources/keranjang_remote_datasources.dart';
-import 'package:marvelindo_outlet/app/data/models/keranjang/keranjang_model.dart';
+import 'package:marvelindo_outlet/app/data/models/keranjang_model.dart';
 import 'package:marvelindo_outlet/app/data/repositories/keranjang_repository_impl.dart';
 import 'package:marvelindo_outlet/app/domain/usecase/keranjang_usecase.dart';
 

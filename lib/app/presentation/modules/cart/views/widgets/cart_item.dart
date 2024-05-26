@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marvelindo_outlet/app/core/utils/helpers/currency/int_currency.dart';
 
-import '../../../../../data/models/keranjang/keranjang_model.dart';
+import '../../../../../data/models/keranjang_model.dart';
 import '../../../../global/theme/my_colors.dart';
 
 class CartItem extends StatelessWidget {
