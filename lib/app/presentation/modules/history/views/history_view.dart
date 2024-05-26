@@ -29,7 +29,7 @@ class HistoryView extends GetView<HistoryController> {
               children: [
                 20.verticalSpace,
                 const ScreenTitle(
-                  title: 'History Pesanan',
+                  title: 'History Pemesanan',
                 ),
                 Expanded(
                   child: DefaultTabController(

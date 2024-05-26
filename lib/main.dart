@@ -22,9 +22,16 @@ void main() async {
   await GetStorage.init();
   //Firebase Config
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(DevicePreview(builder: (context) {
-    return const MyApp();
-  }));
+  // runApp(
+  //   const MyApp(),
+  // );
+  runApp(
+    DevicePreview(
+      builder: (context) {
+        return const MyApp();
+      },
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {

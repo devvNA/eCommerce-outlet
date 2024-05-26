@@ -9,15 +9,13 @@ class NotificationItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.theme;
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 5.h),
-      margin: EdgeInsets.only(bottom: 15.h),
       decoration: BoxDecoration(
         color: theme.primaryColor.withOpacity(0.1),
         borderRadius: BorderRadius.circular(15.r),
       ),
       child: ListTile(
         title: Text(
-          'New Notification received\nyour cart waiting for checkout',
+          'Pemberitahuan baru\nmenunggu pembayaran',
           style: theme.textTheme.displaySmall?.copyWith(
             fontWeight: FontWeight.normal,
           ),
@@ -40,8 +38,9 @@ class NotificationItem extends StatelessWidget {
           ),
           child: const Center(
             child: Icon(
-              Icons.developer_board,
-              size: 24.0,
+              Icons.info_outline,
+              size: 25.0,
+              color: Colors.white,
             ),
           ),
         ),

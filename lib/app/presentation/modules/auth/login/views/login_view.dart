@@ -35,13 +35,9 @@ class LoginView extends GetView<LoginController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Hero(
-                      tag: 'logo',
-                      child: Image.asset(
-                        "assets/icons/mv-logo.png",
-                        fit: BoxFit.cover,
-                        width: 150,
-                      ),
+                    SvgPicture.asset(
+                      "assets/images/login-img.svg",
+                      width: 260,
                     ),
                   ],
                 ),

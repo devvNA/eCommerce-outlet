@@ -20,7 +20,12 @@ class NotifikasiView extends GetView<NotifikasiController> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: List.generate(5, (index) => const NotificationItem()),
+          children: List.generate(
+              5,
+              (index) => const Padding(
+                    padding: EdgeInsets.only(bottom: 10),
+                    child: NotificationItem(),
+                  )),
         ),
       ),
     );
