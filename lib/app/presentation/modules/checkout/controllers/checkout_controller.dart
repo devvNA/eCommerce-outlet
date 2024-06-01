@@ -6,13 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:marvelindo_outlet/app/core/networking/firebase_auth_services.dart';
-import 'package:marvelindo_outlet/app/data/datasources/transaksi_remote_datasource.dart';
+import 'package:marvelindo_outlet/app/core/utils/helpers/date_time_ext.dart';
+import 'package:marvelindo_outlet/app/data/datasources/pemesanan_remote_datasource.dart';
 import 'package:marvelindo_outlet/app/data/models/keranjang_model.dart';
-import 'package:marvelindo_outlet/app/data/repositories/transaksi_repository_impl.dart';
-import 'package:marvelindo_outlet/app/domain/usecase/transaksi_usecase.dart';
+import 'package:marvelindo_outlet/app/domain/usecase/pemesanan_usecase.dart';
 
+import '../../../../data/repositories/pemesanan_repository_impl.dart';
 import '../../base/controllers/base_controller.dart';
-import '../../cart/controllers/cart_controller.dart';
+import '../../history/controllers/history_controller.dart';
 
 class CheckoutController extends GetxController {
   late TextEditingController alamatController;
@@ -21,13 +22,15 @@ class CheckoutController extends GetxController {
 
   final isButtonActive = false.obs;
   String? selectedPayment;
+  final produkPO = [].obs;
+  String? messageServer;
 
   @override
   void onInit() {
     super.onInit();
     alamatController = TextEditingController(
       text:
-          "Jl. DI Panjaitan No.128, Karangreja, Purwokerto Kidul, Kec. Purwokerto Selatan, Kabupaten Banyumas, Jawa Tengah 53147",
+          "JL. DI Panjaitan No.128, Karangreja, Purwokerto Kidul, Kec. Purwokerto Selatan, Kabupaten Banyumas, Jawa Tengah 53147",
     );
   }
 
@@ -56,17 +59,17 @@ class CheckoutController extends GetxController {
     log(paymentChoice);
   }
 
-  onTapOrder() async {
-    // selectedPayment = null;
-    // isButtonActive.value = false;
-    // Get.find<CartController>().onPurchaseNowPressed();
-    await Future.delayed(const Duration(milliseconds: 1200))
-        .then((value) => Get.back());
-    Get.back();
-    Get.find<BaseController>().changeScreen(2);
-    Get.back();
-    // update();
-  }
+  // onTapOrder() async {
+  //   // selectedPayment = null;
+  //   // isButtonActive.value = false;
+  //   // Get.find<CartController>().onPurchaseNowPressed();
+  //   await Future.delayed(const Duration(milliseconds: 1200))
+  //       .then((value) => Get.back());
+  //   Get.back();
+  //   Get.find<BaseController>().changeScreen(2);
+  //   Get.back();
+  //   // update();
+  // }
 
   int totalItemRp(int index) {
     return checkoutProduk[index].hargaBarang! * checkoutProduk[index].quantity!;
@@ -80,29 +83,32 @@ class CheckoutController extends GetxController {
     return totalPembayaran;
   }
 
-  onTapPesan() async {
-    final parsedDate =
-        DateFormat('yyyy-MM-dd').parse(DateTime.now().toString());
+  Future purchaseOrder() async {
+    final date = DateFormat('yyyy-MM-dd').parse(DateTime.now().toString());
     // final parsedDate = DateFormat('yyyy-MM-dd')
     //     .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
 
     // final time = DateFormat('dd/MM/yyyy, HH:mm:ss').format(DateTime.now());
-    final response = await TransaksiUseCase(
-            repository: TransaksiRepositoryImpl(
-                remoteDataSource: TransaksiRemoteDataSourceImpl()))
-        .postTransaksiCO(
-            idOutlet: FirebaseAuthServices.getUID(),
-            tanggal: parsedDate,
-            tipePayment: selectedPayment!,
-            total: totalPayment(),
-            productId: 10,
-            jumlah: Get.find<CartController>().listKeranjang.length,
-            harga: "23000");
+    final response = await PemesananUseCase(
+            repository: PemesananRepositoryImpl(
+                remoteDataSource: PemesananRemoteDataSourceImpl()))
+        .postPemesanan(
+      idOutlet: FirebaseAuthServices.getUID(),
+      tanggal: DateTime.now().dateCustomFormat,
+      tipePayment: selectedPayment!,
+      total: totalPayment(),
+      produkKeranjang: checkoutProduk,
+    );
+
     response.fold((failure) => log("Error: ${failure.message}"),
-        (message) => log(message));
-    await Future.delayed(const Duration(milliseconds: 1500))
-        .then((value) => Get.back());
+        (message) => messageServer = message);
+    return messageServer;
+  }
+
+  redirectHistory() {
     Get.back();
+    Get.back();
+    Get.find<HistoryController>().onRefreshHistoriPemesanan();
     Get.find<BaseController>().changeScreen(2);
     Get.back();
   }

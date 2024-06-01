@@ -1,6 +1,5 @@
 // ignore_for_file: override_on_non_overriding_member
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -28,9 +27,9 @@ import '../../modules/splash/controllers/splash_controller.dart';
 class AppBindings extends Bindings {
   @override
   Future<void> dependencies() async {
-    final firebaseAuth = FirebaseAuth.instance;
     final box = GetStorage();
-    Get.lazyPut<FirebaseAuth>(() => firebaseAuth);
+    Get.lazyPut<DetailApiController>(() => DetailApiController());
+    Get.lazyPut<ApiTestController>(() => ApiTestController());
     Get.lazyPut<Request>(() => Request());
     Get.lazyPut<FirebaseAuthServices>(() => FirebaseAuthServices());
     Get.lazyPut<SplashController>(() => SplashController());
@@ -39,14 +38,13 @@ class AppBindings extends Bindings {
     Get.lazyPut<BaseController>(() => BaseController());
     Get.lazyPut<HomeController>(() => HomeController());
     Get.lazyPut<CartController>(() => CartController());
-    Get.lazyPut<HistoryController>(() => HistoryController());
-    Get.lazyPut<ApiTestController>(() => ApiTestController());
+    Get.put(HistoryController());
+    // Get.lazyPut<HistoryController>(() => HistoryController());
+    Get.lazyPut<DetailHistoryController>(() => DetailHistoryController());
     Get.lazyPut<ProfilController>(() => ProfilController());
     Get.lazyPut<ProductDetailsController>(() => ProductDetailsController());
     Get.lazyPut<CheckoutController>(() => CheckoutController());
-    Get.lazyPut<DetailApiController>(() => DetailApiController());
     Get.lazyPut<GetStorage>(() => box);
-    Get.lazyPut<DetailHistoryController>(() => DetailHistoryController());
     Get.lazyPut<AboutAppController>(() => AboutAppController());
     Get.lazyPut<PoliciesPrivacyController>(() => PoliciesPrivacyController());
     Get.lazyPut<SettingController>(() => SettingController());

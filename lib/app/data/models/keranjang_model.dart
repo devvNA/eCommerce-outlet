@@ -1,11 +1,8 @@
-class Keranjang {
-  final int? idKeranjang;
-  final int? idProduk;
-  final String? namaBarang;
-  final String? jenisBarang;
-  final int? hargaBarang;
-  int? quantity;
+// ignore_for_file: must_be_immutable
 
+import 'package:equatable/equatable.dart';
+
+class Keranjang extends Equatable {
   Keranjang({
     this.idKeranjang,
     this.idProduk,
@@ -15,21 +12,31 @@ class Keranjang {
     this.quantity,
   });
 
-  factory Keranjang.fromJson(Map<String, dynamic> json) => Keranjang(
-        idKeranjang: json["id_keranjang"],
-        idProduk: json["id_produk"],
-        namaBarang: json["nama_barang"],
-        jenisBarang: json["jenis_barang"],
-        hargaBarang: json["harga_barang"],
-        quantity: json["quantity"],
-      );
+  final int? idKeranjang;
+  final int? idProduk;
+  final String? namaBarang;
+  final String? jenisBarang;
+  final int? hargaBarang;
+  int? quantity;
 
-  Map<String, dynamic> toJson() => {
-        "id_keranjang": idKeranjang,
-        "id_produk": idProduk,
-        "nama_barang": namaBarang,
-        "jenis_barang": jenisBarang,
-        "harga_barang": hargaBarang,
-        "quantity": quantity,
-      };
+  factory Keranjang.fromJson(Map<String, dynamic> json) {
+    return Keranjang(
+      idKeranjang: json["id_keranjang"],
+      idProduk: json["id_produk"],
+      namaBarang: json["nama_barang"],
+      jenisBarang: json["jenis_barang"],
+      hargaBarang: json["harga_barang"],
+      quantity: json["quantity"],
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        idKeranjang,
+        idProduk,
+        namaBarang,
+        jenisBarang,
+        hargaBarang,
+        quantity,
+      ];
 }

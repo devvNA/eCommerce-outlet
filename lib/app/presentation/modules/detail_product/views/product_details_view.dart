@@ -173,7 +173,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                   ),
                   10.verticalSpace,
                   ReadMoreText(
-                    "${controller.produk.deskripsi!} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                    controller.produk.deskripsi!,
                     trimLength: 200,
                     colorClickableText: AppColors.primaryColor,
                     isExpandable: true,

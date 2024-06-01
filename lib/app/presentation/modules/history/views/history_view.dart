@@ -7,11 +7,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/app/presentation/global/theme/my_colors.dart';
 import 'package:marvelindo_outlet/app/presentation/global/widgets/error_state_widget.dart';
-import 'package:marvelindo_outlet/app/routes/app_pages.dart';
+import 'package:marvelindo_outlet/app/presentation/modules/history/views/widgets/history_item.dart';
 
+import '../../../../routes/app_pages.dart';
 import '../../../global/widgets/screen_title.dart';
 import '../controllers/history_controller.dart';
-import 'widgets/history_item.dart';
 
 class HistoryView extends GetView<HistoryController> {
   const HistoryView({super.key});
@@ -24,7 +24,7 @@ class HistoryView extends GetView<HistoryController> {
       body: SafeArea(
         child: Obx(() {
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               children: [
                 20.verticalSpace,
@@ -63,57 +63,75 @@ class HistoryView extends GetView<HistoryController> {
                           ),
                           5.verticalSpace,
                           Expanded(
-                              child: Padding(
-                            padding: const EdgeInsets.all(6.0),
-                            child: TabBarView(
-                                clipBehavior: Clip.hardEdge,
-                                children: [
-                                  // TAB 1
-                                  RefreshIndicator(
+                              child: TabBarView(
+                                  clipBehavior: Clip.hardEdge,
+                                  children: [
+                                // TAB 1
+                                Obx(() {
+                                  if (controller.loading()) {
+                                    return const Center(
+                                        child: CircularProgressIndicator());
+                                  }
+                                  if (controller.listHistoriPemesanan.isEmpty) {
+                                    return const Center(
+                                        child: ErrorStateWidget(
+                                            message:
+                                                "Belum ada histori pemesanan yang diproses"));
+                                  }
+                                  return RefreshIndicator(
                                     color: AppColors.primaryColor,
-                                    onRefresh: () async {},
+                                    onRefresh: () =>
+                                        controller.onRefreshHistoriPemesanan(),
                                     child: ListView.separated(
-                                      separatorBuilder: (context, index) =>
-                                          const Divider(
-                                                  height: 4,
-                                                  color: Colors.black45)
-                                              .animate()
-                                              .fade()
-                                              .slideY(
-                                                duration: const Duration(
-                                                    milliseconds: 300),
-                                                begin: 2,
-                                                curve: Curves.easeInSine,
-                                              ),
-                                      itemCount: 3,
-                                      itemBuilder: (context, index) =>
-                                          HistoryItem(
-                                        onTap: () {
-                                          Get.toNamed(Routes.DETAIL_HISTORY);
-                                        },
-                                      ).animate().fade().slideY(
-                                                duration: const Duration(
-                                                    milliseconds: 300),
-                                                begin: 1,
-                                                curve: Curves.easeInSine,
-                                              ),
+                                      separatorBuilder: (context, index) {
+                                        return const Divider(
+                                                height: 3,
+                                                color: Colors.black45)
+                                            .animate()
+                                            .fade()
+                                            .slideY(
+                                              duration: const Duration(
+                                                  milliseconds: 300),
+                                              begin: 2,
+                                              curve: Curves.easeInSine,
+                                            );
+                                      },
+                                      itemCount: controller
+                                          .listHistoriPemesanan.length,
+                                      itemBuilder: (context, index) {
+                                        final historiPemesanan = controller
+                                            .listHistoriPemesanan[index];
+
+                                        return HistoryItem(
+                                          historiData: historiPemesanan,
+                                          onTap: () {
+                                            Get.toNamed(Routes.DETAIL_HISTORY,
+                                                arguments: historiPemesanan);
+                                          },
+                                        ).animate().fade().slideY(
+                                              duration: const Duration(
+                                                  milliseconds: 300),
+                                              begin: 1,
+                                              curve: Curves.easeInSine,
+                                            );
+                                      },
                                     ),
-                                  ),
-
-                                  // TAB 2
-                                  const Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      ErrorStateWidget(
-                                          message: "Belum ada history"),
-                                    ],
-                                  ),
-
-                                  // TAB 3
-                                  const ErrorStateWidget(
-                                      message: "Belum ada history"),
-                                ]),
-                          )),
+                                  );
+                                }),
+                                // TAB 2
+                                const Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ErrorStateWidget(
+                                        message:
+                                            "Belum ada histori pemesanan yang selesai"),
+                                  ],
+                                ),
+                                // TAB 3
+                                const ErrorStateWidget(
+                                    message:
+                                        "Belum ada histori pemesanan yang dibatalkan"),
+                              ])),
                         ],
                       )),
                 ),

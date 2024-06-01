@@ -7,6 +7,7 @@ const deleteKeranjang = "/deleteitemkeranjang";
 const postKeranjang = "/additemkeranjang";
 const updateKeranjang = "/updateitemkeranjang";
 const checkout = "/transaksi";
+const listHistoryPemesanan = "/gettransaksi";
 
 // ======================================================================== //
 

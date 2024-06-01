@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marvelindo_outlet/app/core/utils/helpers/currency/int_currency.dart';
+import 'package:marvelindo_outlet/app/core/utils/helpers/date_time_ext.dart';
 
 class CheckoutProduct extends StatelessWidget {
   final String? imgUrl;
@@ -87,9 +88,9 @@ class CheckoutProduct extends StatelessWidget {
                         ),
                       ),
                       5.verticalSpace,
-                      const Text(
-                        "time",
-                        style: TextStyle(
+                      Text(
+                        DateTime.now().dateCustomFormat,
+                        style: const TextStyle(
                           fontSize: 12.0,
                           color: Colors.black38,
                         ),

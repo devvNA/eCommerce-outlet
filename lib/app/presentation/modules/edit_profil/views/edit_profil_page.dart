@@ -57,7 +57,7 @@ class EditProfilView extends GetView<EditProfilController> {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      20.verticalSpace,
+                      15.verticalSpace,
                       const Text(
                         "Nama Lengkap",
                         style: TextStyle(fontSize: 14.0, color: AppColors.gray),
@@ -68,7 +68,7 @@ class EditProfilView extends GetView<EditProfilController> {
                         validator: Validator.required,
                         hintText: FirebaseAuthServices.getUsername(),
                       ),
-                      15.verticalSpace,
+                      10.verticalSpace,
                       const Text(
                         "Email",
                         style: TextStyle(fontSize: 14.0, color: AppColors.gray),
@@ -79,7 +79,7 @@ class EditProfilView extends GetView<EditProfilController> {
                         validator: Validator.email,
                         hintText: FirebaseAuthServices.getEmail(),
                       ),
-                      15.verticalSpace,
+                      10.verticalSpace,
                       const Text(
                         "Nama Outlet",
                         style: TextStyle(fontSize: 14.0, color: AppColors.gray),
@@ -88,14 +88,16 @@ class EditProfilView extends GetView<EditProfilController> {
                       FormTextWidget(
                         textFormController: controller.outletController.value,
                         validator: Validator.required,
+                        hintText: "IndoCell",
                       ),
-                      15.verticalSpace,
-                      const Text(
-                        "Jenis Outlet",
-                        style: TextStyle(fontSize: 14.0, color: AppColors.gray),
-                      ),
-                      _dropDown(context, controller),
-                      15.verticalSpace,
+                      10.verticalSpace,
+                      // const Text(
+                      //   "Jenis Outlet",
+                      //   style: TextStyle(fontSize: 14.0, color: AppColors.gray),
+
+                      // ),
+                      // _dropDown(context, controller),
+                      // 15.verticalSpace,
                       const Text(
                         "Alamat",
                         style: TextStyle(fontSize: 14.0, color: AppColors.gray),

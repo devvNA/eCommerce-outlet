@@ -89,13 +89,13 @@ class CheckoutView extends GetView<CheckoutController> {
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 5),
                           child: CheckoutProduct(
-                            quantity: dataKeranjang.quantity,
+                            quantity: dataKeranjang.quantity ?? 5,
                             totalPayment: controller.totalItemRp(index),
                             imgUrl: imgURL,
                             title: dataKeranjang.namaBarang,
                             description:
                                 "Harga satuan:\n${dataKeranjang.hargaBarang!.currencyFormatRp}",
-                            category: dataKeranjang.jenisBarang,
+                            category: dataKeranjang.jenisBarang ?? "Paket",
                           ),
                         );
                       }),
@@ -132,12 +132,12 @@ class CheckoutView extends GetView<CheckoutController> {
           DropdownButton(
               padding: const EdgeInsets.all(6.0),
               style: context.theme.textTheme.bodyMedium
-                  ?.copyWith(fontSize: 16.sp, fontWeight: FontWeight.w500),
+                  ?.copyWith(fontSize: 14.sp, fontWeight: FontWeight.w500),
               elevation: 2,
               hint: Text(
                 "pilih jenis pembayaran",
                 style: context.theme.textTheme.bodyMedium?.copyWith(
-                  fontSize: 16.sp,
+                  fontSize: 14.sp,
                 ),
               ),
               isExpanded: true,
@@ -194,9 +194,12 @@ class CheckoutView extends GetView<CheckoutController> {
                                 title: "Konfirmasi",
                                 description: "Apakah pesanan sudah sesuai?",
                                 onPressYes: () {
-                                  // controller.onTapPesan();
-                                  controller.onTapOrder();
-                                  _successCheckoutDialog(context);
+                                  controller.purchaseOrder().then((value) {
+                                    return _successCheckoutDialog(
+                                      context,
+                                      controller,
+                                    );
+                                  });
                                 },
                                 onPressNo: () {
                                   Get.back();
@@ -314,9 +317,12 @@ class CheckoutView extends GetView<CheckoutController> {
   }
 }
 
-void _successCheckoutDialog(BuildContext context) {
+_successCheckoutDialog(
+  BuildContext context,
+  CheckoutController controller,
+) {
   Get.dialog(
-      barrierDismissible: false,
+      barrierDismissible: true,
       AlertDialog(
         alignment: Alignment.center,
         icon: SvgPicture.asset("assets/images/payment_done.svg")
@@ -328,9 +334,12 @@ void _successCheckoutDialog(BuildContext context) {
         ),
         clipBehavior: Clip.antiAlias,
         title: Text(
-          'Pemesanan berhasil dilakukan!',
+          controller.messageServer!,
           style: context.theme.textTheme.bodyMedium
               ?.copyWith(fontSize: 16.sp, fontWeight: FontWeight.w500),
         ),
       ));
+  Future.delayed(const Duration(milliseconds: 1500), () {
+    controller.redirectHistory();
+  });
 }

@@ -35,7 +35,7 @@ class FormTextWidget extends StatelessWidget {
         contentPadding: contentPadding ?? const EdgeInsets.all(15),
         prefixIconColor: AppColors.primaryColor,
         suffixIconColor: Colors.grey[400],
-        fillColor: const Color(0xFFE7E5E5),
+        fillColor: const Color.fromARGB(161, 231, 229, 229),
         filled: true,
         border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(8)),

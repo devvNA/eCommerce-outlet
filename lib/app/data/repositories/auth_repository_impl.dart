@@ -13,7 +13,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, String>> getFirebaseToken() async =>
       await remoteDataSource.getFirebaseToken();
-      
+
   @override
   Future<Either<Failure, List<UserInfo>>> getFirebaseProvider() async =>
       await remoteDataSource.getFirebaseProvider();

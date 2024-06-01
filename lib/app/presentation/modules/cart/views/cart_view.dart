@@ -16,73 +16,6 @@ import 'widgets/cart_item.dart';
 class CartView extends GetView<CartController> {
   const CartView({super.key});
 
-  Visibility _checkoutBox(ThemeData theme, BuildContext context) {
-    return Visibility(
-      visible: controller.listKeranjang.isNotEmpty,
-      child: Card(
-        clipBehavior: Clip.antiAlias,
-        elevation: 3,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-          child: Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Total:',
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          fontSize: 10,
-                          color: AppColors.h4,
-                        )),
-                    Text(
-                      controller.totalPayment().currencyFormatRp,
-                      style: theme.textTheme.displayMedium
-                          ?.copyWith(color: AppColors.h2, fontSize: 16),
-                    ),
-                  ],
-                ).animate().fade().slideX(
-                      duration: const Duration(milliseconds: 300),
-                      begin: -1,
-                      curve: Curves.easeInSine,
-                    ),
-              ),
-              5.verticalSpace,
-              Expanded(
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide.none,
-                        borderRadius: BorderRadius.circular(32),
-                      ),
-                      elevation: 1,
-                    ),
-                    onPressed: () {
-                      Get.toNamed(Routes.CHECKOUT,
-                          arguments: controller.listKeranjang());
-                    },
-                    child: const Text(
-                      "Checkout",
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
-                ).animate().fade().slideY(
-                      duration: const Duration(milliseconds: 200),
-                      curve: Curves.easeInSine,
-                    ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
@@ -233,6 +166,73 @@ class CartView extends GetView<CartController> {
                 ),
               ],
             )),
+      ),
+    );
+  }
+
+  Visibility _checkoutBox(ThemeData theme, BuildContext context) {
+    return Visibility(
+      visible: controller.listKeranjang.isNotEmpty,
+      child: Card(
+        clipBehavior: Clip.antiAlias,
+        elevation: 3,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+          child: Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Total:',
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          fontSize: 10,
+                          color: AppColors.h4,
+                        )),
+                    Text(
+                      controller.totalPayment().currencyFormatRp,
+                      style: theme.textTheme.displayMedium
+                          ?.copyWith(color: AppColors.h2, fontSize: 16),
+                    ),
+                  ],
+                ).animate().fade().slideX(
+                      duration: const Duration(milliseconds: 300),
+                      begin: -1,
+                      curve: Curves.easeInSine,
+                    ),
+              ),
+              5.verticalSpace,
+              Expanded(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide.none,
+                        borderRadius: BorderRadius.circular(32),
+                      ),
+                      elevation: 1,
+                    ),
+                    onPressed: () {
+                      Get.toNamed(Routes.CHECKOUT,
+                          arguments: controller.listKeranjang());
+                    },
+                    child: const Text(
+                      "Checkout",
+                      style: TextStyle(
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                ).animate().fade().slideY(
+                      duration: const Duration(milliseconds: 200),
+                      curve: Curves.easeInSine,
+                    ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

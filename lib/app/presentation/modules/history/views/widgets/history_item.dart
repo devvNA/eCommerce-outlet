@@ -1,12 +1,21 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marvelindo_outlet/app/core/utils/helpers/currency/int_currency.dart';
 import 'package:marvelindo_outlet/app/presentation/global/theme/my_colors.dart';
 
+import '../../../../../data/models/histori_pemesanan_model.dart';
+
 class HistoryItem extends StatelessWidget {
   final VoidCallback? onTap;
+  final HistoriPemesanan historiData;
 
-  const HistoryItem({super.key, this.onTap});
+  const HistoryItem({
+    super.key,
+    this.onTap,
+    required this.historiData,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,22 +31,22 @@ class HistoryItem extends StatelessWidget {
           children: [
             Row(
               children: [
-                const Text(
-                  "#1003 ",
-                  style: TextStyle(fontSize: 12),
+                Text(
+                  "#TRS-${historiData.id}",
+                  style: const TextStyle(fontSize: 12),
                 ),
                 5.verticalSpace,
                 const Text(
-                  "•",
+                  " • ",
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 5.verticalSpace,
-                const Text(
-                  " 11:19 AM",
-                  style: TextStyle(fontSize: 12),
+                Text(
+                  historiData.tanggal,
+                  style: const TextStyle(fontSize: 11),
                 ),
               ],
             ),
@@ -48,16 +57,17 @@ class HistoryItem extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      "Perdana 10GB",
+                    Text(
+                      "Produk ${historiData.detailProduk[0].idProduk.toString()}",
+                      // "Perdana 10GB",
                       textAlign: TextAlign.left,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 14.0,
                       ),
                     ),
                     Text(
-                      50000.currencyFormatRp,
+                      historiData.total.currencyFormatRp,
                       style: const TextStyle(
                         fontSize: 14.0,
                         fontWeight: FontWeight.w500,
@@ -66,11 +76,17 @@ class HistoryItem extends StatelessWidget {
                   ],
                 ),
                 3.verticalSpace,
-                const Text(
-                  "10 items",
-                  style: TextStyle(
-                    fontSize: 11.0,
-                  ),
+                Row(
+                  children: [
+                    Text(
+                      "${historiData.detailProduk.length.toString()} item",
+                      style: const TextStyle(
+                        fontSize: 11.0,
+                      ),
+                    ),
+                    5.horizontalSpace,
+                    PaymentChipType(historiData: historiData),
+                  ],
                 ),
               ],
             ),
@@ -118,5 +134,39 @@ class HistoryItem extends StatelessWidget {
     //     ),
     //   ),
     // );
+  }
+}
+
+class PaymentChipType extends StatelessWidget {
+  const PaymentChipType({
+    super.key,
+    required this.historiData,
+  });
+
+  final HistoriPemesanan historiData;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1.5),
+      decoration: BoxDecoration(
+        color: historiData.tipePayment == "COD"
+            ? const Color.fromARGB(255, 229, 174, 10)
+            : const Color.fromARGB(255, 53, 70, 165),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(
+            32.0,
+          ),
+        ),
+      ),
+      child: Text(
+        historiData.tipePayment,
+        style: const TextStyle(
+          fontSize: 8,
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
   }
 }

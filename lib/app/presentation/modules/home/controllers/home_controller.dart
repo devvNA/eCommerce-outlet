@@ -21,10 +21,10 @@ class HomeController extends GetxController {
 
   List<String> categories = [
     "semua",
-    "perdana",
+    "kupon",
     "voucher",
-    "unlimited",
-    "paket data",
+    "perdana",
+    "pulsa",
   ];
 
   @override

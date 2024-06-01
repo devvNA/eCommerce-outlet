@@ -11,6 +11,7 @@ class RegistrationController extends GetxController {
   final alamat = TextEditingController().obs;
   final nama = TextEditingController().obs;
   final nomorHandphone = TextEditingController().obs;
+  final isCheck = false.obs;
   final formKey = GlobalKey<FormState>();
 
   String? selectedOutlet;

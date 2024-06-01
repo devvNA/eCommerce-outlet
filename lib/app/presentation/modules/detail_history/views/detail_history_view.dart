@@ -1,13 +1,14 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, unrelated_type_equality_checks
 import 'dart:developer';
 
 import 'package:another_stepper/another_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:marvelindo_outlet/app/core/utils/helpers/currency/currency.dart';
+import 'package:marvelindo_outlet/app/core/utils/helpers/currency/int_currency.dart';
 import 'package:marvelindo_outlet/app/presentation/global/widgets/custom_alert_dialog.dart';
 
+import '../../../../core/utils/helpers/currency/currency.dart';
 import '../../../global/theme/my_colors.dart';
 import '../controllers/detail_history_controller.dart';
 
@@ -17,7 +18,7 @@ class DetailHistoryView extends GetView<DetailHistoryController> {
   @override
   Widget build(BuildContext context) {
     const txtStyle = TextStyle(
-      fontSize: 13,
+      fontSize: 12.5,
     );
 
     return Scaffold(
@@ -27,7 +28,7 @@ class DetailHistoryView extends GetView<DetailHistoryController> {
       body: Obx(() {
         return ListView(
           children: [
-            5.verticalSpace,
+            8.verticalSpace,
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: AnotherStepper(
@@ -52,21 +53,22 @@ class DetailHistoryView extends GetView<DetailHistoryController> {
                         const Text(
                           'ID Pesanan :',
                           style: TextStyle(
-                            fontSize: 13.5,
+                            fontSize: 13,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         const Spacer(),
                         Text(
-                          '${controller.history.value['id']}',
+                          "TRS-${controller.historiData.id.toString()}",
+                          // '${controller.history.value['id']}',
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 13.5,
+                            fontSize: 13,
                           ),
                         ),
                       ],
                     ),
-                    2.verticalSpace,
+                    3.verticalSpace,
                     Row(
                       children: [
                         const Text(
@@ -75,12 +77,13 @@ class DetailHistoryView extends GetView<DetailHistoryController> {
                         ),
                         const Spacer(),
                         Text(
-                          '${controller.history.value['tanggal']}',
+                          controller.historiData.tanggal,
+                          // '${controller.history.value['tanggal']}',
                           style: txtStyle,
                         ),
                       ],
                     ),
-                    2.verticalSpace,
+                    3.verticalSpace,
                     Row(
                       children: [
                         const Text(
@@ -88,11 +91,15 @@ class DetailHistoryView extends GetView<DetailHistoryController> {
                           style: txtStyle,
                         ),
                         const Spacer(),
-                        Text(CurrencyFormat.convertToIdr(
-                            controller.history.value['total']))
+                        Text(
+                          controller.historiData.total.currencyFormatRp,
+                          style: txtStyle.copyWith(fontSize: 13),
+                          // CurrencyFormat.convertToIdr(
+                          //     controller.history.value['total']),
+                        ),
                       ],
                     ),
-                    2.verticalSpace,
+                    3.verticalSpace,
                     Row(
                       children: [
                         const Text(
@@ -101,12 +108,16 @@ class DetailHistoryView extends GetView<DetailHistoryController> {
                         ),
                         const Spacer(),
                         Text(
-                          controller.history.value["jenis_pembayaran"],
+                          controller.historiData.tipePayment,
                           style: txtStyle,
                         ),
+                        // Text(
+                        //   controller.history.value["jenis_pembayaran"],
+                        //   style: txtStyle,
+                        // ),
                       ],
                     ),
-                    2.verticalSpace,
+                    3.verticalSpace,
                     Row(
                       children: [
                         const Text(
@@ -115,9 +126,38 @@ class DetailHistoryView extends GetView<DetailHistoryController> {
                         ),
                         const Spacer(),
                         Text(
-                          '${controller.history.value['produk'].length} Barang',
+                          '${controller.historiData.detailProduk.length} Barang',
                           style: txtStyle,
                         ),
+                        // Text(
+                        //   '${controller.history.value['produk'].length} Barang',
+                        //   style: txtStyle,
+                        // ),
+                      ],
+                    ),
+                    3.verticalSpace,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Alamat :',
+                          style: txtStyle,
+                        ),
+                        const Expanded(
+                          child: SizedBox(),
+                        ),
+                        Expanded(
+                          child: Text(
+                            "JL. DI Panjaitan No.128, Karangreja, Purwokerto Kidul, Kec. Purwokerto Selatan, Kabupaten Banyumas, Jawa Tengah 53147",
+                            style: txtStyle.copyWith(fontSize: 12),
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        // Text(
+                        //   '${controller.history.value['produk'].length} Barang',
+                        //   style: txtStyle,
+                        // ),
                       ],
                     ),
                     attachBox(
@@ -128,10 +168,12 @@ class DetailHistoryView extends GetView<DetailHistoryController> {
                             }
                           : null,
                       txtStyle: txtStyle,
-                      visible: controller.history.value["jenis_pembayaran"] ==
-                          "Transfer",
+                      visible: controller.historiData.tipePayment == "Transfer",
+                      // visible: controller.history.value["jenis_pembayaran"] ==
+                      //     "Transfer",
                     ),
-                    2.verticalSpace,
+                    3.verticalSpace,
+                    const Divider(),
                     Text(
                       'Pesanan :',
                       style: txtStyle.copyWith(
@@ -139,8 +181,12 @@ class DetailHistoryView extends GetView<DetailHistoryController> {
                       ),
                     ),
                     Column(
+                      // children: List.generate(
+                      //     controller.history.value['produk'].length, (index) {
                       children: List.generate(
-                          controller.history.value['produk'].length, (index) {
+                          controller.historiData.detailProduk.length, (index) {
+                        final hargaSatuan = int.parse(
+                            controller.historiData.detailProduk[index].harga);
                         return ListTile(
                           leading: CircleAvatar(
                             backgroundColor: Colors.white,
@@ -156,23 +202,23 @@ class DetailHistoryView extends GetView<DetailHistoryController> {
                           ),
                           // leading: const Icon(Icons.shopping_bag),
                           title: Text(
-                            controller.history.value['produk'][index]['nama'],
+                            "Produk ${controller.historiData.detailProduk[index].idProduk}",
+                            // controller.history.value['produk'][index]['nama'],
                             style: const TextStyle(
-                              fontSize: 14,
+                              fontSize: 13,
                               fontWeight: FontWeight.normal,
                             ),
                           ),
                           subtitle: Text(
-                            '${CurrencyFormat.convertToIdr(controller.history.value['produk'][index]['harga'])} x ${controller.history.value['produk'][index]['jumlah']}',
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.normal,
-                            ),
+                            "${CurrencyFormat.convertToIdr(hargaSatuan)} x ${controller.historiData.detailProduk[index].jumlah}",
+                            style: txtStyle,
                           ),
                           trailing: Text(
-                            ' ${CurrencyFormat.convertToIdr(controller.history.value['produk'][index]['harga'] * controller.history.value['produk'][index]['jumlah'])}',
+                            CurrencyFormat.convertToIdr(hargaSatuan *
+                                controller
+                                    .historiData.detailProduk[index].jumlah),
                             style: const TextStyle(
-                              fontSize: 14,
+                              fontSize: 13,
                               fontWeight: FontWeight.normal,
                             ),
                           ),
@@ -310,7 +356,7 @@ class DetailHistoryView extends GetView<DetailHistoryController> {
                                   )
                                 : const Icon(
                                     Icons.check_circle,
-                                    color: AppColors.green1,
+                                    color: AppColors.blue,
                                   )),
                   ),
                 ),

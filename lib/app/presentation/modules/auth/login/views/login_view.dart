@@ -95,7 +95,7 @@ class LoginView extends GetView<LoginController> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               const Text(
-                                "Belum memiliki akun ? ",
+                                "Belum memiliki akun? ",
                                 style: TextStyle(fontWeight: FontWeight.w500),
                               ),
                               GestureDetector(

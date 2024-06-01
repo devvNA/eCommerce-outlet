@@ -30,7 +30,7 @@ class FormRegistrationWidget extends StatelessWidget {
       children: [
         Text(
           formTitle,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
         const SizedBox(
           height: 6.0,
@@ -59,7 +59,7 @@ class FormRegistrationWidget extends StatelessWidget {
           //   ),
           // ),
           decoration: InputDecoration(
-            contentPadding: contentPadding ?? const EdgeInsets.all(15),
+            contentPadding: contentPadding ?? const EdgeInsets.all(16),
             prefixIconColor: AppColors.primaryColor,
             suffixIconColor: Colors.grey[400],
             filled: true,
@@ -79,7 +79,7 @@ class FormRegistrationWidget extends StatelessWidget {
             hintText: hintText,
             hintStyle: const TextStyle(
                 color: Color(0xFFD3D3D3),
-                fontSize: 16,
+                fontSize: 14,
                 fontWeight: FontWeight.w500),
           ),
         ),
@@ -111,7 +111,7 @@ class FormAddressWidget extends StatelessWidget {
       children: [
         Text(
           formTitle,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
         const SizedBox(
           height: 6.0,
@@ -146,7 +146,7 @@ class FormAddressWidget extends StatelessWidget {
             hintText: hintText,
             hintStyle: const TextStyle(
                 color: Color(0xFFD3D3D3),
-                fontSize: 16,
+                fontSize: 14,
                 fontWeight: FontWeight.w500),
           ),
         ),

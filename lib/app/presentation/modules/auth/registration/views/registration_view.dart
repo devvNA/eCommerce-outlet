@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, avoid_print
 
 import 'dart:developer';
 
@@ -66,49 +66,49 @@ class RegistrationView extends GetView<RegistrationController> {
               const SizedBox(
                 height: 15.0,
               ),
-              const Text(
-                'Jenis Outlet',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(
-                height: 6.0,
-              ),
-              DropdownButtonFormField(
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                    prefixIconColor: AppColors.primaryColor,
-                    suffixIconColor: Colors.grey[400],
-                    fillColor: Colors.white,
-                    filled: true,
-                    border: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(32)),
-                      borderSide: BorderSide(color: AppColors.primaryColor),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(32),
-                      borderSide: BorderSide.none,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(32),
-                      borderSide: const BorderSide(color: Colors.indigo),
-                    ),
-                    hintText: "pilih jenis outlet",
-                  ),
-                  focusColor: const Color(0xFFE7E5E5),
-                  style: context.theme.textTheme.bodyMedium
-                      ?.copyWith(fontSize: 14, fontWeight: FontWeight.w500),
-                  elevation: 3,
-                  borderRadius: BorderRadius.circular(8),
-                  dropdownColor: const Color(0xFFF0F0F0),
-                  value: controller.selectedOutlet,
-                  validator: Validator.required,
-                  onChanged: (value) {
-                    controller.onSelectedOutlet(value!);
-                  },
-                  items: controller.jenisOutlet),
-              const SizedBox(
-                height: 15.0,
-              ),
+              // const Text(
+              //   'Jenis Outlet',
+              //   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              // ),
+              // const SizedBox(
+              //   height: 6.0,
+              // ),
+              // DropdownButtonFormField(
+              //     decoration: InputDecoration(
+              //       contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+              //       prefixIconColor: AppColors.primaryColor,
+              //       suffixIconColor: Colors.grey[400],
+              //       fillColor: Colors.white,
+              //       filled: true,
+              //       border: const OutlineInputBorder(
+              //         borderRadius: BorderRadius.all(Radius.circular(32)),
+              //         borderSide: BorderSide(color: AppColors.primaryColor),
+              //       ),
+              //       enabledBorder: OutlineInputBorder(
+              //         borderRadius: BorderRadius.circular(32),
+              //         borderSide: BorderSide.none,
+              //       ),
+              //       focusedBorder: OutlineInputBorder(
+              //         borderRadius: BorderRadius.circular(32),
+              //         borderSide: const BorderSide(color: Colors.indigo),
+              //       ),
+              //       hintText: "pilih jenis outlet",
+              //     ),
+              //     focusColor: const Color(0xFFE7E5E5),
+              //     style: context.theme.textTheme.bodyMedium
+              //         ?.copyWith(fontSize: 14, fontWeight: FontWeight.w500),
+              //     elevation: 3,
+              //     borderRadius: BorderRadius.circular(8),
+              //     dropdownColor: const Color(0xFFF0F0F0),
+              //     value: controller.selectedOutlet,
+              //     validator: Validator.required,
+              //     onChanged: (value) {
+              //       controller.onSelectedOutlet(value!);
+              //     },
+              //     items: controller.jenisOutlet),
+              // const SizedBox(
+              //   height: 15.0,
+              // ),
               FormRegistrationWidget(
                 formTitle: 'Nama Outlet',
                 formController: controller.nama(),
@@ -126,7 +126,40 @@ class RegistrationView extends GetView<RegistrationController> {
                 validator: Validator.required,
               ),
               const SizedBox(
-                height: 25.0,
+                height: 10.0,
+              ),
+              InkWell(
+                onTap: () {
+                  controller.isCheck.value = !controller.isCheck.value;
+                  print(controller.isCheck);
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Checkbox(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      activeColor: AppColors.primaryColor,
+                      value: controller.isCheck(),
+                      onChanged: (value) {
+                        controller.isCheck(value);
+                        print(value);
+                      },
+                    ),
+                    const Expanded(
+                      child: Text(
+                        "Saya menyetujui Syarat dan Ketentuan serta Kebijakan Privasi MV Shop",
+                        style: TextStyle(
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 15.0,
               ),
               SizedBox(
                 height: 45,
@@ -137,18 +170,26 @@ class RegistrationView extends GetView<RegistrationController> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
-                  onPressed: () {
-                    if (controller.formKey.currentState!.validate()) {
-                      printInfo(info: "success");
-                      controller.onSubmit();
-                      CustomSnackBar.showCustomToast(
-                          message: "Registrasi Berhasil, silahkan login");
-                    }
-                    log("Failed Login");
-                  },
-                  child: const Text("Daftar"),
+                  onPressed: controller.isCheck.value
+                      ? () {
+                          if (controller.formKey.currentState!.validate()) {
+                            printInfo(info: "success");
+                            controller.onSubmit();
+                            CustomSnackBar.showCustomToast(
+                                message: "Registrasi Berhasil, silahkan login");
+                          }
+                          log("Failed Login");
+                        }
+                      : null,
+                  child: const Text(
+                    "Daftar",
+                    style: TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
                 ),
               ),
+              8.verticalSpace
             ],
           ),
         ),

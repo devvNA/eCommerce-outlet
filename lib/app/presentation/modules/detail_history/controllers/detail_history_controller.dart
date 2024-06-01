@@ -13,17 +13,20 @@ import 'package:intl/intl.dart';
 import 'package:marvelindo_outlet/app/presentation/global/theme/my_colors.dart';
 import 'package:path/path.dart' as path;
 
+import '../../../../data/models/histori_pemesanan_model.dart';
+
 class DetailHistoryController extends GetxController {
   final currentStep = 0.obs;
   final listSteps = <StepperData>[].obs;
   final fileName = ''.obs;
   final imageFile = Rx<File?>(null);
   final uploaded = true.obs;
+  HistoriPemesanan historiData = Get.arguments;
 
   // File? get imageFile => _imageFile.value;
   // String get fileName => _fileName.value;
 
-  // contoh data history pemesanan produk
+  // contoh data dummy history pemesanan produk
   final history = Rx<Map<String, dynamic>>({
     'id': 'H001',
     'tanggal': DateFormat('dd/MM/yyyy, HH:mm:ss').format(DateTime.now()),
@@ -35,12 +38,9 @@ class DetailHistoryController extends GetxController {
       {'nama': 'Perdana Unlimited', 'harga': 10000, 'jumlah': 5},
       {'nama': 'Voucher 5GB', 'harga': 50000, 'jumlah': 1},
       {'nama': 'Perdana Unlimited FUP-3', 'harga': 50000, 'jumlah': 100},
-      {'nama': 'Fisik 3GB', 'harga': 50000, 'jumlah': 1},
       {'nama': 'Perdana Unlimited FUP-1', 'harga': 20000, 'jumlah': 50},
-      {'nama': 'Fisik 1GB', 'harga': 20000, 'jumlah': 3},
-      {'nama': 'Perdana Unlimited FUP-7', 'harga': 50000, 'jumlah': 1},
-      {'nama': 'Fisik 10GB', 'harga': 10000, 'jumlah': 100},
-      {'nama': 'Perdana Unlimited FUP-2', 'harga': 15000, 'jumlah': 1},
+      {'nama': 'Smart Ceria 50GB', 'harga': 12000, 'jumlah': 3},
+      {'nama': 'Smart Ceria 50GB', 'harga': 12000, 'jumlah': 3},
       {'nama': 'Smart Ceria 50GB', 'harga': 12000, 'jumlah': 3},
     ]
   });
@@ -74,7 +74,7 @@ class DetailHistoryController extends GetxController {
 
   Future fetchStepData() async {
     final response =
-        await rootBundle.loadString("assets/json_models/dummy_step.json");
+        await rootBundle.loadString("assets/dummy_json/dummy_step.json");
     final responseDecode = json.decode(response);
 
     // Buat daftar Step berdasarkan data yang diterima dari API
@@ -106,10 +106,7 @@ class DetailHistoryController extends GetxController {
     return listSteps;
   }
 
-  getHistoryPemesanan() async {}
-
   onRefreshHistory() {
     history().clear();
-    getHistoryPemesanan();
   }
 }
