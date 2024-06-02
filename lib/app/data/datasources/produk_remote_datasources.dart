@@ -9,8 +9,6 @@ abstract class ProdukRemoteDataSource {
   Future<Either<Failure, List<Produk>>> getAllProduk();
   Future<Either<Failure, List<Produk>>> getListProductByCategory(
       {required String kategori});
-  Future<Either<Failure, String>> addToCart(
-      {required int id, required Produk produk});
 }
 
 class ProdukRemoteDataSourceImpl implements ProdukRemoteDataSource {
@@ -67,24 +65,4 @@ class ProdukRemoteDataSourceImpl implements ProdukRemoteDataSource {
     }
   }
 
-  @override
-  Future<Either<Failure, String>> addToCart(
-      {required int id, required Produk produk}) async {
-    try {
-      final query = {
-        'id_user': id,
-        'id_produk': produk.id,
-      };
-
-      final response = await request.post(
-        postKeranjang,
-        requiresAuthToken: false,
-        queryParameters: query,
-      );
-      return Right(response.data["message"]);
-    } catch (e) {
-      //error parsing json
-      return Left(ParsingFailure(e.toString()));
-    }
-  }
 }

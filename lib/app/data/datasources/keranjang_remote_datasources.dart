@@ -5,8 +5,11 @@ import '../../core/api_endpoints.dart';
 import '../../core/networking/failure_helper.dart';
 import '../../core/networking/network_request.dart';
 import '../models/keranjang_model.dart';
+import '../models/produk_model.dart';
 
 abstract class KeranjangRemoteDataSource {
+  Future<Either<Failure, String>> addToCart(
+      {required int id, required Produk produk});
   Future<Either<Failure, List<Keranjang>>> getListKeranjang();
   Future<Either<Failure, String>> deleteItemKeranjang(int id);
   Future<Either<Failure, String>> updateItemKeranjang(int id, int qty);
@@ -14,20 +17,22 @@ abstract class KeranjangRemoteDataSource {
 
 class KeranjangRemoteDataSourceImpl implements KeranjangRemoteDataSource {
   @override
-  Future<Either<Failure, String>> deleteItemKeranjang(int id) async {
+  Future<Either<Failure, String>> addToCart(
+      {required int id, required Produk produk}) async {
     try {
-      final response = await Request().delete(
-        "$deleteKeranjang/$id",
+      final query = {
+        'id_user': id,
+        'id_produk': produk.id,
+      };
+
+      final response = await Request().post(
+        postKeranjang,
         requiresAuthToken: false,
+        queryParameters: query,
       );
-      if (response.statusCode == 200) {
-        return Right(response.data['message']);
-      }
-      return Left(ConnectionFailure(response.data));
-    } on DioException catch (e) {
-      return Left(ParsingFailure(e.toString()));
+      return Right(response.data["message"]);
     } catch (e) {
-      return const Left(ParsingFailure('Tidak dapat memparsing respon'));
+      return Left(ParsingFailure(e.toString()));
     }
   }
 
@@ -52,6 +57,24 @@ class KeranjangRemoteDataSourceImpl implements KeranjangRemoteDataSource {
       //error parsing json
       return Left(ParsingFailure(e.toString()));
       // return Left(ParsingFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> deleteItemKeranjang(int id) async {
+    try {
+      final response = await Request().delete(
+        "$deleteKeranjang/$id",
+        requiresAuthToken: false,
+      );
+      if (response.statusCode == 200) {
+        return Right(response.data['message']);
+      }
+      return Left(ConnectionFailure(response.data));
+    } on DioException catch (e) {
+      return Left(ParsingFailure(e.toString()));
+    } catch (e) {
+      return const Left(ParsingFailure('Tidak dapat memparsing respon'));
     }
   }
 

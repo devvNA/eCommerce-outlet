@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 
 import '../../core/networking/failure_helper.dart';
 import '../../data/models/keranjang_model.dart';
+import '../../data/models/produk_model.dart';
 import '../repositories/keranjang_repository.dart';
 
 class KeranjangUseCase {
@@ -10,6 +11,10 @@ class KeranjangUseCase {
   KeranjangUseCase({
     required this.repository,
   });
+
+  Future<Either<Failure, String>> addToCart(
+          {required int id, required Produk produk}) async =>
+      await repository.addToCart(produk: produk, id: id);
 
   Future<Either<Failure, List<Keranjang>>> getListKeranjang() async {
     return await repository.getListKeranjang();

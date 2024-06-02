@@ -7,6 +7,4 @@ abstract class ProdukRepository {
   Future<Either<Failure, List<Produk>>> getListProduct();
   Future<Either<Failure, List<Produk>>> getListProductByCategory(
       {required String kategori});
-  Future<Either<Failure, String>> addToCart(
-      {required int id, required Produk produk});
 }
