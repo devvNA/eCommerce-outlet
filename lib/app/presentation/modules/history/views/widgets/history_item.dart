@@ -5,11 +5,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marvelindo_outlet/app/core/utils/helpers/currency/int_currency.dart';
 import 'package:marvelindo_outlet/app/presentation/global/theme/my_colors.dart';
 
-import '../../../../../data/models/histori_pemesanan_model.dart';
+import '../../../../../data/models/pemesanan_model.dart';
 
 class HistoryItem extends StatelessWidget {
   final VoidCallback? onTap;
-  final HistoriPemesanan historiData;
+  final Pemesanan historiData;
 
   const HistoryItem({
     super.key,
@@ -143,7 +143,7 @@ class PaymentChipType extends StatelessWidget {
     required this.historiData,
   });
 
-  final HistoriPemesanan historiData;
+  final Pemesanan historiData;
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-class HistoriPemesanan extends Equatable {
-  const HistoriPemesanan({
+class Pemesanan extends Equatable {
+  const Pemesanan({
     required this.id,
     required this.idOutlet,
     required this.tanggal,
@@ -19,7 +19,7 @@ class HistoriPemesanan extends Equatable {
   final String status;
   final List<DetailProduk> detailProduk;
 
-  HistoriPemesanan copyWith({
+  Pemesanan copyWith({
     int? id,
     int? idOutlet,
     String? tanggal,
@@ -28,7 +28,7 @@ class HistoriPemesanan extends Equatable {
     String? status,
     List<DetailProduk>? detailProduk,
   }) {
-    return HistoriPemesanan(
+    return Pemesanan(
       id: id ?? this.id,
       idOutlet: idOutlet ?? this.idOutlet,
       tanggal: tanggal ?? this.tanggal,
@@ -39,8 +39,8 @@ class HistoriPemesanan extends Equatable {
     );
   }
 
-  factory HistoriPemesanan.fromJson(Map<String, dynamic> json) {
-    return HistoriPemesanan(
+  factory Pemesanan.fromJson(Map<String, dynamic> json) {
+    return Pemesanan(
       id: json["id"] ?? 0,
       idOutlet: json["id_outlet"] ?? 0,
       tanggal: json["tanggal"] ?? "",

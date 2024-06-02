@@ -3,7 +3,6 @@
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -22,16 +21,16 @@ void main() async {
   await GetStorage.init();
   //Firebase Config
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  // runApp(
-  //   const MyApp(),
-  // );
   runApp(
-    DevicePreview(
-      builder: (context) {
-        return const MyApp();
-      },
-    ),
+    const MyApp(),
   );
+  // runApp(
+  //   DevicePreview(
+  //     builder: (context) {
+  //       return const MyApp();
+  //     },
+  //   ),
+  // );
 }
 
 class MyApp extends StatefulWidget {

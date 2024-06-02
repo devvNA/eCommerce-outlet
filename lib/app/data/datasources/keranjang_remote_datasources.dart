@@ -10,11 +10,27 @@ abstract class KeranjangRemoteDataSource {
   Future<Either<Failure, List<Keranjang>>> getListKeranjang();
   Future<Either<Failure, String>> deleteItemKeranjang(int id);
   Future<Either<Failure, String>> updateItemKeranjang(int id, int qty);
-  Future<Either<Failure, String>> increaseItemKeranjang(int id, int currQty);
-  Future<Either<Failure, String>> decreaseItemKeranjang(int id, int currQty);
 }
 
 class KeranjangRemoteDataSourceImpl implements KeranjangRemoteDataSource {
+  @override
+  Future<Either<Failure, String>> deleteItemKeranjang(int id) async {
+    try {
+      final response = await Request().delete(
+        "$deleteKeranjang/$id",
+        requiresAuthToken: false,
+      );
+      if (response.statusCode == 200) {
+        return Right(response.data['message']);
+      }
+      return Left(ConnectionFailure(response.data));
+    } on DioException catch (e) {
+      return Left(ParsingFailure(e.toString()));
+    } catch (e) {
+      return const Left(ParsingFailure('Tidak dapat memparsing respon'));
+    }
+  }
+
   @override
   Future<Either<Failure, List<Keranjang>>> getListKeranjang() async {
     try {
@@ -40,24 +56,6 @@ class KeranjangRemoteDataSourceImpl implements KeranjangRemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, String>> deleteItemKeranjang(int id) async {
-    try {
-      final response = await Request().delete(
-        "$deleteKeranjang/$id",
-        requiresAuthToken: false,
-      );
-      if (response.statusCode == 200) {
-        return Right(response.data['message']);
-      }
-      return Left(ConnectionFailure(response.data));
-    } on DioException catch (e) {
-      return Left(ParsingFailure(e.toString()));
-    } catch (e) {
-      return const Left(ParsingFailure('Tidak dapat memparsing respon'));
-    }
-  }
-
-  @override
   Future<Either<Failure, String>> updateItemKeranjang(
     int productId,
     int qty,
@@ -72,56 +70,6 @@ class KeranjangRemoteDataSourceImpl implements KeranjangRemoteDataSource {
         "$updateKeranjang/$productId",
         requiresAuthToken: false,
         queryParameters: queryParameters,
-      );
-      if (response.statusCode == 200) {
-        return Right(response.data['message']);
-      }
-      return Left(ConnectionFailure(response.data));
-    } on DioException catch (e) {
-      return Left(ParsingFailure(e.toString()));
-    } catch (e) {
-      return const Left(ParsingFailure('Tidak dapat memparsing respon'));
-    }
-  }
-
-  @override
-  Future<Either<Failure, String>> increaseItemKeranjang(
-      int productId, int currQty) async {
-    try {
-      final query = {
-        'quantity': currQty + 1,
-      };
-
-      final response = await Request().put(
-        "$updateKeranjang/$productId",
-        requiresAuthToken: false,
-        queryParameters: query,
-      );
-      if (response.statusCode == 200) {
-        return Right(response.data['message']);
-      }
-      return Left(ConnectionFailure(response.data));
-    } on DioException catch (e) {
-      return Left(ParsingFailure(e.toString()));
-    } catch (e) {
-      return const Left(ParsingFailure('Tidak dapat memparsing respon'));
-    }
-  }
-
-  @override
-  Future<Either<Failure, String>> decreaseItemKeranjang(
-    int productId,
-    int currQty,
-  ) async {
-    try {
-      final query = {
-        'quantity': currQty - 1,
-      };
-
-      final response = await Request().put(
-        "$updateKeranjang/$productId",
-        requiresAuthToken: false,
-        queryParameters: query,
       );
       if (response.statusCode == 200) {
         return Right(response.data['message']);

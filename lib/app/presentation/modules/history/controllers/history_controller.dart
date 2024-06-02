@@ -5,16 +5,16 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../data/datasources/histori_pemesanan_datasource.dart';
-import '../../../../data/models/histori_pemesanan_model.dart';
-import '../../../../data/repositories/histori_pemesanan_repository_impl.dart';
-import '../../../../domain/usecase/histori_pemesanan.dart';
+import '../../../../data/datasources/pemesanan_remote_datasource.dart';
+import '../../../../data/models/pemesanan_model.dart';
+import '../../../../data/repositories/pemesanan_repository_impl.dart';
+import '../../../../domain/usecase/pemesanan_usecase.dart';
 
 // controller
 class HistoryController extends GetxController {
   RxInt selectedIndex = RxInt(0);
   final loading = false.obs;
-  final listHistoriPemesanan = <HistoriPemesanan>[].obs;
+  final listHistoriPemesanan = <Pemesanan>[].obs;
 
   final tabs = [
     const Text("Proses"),
@@ -46,9 +46,9 @@ class HistoryController extends GetxController {
   getHistoriPemesanan() async {
     loading(true);
 
-    var response = await HistoriPemesananUseCase(
-            repository: HistoriPemesananRepositoryImpl(
-                remoteDataSource: HistoriPemesananRemoteDataSourceImpl()))
+    var response = await PemesananUseCase(
+            repository: PemesananRepositoryImpl(
+                remoteDataSource: PemesananRemoteDataSourceImpl()))
         .getListHistoriPemesanan();
 
     response.fold((failure) => log("Error: ${failure.message}"),
@@ -57,7 +57,7 @@ class HistoryController extends GetxController {
     loading(false);
   }
 
-    onRefreshHistoriPemesanan() async {
+  onRefreshHistoriPemesanan() async {
     listHistoriPemesanan().clear();
     getHistoriPemesanan();
   }

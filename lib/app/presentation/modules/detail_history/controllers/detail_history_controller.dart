@@ -13,7 +13,7 @@ import 'package:intl/intl.dart';
 import 'package:marvelindo_outlet/app/presentation/global/theme/my_colors.dart';
 import 'package:path/path.dart' as path;
 
-import '../../../../data/models/histori_pemesanan_model.dart';
+import '../../../../data/models/pemesanan_model.dart';
 
 class DetailHistoryController extends GetxController {
   final currentStep = 0.obs;
@@ -21,7 +21,7 @@ class DetailHistoryController extends GetxController {
   final fileName = ''.obs;
   final imageFile = Rx<File?>(null);
   final uploaded = true.obs;
-  HistoriPemesanan historiData = Get.arguments;
+  Pemesanan historiData = Get.arguments;
 
   // File? get imageFile => _imageFile.value;
   // String get fileName => _fileName.value;

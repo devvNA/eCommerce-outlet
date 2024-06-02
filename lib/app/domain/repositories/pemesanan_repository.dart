@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import '../../core/networking/failure_helper.dart';
+import '../../data/models/pemesanan_model.dart';
 import '../../data/models/keranjang_model.dart';
 
 abstract class PemesananRepository {
@@ -11,4 +12,5 @@ abstract class PemesananRepository {
     required int total,
     required List<Keranjang> produkKeranjang,
   });
+  Future<Either<Failure, List<Pemesanan>>> getListHistoriPemesanan();
 }

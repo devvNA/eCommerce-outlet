@@ -277,6 +277,7 @@ class CheckoutView extends GetView<CheckoutController> {
                             ),
                             ElevatedButton(
                               onPressed: () {
+                                controller.update();
                                 Get.back();
                               },
                               child: const Text(

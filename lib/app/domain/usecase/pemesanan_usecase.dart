@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:marvelindo_outlet/app/core/networking/failure_helper.dart';
 import 'package:marvelindo_outlet/app/domain/repositories/pemesanan_repository.dart';
 
+import '../../data/models/pemesanan_model.dart';
 import '../../data/models/keranjang_model.dart';
 
 class PemesananUseCase {
@@ -25,4 +26,9 @@ class PemesananUseCase {
         total: total,
         produkKeranjang: produkKeranjang,
       );
+
+  Future<Either<Failure, List<Pemesanan>>>
+      getListHistoriPemesanan() async {
+    return await repository.getListHistoriPemesanan();
+  }
 }

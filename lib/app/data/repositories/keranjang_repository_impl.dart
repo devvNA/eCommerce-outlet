@@ -20,16 +20,6 @@ class KeranjangRepositoryImpl implements KeranjangRepository {
       await remoteDataSource.getListKeranjang();
 
   @override
-  Future<Either<Failure, String>> increaseItemKeranjang(
-          int id, int currQty) async =>
-      await remoteDataSource.increaseItemKeranjang(id, currQty);
-
-  @override
-  Future<Either<Failure, String>> decreaseItemKeranjang(
-          int id, int currQty) async =>
-      await remoteDataSource.decreaseItemKeranjang(id, currQty);
-
-  @override
   Future<Either<Failure, String>> updateItemKeranjang(int id, int qty) async =>
       await remoteDataSource.updateItemKeranjang(id, qty);
 }
