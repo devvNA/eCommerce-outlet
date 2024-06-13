@@ -1,13 +1,7 @@
 // ignore_for_file: unnecessary_overrides, invalid_use_of_protected_member, avoid_print
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:marvelindo_outlet/app/data/datasources/auth_remote_datasources.dart';
-import 'package:marvelindo_outlet/app/data/repositories/auth_repository_impl.dart';
-import 'package:marvelindo_outlet/app/domain/usecase/auth_usecase.dart';
 
 class ProfilController extends GetxController {
   final token = "".obs;
@@ -63,24 +57,24 @@ class ProfilController extends GetxController {
   //   isTap.value = false;
   // }
 
-  Future<void> onTapGetAccessToken() async {
-    await Future.delayed(const Duration(milliseconds: 200));
-    isTap(true);
-    //GET TOKEN
-    final box = GetStorage();
-    accessToken.value = box.read("accessToken") ?? "null";
-    log("ACCESS TOKEN: ${accessToken.value} ");
+  // Future<void> onTapGetAccessToken() async {
+  //   await Future.delayed(const Duration(milliseconds: 200));
+  //   isTap(true);
+  //   //GET TOKEN
+  //   final box = GetStorage();
+  //   accessToken.value = box.read("accessToken") ?? "null";
+  //   log("ACCESS TOKEN: ${accessToken.value} ");
 
-    //GET PROVIDER
-    var response2 = await AuthUseCase(
-            repository: AuthRepositoryImpl(
-                remoteDataSource: AuthRemoteDataSourceImpl()))
-        .getFirebaseProvider();
-    response2.fold((failure) => log("Error: ${failure.message}"),
-        (provider) => log("PROVIDERID = ${provider[0].providerId}"));
+  //   //GET PROVIDER
+  //   var response2 = await AuthUseCase(
+  //           repository: AuthRepositoryImpl(
+  //               remoteDataSource: AuthRemoteDataSourceImpl()))
+  //       .getFirebaseProvider();
+  //   response2.fold((failure) => log("Error: ${failure.message}"),
+  //       (provider) => log("PROVIDERID = ${provider[0].providerId}"));
 
-    isTap(false);
-  }
+  //   isTap(false);
+  // }
 
   @override
   void onClose() {

@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:marvelindo_outlet/app/core/networking/failure_helper.dart';
-import 'package:marvelindo_outlet/app/data/datasources/pemesanan_remote_datasource.dart';
+import 'package:marvelindo_outlet/app/data/datasources/pemesanan_remote_datasources.dart';
 import 'package:marvelindo_outlet/app/data/models/pemesanan_model.dart';
 
 import '../../domain/repositories/pemesanan_repository.dart';

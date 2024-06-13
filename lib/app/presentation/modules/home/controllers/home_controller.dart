@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:marvelindo_outlet/app/data/datasources/produk_remote_datasources.dart';
 import 'package:marvelindo_outlet/app/data/repositories/produk_repository_impl.dart';
 import 'package:marvelindo_outlet/app/domain/usecase/produk_usecase.dart';
@@ -18,6 +19,12 @@ class HomeController extends GetxController {
   final searchController = TextEditingController();
   final searchList = <Produk>[].obs;
   final selectedIndex = 0.obs;
+  final box = GetStorage();
+
+  checkToken() async {
+    log("Ini TOKEN: ${await box.read("token")}");
+    log("Ini ACCESS TOKEN: ${await box.read("accessToken")}");
+  }
 
   List<String> categories = [
     "semua",

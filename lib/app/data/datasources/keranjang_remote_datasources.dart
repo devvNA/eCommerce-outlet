@@ -9,26 +9,26 @@ import '../models/produk_model.dart';
 
 abstract class KeranjangRemoteDataSource {
   Future<Either<Failure, String>> addToCart(
-      {required int id, required Produk produk});
+      {required int idOutlet, required Produk produk});
   Future<Either<Failure, List<Keranjang>>> getListKeranjang();
-  Future<Either<Failure, String>> deleteItemKeranjang(int id);
   Future<Either<Failure, String>> updateItemKeranjang(int id, int qty);
+  Future<Either<Failure, String>> deleteItemKeranjang(int id);
 }
 
 class KeranjangRemoteDataSourceImpl implements KeranjangRemoteDataSource {
   @override
-  Future<Either<Failure, String>> addToCart(
-      {required int id, required Produk produk}) async {
+  Future<Either<Failure, String>> addToCart({
+    required int idOutlet,
+    required Produk produk,
+  }) async {
     try {
-      final query = {
-        'id_user': id,
-        'id_produk': produk.id,
-      };
-
       final response = await Request().post(
         postKeranjang,
-        requiresAuthToken: false,
-        queryParameters: query,
+        requiresAuthToken: true,
+        body: {
+          'id_user': idOutlet,
+          'id_produk': produk.id,
+        },
       );
       return Right(response.data["message"]);
     } catch (e) {
@@ -37,11 +37,29 @@ class KeranjangRemoteDataSourceImpl implements KeranjangRemoteDataSource {
   }
 
   @override
+  Future<Either<Failure, String>> deleteItemKeranjang(int id) async {
+    try {
+      final response = await Request().delete(
+        "$deleteKeranjang/$id",
+        requiresAuthToken: true,
+      );
+      if (response.statusCode == 200) {
+        return Right(response.data['message']);
+      }
+      return Left(ConnectionFailure(response.data));
+    } on DioException catch (e) {
+      return Left(ParsingFailure(e.toString()));
+    } catch (e) {
+      return const Left(ParsingFailure('Tidak dapat memparsing respon'));
+    }
+  }
+
+  @override
   Future<Either<Failure, List<Keranjang>>> getListKeranjang() async {
     try {
       final response = await Request().get(
         listKeranjang,
-        requiresAuthToken: false,
+        requiresAuthToken: true,
       );
       List<Keranjang> keranjang = [];
       if (response.statusCode == 200) {
@@ -61,38 +79,18 @@ class KeranjangRemoteDataSourceImpl implements KeranjangRemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, String>> deleteItemKeranjang(int id) async {
-    try {
-      final response = await Request().delete(
-        "$deleteKeranjang/$id",
-        requiresAuthToken: false,
-      );
-      if (response.statusCode == 200) {
-        return Right(response.data['message']);
-      }
-      return Left(ConnectionFailure(response.data));
-    } on DioException catch (e) {
-      return Left(ParsingFailure(e.toString()));
-    } catch (e) {
-      return const Left(ParsingFailure('Tidak dapat memparsing respon'));
-    }
-  }
-
-  @override
   Future<Either<Failure, String>> updateItemKeranjang(
     int productId,
     int qty,
   ) async {
     try {
-      final queryParameters = {
-        'quantity': qty,
-      };
-
       final response = await Request().put(
         // "$updateKeranjang/$id?quantity=$qty",
         "$updateKeranjang/$productId",
-        requiresAuthToken: false,
-        queryParameters: queryParameters,
+        requiresAuthToken: true,
+        queryParameters: {
+          'quantity': qty,
+        },
       );
       if (response.statusCode == 200) {
         return Right(response.data['message']);

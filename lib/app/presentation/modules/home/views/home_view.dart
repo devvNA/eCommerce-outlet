@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:marvelindo_outlet/app/core/networking/firebase_auth_services.dart';
 import 'package:marvelindo_outlet/app/presentation/global/widgets/shimmer_widget.dart';
 
+import '../../../../core/networking/firebase_auth_services.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../global/theme/my_colors.dart';
 import '../../../global/widgets/error_state_widget.dart';
@@ -134,16 +134,18 @@ class HomeView extends GetView<HomeController> {
           15.verticalSpace,
           ListTile(
             onTap: () {
-              Get.find<SettingController>().toProfilePage();
+              // Get.toNamed(Routes.PROFIL);
+              Get.find<SettingController>().toEditProfilePage();
             },
             leading: Hero(
               tag: "profile",
               child: CircleAvatar(
                 backgroundImage:
                     NetworkImage(FirebaseAuthServices.getDisplayProfile()),
+                // NetworkImage(FirebaseAuthServices.getDisplayProfile()),
               ),
             ),
-            title: Text("Hai, ${FirebaseAuthServices.getUsername()}",
+            title: Text("Hai, ${FirebaseAuthServices.getUsername().capitalize}",
                 style: theme.textTheme.bodyMedium!.copyWith(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -165,6 +167,7 @@ class HomeView extends GetView<HomeController> {
     return InkWell(
       onTap: () {
         Get.toNamed(Routes.NOTIFIKASI);
+        // controller.checkToken();
         // log(FirebaseAuth.instance.currentUser!.uid);
       },
       child: Container(

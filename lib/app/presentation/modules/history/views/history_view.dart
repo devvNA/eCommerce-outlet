@@ -72,7 +72,7 @@ class HistoryView extends GetView<HistoryController> {
                                     return const Center(
                                         child: CircularProgressIndicator());
                                   }
-                                  if (controller.listHistoriPemesanan.isEmpty) {
+                                  if (controller.listHistoriProses.isEmpty) {
                                     return const Center(
                                         child: ErrorStateWidget(
                                             message:
@@ -96,11 +96,11 @@ class HistoryView extends GetView<HistoryController> {
                                               curve: Curves.easeInSine,
                                             );
                                       },
-                                      itemCount: controller
-                                          .listHistoriPemesanan.length,
+                                      itemCount:
+                                          controller.listHistoriProses.length,
                                       itemBuilder: (context, index) {
-                                        final historiPemesanan = controller
-                                            .listHistoriPemesanan[index];
+                                        final historiPemesanan =
+                                            controller.listHistoriProses[index];
 
                                         return HistoryItem(
                                           historiData: historiPemesanan,
@@ -118,19 +118,112 @@ class HistoryView extends GetView<HistoryController> {
                                     ),
                                   );
                                 }),
+
                                 // TAB 2
-                                const Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    ErrorStateWidget(
-                                        message:
-                                            "Belum ada histori pemesanan yang selesai"),
-                                  ],
-                                ),
+                                Obx(() {
+                                  if (controller.loading()) {
+                                    return const Center(
+                                        child: CircularProgressIndicator());
+                                  }
+                                  if (controller.listHistoriSelesai.isEmpty) {
+                                    return const Center(
+                                        child: ErrorStateWidget(
+                                            message:
+                                                "Belum ada histori pemesanan yang selesai"));
+                                  }
+                                  return RefreshIndicator(
+                                    color: AppColors.primaryColor,
+                                    onRefresh: () =>
+                                        controller.onRefreshHistoriPemesanan(),
+                                    child: ListView.separated(
+                                      separatorBuilder: (context, index) {
+                                        return const Divider(
+                                                height: 3,
+                                                color: Colors.black45)
+                                            .animate()
+                                            .fade()
+                                            .slideY(
+                                              duration: const Duration(
+                                                  milliseconds: 300),
+                                              begin: 2,
+                                              curve: Curves.easeInSine,
+                                            );
+                                      },
+                                      itemCount:
+                                          controller.listHistoriSelesai.length,
+                                      itemBuilder: (context, index) {
+                                        final historiPemesanan = controller
+                                            .listHistoriSelesai[index];
+
+                                        return HistoryItem(
+                                          historiData: historiPemesanan,
+                                          onTap: () {
+                                            Get.toNamed(Routes.DETAIL_HISTORY,
+                                                arguments: historiPemesanan);
+                                          },
+                                        ).animate().fade().slideY(
+                                              duration: const Duration(
+                                                  milliseconds: 300),
+                                              begin: 1,
+                                              curve: Curves.easeInSine,
+                                            );
+                                      },
+                                    ),
+                                  );
+                                }),
                                 // TAB 3
-                                const ErrorStateWidget(
-                                    message:
-                                        "Belum ada histori pemesanan yang dibatalkan"),
+                                Obx(() {
+                                  if (controller.loading()) {
+                                    return const Center(
+                                        child: CircularProgressIndicator());
+                                  }
+                                  if (controller
+                                      .listHistoriDibatalkan.isEmpty) {
+                                    return const Center(
+                                        child: ErrorStateWidget(
+                                            message:
+                                                "Belum ada histori pemesanan yang dibatalkan"));
+                                  }
+                                  return RefreshIndicator(
+                                    color: AppColors.primaryColor,
+                                    onRefresh: () =>
+                                        controller.onRefreshHistoriPemesanan(),
+                                    child: ListView.separated(
+                                      separatorBuilder: (context, index) {
+                                        return const Divider(
+                                                height: 3,
+                                                color: Colors.black45)
+                                            .animate()
+                                            .fade()
+                                            .slideY(
+                                              duration: const Duration(
+                                                  milliseconds: 300),
+                                              begin: 2,
+                                              curve: Curves.easeInSine,
+                                            );
+                                      },
+                                      itemCount: controller
+                                          .listHistoriDibatalkan.length,
+                                      itemBuilder: (context, index) {
+                                        final historiPemesanan = controller
+                                            .listHistoriDibatalkan[index];
+
+                                        return HistoryItem(
+                                          historiData: historiPemesanan,
+                                          onTap: () {
+                                            Get.toNamed(Routes.DETAIL_HISTORY,
+                                                arguments: historiPemesanan);
+                                          },
+                                        ).animate().fade().slideY(
+                                              duration: const Duration(
+                                                  milliseconds: 300),
+                                              begin: 1,
+                                              curve: Curves.easeInSine,
+                                            );
+                                      },
+                                    ),
+                                  );
+                                }),
                               ])),
                         ],
                       )),

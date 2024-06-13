@@ -2,7 +2,9 @@
 
 import 'package:get/get.dart';
 
-class PoliciesPrivacyController extends GetxController {
+class DetailTransferController extends GetxController {
+  String totalBayar = Get.arguments;
+
   @override
   void onInit() {
     super.onInit();

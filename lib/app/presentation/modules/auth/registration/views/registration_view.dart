@@ -41,8 +41,7 @@ class RegistrationView extends GetView<RegistrationController> {
             clipBehavior: Clip.antiAlias,
             padding:
                 const EdgeInsets.only(top: 12, left: 22, right: 22, bottom: 12),
-            physics: const AlwaysScrollableScrollPhysics(
-                parent: BouncingScrollPhysics()),
+            physics: const AlwaysScrollableScrollPhysics(),
             children: [
               const SizedBox(
                 height: 15.0,
@@ -169,6 +168,10 @@ class RegistrationView extends GetView<RegistrationController> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
+                    disabledForegroundColor:
+                        AppColors.primaryColor.withOpacity(0.38),
+                    disabledBackgroundColor:
+                        AppColors.primaryColor.withOpacity(0.12),
                   ),
                   onPressed: controller.isCheck.value
                       ? () {

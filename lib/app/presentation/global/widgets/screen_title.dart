@@ -30,6 +30,17 @@ class ScreenTitle extends StatelessWidget {
                 ? MainAxisAlignment.center
                 : MainAxisAlignment.start,
             children: [
+              if (automaticallyImplyLeading!)
+                IconButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  icon: const Icon(
+                    Icons.arrow_back,
+                    size: 24.0,
+                    color: Colors.black,
+                  ),
+                ),
               Text(title,
                   style: context.theme.textTheme.displayLarge?.copyWith(
                     fontSize: 18.sp,

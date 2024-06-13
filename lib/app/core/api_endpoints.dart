@@ -1,5 +1,6 @@
 // MARVELINDO
 const baseUrl = 'http://scm8.satriatech.com/api/admin';
+// const baseUrl = 'https://scm.zanov.my.id/api';
 const listProduk = "/products";
 const listProdukByCategory = "/productsbytype";
 const listKeranjang = "/getkeranjang";
@@ -8,6 +9,9 @@ const postKeranjang = "/additemkeranjang";
 const updateKeranjang = "/updateitemkeranjang";
 const checkout = "/transaksi";
 const listHistoryPemesanan = "/gettransaksi";
+const loginUrl = "/login";
+const registerUrl = "/register";
+const logoutUrl = "/logout";
 
 // ======================================================================== //
 
@@ -39,17 +43,17 @@ const profileByIdUrl = '/profile';
 const profileChangePasswordUrl = '/auth/change-password';
 
 // auth
-const loginUrl = '/auth/login';
-const logoutUrl = '/auth/logout';
-const loginWithGoogleUrl = '/auth/login/google/callback';
-const registerUrl = '/auth/register';
-const requestEmailVerificationUrl = '/email-verification/request';
-const resetPasswordUrl = '/reset-password/request';
-const resetPasswordVerifyOTPUrl = '/reset-password/verify';
-const emailVerifyOTPUrl = '/email-verification/verify';
-const changedPasswordUrl = '/auth/reset-password';
-const googleValidateUrl = '/auth/google-validate';
-const refreshTokenUrl = '/auth/refresh';
+// const loginUrl = '/auth/login';
+// const logoutUrl = '/auth/logout';
+// const loginWithGoogleUrl = '/auth/login/google/callback';
+// const registerUrl = '/auth/register';
+// const requestEmailVerificationUrl = '/email-verification/request';
+// const resetPasswordUrl = '/reset-password/request';
+// const resetPasswordVerifyOTPUrl = '/reset-password/verify';
+// const emailVerifyOTPUrl = '/email-verification/verify';
+// const changedPasswordUrl = '/auth/reset-password';
+// const googleValidateUrl = '/auth/google-validate';
+// const refreshTokenUrl = '/auth/refresh';
 
 // administration
 const administrationUrl = '/administration';

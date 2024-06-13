@@ -153,7 +153,9 @@ class ProfilView extends GetView<ProfilController> {
                                 fontSize: 12.0, color: AppColors.gray),
                           ),
                           Text(
-                            Get.find<ProfilController>().getUsername()!,
+                            Get.find<ProfilController>()
+                                .getUsername()!
+                                .capitalize!,
                             style: const TextStyle(
                               fontSize: 13.0,
                             ),
@@ -183,18 +185,18 @@ class ProfilView extends GetView<ProfilController> {
                             ),
                           ),
                           8.verticalSpace,
-                          const Text(
-                            "Jenis Outlet",
-                            style: TextStyle(
-                                fontSize: 12.0, color: AppColors.gray),
-                          ),
-                          const Text(
-                            "Sultan",
-                            style: TextStyle(
-                              fontSize: 13.0,
-                            ),
-                          ),
-                          8.verticalSpace,
+                          // const Text(
+                          //   "Jenis Outlet",
+                          //   style: TextStyle(
+                          //       fontSize: 12.0, color: AppColors.gray),
+                          // ),
+                          // const Text(
+                          //   "Sultan",
+                          //   style: TextStyle(
+                          //     fontSize: 13.0,
+                          //   ),
+                          // ),
+                          // 8.verticalSpace,
                           const Text(
                             "Alamat",
                             style: TextStyle(

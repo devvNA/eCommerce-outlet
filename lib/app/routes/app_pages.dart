@@ -17,6 +17,7 @@ import 'package:marvelindo_outlet/app/presentation/modules/profil/views/profil_v
 import 'package:marvelindo_outlet/app/presentation/modules/splash/views/splash_view.dart';
 
 import '../presentation/modules/about/views/about_app_page.dart';
+import '../presentation/modules/detail_history/detail_transfer/views/detail_transfer_page.dart';
 import '../presentation/modules/edit_profil/views/edit_profil_page.dart';
 import '../presentation/modules/notifikasi/views/notifikasi_view.dart';
 import '../presentation/modules/policies_privacy/views/policies_privacy_page.dart';
@@ -111,7 +112,12 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.NOTIFIKASI,
-      page: () =>  const NotifikasiView(),
+      page: () => const NotifikasiView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_TRANSFER,
+      page: () => const DetailTransferView(),
       binding: AppBindings(),
     ),
   ];

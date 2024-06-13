@@ -37,7 +37,7 @@ class SettingView extends GetView<SettingController> {
                 20.verticalSpace,
                 SettingItem(
                   onTap: () {
-                    controller.onKontak();
+                    controller.onContact();
                   },
                   title: 'Kontak',
                   icon: Icons.contact_phone,
@@ -59,6 +59,66 @@ class SettingView extends GetView<SettingController> {
                   icon: Icons.privacy_tip_outlined,
                 ),
                 20.verticalSpace,
+                // SettingItem(
+                //   title: 'Keluar',
+                //   icon: Icons.logout,
+                //   onTap: () async {
+                //     await showDialog<void>(
+                //       context: context,
+                //       barrierDismissible: true,
+                //       builder: (BuildContext context) {
+                //         return AlertDialog(
+                //           elevation: 3,
+                //           clipBehavior: Clip.antiAlias,
+                //           title: const Text('Konfirmasi'),
+                //           content: const SingleChildScrollView(
+                //             child: ListBody(
+                //               children: <Widget>[
+                //                 Text('Apakah anda yakin ingin keluar?'),
+                //               ],
+                //             ),
+                //           ),
+                //           actions: <Widget>[
+                //             ElevatedButton(
+                //               style: ElevatedButton.styleFrom(
+                //                 backgroundColor: Colors.white,
+                //                 foregroundColor: AppColors.primaryColor,
+                //                 side: const BorderSide(
+                //                   color: AppColors.primaryColor,
+                //                 ),
+                //               ),
+                //               onPressed: () {
+                //                 Get.back();
+                //               },
+                //               child: const Text(
+                //                 "Tidak",
+                //                 style: TextStyle(
+                //                   color: AppColors.primaryColor,
+                //                   fontSize: 14,
+                //                   fontWeight: FontWeight.normal,
+                //                 ),
+                //               ),
+                //             ),
+                //             ElevatedButton(
+                //               style: ElevatedButton.styleFrom(),
+                //               onPressed: () {
+                //                 controller.signOut();
+                //               },
+                //               child: const Text(
+                //                 "Ya",
+                //                 style: TextStyle(
+                //                   color: Colors.white,
+                //                   fontSize: 14,
+                //                   fontWeight: FontWeight.normal,
+                //                 ),
+                //               ),
+                //             ),
+                //           ],
+                //         );
+                //       },
+                //     );
+                //   },
+                // )
                 FirebaseAuthServices.isLoggedIn()
                     ? SettingItem(
                         title: 'Keluar',

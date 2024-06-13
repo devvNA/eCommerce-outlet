@@ -1,6 +1,9 @@
+// ignore_for_file: unused_element
+
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -15,6 +18,7 @@ class LoginView extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     return Obx(() {
       return Scaffold(
           body: SafeArea(
@@ -50,7 +54,7 @@ class LoginView extends GetView<LoginController> {
                       child: Column(
                         children: [
                           Form(
-                            key: controller.formField.value,
+                            key: controller.formKey,
                             child: Column(
                               children: [
                                 _emailForm(context),
@@ -58,7 +62,7 @@ class LoginView extends GetView<LoginController> {
                                 _passwordForm(context),
                                 12.verticalSpace,
                                 _loginButton(),
-                                5.verticalSpace,
+                                // 5.verticalSpace,
                                 // _guestButton()
                                 // const TestButton()
                               ],
@@ -100,31 +104,31 @@ class LoginView extends GetView<LoginController> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  /*                               Get.snackbar(
-                                                  padding: EdgeInsets.all(12),
-                                                  margin: EdgeInsets.all(12),
-                                                  "Belum Tersedia",
-                                                  "masih dalam pengembangan",
-                                                  backgroundColor: Colors.red[600],
-                                                  colorText: Colors.white,
-                                                  icon: Icon(
-                                                    Icons.warning_amber,
-                                                    color: Colors.amber[400],
-                                                    weight: 10,
-                                                    size: 25,
-                                                  ),
-                                                  backgroundGradient: LinearGradient(
-                                                    begin: Alignment.topRight,
-                                                    end: Alignment.bottomLeft,
-                                                    colors: [
-                                                      Colors.blue.withOpacity(0.5),
-                                                      AppColors.primaryColor,
-                                                    ],
-                                                  ),
-                                                );
-                                                #############################
-                                                CustomSnackBar.showCustomErrorToast();
-                                     */
+                                  // Get.snackbar(
+                                  //   padding: const EdgeInsets.all(12),
+                                  //   margin: const EdgeInsets.all(12),
+                                  //   "Belum Tersedia",
+                                  //   "masih dalam pengembangan",
+                                  //   backgroundColor: Colors.red[600],
+                                  //   colorText: Colors.white,
+                                  //   icon: Icon(
+                                  //     Icons.warning_amber,
+                                  //     color: Colors.amber[400],
+                                  //     weight: 10,
+                                  //     size: 25,
+                                  //   ),
+                                  //   backgroundGradient: LinearGradient(
+                                  //     begin: Alignment.topRight,
+                                  //     end: Alignment.bottomLeft,
+                                  //     colors: [
+                                  //       Colors.blue.withOpacity(0.5),
+                                  //       AppColors.primaryColor,
+                                  //     ],
+                                  //   ),
+                                  // );
+
+                                  // CustomSnackBar.showCustomErrorToast();
+
                                   Get.toNamed(Routes.REGISTRATION);
                                 },
                                 child: const Text(
@@ -140,6 +144,17 @@ class LoginView extends GetView<LoginController> {
                           const SizedBox(
                             height: 10.0,
                           ),
+                          // ElevatedButton(
+                          //   style: ElevatedButton.styleFrom(
+                          //     backgroundColor: Colors.black,
+                          //     foregroundColor: Colors.white,
+                          //   ),
+                          //   onPressed: () {
+                          //     controller.onDeleteBox();
+                          //     // log(controller.box.read("token" ?? "null"));
+                          //   },
+                          //   child: const Text("Delete"),
+                          // ),
                         ],
                       ),
                     ),
@@ -181,7 +196,7 @@ class LoginView extends GetView<LoginController> {
 
   TextFormField _emailForm(context) {
     return TextFormField(
-      controller: controller.emailController.value,
+      controller: controller.emailController,
       scrollPadding:
           EdgeInsets.only(bottom: MediaQuery.of(context).size.height),
       cursorColor: AppColors.primaryColor,
@@ -220,7 +235,7 @@ class LoginView extends GetView<LoginController> {
   TextFormField _passwordForm(context) {
     return TextFormField(
       obscureText: controller.visible.value,
-      controller: controller.passwordController.value,
+      controller: controller.passwordController,
       scrollPadding:
           EdgeInsets.only(bottom: MediaQuery.of(context).size.height),
       cursorColor: AppColors.primaryColor,
@@ -285,7 +300,9 @@ class LoginView extends GetView<LoginController> {
         minimumSize: const Size(double.infinity, 42),
       ),
       onPressed: () {
-        if (controller.formField.value.currentState!.validate()) {
+        // controller.doLogin();
+
+        if (controller.formKey.currentState!.validate()) {
           printInfo(info: "success");
           controller.onSignIn();
         }

@@ -29,7 +29,7 @@ class CheckoutView extends GetView<CheckoutController> {
             const Padding(
               padding: EdgeInsets.only(top: 16, left: 16, right: 16),
               child: ScreenTitle(
-                automaticallyImplyLeading: false,
+                automaticallyImplyLeading: true,
                 title: 'Checkout',
               ),
             ),

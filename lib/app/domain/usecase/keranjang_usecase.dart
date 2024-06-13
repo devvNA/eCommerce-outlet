@@ -13,8 +13,8 @@ class KeranjangUseCase {
   });
 
   Future<Either<Failure, String>> addToCart(
-          {required int id, required Produk produk}) async =>
-      await repository.addToCart(produk: produk, id: id);
+          {required int idOutlet, required Produk produk}) async =>
+      await repository.addToCart(produk: produk, idOutlet: idOutlet);
 
   Future<Either<Failure, List<Keranjang>>> getListKeranjang() async {
     return await repository.getListKeranjang();

@@ -42,11 +42,13 @@ dependencies:
   readmore: ^3.0.0
   file_picker: ^8.0.3
   path: ^1.9.0
+  whatsapp_unilink: ^2.1.0
+  crypto: ^3.0.3
 
 dev_dependencies:
   flutter_lints: ^4.0.0
-  # build_runner: ^2.4.9
-  # freezed: ^2.5.2
+  build_runner: any
+  freezed: any
   flutter_test:
     sdk: flutter
   integration_test:
@@ -68,3 +70,4 @@ flutter:
     - assets/dummy_json/
 # flutter pub run build_runner build --delete-conflicting-outputs
 # dart run build_runner build --delete-conflicting-outputs
+# ./genhtml.perl ./coverage/lcov.info -o coverage/html --legend -t "Clean Architecture by Devit Nur Azaqi" --function-coverage

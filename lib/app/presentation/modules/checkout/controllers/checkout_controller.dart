@@ -5,9 +5,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:marvelindo_outlet/app/core/networking/firebase_auth_services.dart';
 import 'package:marvelindo_outlet/app/core/utils/helpers/date_time_ext.dart';
-import 'package:marvelindo_outlet/app/data/datasources/pemesanan_remote_datasource.dart';
+import 'package:marvelindo_outlet/app/data/datasources/pemesanan_remote_datasources.dart';
 import 'package:marvelindo_outlet/app/data/models/keranjang_model.dart';
 import 'package:marvelindo_outlet/app/domain/usecase/pemesanan_usecase.dart';
 
@@ -24,6 +23,7 @@ class CheckoutController extends GetxController {
   String? selectedPayment;
   final produkPO = [].obs;
   String? messageServer;
+  bool isLoading = false;
 
   @override
   void onInit() {
@@ -93,7 +93,7 @@ class CheckoutController extends GetxController {
             repository: PemesananRepositoryImpl(
                 remoteDataSource: PemesananRemoteDataSourceImpl()))
         .postPemesanan(
-      idOutlet: FirebaseAuthServices.getUID(),
+      idOutlet: 3,
       tanggal: DateTime.now().dateCustomFormat,
       tipePayment: selectedPayment!,
       total: totalPayment(),

@@ -230,9 +230,12 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
       onPressed: controller.produk.stok! < 1
           ? null
           : () {
-              controller.onAddToCart().then((value) =>
-                  CustomSnackBar.showCustomSuccessSnackBar(
-                      title: "Sukses", message: value));
+              controller
+                  .onAddToCart()
+                  .then((value) => CustomSnackBar.showCustomSuccessSnackBar(
+                      title: "Sukses",
+                      // message: "Barang ditambahkan ke keranjang")
+                      message: value));
             },
       child: const Padding(
         padding: EdgeInsets.all(6.0),

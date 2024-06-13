@@ -36,13 +36,13 @@ void main() async {
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  static GlobalKey<NavigatorState> globalKey = GlobalKey<NavigatorState>();
-
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
+  GlobalKey<NavigatorState> globalKey = GlobalKey<NavigatorState>();
+
   late final StreamSubscription _connectivityStream;
 
   @override
@@ -66,22 +66,25 @@ class _MyAppState extends State<MyApp> {
   void handleConnectivityStates(ConnectivityResult status) {
     if (status != ConnectivityResult.mobile &&
         status != ConnectivityResult.wifi) {
-      Get.showSnackbar(const GetSnackBar(
-        title: "Tidak ada koneksi",
-        message: "Periksa jaringan anda",
-        padding: EdgeInsets.all(12.0),
-        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
-        backgroundColor: Colors.redAccent,
-        icon: Icon(
-          Icons.error,
-          color: Colors.white,
-        ),
-        isDismissible: false,
-      ));
+      setState(() {
+        Get.showSnackbar(const GetSnackBar(
+          title: "Tidak ada koneksi",
+          message: "Periksa jaringan anda",
+          padding: EdgeInsets.all(12.0),
+          margin: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+          backgroundColor: Colors.redAccent,
+          icon: Icon(
+            Icons.error,
+            color: Colors.white,
+          ),
+          isDismissible: false,
+        ));
+      });
     } else {
       if (Get.isSnackbarOpen) {
         Get.closeAllSnackbars();
       }
+      setState(() {});
     }
   }
 
@@ -99,7 +102,7 @@ class _MyAppState extends State<MyApp> {
         builder: (context, widget) {
           return GetMaterialApp(
             theme: MyTheme.getThemeData(),
-            navigatorKey: MyApp.globalKey,
+            navigatorKey: globalKey,
             initialBinding:
                 AppBindings(), // Membuat instance dari class AppBindings
             title: "Outlet e-Commerce",

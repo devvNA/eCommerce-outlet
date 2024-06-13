@@ -15,8 +15,8 @@ class KeranjangRepositoryImpl implements KeranjangRepository {
 
   @override
   Future<Either<Failure, String>> addToCart(
-          {required int id, required Produk produk}) async =>
-      await remoteDataSource.addToCart(id: id, produk: produk);
+          {required int idOutlet, required Produk produk}) async =>
+      await remoteDataSource.addToCart(idOutlet: idOutlet, produk: produk);
 
   @override
   Future<Either<Failure, String>> deleteProdukKeranjang(int id) async =>

@@ -9,6 +9,8 @@ import 'package:marvelindo_outlet/app/presentation/modules/history/views/history
 import 'package:marvelindo_outlet/app/presentation/modules/home/views/home_view.dart';
 import 'package:marvelindo_outlet/app/presentation/modules/setting/views/setting_view.dart';
 
+import '../../history/controllers/history_controller.dart';
+
 class BaseController extends GetxController {
   DateTime timeBackPressed = DateTime.now();
   final currentIndex = 0.obs;
@@ -22,7 +24,7 @@ class BaseController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+    Get.put(HistoryController());
   }
 
   onBack() {

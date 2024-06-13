@@ -64,5 +64,4 @@ class ProdukRemoteDataSourceImpl implements ProdukRemoteDataSource {
       return Left(ParsingFailure(e.toString()));
     }
   }
-
 }

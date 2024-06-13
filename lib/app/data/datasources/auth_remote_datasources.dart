@@ -1,15 +1,73 @@
+// ignore_for_file: unused_import
+
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:marvelindo_outlet/app/core/api_endpoints.dart';
+
 import '../../core/networking/failure_helper.dart';
+import '../../core/networking/firebase_auth_services.dart';
+import '../../core/networking/network_request.dart';
 
 abstract class AuthRemoteDataSource {
   Future<Either<Failure, String>> getFirebaseToken();
+  Future<void> logout();
+  // Future<Either<Failure, bool>> login(
+  //     {required String email, required String password});
   // Future<Either<Failure, String>> getAccessToken();
   // Future<Either<Failure, Token>> refreshToken(String refreshToken);
-  Future<Either<Failure, List<UserInfo>>> getFirebaseProvider();
+  // Future<Either<Failure, List<UserInfo>>> getFirebaseProvider();
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
+  final box = GetStorage();
+
+  // @override
+  // Future<Either<Failure, bool>> login({
+  //   required String email,
+  //   required String password,
+  // }) async {
+  //   try {
+  //     final response = await Request().post(
+  //       loginUrl,
+  //       requiresAuthToken: false,
+  //       queryParameters: {
+  //         "email": email,
+  //         "password": password,
+  //       },
+  //     );
+  //     if (response.statusCode == 200) {
+  //       box.write("token", response.data["token"]);
+  //       log("Token : ${box.read("token")}");
+  //       return const Right(true);
+  //     }
+  //     return const Right(false);
+  //   } catch (e) {
+  //     return Left(ParsingFailure(e.toString()));
+  //   }
+  // }
+
+  // @override
+  // Future<Either<Failure, bool>> logout() async {
+  //   try {
+  //     var response = await Request().post(
+  //       logoutUrl,
+  //       requiresAuthToken: true,
+  //     );
+  //     box.remove("token");
+  //     if (response.statusCode == 200) {
+  //       // box.remove("token");
+  //       log("Token : ${box.read("token")}");
+  //       return const Right(true);
+  //     }
+  //     return const Right(false);
+  //   } catch (e) {
+  //     return Left(ParsingFailure(e.toString()));
+  //   }
+  // }
+
   @override
   Future<Either<Failure, String>> getFirebaseToken() async {
     try {
@@ -25,21 +83,27 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, List<UserInfo>>> getFirebaseProvider() async {
-    try {
-      final auth = FirebaseAuth.instance;
-      User? user = auth.currentUser;
-
-      if (user == null) {
-        return const Left(Exception('unauthenticated'));
-      }
-
-      final providerData = auth.currentUser?.providerData ?? [];
-      return Right(providerData);
-    } on FirebaseAuthException catch (e) {
-      return Left(Exception(e.toString()));
-    }
+  Future<void> logout() async {
+    await FirebaseAuthServices.signOut();
+    await box.erase();
   }
+
+  // @override
+  // Future<Either<Failure, List<UserInfo>>> getFirebaseProvider() async {
+  //   try {
+  //     final auth = FirebaseAuth.instance;
+  //     User? user = auth.currentUser;
+
+  //     if (user == null) {
+  //       return const Left(Exception('unauthenticated'));
+  //     }
+
+  //     final providerData = auth.currentUser?.providerData ?? [];
+  //     return Right(providerData);
+  //   } on FirebaseAuthException catch (e) {
+  //     return Left(Exception(e.toString()));
+  //   }
+  // }
 
   // @override
   // Future<Either<Failure, String>> getAccessToken() async {

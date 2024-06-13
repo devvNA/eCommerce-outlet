@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/app/core/utils/helpers/currency/int_currency.dart';
 import 'package:marvelindo_outlet/app/presentation/global/widgets/custom_alert_dialog.dart';
+import 'package:marvelindo_outlet/app/routes/app_pages.dart';
 
 import '../../../../core/utils/helpers/currency/currency.dart';
 import '../../../global/theme/my_colors.dart';
@@ -48,6 +49,23 @@ class DetailHistoryView extends GetView<DetailHistoryController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Status :',
+                          style: txtStyle,
+                        ),
+                        Text(
+                          controller.historiData.status.capitalizeFirst!,
+                          style: const TextStyle(
+                            color: AppColors.primaryColor,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Divider(),
                     Row(
                       children: [
                         const Text(
@@ -161,6 +179,9 @@ class DetailHistoryView extends GetView<DetailHistoryController> {
                       ],
                     ),
                     attachBox(
+                      visible:
+                          controller.historiData.tipePayment == "Transfer" &&
+                              controller.historiData.status == "proses",
                       context: context,
                       onTap: (controller.uploaded.value)
                           ? () {
@@ -168,11 +189,31 @@ class DetailHistoryView extends GetView<DetailHistoryController> {
                             }
                           : null,
                       txtStyle: txtStyle,
-                      visible: controller.historiData.tipePayment == "Transfer",
                       // visible: controller.history.value["jenis_pembayaran"] ==
                       //     "Transfer",
                     ),
                     3.verticalSpace,
+                    Visibility(
+                      visible:
+                          controller.historiData.tipePayment == "Transfer" &&
+                              controller.historiData.status == "proses",
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Ink(
+                          child: InkWell(
+                            onTap: () {
+                              Get.toNamed(Routes.DETAIL_TRANSFER,
+                                  arguments: controller
+                                      .historiData.total.currencyFormatRp);
+                            },
+                            child: Text("Lihat cara pembayaran",
+                                style: txtStyle.copyWith(
+                                  color: AppColors.blue,
+                                )),
+                          ),
+                        ),
+                      ),
+                    ),
                     const Divider(),
                     Text(
                       'Pesanan :',
@@ -248,7 +289,7 @@ class DetailHistoryView extends GetView<DetailHistoryController> {
         children: [
           2.verticalSpace,
           Text(
-            'Bukti :',
+            'Bukti Pembayaran :',
             style: txtStyle,
           ),
           3.verticalSpace,

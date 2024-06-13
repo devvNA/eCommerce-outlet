@@ -14,9 +14,7 @@ import '../../base/controllers/base_controller.dart';
 class CartController extends GetxController {
   final debounceC = DebouncerC(duration: const Duration(milliseconds: 1200));
   final listKeranjang = <Keranjang>[].obs; // to hold the products in cart
-
   final loading = false.obs;
-
   String? messageDelete;
 
   @override
@@ -52,12 +50,10 @@ class CartController extends GetxController {
 
   getKeranjang() async {
     loading(true);
-
     var response = await KeranjangUseCase(
             repository: KeranjangRepositoryImpl(
                 remoteDataSource: KeranjangRemoteDataSourceImpl()))
         .getListKeranjang();
-
     response.fold((failure) => log("Error: ${failure.message}"),
         (keranjang) => listKeranjang(keranjang));
 

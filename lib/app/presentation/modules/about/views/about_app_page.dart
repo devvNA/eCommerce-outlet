@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../controllers/about_app_controller.dart';
+import '../../../global/widgets/expansion_widget.dart';
 
 class AboutAppView extends GetView<AboutAppController> {
   const AboutAppView({super.key});
@@ -73,40 +74,3 @@ class AboutAppView extends GetView<AboutAppController> {
   }
 }
 
-class ExpansionFeatures extends StatelessWidget {
-  final String title;
-  final String description;
-
-  const ExpansionFeatures({
-    super.key,
-    required this.title,
-    required this.description,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = context.textTheme;
-
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.white60,
-      ),
-      child: ExpansionTile(
-        childrenPadding: const EdgeInsets.only(bottom: 8, left: 10),
-        title: Text(
-          title,
-          style: theme.bodyMedium!.copyWith(fontWeight: FontWeight.bold),
-        ),
-        children: <Widget>[
-          ListTile(
-            title: Text(
-              description,
-              style: theme.bodyMedium,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}

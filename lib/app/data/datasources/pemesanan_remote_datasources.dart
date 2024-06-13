@@ -27,24 +27,22 @@ class PemesananRemoteDataSourceImpl implements PemesananRemoteDataSource {
     required List<Keranjang> produkKeranjang,
   }) async {
     try {
-      final body = {
-        "id_outlet": idOutlet,
-        "tanggal": tanggal,
-        "tipe_payment": tipePayment,
-        "total": total,
-        'produk': produkKeranjang
-            .map((item) => {
-                  'id_produk': item.idProduk,
-                  'jumlah': item.quantity,
-                  'harga': item.hargaBarang,
-                })
-            .toList(),
-      };
-
       final response = await Request().post(
         checkout,
-        requiresAuthToken: false,
-        data: body,
+        requiresAuthToken: true,
+        body: {
+          "id_outlet": idOutlet,
+          "tanggal": tanggal,
+          "tipe_payment": tipePayment,
+          "total": total,
+          'produk': produkKeranjang
+              .map((item) => {
+                    'id_produk': item.idProduk,
+                    'jumlah': item.quantity,
+                    'harga': item.hargaBarang,
+                  })
+              .toList(),
+        },
       );
 
       return Right(response.data["message"]);
@@ -59,7 +57,7 @@ class PemesananRemoteDataSourceImpl implements PemesananRemoteDataSource {
     try {
       final response = await Request().get(
         listHistoryPemesanan,
-        requiresAuthToken: false,
+        requiresAuthToken: true,
       );
       List<Pemesanan> history = [];
       if (response.statusCode == 200) {

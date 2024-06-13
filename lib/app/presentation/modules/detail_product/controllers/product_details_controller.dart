@@ -3,7 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:marvelindo_outlet/app/core/networking/firebase_auth_services.dart';
+import 'package:marvelindo_outlet/app/data/models/outlet_model.dart';
 import 'package:marvelindo_outlet/app/presentation/modules/cart/controllers/cart_controller.dart';
 
 import '../../../../data/datasources/keranjang_remote_datasources.dart';
@@ -20,18 +22,40 @@ class ProductDetailsController extends GetxController {
   final isExpanded = false.obs;
   final expansionTileKey = GlobalKey();
   var selectedSize = '';
+  final box = GetStorage();
 
   @override
   void onInit() {
+    box.write("user", Outlet);
     super.onInit();
   }
 
   Future onAddToCart() async {
+    // final response = await KeranjangUseCase(
+    //         repository: KeranjangRepositoryImpl(
+    //             remoteDataSource: KeranjangRemoteDataSourceImpl()))
+    //     .addToCart(idOutlet: 3, produk: produk);
+    // // .addToCart(idOutlet: UserManager().currentOutlet!.id!, produk: produk);
+    // response.fold((failure) => messageServer = failure.message,
+    //     (message) => messageServer = message);
+    // Get.back();
+    // await Future.delayed(const Duration(milliseconds: 250));
+    // Get.find<BaseController>().changeScreen(1);
+    // Get.find<CartController>().onRefreshKeranjang();
+
     if (FirebaseAuthServices.isLoggedIn()) {
-      var response = await KeranjangUseCase(
+      // final response = await KeranjangUseCase(
+      //         repository: KeranjangRepositoryImpl(
+      //             remoteDataSource: KeranjangRemoteDataSourceImpl()))
+      //     .addToCart(id: FirebaseAuthServices.getUID(), produk: produk);
+      final response = await KeranjangUseCase(
               repository: KeranjangRepositoryImpl(
                   remoteDataSource: KeranjangRemoteDataSourceImpl()))
-          .addToCart(id: FirebaseAuthServices.getUID(), produk: produk);
+          .addToCart(
+        // idOutlet: UserManager().currentOutlet!.id!,
+        idOutlet: FirebaseAuthServices.getUID(),
+        produk: produk,
+      );
       response.fold((failure) => messageServer = failure.message,
           (message) => messageServer = message);
       Get.back();
@@ -48,7 +72,7 @@ class ProductDetailsController extends GetxController {
         textConfirm: "login",
         confirmTextColor: Colors.white,
         onConfirm: () => Get.find<SettingController>().toLoginPage(),
-        middleText: "Anda harus login terlebih dahulu",
+        middleText: "Anda harus verifikasi terlebih dahulu",
       );
     }
     return messageServer;
