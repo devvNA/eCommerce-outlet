@@ -2,10 +2,13 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:marvelindo_outlet/app/routes/app_pages.dart';
+
+import '../../presentation/global/theme/my_colors.dart';
 
 // abstract class FirebaseAuthService {
 //   Future<User?> signInWithGoogle();
@@ -48,10 +51,12 @@ class FirebaseAuthServices {
       debugPrint("userCredential: $userCredential");
       log("ACCESS TOKEN: ${credential.accessToken}");
 
-      await Get.offNamed(Routes.BASE);
+      Get.offNamed(Routes.BASE);
+      Get.snackbar("Sukses", "anda berhasil login",
+          colorText: Colors.white, backgroundColor: AppColors.green1);
     } catch (e, stackTrace) {
       if (kDebugMode) {
-        debugPrint('Error signInWithGoogle: $e, $stackTrace');
+        log('Error signInWithGoogle: $e, $stackTrace');
       }
       return null;
     }

@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -61,25 +62,25 @@ class SettingController extends GetxController {
   // }
 
   toEditProfilePage() async {
-    // Get.toNamed(Routes.PROFIL);
+    Get.toNamed(Routes.PROFIL);
 
-    if (FirebaseAuthServices.isLoggedIn()) {
-      Get.toNamed(Routes.PROFIL);
-    } else {
-      Get.defaultDialog(
-        title: "Peringatan",
-        titlePadding: const EdgeInsets.only(top: 13),
-        buttonColor: AppColors.primaryColor,
-        cancelTextColor: AppColors.primaryColor,
-        contentPadding: const EdgeInsets.all(12),
-        textCancel: "kembali",
-        textConfirm: "login",
-        confirmTextColor: Colors.white,
-        onCancel: () => Get.back(),
-        onConfirm: toLoginPage,
-        middleText: "Anda harus verifikasi terlebih dahulu",
-      );
-    }
+    // if (FirebaseAuthServices.isLoggedIn()) {
+    //   Get.toNamed(Routes.PROFIL);
+    // } else {
+    //   Get.defaultDialog(
+    //     title: "Peringatan",
+    //     titlePadding: const EdgeInsets.only(top: 13),
+    //     buttonColor: AppColors.primaryColor,
+    //     cancelTextColor: AppColors.primaryColor,
+    //     contentPadding: const EdgeInsets.all(12),
+    //     textCancel: "kembali",
+    //     textConfirm: "login",
+    //     confirmTextColor: Colors.white,
+    //     onCancel: () => Get.back(),
+    //     onConfirm: toLoginPage,
+    //     middleText: "Anda harus verifikasi terlebih dahulu",
+    //   );
+    // }
   }
 
   toLoginPage() async {
@@ -113,5 +114,7 @@ class SettingController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+    update();
   }
 }

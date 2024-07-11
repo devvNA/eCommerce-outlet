@@ -57,14 +57,19 @@ class HistoryItem extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "Produk ${historiData.detailProduk[0].idProduk.toString()}",
-                      // "Perdana 10GB",
-                      textAlign: TextAlign.left,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14.0,
+                    Expanded(
+                      flex: 6,
+                      child: Text(
+                        historiData.detailProduk[0].nama.toString(),
+                        textAlign: TextAlign.left,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14.0,
+                        ),
                       ),
+                    ),
+                    const Expanded(
+                      child: SizedBox(),
                     ),
                     Text(
                       historiData.total.currencyFormatRp,

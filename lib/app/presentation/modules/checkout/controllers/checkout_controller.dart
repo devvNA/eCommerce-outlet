@@ -3,12 +3,14 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
+import 'package:marvelindo_outlet/app/core/networking/firebase_auth_services.dart';
 import 'package:marvelindo_outlet/app/core/utils/helpers/date_time_ext.dart';
 import 'package:marvelindo_outlet/app/data/datasources/pemesanan_remote_datasources.dart';
 import 'package:marvelindo_outlet/app/data/models/keranjang_model.dart';
 import 'package:marvelindo_outlet/app/domain/usecase/pemesanan_usecase.dart';
+import 'package:marvelindo_outlet/app/presentation/modules/cart/controllers/cart_controller.dart';
 
 import '../../../../data/repositories/pemesanan_repository_impl.dart';
 import '../../base/controllers/base_controller.dart';
@@ -21,7 +23,6 @@ class CheckoutController extends GetxController {
 
   final isButtonActive = false.obs;
   String? selectedPayment;
-  final produkPO = [].obs;
   String? messageServer;
   bool isLoading = false;
 
@@ -37,6 +38,7 @@ class CheckoutController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
   }
 
   @override
@@ -84,7 +86,7 @@ class CheckoutController extends GetxController {
   }
 
   Future purchaseOrder() async {
-    final date = DateFormat('yyyy-MM-dd').parse(DateTime.now().toString());
+    // final date = DateFormat('yyyy-MM-dd').parse(DateTime.now().toString());
     // final parsedDate = DateFormat('yyyy-MM-dd')
     //     .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
 
@@ -93,12 +95,18 @@ class CheckoutController extends GetxController {
             repository: PemesananRepositoryImpl(
                 remoteDataSource: PemesananRemoteDataSourceImpl()))
         .postPemesanan(
-      idOutlet: 3,
+      idUser: FirebaseAuthServices.getUID(),
       tanggal: DateTime.now().dateCustomFormat,
       tipePayment: selectedPayment!,
       total: totalPayment(),
-      produkKeranjang: checkoutProduk,
     );
+    //     .postPemesanan(
+    //   idUser: FirebaseAuthServices.getUID(),
+    //   tanggal: DateTime.now().dateCustomFormat,
+    //   tipePayment: selectedPayment!,
+    //   total: totalPayment(),
+    //   produkKeranjang: checkoutProduk,
+    // );
 
     response.fold((failure) => log("Error: ${failure.message}"),
         (message) => messageServer = message);
@@ -107,6 +115,7 @@ class CheckoutController extends GetxController {
 
   redirectHistory() {
     Get.back();
+    Get.find<CartController>().onRefreshKeranjang();
     Get.back();
     Get.find<HistoryController>().onRefreshHistoriPemesanan();
     Get.find<BaseController>().changeScreen(2);

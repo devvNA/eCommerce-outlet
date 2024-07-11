@@ -243,7 +243,8 @@ class DetailHistoryView extends GetView<DetailHistoryController> {
                           ),
                           // leading: const Icon(Icons.shopping_bag),
                           title: Text(
-                            "Produk ${controller.historiData.detailProduk[index].idProduk}",
+                            // "Produk ${controller.historiData.detailProduk[index].idProduk}",
+                            controller.historiData.detailProduk[index].nama,
                             // controller.history.value['produk'][index]['nama'],
                             style: const TextStyle(
                               fontSize: 13,
@@ -397,7 +398,7 @@ class DetailHistoryView extends GetView<DetailHistoryController> {
                                   )
                                 : const Icon(
                                     Icons.check_circle,
-                                    color: AppColors.blue,
+                                    color: AppColors.primaryColor,
                                   )),
                   ),
                 ),

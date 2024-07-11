@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -19,6 +20,8 @@ class CheckoutView extends GetView<CheckoutController> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+
     String imgURL =
         "https://images.tokopedia.net/img/cache/700/VqbcmM/2023/10/10/0e50430c-40e7-4ded-b8ad-23fa364f01f2.png";
 
@@ -34,74 +37,70 @@ class CheckoutView extends GetView<CheckoutController> {
               ),
             ),
             Expanded(
-              child: RefreshIndicator(
-                color: AppColors.primaryColor,
-                onRefresh: () async {},
-                child: ListView(
-                  padding: const EdgeInsets.all(16.0),
-                  children: [
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.location_on_outlined,
-                          size: 25.0,
+              child: ListView(
+                padding: const EdgeInsets.all(16.0),
+                children: [
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.location_on_outlined,
+                        size: 25.0,
+                        color: Colors.black,
+                      ),
+                      5.horizontalSpace,
+                      const Text(
+                        "Alamat Pengiriman",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 15.0,
                           color: Colors.black,
                         ),
-                        5.horizontalSpace,
-                        const Text(
-                          "Alamat Pengiriman",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 15.0,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
-                    5.verticalSpace,
-                    _addressCard(context),
-                    20.verticalSpace,
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.list_alt,
-                          size: 25.0,
+                      ),
+                    ],
+                  ),
+                  5.verticalSpace,
+                  _addressCard(context),
+                  20.verticalSpace,
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.list_alt,
+                        size: 25.0,
+                        color: Colors.black,
+                      ),
+                      5.horizontalSpace,
+                      const Text(
+                        "Detail Pemesanan",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 15.0,
                           color: Colors.black,
                         ),
-                        5.horizontalSpace,
-                        const Text(
-                          "Detail Pemesanan",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 15.0,
-                            color: Colors.black,
-                          ),
+                      ),
+                    ],
+                  ),
+                  5.verticalSpace,
+                  Column(
+                    children: List.generate(controller.checkoutProduk.length,
+                        (index) {
+                      final dataKeranjang = controller.checkoutProduk[index];
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 5),
+                        child: CheckoutProduct(
+                          quantity: dataKeranjang.quantity ?? 5,
+                          totalPayment: controller.totalItemRp(index),
+                          imgUrl: imgURL,
+                          title: dataKeranjang.namaBarang,
+                          description:
+                              "Harga satuan:\n${dataKeranjang.hargaBarang!.currencyFormatRp}",
+                          category: dataKeranjang.jenisBarang ?? "Paket",
                         ),
-                      ],
-                    ),
-                    5.verticalSpace,
-                    Column(
-                      children: List.generate(controller.checkoutProduk.length,
-                          (index) {
-                        final dataKeranjang = controller.checkoutProduk[index];
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 5),
-                          child: CheckoutProduct(
-                            quantity: dataKeranjang.quantity ?? 5,
-                            totalPayment: controller.totalItemRp(index),
-                            imgUrl: imgURL,
-                            title: dataKeranjang.namaBarang,
-                            description:
-                                "Harga satuan:\n${dataKeranjang.hargaBarang!.currencyFormatRp}",
-                            category: dataKeranjang.jenisBarang ?? "Paket",
-                          ),
-                        );
-                      }),
-                    ),
-                  ],
-                ),
+                      );
+                    }),
+                  ),
+                ],
               ),
             ),
             _bottomMenu(context, controller),
@@ -159,13 +158,12 @@ class CheckoutView extends GetView<CheckoutController> {
                         "Total Pembayaran",
                         style: TextStyle(
                           fontSize: 14.0,
-                          fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
                         controller.totalPayment().currencyFormatRp,
                         style: const TextStyle(
-                          fontSize: 14.0,
+                          fontSize: 15.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

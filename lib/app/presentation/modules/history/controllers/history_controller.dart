@@ -57,7 +57,8 @@ class HistoryController extends GetxController {
       response.fold(
         (failure) => log("Error: ${failure.message}"),
         (data) {
-          listHistoriPemesanan(data);
+          data.sort((a, b) => b.tanggal.compareTo(a.tanggal));
+          listHistoriPemesanan.value = data;
           filterHistoriPemesanan();
         },
       );

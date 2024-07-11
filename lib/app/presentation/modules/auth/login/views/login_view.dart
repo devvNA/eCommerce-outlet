@@ -104,6 +104,8 @@ class LoginView extends GetView<LoginController> {
                               ),
                               GestureDetector(
                                 onTap: () {
+                                  Get.toNamed(Routes.REGISTRATION);
+
                                   // Get.snackbar(
                                   //   padding: const EdgeInsets.all(12),
                                   //   margin: const EdgeInsets.all(12),
@@ -128,8 +130,6 @@ class LoginView extends GetView<LoginController> {
                                   // );
 
                                   // CustomSnackBar.showCustomErrorToast();
-
-                                  Get.toNamed(Routes.REGISTRATION);
                                 },
                                 child: const Text(
                                   "Daftar",

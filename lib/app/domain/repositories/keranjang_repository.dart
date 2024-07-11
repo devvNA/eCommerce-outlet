@@ -6,7 +6,7 @@ import '../../data/models/produk_model.dart';
 
 abstract class KeranjangRepository {
   Future<Either<Failure, String>> addToCart(
-      {required int idOutlet, required Produk produk});
+      {required int idUser, required Produk produk});
   Future<Either<Failure, List<Keranjang>>> getListKeranjang();
   Future<Either<Failure, String>> deleteProdukKeranjang(int id);
   Future<Either<Failure, String>> updateItemKeranjang(int id, int qty);

@@ -8,7 +8,6 @@ import '../../../../core/networking/firebase_auth_services.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../global/theme/my_colors.dart';
 import '../../../global/widgets/error_state_widget.dart';
-import '../../setting/controllers/setting_controller.dart';
 import '../controllers/home_controller.dart';
 import 'widgets/product_item.dart';
 
@@ -134,8 +133,8 @@ class HomeView extends GetView<HomeController> {
           15.verticalSpace,
           ListTile(
             onTap: () {
-              // Get.toNamed(Routes.PROFIL);
-              Get.find<SettingController>().toEditProfilePage();
+              Get.toNamed(Routes.PROFIL);
+              // Get.find<SettingController>().toEditProfilePage();
             },
             leading: Hero(
               tag: "profile",

@@ -18,8 +18,8 @@ class AuthRepositoryImpl implements AuthRepository {
   // Future<Either<Failure, bool>> logout() async =>
   //     await remoteDataSource.logout();
   @override
-  Future<Either<Failure, String>> getFirebaseToken() async =>
-      await remoteDataSource.getFirebaseToken();
+  Future<Either<Failure, String>> googleLogin() async =>
+      await remoteDataSource.googleLogin();
 
   // @override
   // Future<Either<Failure, List<UserInfo>>> getFirebaseProvider() async =>

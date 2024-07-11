@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:insta_image_viewer/insta_image_viewer.dart';
+import 'package:marvelindo_outlet/app/core/networking/firebase_auth_services.dart';
 
 import '../../../../routes/app_pages.dart';
 import '../../../global/theme/my_colors.dart';
@@ -66,20 +68,18 @@ class ProfilView extends GetView<ProfilController> {
                     ],
                   ),
                   15.verticalSpace,
-                  Hero(
-                    tag: "profile",
+                  InstaImageViewer(
+                    imageUrl: FirebaseAuthServices.getDisplayProfile(),
                     child: CircleAvatar(
                       radius: 36.0,
-                      backgroundImage:
-                          NetworkImage("${controller.getDisplayProfile()}"),
+                      backgroundImage: NetworkImage(
+                          FirebaseAuthServices.getDisplayProfile()),
                     ),
                   ),
                   8.verticalSpace,
-                  controller.isVerified()
+                  FirebaseAuthServices.isLoggedIn()
                       ? InkWell(
-                          onTap: () {
-                            // controller.isVerifiedTap();
-                          },
+                          onTap: () {},
                           child: const Chip(
                               backgroundColor: Colors.green,
                               label: Text(
@@ -89,24 +89,17 @@ class ProfilView extends GetView<ProfilController> {
                                 ),
                               )),
                         )
-                      : ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(horizontal: 12),
-                            backgroundColor: AppColors.gray,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(32),
-                            ),
-                          ),
-                          onPressed: () {
-                            controller.isVerifiedTap();
-                          },
-                          child: const Text(
-                            "Belum terverifikasi",
-                            style: TextStyle(
-                              fontSize: 10,
-                            ),
-                          ),
-                        ),
+                      : InkWell(
+                          onTap: () {},
+                          child: const Chip(
+                              backgroundColor: AppColors.gray,
+                              label: Text(
+                                "Belum terverifikasi",
+                                style: TextStyle(
+                                  fontSize: 10.0,
+                                ),
+                              )),
+                        )
                 ],
               ),
             ),

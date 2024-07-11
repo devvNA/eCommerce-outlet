@@ -61,7 +61,7 @@ class DetailTransferView extends GetView<DetailTransferController> {
                           const Text(
                             "Jatuh tempo 30 Jun 2024, 15:14",
                             style: TextStyle(
-                                fontSize: 13.0, color: AppColors.gray),
+                                fontSize: 11.0, color: AppColors.gray),
                           ),
                         ],
                       ),

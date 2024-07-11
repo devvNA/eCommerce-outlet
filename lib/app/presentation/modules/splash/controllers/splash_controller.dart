@@ -14,8 +14,6 @@ class SplashController extends GetxController {
   String? savedEmail;
   final box = GetStorage();
   final formKey = GlobalKey<FormState>();
-  String? email;
-  String? password;
 
   @override
   void onInit() async {

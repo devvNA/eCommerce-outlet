@@ -3,6 +3,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:marvelindo_outlet/app/core/api_endpoints.dart';
+import 'package:marvelindo_outlet/app/core/networking/firebase_auth_services.dart';
 import 'package:marvelindo_outlet/app/data/datasources/pemesanan_remote_datasources.dart';
 import 'package:marvelindo_outlet/app/data/models/keranjang_model.dart';
 import 'package:marvelindo_outlet/app/data/models/pemesanan_model.dart';
@@ -16,7 +17,6 @@ import 'package:mockito/mockito.dart';
 import 'pemesanan_remote_datasources_test.mocks.dart';
 
 void main() async {
-  int idOutlet = 1;
   String tanggal = "Da";
   String tipePayment = "COD";
   int total = 10;
@@ -28,7 +28,7 @@ void main() async {
   //     KeranjangRemoteDataSourceImpl(client: mockRequest); //Kelas Fake
   var listPemesanan = <Pemesanan>[];
   var produkKeranjang = <Keranjang>[];
-  const int id = 1;
+  const int idUser = 1;
   String messageServer = "message server";
   Produk produk = Produk(
     id: 1,
@@ -73,38 +73,36 @@ void main() async {
       test('POST BERHASIL', () async {
         // Proses Stubbing
         when(pemesananRemoteDataSource.postPemesanan(
-          idOutlet: idOutlet,
+          idUser: idUser,
           tanggal: tanggal,
           tipePayment: tipePayment,
           total: total,
-          produkKeranjang: produkKeranjang,
         )).thenAnswer((_) async => Right(messageServer));
         // Tidak perlu membuat blok try-catch untuk kasus sukses
         final response = await pemesananRemoteDataSource.postPemesanan(
-            idOutlet: idOutlet,
-            tanggal: tanggal,
-            tipePayment: tipePayment,
-            total: total,
-            produkKeranjang: produkKeranjang);
+          idUser: idUser,
+          tanggal: tanggal,
+          tipePayment: tipePayment,
+          total: total,
+        );
         // Gunakan fold untuk mengakses nilai Right
         final messageData = response.fold((failure) => null, (data) => data);
         expect(messageData, messageServer);
       });
       test('POST GAGAL', () async {
         when(pemesananRemoteDataSource.postPemesanan(
-                idOutlet: idOutlet,
-                tanggal: tanggal,
-                tipePayment: tipePayment,
-                total: total,
-                produkKeranjang: produkKeranjang))
-            .thenThrow(Exception());
+          idUser: idUser,
+          tanggal: tanggal,
+          tipePayment: tipePayment,
+          total: total,
+        )).thenThrow(Exception());
         try {
           await pemesananRemoteDataSource.postPemesanan(
-              idOutlet: idOutlet,
-              tanggal: tanggal,
-              tipePayment: tipePayment,
-              total: total,
-              produkKeranjang: produkKeranjang);
+            idUser: idUser,
+            tanggal: tanggal,
+            tipePayment: tipePayment,
+            total: total,
+          );
           fail("Tidak mungkin terjadi");
           //Tidak mungkin terjadi error
         } catch (e) {

@@ -9,13 +9,13 @@ class ProfilController extends GetxController {
   final auth = FirebaseAuth.instance.obs;
   final isTap = false.obs;
   final isVerified = true.obs;
+  final overlay = SystemUiOverlayStyle.light.obs;
 
   @override
   void onInit() {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
     getUsername();
     getEmail();
-    getDisplayProfile();
-
     super.onInit();
   }
 
@@ -25,11 +25,6 @@ class ProfilController extends GetxController {
 
   String? getEmail() {
     return auth.value.currentUser?.email ?? "Guest";
-  }
-
-  String? getDisplayProfile() {
-    return auth.value.currentUser?.photoURL ??
-        "https://media.istockphoto.com/id/1289670343/vector/invalid-stamp-invalid-label-round-grunge-sign.jpg?s=612x612&w=0&k=20&c=p654_tY0_Nd5N0yYbE9aNJpblSykywX9nw0g_fe4D5k=";
   }
 
   isVerifiedTap() {

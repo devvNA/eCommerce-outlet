@@ -4,7 +4,6 @@ import 'package:marvelindo_outlet/app/data/datasources/pemesanan_remote_datasour
 import 'package:marvelindo_outlet/app/data/models/pemesanan_model.dart';
 
 import '../../domain/repositories/pemesanan_repository.dart';
-import '../models/keranjang_model.dart';
 
 class PemesananRepositoryImpl implements PemesananRepository {
   PemesananRepositoryImpl({required this.remoteDataSource});
@@ -13,21 +12,18 @@ class PemesananRepositoryImpl implements PemesananRepository {
 
   @override
   Future<Either<Failure, String>> postPemesanan({
-    required int idOutlet,
+    required int idUser,
     required String tanggal,
     required String tipePayment,
     required int total,
-    required List<Keranjang> produkKeranjang,
   }) async =>
       await remoteDataSource.postPemesanan(
-          idOutlet: idOutlet,
+          idUser: idUser,
           tanggal: tanggal,
           tipePayment: tipePayment,
-          total: total,
-          produkKeranjang: produkKeranjang);
+          total: total);
 
   @override
-  Future<Either<Failure, List<Pemesanan>>>
-      getListHistoriPemesanan() async =>
-          await remoteDataSource.getListHistoriPemesanan();
+  Future<Either<Failure, List<Pemesanan>>> getListHistoriPemesanan() async =>
+      await remoteDataSource.getListHistoriPemesanan();
 }

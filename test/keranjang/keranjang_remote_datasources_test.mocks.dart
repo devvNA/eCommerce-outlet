@@ -44,7 +44,7 @@ class MockKeranjangRemoteDataSource extends _i1.Mock
     implements _i3.KeranjangRemoteDataSource {
   @override
   _i4.Future<_i2.Either<_i5.Failure, String>> addToCart({
-    required int? idOutlet,
+    required int? idUser,
     required _i6.Produk? produk,
   }) =>
       (super.noSuchMethod(
@@ -52,7 +52,7 @@ class MockKeranjangRemoteDataSource extends _i1.Mock
           #addToCart,
           [],
           {
-            #idOutlet: idOutlet,
+            #idUser: idUser,
             #produk: produk,
           },
         ),
@@ -63,7 +63,7 @@ class MockKeranjangRemoteDataSource extends _i1.Mock
             #addToCart,
             [],
             {
-              #idOutlet: idOutlet,
+              #idUser: idUser,
               #produk: produk,
             },
           ),
@@ -76,7 +76,7 @@ class MockKeranjangRemoteDataSource extends _i1.Mock
             #addToCart,
             [],
             {
-              #idOutlet: idOutlet,
+              #idUser: idUser,
               #produk: produk,
             },
           ),

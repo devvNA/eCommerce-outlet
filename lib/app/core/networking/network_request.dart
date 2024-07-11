@@ -1,4 +1,6 @@
 // ignore_for_file: deprecated_member_use, avoid_print, unused_element
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -13,7 +15,7 @@ class Request {
   final box = GetStorage();
   final _dio = Dio(
     BaseOptions(
-      // headers: {HttpHeaders.contentTypeHeader: "application/json"},
+      headers: {HttpHeaders.contentTypeHeader: "application/json"},
       persistentConnection: true,
       receiveDataWhenStatusError: true,
       contentType: "application/json",
@@ -27,29 +29,10 @@ class Request {
 
   Request() {
     _dio.httpClientAdapter = HttpClientAdapter();
-    // _dio.interceptors.add(InterceptorsWrapper(
-    //   onRequest: (options, handler) async {
-    //     options.headers["Accept"] = "application/json";
-    //     String? token = box.read("token");
-    //     options.headers['Authorization'] = "Bearer $token";
-    //     return handler.next(options);
-    //   },
-    //   onError: (error, handler) async {
-    //     if (error.response?.statusCode == 401) {
-    //       // final newAccessToken = await refreshToken();
-    //       // if (newAccessToken != null) {
-    //       //   _dio.options.headers['Authorization'] = "Bearer $newAccessToken";
-    //       //   return handler.resolve(await _dio.fetch(error.requestOptions));
-    //       // }
-    //       return handler.resolve(await _dio.fetch(error.requestOptions));
-    //     }
-    //     return handler.next(error);
-    //   },
-    // ));
     _dio.interceptors.add(PrettyDioLogger(
       requestHeader: true,
       requestBody: true,
-      responseHeader: true,
+      // responseHeader: true,
       maxWidth: 95,
     ));
   }

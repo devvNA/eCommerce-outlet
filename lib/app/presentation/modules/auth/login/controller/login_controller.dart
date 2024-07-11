@@ -21,9 +21,16 @@ class LoginController extends GetxController {
   final visible = true.obs;
   final box = GetStorage();
 
+  @override
+  void onInit() {
+    super.onInit();
+  }
+
   Future<void> onGoogleSignIn() async {
     isGoogleTap.value = true;
     await FirebaseAuthServices.signInWithGoogle();
+    // Get.snackbar("Sukses", "anda berhasil login",
+    //     colorText: Colors.white, backgroundColor: AppColors.green1);
     isGoogleTap.value = false;
   }
 
@@ -65,11 +72,6 @@ class LoginController extends GetxController {
 
   //   isTap.value = false;
   // }
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   @override
   void onReady() {

@@ -3,6 +3,7 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import '../../../core/networking/network_controller.dart';
 import '../../../core/networking/network_request.dart';
 import '../../modules/about/controllers/about_app_controller.dart';
 import '../../modules/api_test/api_test_controller.dart';
@@ -25,6 +26,10 @@ import '../../modules/setting/controllers/setting_controller.dart';
 import '../../modules/splash/controllers/splash_controller.dart';
 
 class AppBindings extends Bindings {
+  static void initConnection() {
+    Get.put<NetworkController>(NetworkController(), permanent: true);
+  }
+
   @override
   Future<void> dependencies() async {
     final box = GetStorage();

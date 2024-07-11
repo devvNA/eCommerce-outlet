@@ -20,7 +20,7 @@ class AuthUseCase {
   // }
 
   Future<Either<Failure, String>> getFirebaseToken() async {
-    return await repository.getFirebaseToken();
+    return await repository.googleLogin();
   }
 
   // Future<Either<Failure, List<UserInfo>>> getFirebaseProvider() async {

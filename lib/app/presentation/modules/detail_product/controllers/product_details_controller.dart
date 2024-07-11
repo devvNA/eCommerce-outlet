@@ -3,9 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:marvelindo_outlet/app/core/networking/firebase_auth_services.dart';
-import 'package:marvelindo_outlet/app/data/models/outlet_model.dart';
 import 'package:marvelindo_outlet/app/presentation/modules/cart/controllers/cart_controller.dart';
 
 import '../../../../data/datasources/keranjang_remote_datasources.dart';
@@ -22,11 +20,9 @@ class ProductDetailsController extends GetxController {
   final isExpanded = false.obs;
   final expansionTileKey = GlobalKey();
   var selectedSize = '';
-  final box = GetStorage();
 
   @override
   void onInit() {
-    box.write("user", Outlet);
     super.onInit();
   }
 
@@ -53,7 +49,7 @@ class ProductDetailsController extends GetxController {
                   remoteDataSource: KeranjangRemoteDataSourceImpl()))
           .addToCart(
         // idOutlet: UserManager().currentOutlet!.id!,
-        idOutlet: FirebaseAuthServices.getUID(),
+        idUser: FirebaseAuthServices.getUID(),
         produk: produk,
       );
       response.fold((failure) => messageServer = failure.message,
@@ -91,6 +87,7 @@ class ProductDetailsController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
   }
 }

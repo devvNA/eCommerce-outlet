@@ -10,8 +10,7 @@ import 'package:marvelindo_outlet/app/core/networking/failure_helper.dart'
     as _i5;
 import 'package:marvelindo_outlet/app/data/datasources/pemesanan_remote_datasources.dart'
     as _i3;
-import 'package:marvelindo_outlet/app/data/models/keranjang_model.dart' as _i6;
-import 'package:marvelindo_outlet/app/data/models/pemesanan_model.dart' as _i7;
+import 'package:marvelindo_outlet/app/data/models/pemesanan_model.dart' as _i6;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -44,22 +43,20 @@ class MockPemesananRemoteDataSource extends _i1.Mock
     implements _i3.PemesananRemoteDataSource {
   @override
   _i4.Future<_i2.Either<_i5.Failure, String>> postPemesanan({
-    required int? idOutlet,
+    required int? idUser,
     required String? tanggal,
     required String? tipePayment,
     required int? total,
-    required List<_i6.Keranjang>? produkKeranjang,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
           #postPemesanan,
           [],
           {
-            #idOutlet: idOutlet,
+            #idUser: idUser,
             #tanggal: tanggal,
             #tipePayment: tipePayment,
             #total: total,
-            #produkKeranjang: produkKeranjang,
           },
         ),
         returnValue: _i4.Future<_i2.Either<_i5.Failure, String>>.value(
@@ -69,11 +66,10 @@ class MockPemesananRemoteDataSource extends _i1.Mock
             #postPemesanan,
             [],
             {
-              #idOutlet: idOutlet,
+              #idUser: idUser,
               #tanggal: tanggal,
               #tipePayment: tipePayment,
               #total: total,
-              #produkKeranjang: produkKeranjang,
             },
           ),
         )),
@@ -85,26 +81,25 @@ class MockPemesananRemoteDataSource extends _i1.Mock
             #postPemesanan,
             [],
             {
-              #idOutlet: idOutlet,
+              #idUser: idUser,
               #tanggal: tanggal,
               #tipePayment: tipePayment,
               #total: total,
-              #produkKeranjang: produkKeranjang,
             },
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, String>>);
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, List<_i7.Pemesanan>>>
+  _i4.Future<_i2.Either<_i5.Failure, List<_i6.Pemesanan>>>
       getListHistoriPemesanan() => (super.noSuchMethod(
             Invocation.method(
               #getListHistoriPemesanan,
               [],
             ),
             returnValue:
-                _i4.Future<_i2.Either<_i5.Failure, List<_i7.Pemesanan>>>.value(
-                    _FakeEither_0<_i5.Failure, List<_i7.Pemesanan>>(
+                _i4.Future<_i2.Either<_i5.Failure, List<_i6.Pemesanan>>>.value(
+                    _FakeEither_0<_i5.Failure, List<_i6.Pemesanan>>(
               this,
               Invocation.method(
                 #getListHistoriPemesanan,
@@ -112,13 +107,13 @@ class MockPemesananRemoteDataSource extends _i1.Mock
               ),
             )),
             returnValueForMissingStub:
-                _i4.Future<_i2.Either<_i5.Failure, List<_i7.Pemesanan>>>.value(
-                    _FakeEither_0<_i5.Failure, List<_i7.Pemesanan>>(
+                _i4.Future<_i2.Either<_i5.Failure, List<_i6.Pemesanan>>>.value(
+                    _FakeEither_0<_i5.Failure, List<_i6.Pemesanan>>(
               this,
               Invocation.method(
                 #getListHistoriPemesanan,
                 [],
               ),
             )),
-          ) as _i4.Future<_i2.Either<_i5.Failure, List<_i7.Pemesanan>>>);
+          ) as _i4.Future<_i2.Either<_i5.Failure, List<_i6.Pemesanan>>>);
 }

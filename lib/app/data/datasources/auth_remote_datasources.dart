@@ -12,8 +12,8 @@ import '../../core/networking/firebase_auth_services.dart';
 import '../../core/networking/network_request.dart';
 
 abstract class AuthRemoteDataSource {
-  Future<Either<Failure, String>> getFirebaseToken();
-  Future<void> logout();
+  Future<Either<Failure, String>> googleLogin();
+  Future<void> googleLogout();
   // Future<Either<Failure, bool>> login(
   //     {required String email, required String password});
   // Future<Either<Failure, String>> getAccessToken();
@@ -69,7 +69,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   // }
 
   @override
-  Future<Either<Failure, String>> getFirebaseToken() async {
+  Future<Either<Failure, String>> googleLogin() async {
     try {
       final auth = FirebaseAuth.instance;
       User? user = auth.currentUser;
@@ -83,7 +83,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<void> logout() async {
+  Future<void> googleLogout() async {
     await FirebaseAuthServices.signOut();
     await box.erase();
   }

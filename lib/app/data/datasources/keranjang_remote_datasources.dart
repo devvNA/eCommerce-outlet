@@ -9,7 +9,7 @@ import '../models/produk_model.dart';
 
 abstract class KeranjangRemoteDataSource {
   Future<Either<Failure, String>> addToCart(
-      {required int idOutlet, required Produk produk});
+      {required int idUser, required Produk produk});
   Future<Either<Failure, List<Keranjang>>> getListKeranjang();
   Future<Either<Failure, String>> updateItemKeranjang(int id, int qty);
   Future<Either<Failure, String>> deleteItemKeranjang(int id);
@@ -18,7 +18,7 @@ abstract class KeranjangRemoteDataSource {
 class KeranjangRemoteDataSourceImpl implements KeranjangRemoteDataSource {
   @override
   Future<Either<Failure, String>> addToCart({
-    required int idOutlet,
+    required int idUser,
     required Produk produk,
   }) async {
     try {
@@ -26,7 +26,7 @@ class KeranjangRemoteDataSourceImpl implements KeranjangRemoteDataSource {
         postKeranjang,
         requiresAuthToken: true,
         body: {
-          'id_user': idOutlet,
+          'id_user': idUser,
           'id_produk': produk.id,
         },
       );

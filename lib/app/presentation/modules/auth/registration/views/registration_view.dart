@@ -192,7 +192,28 @@ class RegistrationView extends GetView<RegistrationController> {
                   ),
                 ),
               ),
-              8.verticalSpace
+              25.verticalSpace,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const Text(
+                    "Sudah memiliki akun? ",
+                    style: TextStyle(fontWeight: FontWeight.w500),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: const Text(
+                      "Masuk",
+                      style: TextStyle(
+                        color: AppColors.primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ],
           ),
         ),

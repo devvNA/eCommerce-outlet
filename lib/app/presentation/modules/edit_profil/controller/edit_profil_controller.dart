@@ -21,11 +21,6 @@ class EditProfilController extends GetxController {
   String? selectedOutlet;
 
   @override
-  void onClose() {
-    super.onClose();
-  }
-
-  @override
   void onInit() {
     super.onInit();
   }
@@ -33,6 +28,11 @@ class EditProfilController extends GetxController {
   @override
   void onReady() {
     super.onReady();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
   }
 
   onSelectedOutlet(String outlet) {

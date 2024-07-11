@@ -72,24 +72,28 @@ class DetailProduk extends Equatable {
     required this.idProduk,
     required this.jumlah,
     required this.harga,
+    required this.nama,
   });
 
   final int idMTransaksi;
   final int idProduk;
   final int jumlah;
   final String harga;
+  final String nama;
 
   DetailProduk copyWith({
     int? idMTransaksi,
     int? idProduk,
     int? jumlah,
     String? harga,
+    String? nama,
   }) {
     return DetailProduk(
       idMTransaksi: idMTransaksi ?? this.idMTransaksi,
       idProduk: idProduk ?? this.idProduk,
       jumlah: jumlah ?? this.jumlah,
       harga: harga ?? this.harga,
+      nama: nama ?? this.nama,
     );
   }
 
@@ -99,6 +103,7 @@ class DetailProduk extends Equatable {
       idProduk: json["id_produk"] ?? 0,
       jumlah: json["jumlah"] ?? 0,
       harga: json["harga"] ?? "",
+      nama: json["nama"] ?? "",
     );
   }
 
@@ -108,5 +113,6 @@ class DetailProduk extends Equatable {
         idProduk,
         jumlah,
         harga,
+        nama,
       ];
 }

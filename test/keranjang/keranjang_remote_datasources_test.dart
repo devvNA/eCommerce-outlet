@@ -19,7 +19,8 @@ void main() async {
   // final keranjangRemoteDataSourceImpl =
   //     KeranjangRemoteDataSourceImpl(client: mockRequest); //Kelas Fake
   var listKeranjang = <Keranjang>[];
-  const int id = 1;
+  const int idUser = 1;
+  const idKeranjang = 5;
   String messageServer = "message server";
   Produk produk = Produk(
     id: 1,
@@ -63,21 +64,23 @@ void main() async {
     group('Melakukan POST ke keranjang', () {
       test('POST BERHASIL', () async {
         // Proses Stubbing
-        when(keranjangRemoteDataSource.addToCart(idOutlet: id, produk: produk))
+        when(keranjangRemoteDataSource.addToCart(
+                idUser: idUser, produk: produk))
             .thenAnswer((_) async => Right(messageServer));
         // Tidak perlu membuat blok try-catch untuk kasus sukses
         final response = await keranjangRemoteDataSource.addToCart(
-            idOutlet: id, produk: produk);
+            idUser: idUser, produk: produk);
         // Gunakan fold untuk mengakses nilai Right
         final messageData = response.fold((failure) => null, (data) => data);
         expect(messageData, messageServer);
       });
       test('POST GAGAL', () async {
-        when(keranjangRemoteDataSource.addToCart(idOutlet: id, produk: produk))
+        when(keranjangRemoteDataSource.addToCart(
+                idUser: idUser, produk: produk))
             .thenThrow(Exception());
         try {
           await keranjangRemoteDataSource.addToCart(
-              idOutlet: id, produk: produk);
+              idUser: idUser, produk: produk);
           fail("Tidak mungkin terjadi");
           //Tidak mungkin terjadi error
         } catch (e) {
@@ -90,20 +93,20 @@ void main() async {
     group('Melakukan UPDATE Kuantitas Keranjang', () {
       test('UPDATE BERHASIL', () async {
         // Proses Stubbing
-        when(keranjangRemoteDataSource.updateItemKeranjang(id, qty))
+        when(keranjangRemoteDataSource.updateItemKeranjang(idUser, qty))
             .thenAnswer((_) async => Right(messageServer));
         // Tidak perlu membuat blok try-catch untuk kasus sukses
         final response =
-            await keranjangRemoteDataSource.updateItemKeranjang(id, qty);
+            await keranjangRemoteDataSource.updateItemKeranjang(idUser, qty);
         // Gunakan fold untuk mengakses nilai Right
         final messageData = response.fold((failure) => null, (data) => data);
         expect(messageData, messageServer);
       });
       test('UPDATE GAGAL', () async {
-        when(keranjangRemoteDataSource.updateItemKeranjang(id, qty))
+        when(keranjangRemoteDataSource.updateItemKeranjang(idKeranjang, qty))
             .thenThrow(Exception());
         try {
-          await keranjangRemoteDataSource.updateItemKeranjang(id, qty);
+          await keranjangRemoteDataSource.updateItemKeranjang(idUser, qty);
           fail("Tidak mungkin terjadi");
           //Tidak mungkin terjadi error
         } catch (e) {
@@ -116,19 +119,19 @@ void main() async {
     group('Melakukan DELETE Produk Keranjang()', () {
       test('DELETE BERHASIL', () async {
         // Proses Stubbing
-        when(keranjangRemoteDataSource.deleteItemKeranjang(id))
+        when(keranjangRemoteDataSource.deleteItemKeranjang(idKeranjang))
             .thenAnswer((_) async => Right(messageServer));
         final response =
-            await keranjangRemoteDataSource.deleteItemKeranjang(id);
+            await keranjangRemoteDataSource.deleteItemKeranjang(idKeranjang);
         // Gunakan fold untuk mengakses nilai Right
         final messageData = response.fold((failure) => null, (data) => data);
         expect(messageData, messageServer);
       });
       test('DELETE GAGAL', () async {
-        when(keranjangRemoteDataSource.deleteItemKeranjang(id))
+        when(keranjangRemoteDataSource.deleteItemKeranjang(idKeranjang))
             .thenThrow(Exception());
         try {
-          await keranjangRemoteDataSource.deleteItemKeranjang(id);
+          await keranjangRemoteDataSource.deleteItemKeranjang(idKeranjang);
           fail("Tidak mungkin terjadi");
           //Tidak mungkin terjadi error
         } catch (e) {

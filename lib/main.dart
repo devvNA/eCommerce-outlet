@@ -1,18 +1,16 @@
 // ignore_for_file: deprecated_member_use
 
-import 'dart:async';
-
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:marvelindo_outlet/app/presentation/global/dependency_injection/bindings.dart';
-import 'package:marvelindo_outlet/app/presentation/global/theme/my_theme.dart';
-import 'package:marvelindo_outlet/app/routes/app_pages.dart';
 import 'package:marvelindo_outlet/firebase_options.dart';
+
+import 'app/presentation/global/dependency_injection/bindings.dart';
+import 'app/presentation/global/theme/my_theme.dart';
+import 'app/routes/app_pages.dart';
 
 void main() async {
   // wait for bindings
@@ -21,9 +19,15 @@ void main() async {
   await GetStorage.init();
   //Firebase Config
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  //Check internet connection
+  AppBindings.initConnection();
+  //run app
   runApp(
     const MyApp(),
   );
+
+  ///WITH DEVICE PREVIEW PACKAGE
+  ///.....
   // runApp(
   //   DevicePreview(
   //     builder: (context) {
@@ -33,60 +37,8 @@ void main() async {
   // );
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  GlobalKey<NavigatorState> globalKey = GlobalKey<NavigatorState>();
-
-  late final StreamSubscription _connectivityStream;
-
-  @override
-  void dispose() {
-    checkInitialInternetConnection();
-    _connectivityStream.cancel();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    checkInitialInternetConnection();
-    super.initState();
-  }
-
-  void checkInitialInternetConnection() async {
-    final result = await Connectivity().checkConnectivity();
-    handleConnectivityStates(result.first);
-  }
-
-  void handleConnectivityStates(ConnectivityResult status) {
-    if (status != ConnectivityResult.mobile &&
-        status != ConnectivityResult.wifi) {
-      setState(() {
-        Get.showSnackbar(const GetSnackBar(
-          title: "Tidak ada koneksi",
-          message: "Periksa jaringan anda",
-          padding: EdgeInsets.all(12.0),
-          margin: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
-          backgroundColor: Colors.redAccent,
-          icon: Icon(
-            Icons.error,
-            color: Colors.white,
-          ),
-          isDismissible: false,
-        ));
-      });
-    } else {
-      if (Get.isSnackbarOpen) {
-        Get.closeAllSnackbars();
-      }
-      setState(() {});
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +54,6 @@ class _MyAppState extends State<MyApp> {
         builder: (context, widget) {
           return GetMaterialApp(
             theme: MyTheme.getThemeData(),
-            navigatorKey: globalKey,
             initialBinding:
                 AppBindings(), // Membuat instance dari class AppBindings
             title: "Outlet e-Commerce",
