@@ -10,6 +10,7 @@
 .svn/
 migrate_working_dir/
 genhtml
+config.json
 
 # IntelliJ related
 *.iml
@@ -32,6 +33,7 @@ genhtml
 .pub-cache/
 .pub/
 /build/
+
 
 # Symbolication related
 app.*.symbols

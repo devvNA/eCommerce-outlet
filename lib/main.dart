@@ -11,7 +11,7 @@ import 'package:marvelindo_outlet/firebase_options.dart';
 import 'app/presentation/global/dependency_injection/bindings.dart';
 import 'app/presentation/global/theme/my_theme.dart';
 import 'app/routes/app_pages.dart';
-
+¹¹¹
 void main() async {
   // wait for bindings
   WidgetsFlutterBinding.ensureInitialized();
