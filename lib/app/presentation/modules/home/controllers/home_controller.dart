@@ -1,9 +1,11 @@
-// ignore_for_file: invalid_use_of_protected_member, unnecessary_overrides
+// ignore_for_file: invalid_use_of_protected_member, unnecessary_overrides, unused_element
 
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:marvelindo_outlet/app/data/datasources/auth_remote_datasources.dart';
 import 'package:marvelindo_outlet/app/data/datasources/produk_remote_datasources.dart';
 import 'package:marvelindo_outlet/app/data/repositories/produk_repository_impl.dart';
 import 'package:marvelindo_outlet/app/domain/usecase/produk_usecase.dart';
@@ -18,26 +20,38 @@ class HomeController extends GetxController {
   final searchController = TextEditingController();
   final searchList = <Produk>[].obs;
   final selectedIndex = 0.obs;
-
-  List<String> categories = [
-    "semua",
-    "kupon",
-    "voucher",
-    "perdana",
-    "pulsa",
-  ];
+  final box = GetStorage();
+  final outlet = UserManager().currentOutlet;
+  final listCategories = <String>[].obs;
 
   @override
   void onInit() {
+    getCategories();
     getAllProductsAPI();
     super.onInit();
+  }
+
+  getCategories() async {
+    loading(true);
+    var category = await ProdukUseCase(
+            repository: ProdukRepositoryImpl(
+                remoteDataSource: ProdukRemoteDataSourceImpl()))
+        .getCategoryList();
+    category.fold(
+      (failure) => log("Error: ${failure.message}"),
+      (categories) {
+        listCategories.value = categories;
+        listCategories.value = ["Semua", ...categories];
+      },
+    );
+    loading(false);
   }
 
   void onRefreshProducts() {
     if (selectedIndex() == 0) {
       getAllProductsAPI();
     } else {
-      getAllProductsAPIByKategori(categories[selectedIndex.value]);
+      getAllProductsAPIByKategori(listCategories[selectedIndex.value]);
     }
   }
 
@@ -45,11 +59,12 @@ class HomeController extends GetxController {
     listProduk().clear();
     selectedIndex(index);
     onRefreshProducts();
-    log("index-${selectedIndex.toString()} : '${categories[index].toString()}'");
+    log("index-${selectedIndex.toString()} : '${listCategories[index].toString()}'");
   }
 
   void getAllProductsAPI() async {
     loading(true);
+
     var response = await ProdukUseCase(
             repository: ProdukRepositoryImpl(
                 remoteDataSource: ProdukRemoteDataSourceImpl()))
@@ -89,7 +104,6 @@ class HomeController extends GetxController {
       onRefreshProducts();
     });
   }
-
   // void onSearchProduct() async {
   //   debouncerC.run(() {
   //     searchList.clear();
@@ -102,4 +116,9 @@ class HomeController extends GetxController {
   //     }
   //   });
   // }
+
+  @override
+  void onClose() {
+    super.onClose();
+  }
 }

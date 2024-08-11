@@ -24,6 +24,7 @@ abstract class Routes {
   static const SETTING = _Paths.SETTING;
   static const EDIT_PROFIL = _Paths.EDIT_PROFIL;
   static const NOTIFIKASI = _Paths.NOTIFIKASI;
+  static const DETAIL_TRANSFER = _Paths.DETAIL_TRANSFER;
 }
 
 abstract class _Paths {
@@ -47,4 +48,5 @@ abstract class _Paths {
   static const SETTING = '/setting';
   static const EDIT_PROFIL = '/edit-profil';
   static const NOTIFIKASI = '/notifikasi';
+  static const DETAIL_TRANSFER = '/detail-history/detail-transfer';
 }

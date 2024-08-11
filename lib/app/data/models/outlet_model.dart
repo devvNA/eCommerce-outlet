@@ -1,97 +1,142 @@
-import 'dart:convert';
+import 'package:equatable/equatable.dart';
 
-import 'package:flutter/widgets.dart';
+class Outlet extends Equatable {
+  const Outlet({
+    required this.id,
+    required this.email,
+    required this.password,
+    required this.namaOutlet,
+    required this.alamat,
+    required this.idJenis,
+    required this.jenisOutlet,
+    required this.status,
+    required this.code,
+    required this.createdAt,
+    required this.updatedAt,
+  });
 
-class Outlet {
-  final String? id;
-  final String? idBts;
-  final String? nama;
-  final String? idJenis;
+  final int id;
+  final String email;
+  final String password;
+  final String namaOutlet;
+  final String alamat;
+  final String idJenis;
+  final JenisOutlet? jenisOutlet;
+  final String status;
+  final dynamic code;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
-  Outlet({
-    this.id,
-    this.idBts,
-    this.nama,
-    this.idJenis,
-    this.createdAt,
-    this.updatedAt,
-  });
-
   Outlet copyWith({
-    ValueGetter<String?>? id,
-    ValueGetter<String?>? idBts,
-    ValueGetter<String?>? nama,
-    ValueGetter<String?>? idJenis,
-    ValueGetter<DateTime?>? createdAt,
-    ValueGetter<DateTime?>? updatedAt,
+    int? id,
+    String? email,
+    String? password,
+    String? namaOutlet,
+    String? alamat,
+    String? idJenis,
+    JenisOutlet? jenisOutlet,
+    String? status,
+    dynamic code,
+    DateTime? createdAt,
+    DateTime? updatedAt,
   }) {
     return Outlet(
-      id: id != null ? id() : this.id,
-      idBts: idBts != null ? idBts() : this.idBts,
-      nama: nama != null ? nama() : this.nama,
-      idJenis: idJenis != null ? idJenis() : this.idJenis,
-      createdAt: createdAt != null ? createdAt() : this.createdAt,
-      updatedAt: updatedAt != null ? updatedAt() : this.updatedAt,
+      id: id ?? this.id,
+      email: email ?? this.email,
+      password: password ?? this.password,
+      namaOutlet: namaOutlet ?? this.namaOutlet,
+      alamat: alamat ?? this.alamat,
+      idJenis: idJenis ?? this.idJenis,
+      jenisOutlet: jenisOutlet ?? this.jenisOutlet,
+      status: status ?? this.status,
+      code: code ?? this.code,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
     );
   }
 
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'idBts': idBts,
-      'nama': nama,
-      'idJenis': idJenis,
-      'createdAt': createdAt?.millisecondsSinceEpoch,
-      'updatedAt': updatedAt?.millisecondsSinceEpoch,
-    };
-  }
-
-  factory Outlet.fromMap(Map<String, dynamic> map) {
+  factory Outlet.fromJson(Map<String, dynamic> json) {
     return Outlet(
-      id: map['id'],
-      idBts: map['idBts'],
-      nama: map['nama'],
-      idJenis: map['idJenis'],
-      createdAt: map['createdAt'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['createdAt'])
-          : null,
-      updatedAt: map['updatedAt'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['updatedAt'])
-          : null,
+      id: json["id"] ?? 0,
+      email: json["email"] ?? "",
+      password: json["password"] ?? "",
+      namaOutlet: json["nama_outlet"] ?? "",
+      alamat: json["alamat"] ?? "",
+      idJenis: json["id_jenis"] ?? "",
+      jenisOutlet: json["jenis_outlet"] == null
+          ? null
+          : JenisOutlet.fromJson(json["jenis_outlet"]),
+      status: json["status"] ?? "",
+      code: json["code"],
+      createdAt: DateTime.tryParse(json["created_at"] ?? ""),
+      updatedAt: DateTime.tryParse(json["updated_at"] ?? ""),
     );
   }
 
-  String toJson() => json.encode(toMap());
-
-  factory Outlet.fromJson(String source) => Outlet.fromMap(json.decode(source));
-
-  @override
-  String toString() {
-    return 'Outlet(id: $id, idBts: $idBts, nama: $nama, idJenis: $idJenis, createdAt: $createdAt, updatedAt: $updatedAt)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is Outlet &&
-        other.id == id &&
-        other.idBts == idBts &&
-        other.nama == nama &&
-        other.idJenis == idJenis &&
-        other.createdAt == createdAt &&
-        other.updatedAt == updatedAt;
-  }
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "email": email,
+        "password": password,
+        "nama_outlet": namaOutlet,
+        "alamat": alamat,
+        "id_jenis": idJenis,
+        "jenis_outlet": jenisOutlet?.toJson(),
+        "status": status,
+        "code": code,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+      };
 
   @override
-  int get hashCode {
-    return id.hashCode ^
-        idBts.hashCode ^
-        nama.hashCode ^
-        idJenis.hashCode ^
-        createdAt.hashCode ^
-        updatedAt.hashCode;
+  List<Object?> get props => [
+        id,
+        email,
+        password,
+        namaOutlet,
+        alamat,
+        idJenis,
+        jenisOutlet,
+        status,
+        code,
+        createdAt,
+        updatedAt,
+      ];
+}
+
+class JenisOutlet extends Equatable {
+  const JenisOutlet({
+    required this.id,
+    required this.nama,
+  });
+
+  final int id;
+  final String nama;
+
+  JenisOutlet copyWith({
+    int? id,
+    String? nama,
+  }) {
+    return JenisOutlet(
+      id: id ?? this.id,
+      nama: nama ?? this.nama,
+    );
   }
+
+  factory JenisOutlet.fromJson(Map<String, dynamic> json) {
+    return JenisOutlet(
+      id: json["id"] ?? 0,
+      nama: json["nama"] ?? "",
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "nama": nama,
+      };
+
+  @override
+  List<Object?> get props => [
+        id,
+        nama,
+      ];
 }

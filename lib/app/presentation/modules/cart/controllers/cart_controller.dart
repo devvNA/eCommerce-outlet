@@ -38,7 +38,7 @@ class CartController extends GetxController {
     listKeranjang[index].quantity = listKeranjang[index].quantity! + 1;
     listKeranjang.refresh();
     debounceC.run(() {
-    log(listKeranjang[index].quantity!.toString());
+      log(listKeranjang[index].quantity.toString());
       onInputItemCart(productId, listKeranjang[index].quantity!);
     });
   }
@@ -62,8 +62,12 @@ class CartController extends GetxController {
                 remoteDataSource: KeranjangRemoteDataSourceImpl()))
         .getListKeranjang();
 
-    response.fold((failure) => log("Error: ${failure.message}"),
-        (keranjang) => listKeranjang(keranjang));
+    response.fold((failure) {
+      log("Error: ${failure.message}");
+    }, (keranjang) {
+      listKeranjang.sort((a, b) => b.idKeranjang.compareTo(a.idKeranjang));
+      listKeranjang.value = keranjang;
+    });
 
     loading(false);
   }
@@ -124,7 +128,7 @@ class CartController extends GetxController {
         .deleteProdukKeranjang(productId);
     response.fold((failure) => messageDelete = failure.message,
         (message) => messageDelete = message);
-    onRefreshKeranjang();
+    await onRefreshKeranjang();
   }
 
   onInputItemCart(int productId, int qty) async {
@@ -157,7 +161,7 @@ class CartController extends GetxController {
   int totalPayment() {
     int totalPembayaran = 0;
     for (var produk in listKeranjang) {
-      totalPembayaran += produk.hargaBarang! * produk.quantity!;
+      totalPembayaran += produk.hargaBarang * produk.quantity!;
     }
     return totalPembayaran;
   }

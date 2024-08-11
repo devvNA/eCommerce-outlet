@@ -93,13 +93,13 @@ class CartView extends GetView<CartController> {
                                     ),
                                     itemCount: controller.listKeranjang.length,
                                     itemBuilder: (context, index) {
-                                      final product =
+                                      final itemKeranjang =
                                           controller.listKeranjang[index];
                                       return Dismissible(
-                                        key: ValueKey(product.namaBarang),
+                                        key: ValueKey(itemKeranjang.namaBarang),
                                         onDismissed: (direction) async {
                                           controller.onDeletePressed(
-                                              product.idKeranjang!);
+                                              itemKeranjang.idKeranjang);
                                         },
                                         background: Container(
                                             color: Colors.red,
@@ -109,32 +109,64 @@ class CartView extends GetView<CartController> {
                                         direction: DismissDirection.endToStart,
                                         child: CartItem(
                                           onDeacreasePressed: () {
-                                            controller.decreaseQuantity(
-                                                index, product.idKeranjang!);
+                                            controller.decreaseQuantity(index,
+                                                itemKeranjang.idKeranjang);
                                           },
                                           onIncreasePressed: () {
-                                            controller.increaseQuantity(
-                                                index, product.idKeranjang!);
+                                            if (itemKeranjang.quantity! <
+                                                itemKeranjang.stok) {
+                                              controller.increaseQuantity(index,
+                                                  itemKeranjang.idKeranjang);
+                                            } else {
+                                              Get.snackbar(
+                                                padding:
+                                                    const EdgeInsets.all(12.0),
+                                                margin:
+                                                    const EdgeInsets.all(12.0),
+                                                'Peringatan',
+                                                'Melebihi stok yang tersedia',
+                                                backgroundColor: Colors.red,
+                                                colorText: Colors.white,
+                                              );
+                                            }
                                           },
                                           quantityController:
                                               TextEditingController(
-                                                  text: product.quantity
+                                                  text: itemKeranjang.quantity
                                                       .toString()),
-                                          item: product,
+                                          item: itemKeranjang,
                                           onChanged: (value) {
-                                            controller.debounceC.run(() {
-                                              controller
-                                                  .onInputItemCart(
-                                                      product.idKeranjang!,
-                                                      int.parse(value))
-                                                  .then((_) => controller
-                                                      .onRefreshKeranjang());
-                                            });
+                                            int newQuantity =
+                                                int.tryParse(value) ?? 0;
+                                            if (newQuantity <=
+                                                itemKeranjang.stok) {
+                                              controller.debounceC.run(() {
+                                                controller
+                                                    .onInputItemCart(
+                                                        itemKeranjang
+                                                            .idKeranjang,
+                                                        newQuantity)
+                                                    .then((_) => controller
+                                                        .onRefreshKeranjang());
+                                              });
+                                            } else {
+                                              Get.snackbar(
+                                                'Peringatan',
+                                                'Melebihi stok yang tersedia',
+                                                snackPosition:
+                                                    SnackPosition.BOTTOM,
+                                                backgroundColor: Colors.red,
+                                                colorText: Colors.white,
+                                              );
+                                            }
                                           },
                                           onDeletePressed: () {
                                             controller.onDeletePressed(
-                                                product.idKeranjang!);
+                                                itemKeranjang.idKeranjang);
                                           },
+                                          // isIncreaseButtonEnabled:
+                                          //     itemKeranjang.quantity <
+                                          //         itemKeranjang.stok,
                                         ).animate().fade().slideX(
                                               duration: const Duration(
                                                   milliseconds: 300),

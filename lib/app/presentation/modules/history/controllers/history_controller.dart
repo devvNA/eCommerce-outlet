@@ -4,17 +4,19 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../../data/datasources/histori_pemesanan_datasource.dart';
-import '../../../../data/models/histori_pemesanan_model.dart';
-import '../../../../data/repositories/histori_pemesanan_repository_impl.dart';
-import '../../../../domain/usecase/histori_pemesanan.dart';
+import 'package:marvelindo_outlet/app/data/datasources/histori_pemesanan_datasource.dart';
+import 'package:marvelindo_outlet/app/data/models/histori_pemesanan_model.dart';
+import 'package:marvelindo_outlet/app/data/repositories/histori_pemesanan_repository_impl.dart';
+import 'package:marvelindo_outlet/app/domain/usecase/histori_pemesanan.dart';
 
 // controller
 class HistoryController extends GetxController {
   RxInt selectedIndex = RxInt(0);
   final loading = false.obs;
   final listHistoriPemesanan = <HistoriPemesanan>[].obs;
+  final listHistoriProses = <HistoriPemesanan>[].obs;
+  final listHistoriSelesai = <HistoriPemesanan>[].obs;
+  final listHistoriDibatalkan = <HistoriPemesanan>[].obs;
 
   final tabs = [
     const Text("Proses"),
@@ -43,22 +45,50 @@ class HistoryController extends GetxController {
     selectedIndex.value = index;
   }
 
-  getHistoriPemesanan() async {
-    loading(true);
+  Future<void> getHistoriPemesanan() async {
+    try {
+      loading(true);
+      var response = await HistoriPemesananUseCase(
+              repository: HistoriPemesananRepositoryImpl(
+                  remoteDataSource: HistoriPemesananRemoteDataSourceImpl()))
+          .getListHistoriPemesanan();
 
-    var response = await HistoriPemesananUseCase(
-            repository: HistoriPemesananRepositoryImpl(
-                remoteDataSource: HistoriPemesananRemoteDataSourceImpl()))
-        .getListHistoriPemesanan();
-
-    response.fold((failure) => log("Error: ${failure.message}"),
-        (historiPemesanan) => listHistoriPemesanan(historiPemesanan));
-
-    loading(false);
+      response.fold(
+        (failure) => log("Error: ${failure.message}"),
+        (data) {
+          // Urutkan data berdasarkan ID transaksi terakhir
+          data.sort((a, b) => b.id.compareTo(a.id));
+          listHistoriPemesanan.value = data;
+          filterHistoriPemesanan();
+        },
+      );
+    } finally {
+      loading(false);
+    }
   }
 
-    onRefreshHistoriPemesanan() async {
+  void filterHistoriPemesanan() {
+    listHistoriProses.clear();
+    listHistoriSelesai.clear();
+    listHistoriDibatalkan.clear();
+
+    for (var data in listHistoriPemesanan) {
+      final status = data.status;
+      if (status == 'proses') {
+        listHistoriProses.add(data);
+      } else if (status == 'selesai') {
+        listHistoriSelesai.add(data);
+      } else if (status == 'dibatalkan') {
+        listHistoriDibatalkan.add(data);
+      }
+    }
+  }
+
+  onRefreshHistoriPemesanan() async {
     listHistoriPemesanan().clear();
+    listHistoriProses().clear();
+    listHistoriSelesai().clear();
+    listHistoriDibatalkan().clear();
     getHistoriPemesanan();
   }
 }

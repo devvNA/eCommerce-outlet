@@ -1,12 +1,14 @@
 // ignore_for_file: must_be_immutable, unrelated_type_equality_checks
 import 'dart:developer';
 
-import 'package:another_stepper/another_stepper.dart';
+import 'package:another_stepper/widgets/another_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/app/core/utils/helpers/currency/int_currency.dart';
+import 'package:marvelindo_outlet/app/data/models/histori_pemesanan_model.dart';
 import 'package:marvelindo_outlet/app/presentation/global/widgets/custom_alert_dialog.dart';
+import 'package:marvelindo_outlet/app/routes/app_pages.dart';
 
 import '../../../../core/utils/helpers/currency/currency.dart';
 import '../../../global/theme/my_colors.dart';
@@ -17,221 +19,189 @@ class DetailHistoryView extends GetView<DetailHistoryController> {
 
   @override
   Widget build(BuildContext context) {
-    const txtStyle = TextStyle(
-      fontSize: 12.5,
-    );
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('History Pemesanan Produk'),
+        elevation: 0, // Menghilangkan bayangan pada AppBar
       ),
       body: Obx(() {
         return ListView(
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
           children: [
-            8.verticalSpace,
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: AnotherStepper(
-                stepperList: controller.listSteps,
-                stepperDirection: Axis.horizontal,
-                activeBarColor: Colors.green,
-                inActiveBarColor: Colors.grey,
-                activeIndex: controller.listSteps.length - 1,
-                barThickness: 1.5,
-              ),
-            ),
-            Card(
-              elevation: 2,
-              margin: const EdgeInsets.all(12),
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        const Text(
-                          'ID Pesanan :',
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const Spacer(),
-                        Text(
-                          "TRS-${controller.historiData.id.toString()}",
-                          // '${controller.history.value['id']}',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                          ),
-                        ),
-                      ],
-                    ),
-                    3.verticalSpace,
-                    Row(
-                      children: [
-                        const Text(
-                          'Tanggal :',
-                          style: txtStyle,
-                        ),
-                        const Spacer(),
-                        Text(
-                          controller.historiData.tanggal,
-                          // '${controller.history.value['tanggal']}',
-                          style: txtStyle,
-                        ),
-                      ],
-                    ),
-                    3.verticalSpace,
-                    Row(
-                      children: [
-                        const Text(
-                          'Total Pembayaran :',
-                          style: txtStyle,
-                        ),
-                        const Spacer(),
-                        Text(
-                          controller.historiData.total.currencyFormatRp,
-                          style: txtStyle.copyWith(fontSize: 13),
-                          // CurrencyFormat.convertToIdr(
-                          //     controller.history.value['total']),
-                        ),
-                      ],
-                    ),
-                    3.verticalSpace,
-                    Row(
-                      children: [
-                        const Text(
-                          'Jenis Pembayaran :',
-                          style: txtStyle,
-                        ),
-                        const Spacer(),
-                        Text(
-                          controller.historiData.tipePayment,
-                          style: txtStyle,
-                        ),
-                        // Text(
-                        //   controller.history.value["jenis_pembayaran"],
-                        //   style: txtStyle,
-                        // ),
-                      ],
-                    ),
-                    3.verticalSpace,
-                    Row(
-                      children: [
-                        const Text(
-                          'Total Barang :',
-                          style: txtStyle,
-                        ),
-                        const Spacer(),
-                        Text(
-                          '${controller.historiData.detailProduk.length} Barang',
-                          style: txtStyle,
-                        ),
-                        // Text(
-                        //   '${controller.history.value['produk'].length} Barang',
-                        //   style: txtStyle,
-                        // ),
-                      ],
-                    ),
-                    3.verticalSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Alamat :',
-                          style: txtStyle,
-                        ),
-                        const Expanded(
-                          child: SizedBox(),
-                        ),
-                        Expanded(
-                          child: Text(
-                            "JL. DI Panjaitan No.128, Karangreja, Purwokerto Kidul, Kec. Purwokerto Selatan, Kabupaten Banyumas, Jawa Tengah 53147",
-                            style: txtStyle.copyWith(fontSize: 12),
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        // Text(
-                        //   '${controller.history.value['produk'].length} Barang',
-                        //   style: txtStyle,
-                        // ),
-                      ],
-                    ),
-                    attachBox(
-                      context: context,
-                      onTap: (controller.uploaded.value)
-                          ? () {
-                              controller.pickImage();
-                            }
-                          : null,
-                      txtStyle: txtStyle,
-                      visible: controller.historiData.tipePayment == "Transfer",
-                      // visible: controller.history.value["jenis_pembayaran"] ==
-                      //     "Transfer",
-                    ),
-                    3.verticalSpace,
-                    const Divider(),
-                    Text(
-                      'Pesanan :',
-                      style: txtStyle.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Column(
-                      // children: List.generate(
-                      //     controller.history.value['produk'].length, (index) {
-                      children: List.generate(
-                          controller.historiData.detailProduk.length, (index) {
-                        final hargaSatuan = int.parse(
-                            controller.historiData.detailProduk[index].harga);
-                        return ListTile(
-                          leading: CircleAvatar(
-                            backgroundColor: Colors.white,
-                            child: ClipRRect(
-                              clipBehavior: Clip.antiAlias,
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(32),
-                              ),
-                              child: Image.asset(
-                                "assets/images/product2.png",
-                              ),
-                            ),
-                          ),
-                          // leading: const Icon(Icons.shopping_bag),
-                          title: Text(
-                            "Produk ${controller.historiData.detailProduk[index].idProduk}",
-                            // controller.history.value['produk'][index]['nama'],
-                            style: const TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                          subtitle: Text(
-                            "${CurrencyFormat.convertToIdr(hargaSatuan)} x ${controller.historiData.detailProduk[index].jumlah}",
-                            style: txtStyle,
-                          ),
-                          trailing: Text(
-                            CurrencyFormat.convertToIdr(hargaSatuan *
-                                controller
-                                    .historiData.detailProduk[index].jumlah),
-                            style: const TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                        );
-                      }),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            _buildStepper(),
+            SizedBox(height: 16.h),
+            _buildOrderDetails(context),
+            SizedBox(height: 16.h),
+            _buildOrderItems(),
           ],
         );
       }),
+    );
+  }
+
+  Widget _buildStepper() {
+    return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Padding(
+        padding: EdgeInsets.all(16.w),
+        child: AnotherStepper(
+          stepperList: controller.listSteps,
+          stepperDirection: Axis.horizontal,
+          activeBarColor: Colors.green,
+          inActiveBarColor: Colors.grey,
+          activeIndex: controller.listSteps.length - 1,
+          barThickness: 1.5,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildOrderDetails(BuildContext context) {
+    return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Padding(
+        padding: EdgeInsets.all(16.w),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildDetailRow('ID Pesanan', "TRS-${controller.historiData.id}",
+                isBold: true),
+            _buildDetailRow('Tanggal', controller.historiData.tanggal),
+            _buildDetailRow('Total Pembayaran',
+                controller.historiData.total.currencyFormatRp),
+            _buildDetailRow(
+                'Jenis Pembayaran', controller.historiData.tipePayment),
+            _buildDetailRow('Total Barang',
+                '${controller.historiData.detailProduk.length} Barang'),
+            _buildDetailRow('Alamat', controller.outlet!.alamat, maxLines: 2),
+            if (controller.historiData.tipePayment == "Transfer")
+              attachBox(
+                context: context,
+                onTap: controller.uploaded.value
+                    ? () => controller.pickImage()
+                    : null,
+                txtStyle: TextStyle(fontSize: 12.sp),
+                visible: true,
+              ),
+            2.verticalSpace,
+            if (controller.historiData.tipePayment == "Transfer")
+              Align(
+                alignment: Alignment.centerRight,
+                child: GestureDetector(
+                  onTap: () {
+                    Get.toNamed(Routes.DETAIL_TRANSFER,
+                        arguments:
+                            controller.historiData.total.currencyFormatRp);
+                  },
+                  child: const Text(
+                    "Lihat cara pembayaran",
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDetailRow(String label, String value,
+      {bool isBold = false, int maxLines = 1}) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 4.h),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            flex: 2,
+            child: Text(
+              label,
+              style: TextStyle(
+                  fontSize: 12.sp,
+                  fontWeight: isBold ? FontWeight.bold : FontWeight.normal),
+            ),
+          ),
+          SizedBox(width: 8.w),
+          Expanded(
+            flex: 3,
+            child: Text(
+              value,
+              style: TextStyle(
+                  fontSize: 12.sp,
+                  fontWeight: isBold ? FontWeight.bold : FontWeight.normal),
+              maxLines: maxLines,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.right,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildOrderItems() {
+    return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Padding(
+        padding: EdgeInsets.all(16.w),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Pesanan:',
+              style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 8.h),
+            ...controller.historiData.detailProduk
+                .map((item) => _buildOrderItem(item)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildOrderItem(DetailProduk item) {
+    final hargaSatuan = int.parse(item.harga);
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 8.h),
+      child: Row(
+        children: [
+          CircleAvatar(
+            backgroundColor: Colors.white,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.asset("assets/images/product2.png"),
+            ),
+          ),
+          SizedBox(width: 12.w),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  item.nama,
+                  style:
+                      TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  "${CurrencyFormat.convertToIdr(hargaSatuan)} x ${item.jumlah}",
+                  style: TextStyle(fontSize: 12.sp, color: Colors.grey),
+                ),
+              ],
+            ),
+          ),
+          Text(
+            CurrencyFormat.convertToIdr(hargaSatuan * item.jumlah),
+            style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
     );
   }
 

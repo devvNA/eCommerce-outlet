@@ -4,12 +4,12 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-import 'package:marvelindo_outlet/app/core/networking/firebase_auth_services.dart';
 import 'package:marvelindo_outlet/app/core/utils/helpers/date_time_ext.dart';
+import 'package:marvelindo_outlet/app/data/datasources/auth_remote_datasources.dart';
 import 'package:marvelindo_outlet/app/data/datasources/pemesanan_remote_datasource.dart';
 import 'package:marvelindo_outlet/app/data/models/keranjang_model.dart';
 import 'package:marvelindo_outlet/app/domain/usecase/pemesanan_usecase.dart';
+import 'package:marvelindo_outlet/app/presentation/modules/cart/controllers/cart_controller.dart';
 
 import '../../../../data/repositories/pemesanan_repository_impl.dart';
 import '../../base/controllers/base_controller.dart';
@@ -24,13 +24,13 @@ class CheckoutController extends GetxController {
   String? selectedPayment;
   final produkPO = [].obs;
   String? messageServer;
+  final outlet = UserManager().currentOutlet;
 
   @override
   void onInit() {
     super.onInit();
     alamatController = TextEditingController(
-      text:
-          "JL. DI Panjaitan No.128, Karangreja, Purwokerto Kidul, Kec. Purwokerto Selatan, Kabupaten Banyumas, Jawa Tengah 53147",
+      text: outlet!.alamat,
     );
   }
 
@@ -72,19 +72,19 @@ class CheckoutController extends GetxController {
   // }
 
   int totalItemRp(int index) {
-    return checkoutProduk[index].hargaBarang! * checkoutProduk[index].quantity!;
+    return checkoutProduk[index].hargaBarang * checkoutProduk[index].quantity!;
   }
 
   int totalPayment() {
     int totalPembayaran = 0;
     for (var produk in checkoutProduk) {
-      totalPembayaran += produk.hargaBarang! * produk.quantity!;
+      totalPembayaran += produk.hargaBarang * produk.quantity!;
     }
     return totalPembayaran;
   }
 
   Future purchaseOrder() async {
-    final date = DateFormat('yyyy-MM-dd').parse(DateTime.now().toString());
+    // final date = DateFormat('yyyy-MM-dd').parse(DateTime.now().toString());
     // final parsedDate = DateFormat('yyyy-MM-dd')
     //     .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
 
@@ -93,11 +93,10 @@ class CheckoutController extends GetxController {
             repository: PemesananRepositoryImpl(
                 remoteDataSource: PemesananRemoteDataSourceImpl()))
         .postPemesanan(
-      idOutlet: FirebaseAuthServices.getUID(),
-      tanggal: DateTime.now().dateCustomFormat,
+      idUser: outlet!.id,
+      tanggal: DateTime.now().toFormattedDateWithDay(),
       tipePayment: selectedPayment!,
       total: totalPayment(),
-      produkKeranjang: checkoutProduk,
     );
 
     response.fold((failure) => log("Error: ${failure.message}"),
@@ -107,6 +106,7 @@ class CheckoutController extends GetxController {
 
   redirectHistory() {
     Get.back();
+    Get.find<CartController>().onRefreshKeranjang();
     Get.back();
     Get.find<HistoryController>().onRefreshHistoriPemesanan();
     Get.find<BaseController>().changeScreen(2);

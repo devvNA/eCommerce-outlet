@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:marvelindo_outlet/app/data/datasources/auth_remote_datasources.dart';
 
 class EditProfilController extends GetxController {
   final alamatController = TextEditingController().obs;
@@ -11,6 +12,7 @@ class EditProfilController extends GetxController {
   final formKey = GlobalKey<FormState>();
   final namaController = TextEditingController().obs;
   final outletController = TextEditingController().obs;
+  final outlet = UserManager().currentOutlet;
 
   final listJenisOutlet = [
     const DropdownMenuItem(value: "Sultan", child: Text("Sultan")),

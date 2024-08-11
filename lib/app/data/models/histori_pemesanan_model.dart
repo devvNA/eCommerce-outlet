@@ -1,9 +1,17 @@
 import 'package:equatable/equatable.dart';
 
 class HistoriPemesanan extends Equatable {
+  final int id;
+  final int idUser;
+  final String tanggal;
+  final String tipePayment;
+  final int total;
+  final String status;
+  final List<DetailProduk> detailProduk;
+
   const HistoriPemesanan({
     required this.id,
-    required this.idOutlet,
+    required this.idUser,
     required this.tanggal,
     required this.tipePayment,
     required this.total,
@@ -11,17 +19,9 @@ class HistoriPemesanan extends Equatable {
     required this.detailProduk,
   });
 
-  final int id;
-  final int idOutlet;
-  final String tanggal;
-  final String tipePayment;
-  final int total;
-  final String status;
-  final List<DetailProduk> detailProduk;
-
   HistoriPemesanan copyWith({
     int? id,
-    int? idOutlet,
+    int? idUser,
     String? tanggal,
     String? tipePayment,
     int? total,
@@ -30,7 +30,7 @@ class HistoriPemesanan extends Equatable {
   }) {
     return HistoriPemesanan(
       id: id ?? this.id,
-      idOutlet: idOutlet ?? this.idOutlet,
+      idUser: idUser ?? this.idUser,
       tanggal: tanggal ?? this.tanggal,
       tipePayment: tipePayment ?? this.tipePayment,
       total: total ?? this.total,
@@ -42,7 +42,7 @@ class HistoriPemesanan extends Equatable {
   factory HistoriPemesanan.fromJson(Map<String, dynamic> json) {
     return HistoriPemesanan(
       id: json["id"] ?? 0,
-      idOutlet: json["id_outlet"] ?? 0,
+      idUser: json["id_user"] ?? 0,
       tanggal: json["tanggal"] ?? "",
       tipePayment: json["tipe_payment"] ?? "",
       total: json["total"] ?? 0,
@@ -54,10 +54,20 @@ class HistoriPemesanan extends Equatable {
     );
   }
 
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "id_user": idUser,
+        "tanggal": tanggal,
+        "tipe_payment": tipePayment,
+        "total": total,
+        "status": status,
+        "detail_produk": detailProduk.map((x) => x.toJson()).toList(),
+      };
+
   @override
   List<Object?> get props => [
         id,
-        idOutlet,
+        idUser,
         tanggal,
         tipePayment,
         total,
@@ -72,24 +82,28 @@ class DetailProduk extends Equatable {
     required this.idProduk,
     required this.jumlah,
     required this.harga,
+    required this.nama,
   });
 
   final int idMTransaksi;
   final int idProduk;
   final int jumlah;
   final String harga;
+  final String nama;
 
   DetailProduk copyWith({
     int? idMTransaksi,
     int? idProduk,
     int? jumlah,
     String? harga,
+    String? nama,
   }) {
     return DetailProduk(
       idMTransaksi: idMTransaksi ?? this.idMTransaksi,
       idProduk: idProduk ?? this.idProduk,
       jumlah: jumlah ?? this.jumlah,
       harga: harga ?? this.harga,
+      nama: nama ?? this.nama,
     );
   }
 
@@ -99,8 +113,17 @@ class DetailProduk extends Equatable {
       idProduk: json["id_produk"] ?? 0,
       jumlah: json["jumlah"] ?? 0,
       harga: json["harga"] ?? "",
+      nama: json["nama"] ?? "",
     );
   }
+
+  Map<String, dynamic> toJson() => {
+        "id_m_transaksi": idMTransaksi,
+        "id_produk": idProduk,
+        "jumlah": jumlah,
+        "harga": harga,
+        "nama": nama,
+      };
 
   @override
   List<Object?> get props => [
@@ -108,5 +131,6 @@ class DetailProduk extends Equatable {
         idProduk,
         jumlah,
         harga,
+        nama,
       ];
 }

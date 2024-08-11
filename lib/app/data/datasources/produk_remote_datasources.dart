@@ -10,7 +10,8 @@ abstract class ProdukRemoteDataSource {
   Future<Either<Failure, List<Produk>>> getListProductByCategory(
       {required String kategori});
   Future<Either<Failure, String>> addToCart(
-      {required int id, required Produk produk});
+      {required int idUser, required Produk produk});
+  Future<Either<Failure, List<String>>> getCategoryList();
 }
 
 class ProdukRemoteDataSourceImpl implements ProdukRemoteDataSource {
@@ -21,7 +22,7 @@ class ProdukRemoteDataSourceImpl implements ProdukRemoteDataSource {
     try {
       final response = await request.get(
         listProduk,
-        requiresAuthToken: false,
+        requiresAuthToken: true,
       );
 
       List<Produk> products = [];
@@ -48,7 +49,7 @@ class ProdukRemoteDataSourceImpl implements ProdukRemoteDataSource {
     try {
       final response = await request.get(
         "$listProdukByCategory/$kategori",
-        requiresAuthToken: false,
+        requiresAuthToken: true,
       );
 
       List<Produk> products = [];
@@ -69,19 +70,41 @@ class ProdukRemoteDataSourceImpl implements ProdukRemoteDataSource {
 
   @override
   Future<Either<Failure, String>> addToCart(
-      {required int id, required Produk produk}) async {
+      {required int idUser, required Produk produk}) async {
     try {
       final query = {
-        'id_user': id,
+        'id_user': idUser,
         'id_produk': produk.id,
       };
 
       final response = await request.post(
         postKeranjang,
-        requiresAuthToken: false,
+        requiresAuthToken: true,
         queryParameters: query,
       );
       return Right(response.data["message"]);
+    } catch (e) {
+      //error parsing json
+      return Left(ParsingFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<String>>> getCategoryList() async {
+    try {
+      final response = await request.get(
+        listKategori,
+        requiresAuthToken: true,
+      );
+
+      List<String> categories = [];
+      if (response.statusCode == 200) {
+        for (var value in response.data) {
+          categories.add(value);
+        }
+        return Right(categories);
+      }
+      return Left(ConnectionFailure(response.data['message']));
     } catch (e) {
       //error parsing json
       return Left(ParsingFailure(e.toString()));

@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:marvelindo_outlet/app/data/datasources/auth_remote_datasources.dart';
 import 'package:marvelindo_outlet/app/presentation/global/theme/my_colors.dart';
 import 'package:path/path.dart' as path;
 
@@ -22,6 +23,7 @@ class DetailHistoryController extends GetxController {
   final imageFile = Rx<File?>(null);
   final uploaded = true.obs;
   HistoriPemesanan historiData = Get.arguments;
+  final outlet = UserManager().currentOutlet;
 
   // File? get imageFile => _imageFile.value;
   // String get fileName => _fileName.value;

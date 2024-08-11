@@ -9,6 +9,7 @@ import 'package:marvelindo_outlet/app/presentation/modules/auth/registration/vie
 import 'package:marvelindo_outlet/app/presentation/modules/base/views/base_view.dart';
 import 'package:marvelindo_outlet/app/presentation/modules/cart/views/cart_view.dart';
 import 'package:marvelindo_outlet/app/presentation/modules/checkout/views/checkout_view.dart';
+import 'package:marvelindo_outlet/app/presentation/modules/detail_history/detail_transfer/views/detail_transfer_page.dart';
 import 'package:marvelindo_outlet/app/presentation/modules/detail_history/views/detail_history_view.dart';
 import 'package:marvelindo_outlet/app/presentation/modules/detail_product/views/product_details_view.dart';
 import 'package:marvelindo_outlet/app/presentation/modules/history/views/history_view.dart';
@@ -111,7 +112,17 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.NOTIFIKASI,
-      page: () =>  const NotifikasiView(),
+      page: () => const NotifikasiView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: _Paths.NOTIFIKASI,
+      page: () => const NotifikasiView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_TRANSFER,
+      page: () => const DetailTransferView(),
       binding: AppBindings(),
     ),
   ];

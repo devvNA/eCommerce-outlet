@@ -1,20 +1,13 @@
-// ignore_for_file: unnecessary_overrides, invalid_use_of_protected_member, avoid_print
-import 'dart:developer';
-
-import 'package:firebase_auth/firebase_auth.dart';
+// ignore_for_file: unnecessary_overrides, invalid_use_of_protected_member, avoid_print, unused_local_variable
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:marvelindo_outlet/app/data/datasources/auth_remote_datasources.dart';
-import 'package:marvelindo_outlet/app/data/repositories/auth_repository_impl.dart';
-import 'package:marvelindo_outlet/app/domain/usecase/auth_usecase.dart';
-
 class ProfilController extends GetxController {
-  final token = "".obs;
-  final accessToken = "".obs;
-  final auth = FirebaseAuth.instance.obs;
-  final isTap = false.obs;
-  final isVerified = true.obs;
+  // final token = "".obs;
+  // final accessToken = "".obs;
+  // final auth = FirebaseAuth.instance;
+  // final isTap = false.obs;
+  final outlet = UserManager().currentOutlet;
 
   @override
   void onInit() {
@@ -26,21 +19,17 @@ class ProfilController extends GetxController {
   }
 
   String? getUsername() {
-    return auth.value.currentUser?.displayName ?? "Guest";
+    return outlet?.namaOutlet ?? "Guest";
   }
 
   String? getEmail() {
-    return auth.value.currentUser?.email ?? "Guest";
+    return outlet?.email ?? "Guest";
   }
 
   String? getDisplayProfile() {
-    return auth.value.currentUser?.photoURL ??
-        "https://media.istockphoto.com/id/1289670343/vector/invalid-stamp-invalid-label-round-grunge-sign.jpg?s=612x612&w=0&k=20&c=p654_tY0_Nd5N0yYbE9aNJpblSykywX9nw0g_fe4D5k=";
+    return "https://media.istockphoto.com/id/1327592506/vector/default-avatar-photo-placeholder-icon-grey-profile-picture-business-man.jpg?s=612x612&w=0&k=20&c=BpR0FVaEa5F24GIw7K8nMWiiGmbb8qmhfkpXcp1dhQg=";
   }
 
-  isVerifiedTap() {
-    isVerified.value = !isVerified();
-  }
   // Future<void> onTapGetToken() async {
   //   await Future.delayed(const Duration(milliseconds: 200));
   //   isTap.value = true;
@@ -62,25 +51,6 @@ class ProfilController extends GetxController {
   //       (provider) => log("PROVIDERID = ${provider[0].providerId}"));
   //   isTap.value = false;
   // }
-
-  Future<void> onTapGetAccessToken() async {
-    await Future.delayed(const Duration(milliseconds: 200));
-    isTap(true);
-    //GET TOKEN
-    final box = GetStorage();
-    accessToken.value = box.read("accessToken") ?? "null";
-    log("ACCESS TOKEN: ${accessToken.value} ");
-
-    //GET PROVIDER
-    var response2 = await AuthUseCase(
-            repository: AuthRepositoryImpl(
-                remoteDataSource: AuthRemoteDataSourceImpl()))
-        .getFirebaseProvider();
-    response2.fold((failure) => log("Error: ${failure.message}"),
-        (provider) => log("PROVIDERID = ${provider[0].providerId}"));
-
-    isTap(false);
-  }
 
   @override
   void onClose() {

@@ -89,7 +89,7 @@ class CheckoutProduct extends StatelessWidget {
                       ),
                       5.verticalSpace,
                       Text(
-                        DateTime.now().dateCustomFormat,
+                        DateTime.now().toFormattedDatetime(),
                         style: const TextStyle(
                           fontSize: 12.0,
                           color: Colors.black38,

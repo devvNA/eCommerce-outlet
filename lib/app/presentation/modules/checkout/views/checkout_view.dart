@@ -94,7 +94,7 @@ class CheckoutView extends GetView<CheckoutController> {
                             imgUrl: imgURL,
                             title: dataKeranjang.namaBarang,
                             description:
-                                "Harga satuan:\n${dataKeranjang.hargaBarang!.currencyFormatRp}",
+                                "Harga satuan:\n${dataKeranjang.hargaBarang.currencyFormatRp}",
                             category: dataKeranjang.jenisBarang ?? "Paket",
                           ),
                         );
@@ -278,6 +278,7 @@ class CheckoutView extends GetView<CheckoutController> {
                             ElevatedButton(
                               onPressed: () {
                                 Get.back();
+                                controller.update();
                               },
                               child: const Text(
                                 "Simpan",

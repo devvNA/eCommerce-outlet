@@ -12,13 +12,12 @@ class ProfilView extends GetView<ProfilController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
-      body: Obx(() {
-        return Column(
+        backgroundColor: Colors.grey[200],
+        body: Column(
           children: [
             Container(
               decoration: const BoxDecoration(
-                gradient: AppColors.gradientBG,
+                // gradient: AppColors.gradientBG,
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black26,
@@ -75,38 +74,21 @@ class ProfilView extends GetView<ProfilController> {
                     ),
                   ),
                   8.verticalSpace,
-                  controller.isVerified()
-                      ? InkWell(
-                          onTap: () {
-                            // controller.isVerifiedTap();
-                          },
-                          child: const Chip(
-                              backgroundColor: Colors.green,
-                              label: Text(
-                                "Terverifikasi",
-                                style: TextStyle(
-                                  fontSize: 10.0,
-                                ),
-                              )),
-                        )
-                      : ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(horizontal: 12),
-                            backgroundColor: AppColors.gray,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(32),
-                            ),
+                  InkWell(
+                    onTap: () {},
+                    child: Chip(
+                        backgroundColor: controller.outlet!.status == ""
+                            ? Colors.grey
+                            : Colors.green,
+                        label: Text(
+                          controller.outlet!.status == ""
+                              ? "Belum Terverifikasi"
+                              : controller.outlet!.status,
+                          style: const TextStyle(
+                            fontSize: 10.0,
                           ),
-                          onPressed: () {
-                            controller.isVerifiedTap();
-                          },
-                          child: const Text(
-                            "Belum terverifikasi",
-                            style: TextStyle(
-                              fontSize: 10,
-                            ),
-                          ),
-                        ),
+                        )),
+                  )
                 ],
               ),
             ),
@@ -133,6 +115,7 @@ class ProfilView extends GetView<ProfilController> {
                                 "Identitas Diri",
                                 style: TextStyle(
                                   fontSize: 16.0,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                               TextButton(
@@ -142,30 +125,18 @@ class ProfilView extends GetView<ProfilController> {
                                 child: const Text(
                                   "Edit",
                                   style: TextStyle(
-                                      color: Colors.indigo, fontSize: 15),
+                                      color: Colors.indigo, fontSize: 14),
                                 ),
                               ),
                             ],
                           ),
                           const Text(
-                            "Nama Lengkap",
-                            style: TextStyle(
-                                fontSize: 12.0, color: AppColors.gray),
-                          ),
-                          Text(
-                            Get.find<ProfilController>().getUsername()!,
-                            style: const TextStyle(
-                              fontSize: 13.0,
-                            ),
-                          ),
-                          8.verticalSpace,
-                          const Text(
                             "Email",
                             style: TextStyle(
-                                fontSize: 12.0, color: AppColors.gray),
+                                fontSize: 14.0, color: AppColors.gray),
                           ),
                           Text(
-                            Get.find<ProfilController>().getEmail()!,
+                            controller.getEmail()!,
                             style: const TextStyle(
                               fontSize: 13.0,
                             ),
@@ -174,11 +145,11 @@ class ProfilView extends GetView<ProfilController> {
                           const Text(
                             "Nama Outlet",
                             style: TextStyle(
-                                fontSize: 12.0, color: AppColors.gray),
+                                fontSize: 14.0, color: AppColors.gray),
                           ),
-                          const Text(
-                            "Dev Cell",
-                            style: TextStyle(
+                          Text(
+                            controller.outlet!.namaOutlet.capitalize!,
+                            style: const TextStyle(
                               fontSize: 13.0,
                             ),
                           ),
@@ -186,23 +157,19 @@ class ProfilView extends GetView<ProfilController> {
                           const Text(
                             "Jenis Outlet",
                             style: TextStyle(
-                                fontSize: 12.0, color: AppColors.gray),
+                                fontSize: 14.0, color: AppColors.gray),
                           ),
-                          const Text(
-                            "Sultan",
-                            style: TextStyle(
-                              fontSize: 13.0,
-                            ),
-                          ),
+                          4.verticalSpace,
+                          OutletTypeWidget(controller: controller),
                           8.verticalSpace,
                           const Text(
                             "Alamat",
                             style: TextStyle(
-                                fontSize: 12.0, color: AppColors.gray),
+                                fontSize: 14.0, color: AppColors.gray),
                           ),
-                          const Text(
-                            "JL Gatot Subroto, No. 40 Tambaksari, Sidanegara, Kecamatan Cilacap Tengah, Kabupaten Cilacap, Jawa Tengah ",
-                            style: TextStyle(
+                          Text(
+                            controller.outlet!.alamat,
+                            style: const TextStyle(
                               fontSize: 13.0,
                             ),
                           ),
@@ -212,8 +179,34 @@ class ProfilView extends GetView<ProfilController> {
                   ),
                 )),
           ],
-        );
-      }),
+        ));
+  }
+}
+
+class OutletTypeWidget extends StatelessWidget {
+  const OutletTypeWidget({
+    super.key,
+    required this.controller,
+  });
+
+  final ProfilController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        color: AppColors.primaryColor.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Text(
+        controller.outlet!.jenisOutlet!.nama,
+        style: const TextStyle(
+          fontSize: 12.0,
+          color: AppColors.primaryColor,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
     );
   }
 }

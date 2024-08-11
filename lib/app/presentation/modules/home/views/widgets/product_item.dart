@@ -43,8 +43,8 @@ class ProductItem extends GetView<HomeController> {
               height: 150,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage(
-                    "https://s4.bukalapak.com/img/43229784103/s-463-463/data.jpeg.webp",
+                  image: AssetImage(
+                    "assets/images/no-image.jpg",
                   ),
                   fit: BoxFit.cover,
                 ),
@@ -60,16 +60,32 @@ class ProductItem extends GetView<HomeController> {
                         maxLines: 2,
                         style: theme.textTheme.bodyMedium?.copyWith(
                           overflow: TextOverflow.ellipsis,
-                          fontSize: 13,
+                          fontSize: 14,
                         )),
                     3.verticalSpace,
-                    Text(
-                      // ignore: unnecessary_string_interpolations
-                      produk.harga?.currencyFormatRp ?? 0.currencyFormatRp,
-                      style: theme.textTheme.displaySmall?.copyWith(
-                        color: AppColors.primaryColor,
+                    Expanded(
+                      child: Text(
+                        // ignore: unnecessary_string_interpolations
+                        produk.harga?.currencyFormatRp ?? 0.currencyFormatRp,
+                        style: theme.textTheme.displaySmall?.copyWith(
+                          color: AppColors.primaryColor,
+                        ),
                       ),
-                    )
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                        color: _getStockColor(produk.stok ?? 0),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        'Stok: ${produk.stok ?? 0}',
+                        style: theme.textTheme.labelSmall?.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                   ],
                 ).animate().fade().slideY(
                       duration: const Duration(milliseconds: 200),
@@ -82,5 +98,11 @@ class ProductItem extends GetView<HomeController> {
         ),
       ),
     );
+  }
+
+  Color _getStockColor(int stok) {
+    if (stok > 50) return Colors.green;
+    if (stok > 5) return Colors.orange;
+    return Colors.red;
   }
 }

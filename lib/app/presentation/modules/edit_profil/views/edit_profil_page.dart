@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:marvelindo_outlet/app/core/networking/firebase_auth_services.dart';
 import 'package:marvelindo_outlet/app/core/utils/helpers/validator.dart';
 import 'package:marvelindo_outlet/app/presentation/global/theme/my_colors.dart';
 import 'package:marvelindo_outlet/app/presentation/global/widgets/custom_snackbar.dart';
@@ -59,17 +58,6 @@ class EditProfilView extends GetView<EditProfilController> {
                       ),
                       15.verticalSpace,
                       const Text(
-                        "Nama Lengkap",
-                        style: TextStyle(fontSize: 14.0, color: AppColors.gray),
-                      ),
-                      5.verticalSpace,
-                      FormTextWidget(
-                        textFormController: controller.namaController.value,
-                        validator: Validator.required,
-                        hintText: FirebaseAuthServices.getUsername(),
-                      ),
-                      10.verticalSpace,
-                      const Text(
                         "Email",
                         style: TextStyle(fontSize: 14.0, color: AppColors.gray),
                       ),
@@ -77,7 +65,7 @@ class EditProfilView extends GetView<EditProfilController> {
                       FormTextWidget(
                         textFormController: controller.emailController.value,
                         validator: Validator.email,
-                        hintText: FirebaseAuthServices.getEmail(),
+                        hintText: controller.outlet!.email,
                       ),
                       10.verticalSpace,
                       const Text(
@@ -88,7 +76,7 @@ class EditProfilView extends GetView<EditProfilController> {
                       FormTextWidget(
                         textFormController: controller.outletController.value,
                         validator: Validator.required,
-                        hintText: "IndoCell",
+                        hintText: controller.outlet!.namaOutlet.capitalize,
                       ),
                       10.verticalSpace,
                       // const Text(
@@ -103,9 +91,10 @@ class EditProfilView extends GetView<EditProfilController> {
                         style: TextStyle(fontSize: 14.0, color: AppColors.gray),
                       ),
                       5.verticalSpace,
-                      const FormTextWidget(
+                      FormTextWidget(
                         maxlines: 5,
                         validator: Validator.required,
+                        hintText: controller.outlet!.alamat,
                       )
                     ],
                   ),

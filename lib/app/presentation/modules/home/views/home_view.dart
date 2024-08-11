@@ -1,14 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:marvelindo_outlet/app/core/networking/firebase_auth_services.dart';
 import 'package:marvelindo_outlet/app/presentation/global/widgets/shimmer_widget.dart';
+import 'package:marvelindo_outlet/app/routes/app_pages.dart';
+import 'package:shimmer/shimmer.dart';
 
-import '../../../../routes/app_pages.dart';
 import '../../../global/theme/my_colors.dart';
 import '../../../global/widgets/error_state_widget.dart';
-import '../../setting/controllers/setting_controller.dart';
 import '../controllers/home_controller.dart';
 import 'widgets/product_item.dart';
 
@@ -25,7 +26,7 @@ class HomeView extends GetView<HomeController> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _profileHeader(context),
-        15.verticalSpace,
+        16.verticalSpace,
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 18),
           child: Text(
@@ -37,8 +38,9 @@ class HomeView extends GetView<HomeController> {
             ),
           ),
         ),
+        4.verticalSpace,
         _categories(),
-        5.verticalSpace,
+        4.verticalSpace,
         Expanded(
           child: Obx(() {
             if (controller.loading()) {
@@ -117,44 +119,72 @@ class HomeView extends GetView<HomeController> {
     ));
   }
 
-  Container _profileHeader(context) {
+  Container _profileHeader(BuildContext context) {
     var theme = Theme.of(context);
     return Container(
-      padding: const EdgeInsets.all(12),
-      width: MediaQuery.of(context).size.width,
+      padding: const EdgeInsets.all(16),
+      width: double.infinity,
       decoration: const BoxDecoration(
-        gradient: AppColors.gradientBG,
+        image: DecorationImage(
+          image: AssetImage(
+            "assets/images/bg_header.jpg",
+          ),
+          fit: BoxFit.cover,
+        ),
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(32),
           bottomRight: Radius.circular(32),
         ),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          15.verticalSpace,
-          ListTile(
-            onTap: () {
-              Get.find<SettingController>().toProfilePage();
-            },
-            leading: Hero(
-              tag: "profile",
-              child: CircleAvatar(
-                backgroundImage:
-                    NetworkImage(FirebaseAuthServices.getDisplayProfile()),
+          16.verticalSpace,
+          Row(
+            children: [
+              GestureDetector(
+                onTap: () => Get.toNamed(Routes.PROFIL),
+                child: const Hero(
+                  tag: "profile",
+                  child: CircleAvatar(
+                    radius: 20,
+                    backgroundImage: AssetImage("assets/images/no-image.jpg"),
+                  ),
+                ),
               ),
-            ),
-            title: Text("Hai, ${FirebaseAuthServices.getUsername()}",
-                style: theme.textTheme.bodyMedium!.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14)),
-            subtitle: Text(
-              FirebaseAuthServices.getEmail(),
-              style: const TextStyle(color: Colors.white70, fontSize: 12),
-            ),
-            trailing: _badgeNotification(),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Hai, ${controller.outlet!.namaOutlet.split(' ')[0].capitalize}",
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16),
+                    ),
+                    const SizedBox(height: 4),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Text(
+                        "Status Kamu: ${controller.outlet!.jenisOutlet!.nama}",
+                        style: theme.textTheme.bodySmall
+                            ?.copyWith(color: Colors.white, fontSize: 12),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              _badgeNotification(),
+            ],
           ),
-          5.verticalSpace,
+          const SizedBox(height: 20),
           _searchBox(),
         ],
       ),
@@ -164,8 +194,13 @@ class HomeView extends GetView<HomeController> {
   InkWell _badgeNotification() {
     return InkWell(
       onTap: () {
-        Get.toNamed(Routes.NOTIFIKASI);
+        // Get.toNamed(Routes.NOTIFIKASI);
         // log(FirebaseAuth.instance.currentUser!.uid);
+        log("Token: ${controller.box.read("TOKEN")}");
+        log("Remember Me: ${controller.box.read("REMEMBER_ME_EMAIL")}");
+        log("Remember Me: ${controller.box.read("REMEMBER_ME_PASSWORD")}");
+
+        // log("listCategories : ${controller.listCategories}");
       },
       child: Container(
         padding: const EdgeInsets.all(5.0),
@@ -241,11 +276,33 @@ class HomeView extends GetView<HomeController> {
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: SizedBox(
         height: 50,
-        child: ListView.builder(
-          itemCount: controller.categories.length,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) {
-            return Obx(() {
+        child: Obx(() {
+          if (controller.loading()) {
+            return ListView.builder(
+              itemCount: 5, // Jumlah placeholder shimmer
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    child: Container(
+                      width: 70,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(32),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            );
+          }
+          return ListView.builder(
+            itemCount: controller.listCategories.length,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
               return Row(
                 children: [
                   ElevatedButton(
@@ -266,7 +323,7 @@ class HomeView extends GetView<HomeController> {
                       controller.onChangeCategory(index);
                     },
                     child: Text(
-                      controller.categories[index],
+                      controller.listCategories[index],
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
@@ -279,9 +336,9 @@ class HomeView extends GetView<HomeController> {
                   10.horizontalSpace
                 ],
               );
-            });
-          },
-        ),
+            },
+          );
+        }),
       ),
     );
   }

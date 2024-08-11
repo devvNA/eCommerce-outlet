@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:marvelindo_outlet/app/presentation/global/theme/my_colors.dart';
 
 import '../controllers/base_controller.dart';
 
@@ -53,7 +54,7 @@ class BaseView extends GetView<BaseController> {
                       Colors.white, // tab button ripple color when pressed
                   hoverColor: Colors.white, // tab button hover color
                   activeColor: Colors.white,
-                  tabBackgroundColor: const Color.fromARGB(255, 232, 20, 119),
+                  tabBackgroundColor: AppColors.primaryColor,
                   gap: 4,
                   tabBorderRadius: 14,
                   textStyle: const TextStyle(

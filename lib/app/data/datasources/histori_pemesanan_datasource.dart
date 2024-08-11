@@ -17,7 +17,7 @@ class HistoriPemesananRemoteDataSourceImpl
     try {
       final response = await Request().get(
         listHistoryPemesanan,
-        requiresAuthToken: false,
+        requiresAuthToken: true,
       );
       List<HistoriPemesanan> history = [];
       if (response.statusCode == 200) {

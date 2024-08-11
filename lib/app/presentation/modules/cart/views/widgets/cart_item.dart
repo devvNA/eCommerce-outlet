@@ -51,7 +51,7 @@ class CartItem extends StatelessWidget {
             height: 125,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/images/product2.png"),
+                image: AssetImage("assets/images/no-image.jpg"),
                 fit: BoxFit.cover,
               ),
               borderRadius: BorderRadius.all(
@@ -83,7 +83,7 @@ class CartItem extends StatelessWidget {
                 ),
                 6.verticalSpace,
                 Text(
-                  item.hargaBarang!.currencyFormatRp,
+                  item.hargaBarang.currencyFormatRp,
                   style: const TextStyle(
                       fontSize: 14.5,
                       fontWeight: FontWeight.bold,

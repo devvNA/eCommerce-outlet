@@ -53,7 +53,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                   height: 400.h,
                   decoration: BoxDecoration(
                     image: const DecorationImage(
-                      image: AssetImage(Constants.product2),
+                      image: AssetImage("assets/images/no-image.jpg"),
                       fit: BoxFit.cover,
                     ),
                     borderRadius: BorderRadius.only(

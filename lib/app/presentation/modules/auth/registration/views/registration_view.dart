@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 import 'package:marvelindo_outlet/app/core/utils/helpers/validator.dart';
 
 import '../../../../global/theme/my_colors.dart';
-import '../../../../global/widgets/custom_snackbar.dart';
 import '../controllers/registration_controller.dart';
 import 'widgets/form_registration_widget.dart';
 
@@ -50,77 +49,62 @@ class RegistrationView extends GetView<RegistrationController> {
               FormRegistrationWidget(
                 formTitle: 'Email',
                 hintText: 'jon@gmail.com',
-                formController: controller.emailController(),
+                formController: controller.emailController,
                 validator: Validator.email,
               ),
               const SizedBox(
                 height: 15.0,
               ),
               FormRegistrationWidget(
-                obscureText: true,
+                obscureText: controller.visible.value,
                 formTitle: 'Password',
                 hintText: "********",
-                formController: controller.passwordController(),
-                validator: Validator.required,
+                formController: controller.passwordController,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "masukkan password";
+                  } else if (controller.passwordController.value.text.length <
+                      6) {
+                    return "kata sandi harus 6 karakter atau lebih";
+                  }
+                  return null;
+                },
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    controller.visible.value = !controller.visible.value;
+                    log(controller.visible.value.toString());
+                  },
+                  icon: Icon(
+                    controller.visible.value
+                        ? Icons.visibility_off_outlined
+                        : Icons.visibility_outlined,
+                    size: 20.0,
+                  ),
+                ),
               ),
               const SizedBox(
                 height: 15.0,
               ),
-              // const Text(
-              //   'Jenis Outlet',
-              //   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-              // ),
-              // const SizedBox(
-              //   height: 6.0,
-              // ),
-              // DropdownButtonFormField(
-              //     decoration: InputDecoration(
-              //       contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-              //       prefixIconColor: AppColors.primaryColor,
-              //       suffixIconColor: Colors.grey[400],
-              //       fillColor: Colors.white,
-              //       filled: true,
-              //       border: const OutlineInputBorder(
-              //         borderRadius: BorderRadius.all(Radius.circular(32)),
-              //         borderSide: BorderSide(color: AppColors.primaryColor),
-              //       ),
-              //       enabledBorder: OutlineInputBorder(
-              //         borderRadius: BorderRadius.circular(32),
-              //         borderSide: BorderSide.none,
-              //       ),
-              //       focusedBorder: OutlineInputBorder(
-              //         borderRadius: BorderRadius.circular(32),
-              //         borderSide: const BorderSide(color: Colors.indigo),
-              //       ),
-              //       hintText: "pilih jenis outlet",
-              //     ),
-              //     focusColor: const Color(0xFFE7E5E5),
-              //     style: context.theme.textTheme.bodyMedium
-              //         ?.copyWith(fontSize: 14, fontWeight: FontWeight.w500),
-              //     elevation: 3,
-              //     borderRadius: BorderRadius.circular(8),
-              //     dropdownColor: const Color(0xFFF0F0F0),
-              //     value: controller.selectedOutlet,
-              //     validator: Validator.required,
-              //     onChanged: (value) {
-              //       controller.onSelectedOutlet(value!);
-              //     },
-              //     items: controller.jenisOutlet),
-              // const SizedBox(
-              //   height: 15.0,
-              // ),
               FormRegistrationWidget(
                 formTitle: 'Nama Outlet',
-                formController: controller.nama(),
+                formController: controller.namaOutlet,
                 hintText: 'JonSeluler',
                 validator: Validator.required,
               ),
               const SizedBox(
                 height: 15.0,
               ),
+              const Text(
+                'Jenis Outlet',
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+              ),
+              const SizedBox(
+                height: 6.0,
+              ),
+              
               FormAddressWidget(
                 formTitle: "Alamat Outlet",
-                formController: controller.alamat(),
+                formController: controller.alamatOutlet,
                 hintText:
                     "JL Gatot Subroto, No. 40 Tambaksari, Sidanegara, Kecamatan Cilacap Tengah, Kabupaten Cilacap, Jawa Tengah ",
                 validator: Validator.required,
@@ -173,10 +157,7 @@ class RegistrationView extends GetView<RegistrationController> {
                   onPressed: controller.isCheck.value
                       ? () {
                           if (controller.formKey.currentState!.validate()) {
-                            printInfo(info: "success");
                             controller.onSubmit();
-                            CustomSnackBar.showCustomToast(
-                                message: "Registrasi Berhasil, silahkan login");
                           }
                           log("Failed Login");
                         }

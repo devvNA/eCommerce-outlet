@@ -2,8 +2,8 @@
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
-import '../../../core/networking/firebase_auth_services.dart';
+import 'package:marvelindo_outlet/app/core/utils/helpers/network_controller.dart';
+import 'package:marvelindo_outlet/app/presentation/modules/detail_history/detail_transfer/controllers/detail_transfer_controller.dart';
 import '../../../core/networking/network_request.dart';
 import '../../modules/about/controllers/about_app_controller.dart';
 import '../../modules/api_test/api_test_controller.dart';
@@ -25,21 +25,24 @@ import '../../modules/setting/controllers/setting_controller.dart';
 import '../../modules/splash/controllers/splash_controller.dart';
 
 class AppBindings extends Bindings {
+  static void initConnection() {
+    Get.put<NetworkController>(NetworkController(), permanent: true);
+  }
+
   @override
   Future<void> dependencies() async {
     final box = GetStorage();
     Get.lazyPut<DetailApiController>(() => DetailApiController());
     Get.lazyPut<ApiTestController>(() => ApiTestController());
     Get.lazyPut<Request>(() => Request());
-    Get.lazyPut<FirebaseAuthServices>(() => FirebaseAuthServices());
     Get.lazyPut<SplashController>(() => SplashController());
     Get.lazyPut<LoginController>(() => LoginController());
     Get.lazyPut<RegistrationController>(() => RegistrationController());
     Get.lazyPut<BaseController>(() => BaseController());
     Get.lazyPut<HomeController>(() => HomeController());
     Get.lazyPut<CartController>(() => CartController());
-    Get.put(HistoryController());
-    // Get.lazyPut<HistoryController>(() => HistoryController());
+    // Get.put(HistoryController());
+    Get.lazyPut<HistoryController>(() => HistoryController());
     Get.lazyPut<DetailHistoryController>(() => DetailHistoryController());
     Get.lazyPut<ProfilController>(() => ProfilController());
     Get.lazyPut<ProductDetailsController>(() => ProductDetailsController());
@@ -50,5 +53,8 @@ class AppBindings extends Bindings {
     Get.lazyPut<SettingController>(() => SettingController());
     Get.lazyPut<EditProfilController>(() => EditProfilController());
     Get.lazyPut<NotifikasiController>(() => NotifikasiController());
+    Get.lazyPut<DetailTransferController>(
+      () => DetailTransferController(),
+    );
   }
 }
