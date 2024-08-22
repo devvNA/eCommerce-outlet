@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:marvelindo_outlet/app/core/api_endpoints.dart';
 
 import '../../core/networking/failure_helper.dart';
@@ -24,7 +25,6 @@ class PemesananRemoteDataSourceImpl implements PemesananRemoteDataSource {
     try {
       final response = await Request().post(
         checkout,
-        requiresAuthToken: true,
         data: {
           "id_user": idUser,
           "tanggal": tanggal,
@@ -33,10 +33,18 @@ class PemesananRemoteDataSourceImpl implements PemesananRemoteDataSource {
         },
       );
 
-      return Right(response.data["message"]);
+      if (response.statusCode == 201) {
+        return Right(response.data["message"]);
+      } else if (response.statusCode == 500) {
+        return const Left(ConnectionFailure("Internal Server Error"));
+      } else {
+        return Left(ParsingFailure(response.data["message"]));
+      }
+    } on DioException catch (e) {
+      return Left(ParsingFailure(e.response!.data["message"]));
     } catch (e) {
-      //error parsing json
-      return Left(ParsingFailure(e.toString()));
+      return const Left(
+          ParsingFailure("Terjadi kesalahan yang tidak diketahui"));
     }
   }
 }

@@ -72,49 +72,10 @@ class CartController extends GetxController {
     loading(false);
   }
 
-  // // when the user press on increase button
-  // onIncreasePressed(int productId) {
-  //   var product = listKeranjang.firstWhere((p) => p.id == productId);
-  //   product.quantity = product.quantity! + 1;
-  //   // getCartProducts();
-  //   // update(['ProductQuantity']);
-  // }
-
   onRefreshKeranjang() async {
     listKeranjang().clear();
     getKeranjang();
-    // final response = await KeranjangUseCase(
-    //         repository: KeranjangRepositoryImpl(
-    //             remoteDataSource: KeranjangRemoteDataSourceImpl()))
-    //     .getListKeranjang();
-
-    // response.fold((failure) => log("Error: ${failure.message}"),
-    //     (keranjang) => listKeranjang(keranjang));
   }
-
-  // onIncreasePressed(int productId) {
-  //   var product = DummyHelper.products.firstWhere((p) => p.id == productId);
-  //   product.quantity = product.quantity! + 1;
-  //   // getCartProducts();
-  //   // update(['ProductQuantity']);
-  // }
-
-  // //  when the user press on decrease button
-  // onDecreasePressed(int productId) {
-  //   var product = DummyHelper.products.firstWhere((p) => p.id == productId);
-  //   if (product.quantity! > 1) {
-  //     product.quantity = product.quantity! - 1;
-  //     // getCartProducts();
-  //     // update(['ProductQuantity']);
-  //   }
-  // }
-
-  // onInputQuantity(int productId, int quantity) {
-  //   var product = DummyHelper.products.firstWhere((p) => p.id == productId);
-  //   product.quantity = quantity;
-  //   // getCartProducts();
-  //   // update(['ProductQuantity']);
-  // }
 
   onEmptyCartPressed() {
     Get.find<BaseController>().changeScreen(0);
@@ -139,24 +100,6 @@ class CartController extends GetxController {
     response.fold((failure) => log(failure.message), (message) => log(message));
     return response;
   }
-
-  // onIncreasePressed(int productId, int currQty) async {
-  //   final response = await KeranjangUseCase(
-  //           repository: KeranjangRepositoryImpl(
-  //               remoteDataSource: KeranjangRemoteDataSourceImpl()))
-  //       .increaseItemKeranjang(productId, currQty);
-  //   response.fold((failure) => log(failure.message), (message) => log(message));
-  //   return response;
-  // }
-
-  // onDecreasePressed(int productId, int currQty) async {
-  //   final response = await KeranjangUseCase(
-  //           repository: KeranjangRepositoryImpl(
-  //               remoteDataSource: KeranjangRemoteDataSourceImpl()))
-  //       .decreaseItemKeranjang(productId, currQty);
-  //   response.fold((failure) => log(failure.message), (message) => log(message));
-  //   return response;
-  // }
 
   int totalPayment() {
     int totalPembayaran = 0;

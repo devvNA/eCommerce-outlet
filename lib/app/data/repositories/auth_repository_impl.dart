@@ -29,12 +29,15 @@ class AuthRepositoryImpl implements AuthRepository {
     required String password,
     required String namaOutlet,
     required String alamatOutlet,
+    // String? serialNumber,
   }) async =>
       await remoteDataSource.register(
-          email: email,
-          password: password,
-          namaOutlet: namaOutlet,
-          alamatOutlet: alamatOutlet);
+        email: email,
+        password: password,
+        namaOutlet: namaOutlet,
+        alamatOutlet: alamatOutlet,
+        // serialNumber: serialNumber,
+      );
 
   @override
   Future<Either<Failure, String>> refreshToken() async =>

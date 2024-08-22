@@ -21,6 +21,7 @@ abstract class AuthRemoteDataSource {
     required String password,
     required String namaOutlet,
     required String alamatOutlet,
+    // String? serialNumber,
   });
   Future<Either<Failure, String>> refreshToken();
 }
@@ -36,7 +37,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     try {
       final response = await Request().post(
         loginUrl,
-        requiresAuthToken: false,
         data: {
           "email": email,
           "password": password,
@@ -48,7 +48,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         return const Right(true);
       }
       return const Right(false);
-    } catch (e) {
+    } on DioException catch (e) {
       return Left(ParsingFailure(e.toString()));
     }
   }
@@ -58,7 +58,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     try {
       var response = await Request().post(
         logoutUrl,
-        requiresAuthToken: true,
       );
       if (response.statusCode == 200) {
         return const Right(true);
@@ -74,7 +73,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     try {
       final request = Request();
 
-      var response = await request.get(getUserLink, requiresAuthToken: true);
+      var response = await request.get(getUserLink);
       Outlet? user;
       if (response.statusCode == 200) {
         user = Outlet.fromJson(response.data);
@@ -92,26 +91,27 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     required String password,
     required String namaOutlet,
     required String alamatOutlet,
+    // String? serialNumber,
   }) async {
     try {
       final request = Request();
 
       final response = await request.post(
         registerUser,
-        requiresAuthToken: false,
         data: {
           "email": email,
           "password": password,
           "nama_outlet": namaOutlet,
-          "alamat_outlet": alamatOutlet
+          "alamat": alamatOutlet,
+          // "serial_number": serialNumber,
         },
       );
       if (response.statusCode == 201) {
-        return Right(response.data["message"]);
+        return Right(response.data['user'].toString());
       }
       return const Left(ParsingFailure("Kesalahan Parsing"));
     } on DioException catch (e) {
-      return Left(Exception(e.response!.data["email"].toString()));
+      return Left(Exception(e.response!.data["errors"]["email"][0].toString()));
     }
   }
 
@@ -120,7 +120,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     try {
       final response = await Request().post(
         "refreshTokenUrl",
-        requiresAuthToken: true,
       );
       if (response.statusCode == 200) {
         final newToken = response.data["TOKEN"];
@@ -132,7 +131,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       return Left(ParsingFailure(e.toString()));
     }
   }
-  
+
   // @override
   // Future<Either<Failure, String>> getAccessToken() async {
   //   GoogleSignIn googleSignIn = GoogleSignIn(
@@ -203,5 +202,9 @@ class UserManager {
 
     response.fold(
         (failure) => log(failure.message), (user) => _currentOutlet = user);
+  }
+
+  static String? isVerified() {
+    return UserManager().currentOutlet!.status;
   }
 }

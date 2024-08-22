@@ -1,14 +1,11 @@
 // ignore_for_file: must_be_immutable, unrelated_type_equality_checks
-import 'dart:developer';
+import 'dart:io';
 
-import 'package:another_stepper/widgets/another_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/app/core/utils/helpers/currency/int_currency.dart';
 import 'package:marvelindo_outlet/app/data/models/histori_pemesanan_model.dart';
-import 'package:marvelindo_outlet/app/presentation/global/widgets/custom_alert_dialog.dart';
-import 'package:marvelindo_outlet/app/routes/app_pages.dart';
 
 import '../../../../core/utils/helpers/currency/currency.dart';
 import '../../../global/theme/my_colors.dart';
@@ -22,40 +19,191 @@ class DetailHistoryView extends GetView<DetailHistoryController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('History Pemesanan Produk'),
-        elevation: 0, // Menghilangkan bayangan pada AppBar
       ),
       body: Obx(() {
+        if (controller.loading.value) {
+          return Stack(
+            children: [
+              ListView(
+                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+                children: [
+                  _buildOrderDetails(context),
+                  SizedBox(height: 8.h),
+                  _buildPaymentAttachmentWidget(),
+                  SizedBox(height: 8.h),
+                  _buildOrderItems(),
+                ],
+              ),
+              Container(
+                color: Colors.black.withOpacity(0.5),
+                child: const Center(
+                  child: CircularProgressIndicator(
+                    color: AppColors.primaryColor,
+                  ),
+                ),
+              ),
+            ],
+          );
+        }
         return ListView(
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
           children: [
-            _buildStepper(),
-            SizedBox(height: 16.h),
             _buildOrderDetails(context),
-            SizedBox(height: 16.h),
+            SizedBox(height: 8.h),
             _buildOrderItems(),
+            SizedBox(height: 8.h),
+            _buildPaymentAttachmentWidget(),
+            SizedBox(height: 8.h),
+            _buildEvidenceWidget(),
           ],
         );
       }),
     );
   }
 
-  Widget _buildStepper() {
-    return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: Padding(
-        padding: EdgeInsets.all(16.w),
-        child: AnotherStepper(
-          stepperList: controller.listSteps,
-          stepperDirection: Axis.horizontal,
-          activeBarColor: Colors.green,
-          inActiveBarColor: Colors.grey,
-          activeIndex: controller.listSteps.length - 1,
-          barThickness: 1.5,
+  Visibility _buildEvidenceWidget() {
+    return Visibility(
+      visible: controller.historiData.status == "selesai",
+      child: Card(
+        elevation: 2,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        child: Padding(
+          padding: EdgeInsets.all(16.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Bukti Diterima:',
+                style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 8.h),
+              Obx(() {
+                if (controller.imageFile.value != null ||
+                    controller.historiData.urlBukti != null) {
+                  return Column(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: controller.historiData.urlBukti != null &&
+                                controller.imageFile.value == null
+                            ? Image.network(
+                                controller.historiData.urlBukti,
+                                height: 180,
+                                width: double.infinity,
+                                fit: BoxFit.cover,
+                                loadingBuilder: (BuildContext context,
+                                    Widget child,
+                                    ImageChunkEvent? loadingProgress) {
+                                  if (loadingProgress == null) {
+                                    return child;
+                                  }
+                                  return Center(
+                                    child: CircularProgressIndicator(
+                                      value:
+                                          loadingProgress.expectedTotalBytes !=
+                                                  null
+                                              ? loadingProgress
+                                                      .cumulativeBytesLoaded /
+                                                  loadingProgress
+                                                      .expectedTotalBytes!
+                                              : null,
+                                    ),
+                                  );
+                                },
+                                errorBuilder: (BuildContext context,
+                                    Object exception, StackTrace? stackTrace) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Center(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          const Icon(Icons.error,
+                                              color: Colors.red),
+                                          4.verticalSpace,
+                                          const Text(
+                                            "Gagal memuat gambar",
+                                            style: TextStyle(
+                                              fontSize: 8.0,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              )
+                            : Image.file(
+                                File(controller.imageFile.value!.path),
+                                height: 180,
+                                width: double.infinity,
+                                fit: BoxFit.cover,
+                              ),
+                      ),
+                    ],
+                  );
+                } else {
+                  return Container(
+                    height: 200,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Icon(Icons.image, size: 50, color: Colors.grey[400]),
+                  );
+                }
+              }),
+              8.verticalSpace,
+              Visibility(
+                visible: controller.historiData.status != "dibatalkan" &&
+                    controller.historiData.status != "selesai",
+                child: ElevatedButton(
+                  onPressed: () async {
+                    await controller.pickImage();
+                    if (controller.imageFile.value != null) {
+                      await controller.uploadBukti();
+                    }
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 4.0),
+                    child: Text(
+                      controller.imageFile.value != null
+                          ? 'Perbarui Bukti Pembayaran'
+                          : 'Unggah Bukti Pembayaran',
+                      style: const TextStyle(
+                        fontSize: 12.0,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
+
+  // Widget _buildStepper() {
+  //   return Card(
+  //     elevation: 2,
+  //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+  //     child: Padding(
+  //       padding: EdgeInsets.all(16.w),
+  //       child: AnotherStepper(
+  //         stepperList: controller.listSteps,
+  //         stepperDirection: Axis.horizontal,
+  //         activeBarColor: Colors.green,
+  //         inActiveBarColor: Colors.grey,
+  //         activeIndex: controller.listSteps.length,
+  //         barThickness: 1.5,
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget _buildOrderDetails(BuildContext context) {
     return Card(
@@ -76,34 +224,6 @@ class DetailHistoryView extends GetView<DetailHistoryController> {
             _buildDetailRow('Total Barang',
                 '${controller.historiData.detailProduk.length} Barang'),
             _buildDetailRow('Alamat', controller.outlet!.alamat, maxLines: 2),
-            if (controller.historiData.tipePayment == "Transfer")
-              attachBox(
-                context: context,
-                onTap: controller.uploaded.value
-                    ? () => controller.pickImage()
-                    : null,
-                txtStyle: TextStyle(fontSize: 12.sp),
-                visible: true,
-              ),
-            2.verticalSpace,
-            if (controller.historiData.tipePayment == "Transfer")
-              Align(
-                alignment: Alignment.centerRight,
-                child: GestureDetector(
-                  onTap: () {
-                    Get.toNamed(Routes.DETAIL_TRANSFER,
-                        arguments:
-                            controller.historiData.total.currencyFormatRp);
-                  },
-                  child: const Text(
-                    "Lihat cara pembayaran",
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      color: Colors.blue,
-                    ),
-                  ),
-                ),
-              ),
           ],
         ),
       ),
@@ -176,7 +296,10 @@ class DetailHistoryView extends GetView<DetailHistoryController> {
             backgroundColor: Colors.white,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: Image.asset("assets/images/product2.png"),
+              child: Text(
+                item.nama.substring(0, 1),
+                style: TextStyle(fontSize: 12.sp),
+              ),
             ),
           ),
           SizedBox(width: 12.w),
@@ -205,136 +328,127 @@ class DetailHistoryView extends GetView<DetailHistoryController> {
     );
   }
 
-  Visibility attachBox({
-    required TextStyle txtStyle,
-    required bool visible,
-    required void Function()? onTap,
-    required BuildContext context,
-  }) {
+  Widget _buildPaymentAttachmentWidget() {
     return Visibility(
-      visible: visible,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          2.verticalSpace,
-          Text(
-            'Bukti :',
-            style: txtStyle,
-          ),
-          3.verticalSpace,
-          Container(
-            padding: const EdgeInsets.all(1.0),
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(6.0),
+      visible: controller.historiData.tipePayment == "Transfer" &&
+          controller.historiData.status == "selesai",
+      child: Card(
+        elevation: 2,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        child: Padding(
+          padding: EdgeInsets.all(16.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Bukti Pembayaran:',
+                style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
               ),
-              border: Border.all(
-                color: AppColors.lightGrey,
-              ),
-            ),
-            child: Row(
-              children: [
-                Ink(
-                  decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(5.0),
-                        bottomLeft: Radius.circular(5.0),
+              SizedBox(height: 8.h),
+              Obx(() {
+                if (controller.imageFile.value != null ||
+                    controller.historiData.urlBukti != null) {
+                  return Column(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: controller.historiData.urlBukti != null &&
+                                controller.imageFile.value == null
+                            ? Image.network(
+                                controller.historiData.urlBukti,
+                                height: 180,
+                                width: double.infinity,
+                                fit: BoxFit.cover,
+                                loadingBuilder: (BuildContext context,
+                                    Widget child,
+                                    ImageChunkEvent? loadingProgress) {
+                                  if (loadingProgress == null) return child;
+                                  return Center(
+                                    child: CircularProgressIndicator(
+                                      value:
+                                          loadingProgress.expectedTotalBytes !=
+                                                  null
+                                              ? loadingProgress
+                                                      .cumulativeBytesLoaded /
+                                                  loadingProgress
+                                                      .expectedTotalBytes!
+                                              : null,
+                                    ),
+                                  );
+                                },
+                                errorBuilder: (BuildContext context,
+                                    Object exception, StackTrace? stackTrace) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Center(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          const Icon(Icons.error,
+                                              color: Colors.red),
+                                          4.verticalSpace,
+                                          const Text(
+                                            "Gagal memuat gambar",
+                                            style: TextStyle(
+                                              fontSize: 8.0,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              )
+                            : Image.file(
+                                File(controller.imageFile.value!.path),
+                                height: 180,
+                                width: double.infinity,
+                                fit: BoxFit.cover,
+                              ),
                       ),
-                      border: Border.all(
-                        color: Colors.transparent,
+                    ],
+                  );
+                } else {
+                  return Container(
+                    height: 200,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Icon(Icons.image, size: 50, color: Colors.grey[400]),
+                  );
+                }
+              }),
+              8.verticalSpace,
+              Visibility(
+                visible: controller.historiData.status != "dibatalkan" &&
+                    controller.historiData.status != "selesai",
+                child: ElevatedButton(
+                  onPressed: () async {
+                    await controller.pickImage();
+                    if (controller.imageFile.value != null) {
+                      await controller.uploadBukti();
+                    }
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 4.0),
+                    child: Text(
+                      controller.imageFile.value != null
+                          ? 'Perbarui Bukti Pembayaran'
+                          : 'Unggah Bukti Pembayaran',
+                      style: const TextStyle(
+                        fontSize: 12.0,
                       ),
-                      color: AppColors.primaryColor),
-                  child: InkWell(
-                    onTap: onTap,
-                    child: Padding(
-                      padding: EdgeInsets.all(
-                          (controller.imageFile.value == null) ? 11 : 12),
-                      child: (controller.imageFile.value == null)
-                          ? const Text(
-                              "Pilih File",
-                              style: TextStyle(
-                                  fontSize: 12.0, color: Colors.white),
-                            )
-                          : Text(
-                              (controller.uploaded.value)
-                                  ? "Ganti File"
-                                  : "Diunggah",
-                              style: const TextStyle(
-                                  fontSize: 12.0, color: Colors.white),
-                            ),
                     ),
                   ),
                 ),
-                10.horizontalSpace,
-                Expanded(
-                  child: (controller.imageFile.value == null)
-                      ? const Text(
-                          "Tidak ada file yang dipilih",
-                          overflow: TextOverflow.ellipsis,
-                          style:
-                              TextStyle(fontSize: 12.0, color: AppColors.gray),
-                        )
-                      : Text(
-                          controller.fileName.value,
-                          style: const TextStyle(
-                            fontSize: 12.0,
-                            color: AppColors.gray,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                ),
-                Container(
-                  clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(
-                    color: AppColors.primaryColor.withOpacity(0.05),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.all(
-                        (controller.imageFile.value == null) ? 12 : 8),
-                    child: (controller.imageFile.value == null)
-                        ? const Text(
-                            ".jpg .png",
-                            style: TextStyle(
-                                fontSize: 12.0, color: AppColors.gray),
-                          )
-                        : InkWell(
-                            onTap: (controller.uploaded.value)
-                                ? () {
-                                    CustomAlertDialog.customAlertDialog(
-                                      no: "Batal",
-                                      yes: "Unggah",
-                                      context: context,
-                                      title: "Konfirmasi",
-                                      description: "Upload bukti transfer?",
-                                      onPressYes: () {
-                                        controller.uploaded.value =
-                                            !controller.uploaded.value;
-                                        log(controller.uploaded.value
-                                            .toString());
-                                        Get.back();
-                                      },
-                                      onPressNo: () {
-                                        Get.back();
-                                      },
-                                    );
-                                  }
-                                : null,
-                            child: (controller.uploaded.value)
-                                ? const Icon(
-                                    Icons.upload,
-                                    color: AppColors.gray,
-                                  )
-                                : const Icon(
-                                    Icons.check_circle,
-                                    color: AppColors.blue,
-                                  )),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-          5.verticalSpace,
-        ],
+        ),
       ),
     );
   }

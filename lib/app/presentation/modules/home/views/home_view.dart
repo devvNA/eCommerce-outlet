@@ -148,7 +148,7 @@ class HomeView extends GetView<HomeController> {
                   tag: "profile",
                   child: CircleAvatar(
                     radius: 20,
-                    backgroundImage: AssetImage("assets/images/no-image.jpg"),
+                    backgroundImage: AssetImage("assets/images/no-profil.jpg"),
                   ),
                 ),
               ),
@@ -181,7 +181,7 @@ class HomeView extends GetView<HomeController> {
                   ],
                 ),
               ),
-              _badgeNotification(),
+              // _badgeNotification(),
             ],
           ),
           const SizedBox(height: 20),
@@ -199,8 +199,9 @@ class HomeView extends GetView<HomeController> {
         log("Token: ${controller.box.read("TOKEN")}");
         log("Remember Me: ${controller.box.read("REMEMBER_ME_EMAIL")}");
         log("Remember Me: ${controller.box.read("REMEMBER_ME_PASSWORD")}");
-
-        // log("listCategories : ${controller.listCategories}");
+        // Request().refreshToken().then((value) {
+        //   log("NewToken: $value");
+        // });
       },
       child: Container(
         padding: const EdgeInsets.all(5.0),

@@ -1,0 +1,34 @@
+[
+    {
+        "id": 270,
+        "id_user": 1,
+        "tanggal": "now",
+        "tipe_payment": "Transfer",
+        "total": 9999,
+        "status": "proses",
+        "url_bukti": "bukti/bukti_1408242024.jpeg",
+        "timeline": [
+            {
+                "title": "Pesanan dibuat",
+                "status": "completed"
+            },
+            {
+                "title": "Pembayaran",
+                "status": "pending"
+            },
+            {
+                "title": "Dikirim",
+                "status": "pending"
+            }
+        ],
+        "detail_produk": [
+            {
+                "id_m_transaksi": 270,
+                "id_produk": 3,
+                "jumlah": 1,
+                "harga": "16000",
+                "nama": "Kuota Unlimited Harian"
+            }
+        ]
+    }
+]

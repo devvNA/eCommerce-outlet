@@ -1,7 +1,9 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:equatable/equatable.dart';
 
 class Outlet extends Equatable {
-  const Outlet({
+  Outlet({
     required this.id,
     required this.email,
     required this.password,
@@ -22,7 +24,7 @@ class Outlet extends Equatable {
   final String alamat;
   final String idJenis;
   final JenisOutlet? jenisOutlet;
-  final String status;
+  String? status;
   final dynamic code;
   final DateTime? createdAt;
   final DateTime? updatedAt;

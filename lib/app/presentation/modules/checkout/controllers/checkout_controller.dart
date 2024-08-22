@@ -9,6 +9,7 @@ import 'package:marvelindo_outlet/app/data/datasources/auth_remote_datasources.d
 import 'package:marvelindo_outlet/app/data/datasources/pemesanan_remote_datasource.dart';
 import 'package:marvelindo_outlet/app/data/models/keranjang_model.dart';
 import 'package:marvelindo_outlet/app/domain/usecase/pemesanan_usecase.dart';
+import 'package:marvelindo_outlet/app/presentation/global/widgets/custom_snackbar.dart';
 import 'package:marvelindo_outlet/app/presentation/modules/cart/controllers/cart_controller.dart';
 
 import '../../../../data/repositories/pemesanan_repository_impl.dart';
@@ -25,6 +26,7 @@ class CheckoutController extends GetxController {
   final produkPO = [].obs;
   String? messageServer;
   final outlet = UserManager().currentOutlet;
+  final isLoading = false.obs;
 
   @override
   void onInit() {
@@ -83,12 +85,8 @@ class CheckoutController extends GetxController {
     return totalPembayaran;
   }
 
-  Future purchaseOrder() async {
-    // final date = DateFormat('yyyy-MM-dd').parse(DateTime.now().toString());
-    // final parsedDate = DateFormat('yyyy-MM-dd')
-    //     .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
-
-    // final time = DateFormat('dd/MM/yyyy, HH:mm:ss').format(DateTime.now());
+  purchaseOrder() async {
+    isLoading.value = true;
     final response = await PemesananUseCase(
             repository: PemesananRepositoryImpl(
                 remoteDataSource: PemesananRemoteDataSourceImpl()))
@@ -98,10 +96,27 @@ class CheckoutController extends GetxController {
       tipePayment: selectedPayment!,
       total: totalPayment(),
     );
+    Get.put(HistoryController());
 
-    response.fold((failure) => log("Error: ${failure.message}"),
-        (message) => messageServer = message);
-    return messageServer;
+    response.fold(
+      (failure) {
+        Get.back();
+        log("Error: ${failure.message}");
+        CustomSnackBar.showCustomErrorSnackBar(
+          title: "Gagal",
+          message: failure.message,
+        );
+      },
+      (message) {
+        messageServer = message;
+        log(message);
+        // CustomSnackBar.showCustomSuccessSnackBar(
+        //   title: "Berhasil",
+        //   message: message,
+        // );
+      },
+    );
+    isLoading.value = false;
   }
 
   redirectHistory() {
@@ -113,3 +128,9 @@ class CheckoutController extends GetxController {
     Get.back();
   }
 }
+
+    // final date = DateFormat('yyyy-MM-dd').parse(DateTime.now().toString());
+    // final parsedDate = DateFormat('yyyy-MM-dd')
+    //     .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
+
+    // final time = DateFormat('dd/MM/yyyy, HH:mm:ss').format(DateTime.now());

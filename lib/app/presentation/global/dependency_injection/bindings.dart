@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:marvelindo_outlet/app/core/utils/helpers/network_controller.dart';
 import 'package:marvelindo_outlet/app/presentation/modules/detail_history/detail_transfer/controllers/detail_transfer_controller.dart';
+
 import '../../../core/networking/network_request.dart';
 import '../../modules/about/controllers/about_app_controller.dart';
 import '../../modules/api_test/api_test_controller.dart';
@@ -27,6 +28,8 @@ import '../../modules/splash/controllers/splash_controller.dart';
 class AppBindings extends Bindings {
   static void initConnection() {
     Get.put<NetworkController>(NetworkController(), permanent: true);
+    // Get.put<TokenRefresherController>(TokenRefresherController(),
+    //     permanent: true);
   }
 
   @override

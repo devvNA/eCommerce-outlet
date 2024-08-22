@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:marvelindo_outlet/app/core/utils/helpers/currency/int_currency.dart';
 import 'package:marvelindo_outlet/app/presentation/global/theme/my_colors.dart';
 
@@ -32,7 +33,7 @@ class HistoryItem extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  "#TRS-${historiData.id}",
+                  "#${historiData.id}",
                   style: const TextStyle(fontSize: 12),
                 ),
                 5.verticalSpace,
@@ -48,6 +49,11 @@ class HistoryItem extends StatelessWidget {
                   historiData.tanggal,
                   style: const TextStyle(fontSize: 11),
                 ),
+                const Spacer(),
+                Visibility(
+                  visible: historiData.status != "dibatalkan",
+                  child: ChipPaymentStatus(historiData: historiData),
+                )
               ],
             ),
             5.verticalSpace,
@@ -89,6 +95,7 @@ class HistoryItem extends StatelessWidget {
                     ),
                     5.horizontalSpace,
                     PaymentChipType(historiData: historiData),
+                    4.horizontalSpace,
                   ],
                 ),
               ],
@@ -140,6 +147,43 @@ class HistoryItem extends StatelessWidget {
   }
 }
 
+class ChipPaymentStatus extends StatelessWidget {
+  const ChipPaymentStatus({
+    super.key,
+    required this.historiData,
+  });
+
+  final HistoriPemesanan historiData;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 8),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1.5),
+        decoration: BoxDecoration(
+          color: historiData.statusPembayaran == "belum bayar"
+              ? Colors.red
+              : Colors.green,
+          borderRadius: const BorderRadius.all(
+            Radius.circular(
+              32.0,
+            ),
+          ),
+        ),
+        child: Text(
+          historiData.statusPembayaran.capitalize!,
+          style: const TextStyle(
+            fontSize: 9,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class PaymentChipType extends StatelessWidget {
   const PaymentChipType({
     super.key,
@@ -165,7 +209,7 @@ class PaymentChipType extends StatelessWidget {
       child: Text(
         historiData.tipePayment,
         style: const TextStyle(
-          fontSize: 8,
+          fontSize: 9,
           color: Colors.white,
           fontWeight: FontWeight.bold,
         ),

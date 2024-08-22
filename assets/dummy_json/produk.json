@@ -1,7 +1,7 @@
 {
     "status": true,
     "message": "Success",
-    "data": [
+    "timeline": [
         {
             "title": "Pesanan dibuat",
             "description": "This is the description for step 1",

@@ -1,8 +1,10 @@
 // ignore_for_file: unused_local_variable, unnecessary_overrides
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+
 import '../../../../../data/datasources/auth_remote_datasources.dart';
 import '../../../../../data/repositories/auth_repository_impl.dart';
 import '../../../../../domain/usecase/auth_usecase.dart';
@@ -20,20 +22,21 @@ class LoginController extends GetxController {
 
   @override
   void onInit() {
+    rememberMe.value = box.read('REMEMBER_ME') ?? false;
     emailController.text = box.read('REMEMBER_ME_EMAIL') ?? "";
     passwordController.text = box.read('REMEMBER_ME_PASSWORD') ?? "";
     super.onInit();
   }
 
   Future<void> onSignIn() async {
-    isTap.value = true;
+    isTap(true);
     await Future.delayed(const Duration(milliseconds: 300));
     Get.offAllNamed(Routes.BASE);
-    isTap.value = false;
+    isTap(false);
   }
 
   Future doLogin() async {
-    isTap.value = true;
+    isTap(true);
 
     bool isValid = formField.currentState!.validate();
     if (!isValid) {
@@ -41,11 +44,13 @@ class LoginController extends GetxController {
     }
     // save data if Ingat Saya is selected
     if (rememberMe.value) {
+      box.write('REMEMBER_ME', rememberMe.value);
       box.write('REMEMBER_ME_EMAIL', emailController.text.trim());
       box.write('REMEMBER_ME_PASSWORD', passwordController.text.trim());
     } else {
       box.remove('REMEMBER_ME_EMAIL');
       box.remove('REMEMBER_ME_PASSWORD');
+      box.remove('REMEMBER_ME');
     }
     final isSuccess = await AuthUseCase(
             repository: AuthRepositoryImpl(
@@ -64,7 +69,7 @@ class LoginController extends GetxController {
       return Get.offAllNamed(Routes.BASE);
     });
 
-    isTap.value = false;
+    isTap(false);
   }
 
   @override

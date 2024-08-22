@@ -118,6 +118,7 @@ class CartView extends GetView<CartController> {
                                               controller.increaseQuantity(index,
                                                   itemKeranjang.idKeranjang);
                                             } else {
+                                              Get.closeAllSnackbars();
                                               Get.snackbar(
                                                 padding:
                                                     const EdgeInsets.all(12.0),
@@ -127,6 +128,8 @@ class CartView extends GetView<CartController> {
                                                 'Melebihi stok yang tersedia',
                                                 backgroundColor: Colors.red,
                                                 colorText: Colors.white,
+                                                duration: const Duration(
+                                                    milliseconds: 1200),
                                               );
                                             }
                                           },
@@ -150,13 +153,18 @@ class CartView extends GetView<CartController> {
                                                         .onRefreshKeranjang());
                                               });
                                             } else {
+                                              Get.closeAllSnackbars();
                                               Get.snackbar(
+                                                padding:
+                                                    const EdgeInsets.all(12.0),
+                                                margin:
+                                                    const EdgeInsets.all(12.0),
                                                 'Peringatan',
                                                 'Melebihi stok yang tersedia',
-                                                snackPosition:
-                                                    SnackPosition.BOTTOM,
                                                 backgroundColor: Colors.red,
                                                 colorText: Colors.white,
+                                                duration: const Duration(
+                                                    milliseconds: 1200),
                                               );
                                             }
                                           },

@@ -24,12 +24,15 @@ class AuthUseCase {
     required String password,
     required String namaOutlet,
     required String alamatOutlet,
+    String? serialNumber,
   }) async =>
       await repository.register(
-          email: email,
-          password: password,
-          namaOutlet: namaOutlet,
-          alamatOutlet: alamatOutlet);
+        email: email,
+        password: password,
+        namaOutlet: namaOutlet,
+        alamatOutlet: alamatOutlet,
+        // serialNumber: serialNumber,
+      );
 
   Future<Either<Failure, String>> refreshToken() async =>
       await repository.refreshToken();

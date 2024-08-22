@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:marvelindo_outlet/app/core/networking/network_request.dart';
 
 import '../../core/api_endpoints.dart';
@@ -22,7 +23,6 @@ class ProdukRemoteDataSourceImpl implements ProdukRemoteDataSource {
     try {
       final response = await request.get(
         listProduk,
-        requiresAuthToken: true,
       );
 
       List<Produk> products = [];
@@ -49,7 +49,6 @@ class ProdukRemoteDataSourceImpl implements ProdukRemoteDataSource {
     try {
       final response = await request.get(
         "$listProdukByCategory/$kategori",
-        requiresAuthToken: true,
       );
 
       List<Produk> products = [];
@@ -72,20 +71,25 @@ class ProdukRemoteDataSourceImpl implements ProdukRemoteDataSource {
   Future<Either<Failure, String>> addToCart(
       {required int idUser, required Produk produk}) async {
     try {
-      final query = {
+      final data = {
         'id_user': idUser,
         'id_produk': produk.id,
       };
 
       final response = await request.post(
         postKeranjang,
-        requiresAuthToken: true,
-        queryParameters: query,
+        data: data,
       );
-      return Right(response.data["message"]);
-    } catch (e) {
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return Right(response.data["message"]);
+      } else {
+        return Left(ConnectionFailure(response.data['message']));
+      }
+    } on DioException catch (e) {
       //error parsing json
-      return Left(ParsingFailure(e.toString()));
+      String message = e.response!.data['message']; // ambil pesan error
+      return Left(ParsingFailure(message));
     }
   }
 
@@ -94,7 +98,6 @@ class ProdukRemoteDataSourceImpl implements ProdukRemoteDataSource {
     try {
       final response = await request.get(
         listKategori,
-        requiresAuthToken: true,
       );
 
       List<String> categories = [];

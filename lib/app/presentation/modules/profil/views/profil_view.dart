@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../../routes/app_pages.dart';
 import '../../../global/theme/my_colors.dart';
 import '../controllers/profil_controller.dart';
 
@@ -70,20 +69,21 @@ class ProfilView extends GetView<ProfilController> {
                     child: CircleAvatar(
                       radius: 36.0,
                       backgroundImage:
-                          NetworkImage("${controller.getDisplayProfile()}"),
+                          AssetImage("${controller.getDisplayProfile()}"),
                     ),
                   ),
                   8.verticalSpace,
                   InkWell(
                     onTap: () {},
                     child: Chip(
-                        backgroundColor: controller.outlet!.status == ""
-                            ? Colors.grey
-                            : Colors.green,
+                        backgroundColor:
+                            controller.outlet!.status == "belum verif"
+                                ? Colors.grey
+                                : Colors.green,
                         label: Text(
                           controller.outlet!.status == ""
                               ? "Belum Terverifikasi"
-                              : controller.outlet!.status,
+                              : controller.outlet!.status!,
                           style: const TextStyle(
                             fontSize: 10.0,
                           ),
@@ -108,28 +108,29 @@ class ProfilView extends GetView<ProfilController> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Text(
+                              Text(
                                 "Identitas Diri",
                                 style: TextStyle(
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              TextButton(
-                                onPressed: () {
-                                  Get.toNamed(Routes.EDIT_PROFIL);
-                                },
-                                child: const Text(
-                                  "Edit",
-                                  style: TextStyle(
-                                      color: Colors.indigo, fontSize: 14),
-                                ),
-                              ),
+                              // TextButton(
+                              //   onPressed: () {
+                              //     Get.toNamed(Routes.EDIT_PROFIL);
+                              //   },
+                              //   child: const Text(
+                              //     "Edit",
+                              //     style: TextStyle(
+                              //         color: Colors.indigo, fontSize: 14),
+                              //   ),
+                              // ),
                             ],
                           ),
+                          8.verticalSpace,
                           const Text(
                             "Email",
                             style: TextStyle(

@@ -32,7 +32,6 @@ class CustomSnackBar {
       {required String title,
       required String message,
       bool? isDismissible,
-      Color? color,
       Duration? duration}) {
     Get.closeAllSnackbars(); // Menutup semua snackbar yang aktif
     Get.snackbar(title, message,
@@ -40,8 +39,7 @@ class CustomSnackBar {
         padding: const EdgeInsets.all(12.0),
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
         colorText: Colors.white,
-        backgroundColor: color ??
-            const Color.fromARGB(255, 229, 73, 73), // Merah yang lebih lembut
+        backgroundColor: const Color(0xFFE54949), // Merah yang lebih lembut
         icon: const Icon(
           Icons.error,
           color: Colors.white,

@@ -8,27 +8,11 @@ import 'package:marvelindo_outlet/app/presentation/global/dependency_injection/b
 import 'package:marvelindo_outlet/app/presentation/global/theme/my_theme.dart';
 import 'package:marvelindo_outlet/app/routes/app_pages.dart';
 
-void main() async {
-  // wait for bindings
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // init shared preference
   await GetStorage.init();
-  //Token Service
-  // await Get.putAsync(() async => TokenService().init());
-  //Check internet connection
   AppBindings.initConnection();
-
-  //run App
-  runApp(
-    const MyApp(),
-  );
-  // runApp(
-  //   DevicePreview(
-  //     builder: (context) {
-  //       return const MyApp();
-  //     },
-  //   ),
-  // );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -36,25 +20,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations(
-        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
 
     return ScreenUtilInit(
-        designSize: const Size(360, 720),
-        minTextAdapt: true,
-        splitScreenMode: true,
-        useInheritedMediaQuery: true,
-        builder: (context, widget) {
-          return GetMaterialApp(
-            theme: MyTheme.getThemeData(),
-            initialBinding:
-                AppBindings(), // Membuat instance dari class AppBindings
-            title: "Outlet e-Commerce",
-            useInheritedMediaQuery: true,
-            debugShowCheckedModeBanner: false,
-            initialRoute: Routes.SPLASH,
-            getPages: AppPages.routes,
-          );
-        });
+      designSize: const Size(360, 720),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return GetMaterialApp(
+          theme: MyTheme.getThemeData(),
+          initialBinding: AppBindings(),
+          title: "Outlet e-Commerce",
+          debugShowCheckedModeBanner: false,
+          initialRoute: Routes.SPLASH,
+          getPages: AppPages.routes,
+        );
+      },
+    );
   }
 }

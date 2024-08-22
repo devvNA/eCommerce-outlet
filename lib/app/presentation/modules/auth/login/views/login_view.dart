@@ -293,7 +293,6 @@ class LoginView extends GetView<LoginController> {
           // controller.onSignIn();
           controller.doLogin();
         }
-        log("Failed Login");
       },
       child: controller.isTap.value
           ? const SizedBox(

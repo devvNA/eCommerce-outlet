@@ -39,15 +39,41 @@ class ProductItem extends GetView<HomeController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               height: 150,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                    "assets/images/no-image.jpg",
-                  ),
-                  fit: BoxFit.cover,
-                ),
+              child: Image.network(
+                produk.gambar,
+                fit: BoxFit.cover,
+                loadingBuilder: (BuildContext context, Widget child,
+                    ImageChunkEvent? loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return Center(
+                    child: CircularProgressIndicator(
+                      value: loadingProgress.expectedTotalBytes != null
+                          ? loadingProgress.cumulativeBytesLoaded /
+                              loadingProgress.expectedTotalBytes!
+                          : null,
+                    ),
+                  );
+                },
+                errorBuilder: (BuildContext context, Object exception,
+                    StackTrace? stackTrace) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.error, color: Colors.red),
+                        4.verticalSpace,
+                        const Text(
+                          "Gagal memuat gambar",
+                          style: TextStyle(
+                            fontSize: 8.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
             ),
             Expanded(
@@ -56,7 +82,7 @@ class ProductItem extends GetView<HomeController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(produk.nama ?? "",
+                    Text(produk.nama,
                         maxLines: 2,
                         style: theme.textTheme.bodyMedium?.copyWith(
                           overflow: TextOverflow.ellipsis,
@@ -66,7 +92,7 @@ class ProductItem extends GetView<HomeController> {
                     Expanded(
                       child: Text(
                         // ignore: unnecessary_string_interpolations
-                        produk.harga?.currencyFormatRp ?? 0.currencyFormatRp,
+                        produk.harga.currencyFormatRp,
                         style: theme.textTheme.displaySmall?.copyWith(
                           color: AppColors.primaryColor,
                         ),
@@ -75,11 +101,11 @@ class ProductItem extends GetView<HomeController> {
                     Container(
                       padding: const EdgeInsets.all(2),
                       decoration: BoxDecoration(
-                        color: _getStockColor(produk.stok ?? 0),
+                        color: _getStockColor(produk.stok),
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: Text(
-                        'Stok: ${produk.stok ?? 0}',
+                        'Stok: ${produk.stok}',
                         style: theme.textTheme.labelSmall?.copyWith(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,

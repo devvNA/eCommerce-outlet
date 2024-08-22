@@ -46,21 +46,63 @@ class CartItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: 100,
-            height: 125,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/no-image.jpg"),
-                fit: BoxFit.cover,
-              ),
-              borderRadius: BorderRadius.all(
-                Radius.circular(
-                  8.0,
-                ),
-              ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8.0),
+            child: Image.network(
+              width: 100,
+              height: 125,
+              "",
+              fit: BoxFit.cover,
+              loadingBuilder: (BuildContext context, Widget child,
+                  ImageChunkEvent? loadingProgress) {
+                if (loadingProgress == null) return child;
+                return Center(
+                  child: CircularProgressIndicator(
+                    value: loadingProgress.expectedTotalBytes != null
+                        ? loadingProgress.cumulativeBytesLoaded /
+                            loadingProgress.expectedTotalBytes!
+                        : null,
+                  ),
+                );
+              },
+              errorBuilder: (BuildContext context, Object exception,
+                  StackTrace? stackTrace) {
+                return SizedBox(
+                  width: 100,
+                  height: 125,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.error, color: Colors.red),
+                      4.verticalSpace,
+                      const Text(
+                        "Gagal memuat gambar",
+                        style: TextStyle(
+                          fontSize: 8.0,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
           ),
+
+          // Container(
+          //   width: 100,
+          //   height: 125,
+          //   decoration: const BoxDecoration(
+          //     image: DecorationImage(
+          //       image: AssetImage("assets/images/no-image.jpg"),
+          //       fit: BoxFit.cover,
+          //     ),
+          //     borderRadius: BorderRadius.all(
+          //       Radius.circular(
+          //         8.0,
+          //       ),
+          //     ),
+          //   ),
+          // ),
           12.horizontalSpace,
           Expanded(
             child: Column(
@@ -68,7 +110,7 @@ class CartItem extends StatelessWidget {
               children: [
                 3.verticalSpace,
                 Text(
-                  item.namaBarang ?? "Lorem Ipsum",
+                  item.namaBarang,
                   style: const TextStyle(
                     fontSize: 14.0,
                   ),
@@ -77,7 +119,7 @@ class CartItem extends StatelessWidget {
                   height: 6.0,
                 ),
                 Text(
-                  item.jenisBarang ?? "Voucher",
+                  item.jenisBarang,
                   style: const TextStyle(
                       color: AppColors.appBarColor, fontSize: 10.5),
                 ),

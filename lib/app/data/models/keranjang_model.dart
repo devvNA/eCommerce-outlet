@@ -3,6 +3,15 @@
 import 'package:equatable/equatable.dart';
 
 class Keranjang extends Equatable {
+  final int idKeranjang;
+  final int idProduk;
+  final String namaBarang;
+  final String jenisBarang;
+  final int hargaBarang;
+  int? quantity;
+  final int stok;
+  
+
   Keranjang({
     required this.idKeranjang,
     required this.idProduk,
@@ -12,14 +21,6 @@ class Keranjang extends Equatable {
     this.quantity,
     required this.stok,
   });
-
-  final int idKeranjang;
-  final int idProduk;
-  final String namaBarang;
-  final String jenisBarang;
-  final int hargaBarang;
-  int? quantity;
-  final int stok;
 
   Keranjang copyWith({
     int? idKeranjang,

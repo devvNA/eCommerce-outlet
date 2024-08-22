@@ -11,7 +11,6 @@ import 'package:marvelindo_outlet/app/presentation/global/theme/my_colors.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../../../core/utils/helpers/constants.dart';
-import '../../../global/widgets/custom_snackbar.dart';
 import '../controllers/product_details_controller.dart';
 import 'widgets/round_button.dart';
 
@@ -48,20 +47,59 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
           children: [
             Stack(
               children: [
-                Container(
+                Image.network(
                   width: double.infinity,
                   height: 400.h,
-                  decoration: BoxDecoration(
-                    image: const DecorationImage(
-                      image: AssetImage("assets/images/no-image.jpg"),
-                      fit: BoxFit.cover,
-                    ),
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(30.r),
-                      bottomRight: Radius.circular(30.r),
-                    ),
-                  ),
+                  controller.produk.gambar,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes!
+                            : null,
+                      ),
+                    );
+                  },
+                  errorBuilder: (BuildContext context, Object exception,
+                      StackTrace? stackTrace) {
+                    return Center(
+                      child: SizedBox(
+                        height: 350.h,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(Icons.error, color: Colors.red),
+                            4.verticalSpace,
+                            const Text(
+                              "Gagal memuat gambar",
+                              style: TextStyle(
+                                fontSize: 8.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
                 ),
+                // Container(
+                //   width: double.infinity,
+                //   height: 400.h,
+                //   decoration: BoxDecoration(
+                //     image: DecorationImage(
+                //       image: NetworkImage(controller.produk.gambar),
+                //       fit: BoxFit.cover,
+                //     ),
+                //     borderRadius: BorderRadius.only(
+                //       bottomLeft: Radius.circular(30.r),
+                //       bottomRight: Radius.circular(30.r),
+                //     ),
+                //   ),
+                // ),
                 Positioned(
                   top: 45.h,
                   left: 20.w,
@@ -88,7 +126,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.w),
                     child: Text(
-                      controller.produk.nama!,
+                      controller.produk.nama,
                       style: const TextStyle(
                         color: AppColors.h2,
                         fontSize: 15,
@@ -101,24 +139,24 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                         ),
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 16),
-                  decoration: BoxDecoration(
-                    color: AppColors.blue,
-                    borderRadius: BorderRadius.circular(24),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      controller.produk.jenisBarang ?? "Voucher",
-                      style: const TextStyle(
-                        fontSize: 9.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
+                // Container(
+                //   margin: const EdgeInsets.symmetric(horizontal: 16),
+                //   decoration: BoxDecoration(
+                //     color: AppColors.blue,
+                //     borderRadius: BorderRadius.circular(24),
+                //   ),
+                //   child: Padding(
+                //     padding: const EdgeInsets.all(8.0),
+                //     child: Text(
+                //       controller.produk.jenisBarang,
+                //       style: const TextStyle(
+                //         fontSize: 9.0,
+                //         fontWeight: FontWeight.bold,
+                //         color: Colors.white,
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
             8.verticalSpace,
@@ -141,8 +179,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
               child: Row(
                 children: [
                   Text(
-                    controller.produk.harga?.currencyFormatRp ??
-                        0.currencyFormatRp,
+                    controller.produk.harga.currencyFormatRp,
                     style: const TextStyle(
                       color: AppColors.h1,
                       fontSize: 18,
@@ -173,7 +210,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                   ),
                   10.verticalSpace,
                   ReadMoreText(
-                    controller.produk.deskripsi!,
+                    controller.produk.deskripsi,
                     trimLength: 200,
                     colorClickableText: AppColors.primaryColor,
                     isExpandable: true,
@@ -227,13 +264,14 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
           borderRadius: BorderRadius.circular(32),
         ),
       ),
-      onPressed: controller.produk.stok! < 1
-          ? null
-          : () {
-              controller.onAddToCart().then((value) =>
-                  CustomSnackBar.showCustomSuccessSnackBar(
-                      title: "Sukses", message: value));
-            },
+      onPressed: () {
+        controller.onAddToCart();
+      },
+      // onPressed: controller.produk.stok < 1
+      //     ? null
+      //     : () {
+      //         controller.onAddToCart();
+      //       },
       child: const Padding(
         padding: EdgeInsets.all(6.0),
         child: Row(

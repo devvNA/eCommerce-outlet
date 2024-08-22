@@ -2,6 +2,7 @@
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:marvelindo_outlet/app/data/datasources/auth_remote_datasources.dart';
+
 class ProfilController extends GetxController {
   // final token = "".obs;
   // final accessToken = "".obs;
@@ -27,7 +28,7 @@ class ProfilController extends GetxController {
   }
 
   String? getDisplayProfile() {
-    return "https://media.istockphoto.com/id/1327592506/vector/default-avatar-photo-placeholder-icon-grey-profile-picture-business-man.jpg?s=612x612&w=0&k=20&c=BpR0FVaEa5F24GIw7K8nMWiiGmbb8qmhfkpXcp1dhQg=";
+    return "assets/images/no-profil.jpg";
   }
 
   // Future<void> onTapGetToken() async {

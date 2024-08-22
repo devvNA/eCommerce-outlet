@@ -1,14 +1,6 @@
 import 'package:equatable/equatable.dart';
 
 class HistoriPemesanan extends Equatable {
-  final int id;
-  final int idUser;
-  final String tanggal;
-  final String tipePayment;
-  final int total;
-  final String status;
-  final List<DetailProduk> detailProduk;
-
   const HistoriPemesanan({
     required this.id,
     required this.idUser,
@@ -16,8 +8,20 @@ class HistoriPemesanan extends Equatable {
     required this.tipePayment,
     required this.total,
     required this.status,
+    required this.statusPembayaran,
+    required this.urlBukti,
     required this.detailProduk,
   });
+
+  final int id;
+  final int idUser;
+  final String tanggal;
+  final String tipePayment;
+  final int total;
+  final String status;
+  final String statusPembayaran;
+  final String urlBukti;
+  final List<DetailProduk> detailProduk;
 
   HistoriPemesanan copyWith({
     int? id,
@@ -26,6 +30,8 @@ class HistoriPemesanan extends Equatable {
     String? tipePayment,
     int? total,
     String? status,
+    String? statusPembayaran,
+    String? urlBukti,
     List<DetailProduk>? detailProduk,
   }) {
     return HistoriPemesanan(
@@ -35,6 +41,8 @@ class HistoriPemesanan extends Equatable {
       tipePayment: tipePayment ?? this.tipePayment,
       total: total ?? this.total,
       status: status ?? this.status,
+      statusPembayaran: statusPembayaran ?? this.statusPembayaran,
+      urlBukti: urlBukti ?? this.urlBukti,
       detailProduk: detailProduk ?? this.detailProduk,
     );
   }
@@ -47,6 +55,8 @@ class HistoriPemesanan extends Equatable {
       tipePayment: json["tipe_payment"] ?? "",
       total: json["total"] ?? 0,
       status: json["status"] ?? "",
+      statusPembayaran: json["status_pembayaran"] ?? "",
+      urlBukti: json["url_bukti"] ?? "",
       detailProduk: json["detail_produk"] == null
           ? []
           : List<DetailProduk>.from(
@@ -61,6 +71,8 @@ class HistoriPemesanan extends Equatable {
         "tipe_payment": tipePayment,
         "total": total,
         "status": status,
+        "status_pembayaran": statusPembayaran,
+        "url_bukti": urlBukti,
         "detail_produk": detailProduk.map((x) => x.toJson()).toList(),
       };
 
@@ -72,6 +84,8 @@ class HistoriPemesanan extends Equatable {
         tipePayment,
         total,
         status,
+        statusPembayaran,
+        urlBukti,
         detailProduk,
       ];
 }

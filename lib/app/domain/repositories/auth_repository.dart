@@ -12,6 +12,7 @@ abstract class AuthRepository {
     required String password,
     required String namaOutlet,
     required String alamatOutlet,
+    // String? serialNumber,
   });
   Future<Either<Failure, String>> refreshToken();
 }

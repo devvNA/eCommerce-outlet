@@ -9,7 +9,6 @@ import 'package:marvelindo_outlet/app/core/utils/helpers/currency/int_currency.d
 
 import '../../../global/theme/my_colors.dart';
 import '../../../global/widgets/custom_alert_dialog.dart';
-import '../../../global/widgets/form_text_widget.dart';
 import '../../../global/widgets/screen_title.dart';
 import '../controllers/checkout_controller.dart';
 import 'widgets/checkout_card_widget.dart';
@@ -19,9 +18,6 @@ class CheckoutView extends GetView<CheckoutController> {
 
   @override
   Widget build(BuildContext context) {
-    String imgURL =
-        "https://images.tokopedia.net/img/cache/700/VqbcmM/2023/10/10/0e50430c-40e7-4ded-b8ad-23fa364f01f2.png";
-
     return Scaffold(body: GetBuilder<CheckoutController>(builder: (_) {
       return SafeArea(
         child: Column(
@@ -59,9 +55,9 @@ class CheckoutView extends GetView<CheckoutController> {
                         ),
                       ],
                     ),
-                    5.verticalSpace,
+                    8.verticalSpace,
                     _addressCard(context),
-                    20.verticalSpace,
+                    16.verticalSpace,
                     Row(
                       children: [
                         const Icon(
@@ -91,11 +87,11 @@ class CheckoutView extends GetView<CheckoutController> {
                           child: CheckoutProduct(
                             quantity: dataKeranjang.quantity ?? 5,
                             totalPayment: controller.totalItemRp(index),
-                            imgUrl: imgURL,
+                            imgUrl: "",
                             title: dataKeranjang.namaBarang,
                             description:
                                 "Harga satuan:\n${dataKeranjang.hargaBarang.currencyFormatRp}",
-                            category: dataKeranjang.jenisBarang ?? "Paket",
+                            category: dataKeranjang.jenisBarang,
                           ),
                         );
                       }),
@@ -190,6 +186,9 @@ class CheckoutView extends GetView<CheckoutController> {
                     onPressed: controller.isButtonActive.value
                         ? () async {
                             CustomAlertDialog.customAlertDialog(
+                                yes: controller.isLoading.value
+                                    ? "Loading..."
+                                    : "Ya",
                                 context: context,
                                 title: "Konfirmasi",
                                 description: "Apakah pesanan sudah sesuai?",
@@ -231,76 +230,77 @@ class CheckoutView extends GetView<CheckoutController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   "Alamat :",
                   style: TextStyle(
                     fontSize: 14.0,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                IconButton(
-                  onPressed: () async {
-                    await showDialog<void>(
-                      context: context,
-                      barrierDismissible: true,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: const Text("Alamat Pengiriman"),
-                          content: SingleChildScrollView(
-                            child: FormTextWidget(
-                              maxlines: 5,
-                              textFormController: controller.alamatController,
-                            ),
-                          ),
-                          actions: <Widget>[
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.white,
-                                foregroundColor: AppColors.primaryColor,
-                                side: const BorderSide(
-                                  color: AppColors.primaryColor,
-                                ),
-                              ),
-                              onPressed: () {
-                                Get.back();
-                              },
-                              child: const Text(
-                                "Batal",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                              ),
-                            ),
-                            ElevatedButton(
-                              onPressed: () {
-                                Get.back();
-                                controller.update();
-                              },
-                              child: const Text(
-                                "Simpan",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  },
-                  icon: const Icon(
-                    Icons.edit_location_alt,
-                    size: 15.0,
-                    color: Colors.black87,
-                  ),
-                ),
+                // IconButton(
+                //   onPressed: () async {
+                //     await showDialog<void>(
+                //       context: context,
+                //       barrierDismissible: true,
+                //       builder: (BuildContext context) {
+                //         return AlertDialog(
+                //           title: Text("Alamat Pengiriman"),
+                //           content: SingleChildScrollView(
+                //             child: FormTextWidget(
+                //               maxlines: 5,
+                //               textFormController: controller.alamatController,
+                //             ),
+                //           ),
+                //           actions: <Widget>[
+                //             ElevatedButton(
+                //               style: ElevatedButton.styleFrom(
+                //                 backgroundColor: Colors.white,
+                //                 foregroundColor: AppColors.primaryColor,
+                //                 side: BorderSide(
+                //                   color: AppColors.primaryColor,
+                //                 ),
+                //               ),
+                //               onPressed: () {
+                //                 Get.back();
+                //               },
+                //               child: Text(
+                //                 "Batal",
+                //                 style: TextStyle(
+                //                   fontSize: 12,
+                //                   fontWeight: FontWeight.normal,
+                //                 ),
+                //               ),
+                //             ),
+                //             ElevatedButton(
+                //               onPressed: () {
+                //                 Get.back();
+                //                 controller.update();
+                //               },
+                //               child: Text(
+                //                 "Simpan",
+                //                 style: TextStyle(
+                //                   fontSize: 12,
+                //                   fontWeight: FontWeight.normal,
+                //                 ),
+                //               ),
+                //             ),
+                //           ],
+                //         );
+                //       },
+                //     );
+                //   },
+                //   icon: Icon(
+                //     Icons.edit_location_alt,
+                //     size: 15.0,
+                //     color: Colors.black87,
+                //   ),
+                // ),
               ],
             ),
+            8.verticalSpace,
             Padding(
               padding: const EdgeInsets.only(right: 20),
               child: Text(

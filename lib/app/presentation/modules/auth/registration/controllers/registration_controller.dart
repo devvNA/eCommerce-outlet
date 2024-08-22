@@ -19,6 +19,7 @@ class RegistrationController extends GetxController {
   final isCheck = false.obs;
   final formKey = GlobalKey<FormState>();
   final visible = true.obs;
+  final serialNumber = TextEditingController();
 
   String? selectedOutlet;
   final jenisOutlet = [
@@ -48,13 +49,14 @@ class RegistrationController extends GetxController {
       password: passwordController.text,
       namaOutlet: namaOutlet.text,
       alamatOutlet: alamatOutlet.text,
+      serialNumber: serialNumber.text,
     );
     response.fold((failure) {
       return Get.snackbar("Gagal", failure.message,
           colorText: Colors.white, backgroundColor: Colors.red[500]);
     }, (message) {
       Get.back();
-      return Get.snackbar("Berhasil", message,
+      return Get.snackbar("Berhasil", "Anda telah mendaftar",
           colorText: Colors.white, backgroundColor: Colors.green[500]);
     });
     return response;

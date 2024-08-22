@@ -20,7 +20,6 @@ class KeranjangRemoteDataSourceImpl implements KeranjangRemoteDataSource {
     try {
       final response = await Request().get(
         listKeranjang,
-        requiresAuthToken: true,
       );
       List<Keranjang> keranjang = [];
       if (response.statusCode == 200) {
@@ -44,7 +43,6 @@ class KeranjangRemoteDataSourceImpl implements KeranjangRemoteDataSource {
     try {
       final response = await Request().delete(
         "$deleteKeranjang/$id",
-        requiresAuthToken: true,
       );
       if (response.statusCode == 200) {
         return Right(response.data['message']);
@@ -70,7 +68,7 @@ class KeranjangRemoteDataSourceImpl implements KeranjangRemoteDataSource {
       final response = await Request().put(
         // "$updateKeranjang/$id?quantity=$qty",
         "$updateKeranjang/$productId",
-        requiresAuthToken: true,
+
         queryParameters: queryParameters,
       );
       if (response.statusCode == 200) {
@@ -94,7 +92,6 @@ class KeranjangRemoteDataSourceImpl implements KeranjangRemoteDataSource {
 
       final response = await Request().put(
         "$updateKeranjang/$productId",
-        requiresAuthToken: true,
         queryParameters: query,
       );
       if (response.statusCode == 200) {
@@ -120,7 +117,6 @@ class KeranjangRemoteDataSourceImpl implements KeranjangRemoteDataSource {
 
       final response = await Request().put(
         "$updateKeranjang/$productId",
-        requiresAuthToken: true,
         queryParameters: query,
       );
       if (response.statusCode == 200) {
